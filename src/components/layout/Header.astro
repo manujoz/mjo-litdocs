@@ -1,0 +1,176 @@
+---
+import ThemeToggle from "@/components/ui/ThemeToggle.astro";
+import Button from "@/components/ui/Button.astro";
+
+export interface Props {
+    currentPath?: string;
+}
+
+const { currentPath = "" } = Astro.props;
+
+const navigation = [
+    { name: "Docs", href: "/docs" },
+    { name: "Components", href: "/docs/components" },
+    { name: "Examples", href: "/docs/examples" },
+    { name: "Themes", href: "/docs/themes" },
+];
+---
+
+<header class="site-header">
+    <div class="site-header-inner">
+        <!-- Logo and Brand -->
+        <div class="flex items-center gap-4">
+            <a href="/" class="site-logo">
+                <!-- Logo SVG -->
+                <svg class="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                </svg>
+                <span class="hidden sm:block">MJO-LITUI</span>
+            </a>
+        </div>
+
+        <!-- Desktop Navigation -->
+        <nav class="site-nav">
+            {
+                navigation.map((item) => (
+                    <a href={item.href} class={`site-nav-link ${currentPath.startsWith(item.href) ? "site-nav-link-active" : ""}`}>
+                        {item.name}
+                    </a>
+                ))
+            }
+        </nav>
+
+        <!-- Actions -->
+        <div class="flex items-center gap-4">
+            <!-- Search Button (placeholder) -->
+            <button class="btn-ghost btn-sm hidden md:flex" aria-label="Search" title="Search documentation">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                </svg>
+                <span class="sr-only">Search</span>
+            </button>
+
+            <!-- GitHub Link -->
+            <a
+                href="https://github.com/username/mjo-litui"
+                class="btn-ghost btn-sm"
+                aria-label="GitHub repository"
+                title="View on GitHub"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                    <path
+                        d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"
+                    ></path>
+                </svg>
+                <span class="sr-only">GitHub</span>
+            </a>
+
+            <!-- Theme Toggle -->
+            <ThemeToggle />
+
+            <!-- Mobile Menu Button -->
+            <button id="mobile-menu-button" class="btn-ghost btn-sm md:hidden" aria-label="Toggle mobile menu" title="Toggle navigation">
+                <svg id="mobile-menu-icon-open" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+                <svg id="mobile-menu-icon-close" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <!-- Mobile Navigation Overlay -->
+    <div id="mobile-nav-overlay" class="mobile-nav-overlay mobile-nav-closed">
+        <div class="mobile-nav-content mobile-nav-closed" id="mobile-nav-content">
+            <div class="mobile-nav-header">
+                <div class="site-logo">
+                    <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                    </svg>
+                    <span>MJO-LITUI</span>
+                </div>
+                <button id="mobile-nav-close" class="btn-ghost btn-sm" aria-label="Close mobile menu">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+
+            <nav class="mobile-nav-body">
+                <div class="space-y-1">
+                    {
+                        navigation.map((item) => (
+                            <a href={item.href} class={`sidebar-nav-link ${currentPath.startsWith(item.href) ? "sidebar-nav-link-active" : ""}`}>
+                                {item.name}
+                            </a>
+                        ))
+                    }
+                </div>
+
+                <!-- Mobile Actions -->
+                <div class="mt-8 pt-8 border-t border-border">
+                    <div class="space-y-4">
+                        <Button href="https://github.com/username/mjo-litui" variant="outline" class="w-full">
+                            <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"
+                                ></path>
+                            </svg>
+                            View on GitHub
+                        </Button>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+
+<script>
+    // Mobile menu functionality
+    const mobileMenuButton = document.getElementById("mobile-menu-button");
+    const mobileNavOverlay = document.getElementById("mobile-nav-overlay");
+    const mobileNavContent = document.getElementById("mobile-nav-content");
+    const mobileNavClose = document.getElementById("mobile-nav-close");
+    const openIcon = document.getElementById("mobile-menu-icon-open");
+    const closeIcon = document.getElementById("mobile-menu-icon-close");
+
+    function toggleMobileMenu() {
+        const isOpen = !mobileNavOverlay?.classList.contains("mobile-nav-closed");
+
+        if (isOpen) {
+            // Close menu
+            mobileNavOverlay?.classList.add("mobile-nav-closed");
+            mobileNavContent?.classList.add("mobile-nav-closed");
+            openIcon?.classList.remove("hidden");
+            closeIcon?.classList.add("hidden");
+            document.body.classList.remove("overflow-hidden");
+        } else {
+            // Open menu
+            mobileNavOverlay?.classList.remove("mobile-nav-closed");
+            mobileNavContent?.classList.remove("mobile-nav-closed");
+            openIcon?.classList.add("hidden");
+            closeIcon?.classList.remove("hidden");
+            document.body.classList.add("overflow-hidden");
+        }
+    }
+
+    mobileMenuButton?.addEventListener("click", toggleMobileMenu);
+    mobileNavClose?.addEventListener("click", toggleMobileMenu);
+
+    // Close menu when clicking overlay
+    mobileNavOverlay?.addEventListener("click", (e) => {
+        if (e.target === mobileNavOverlay) {
+            toggleMobileMenu();
+        }
+    });
+
+    // Close menu on escape key
+    document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && !mobileNavOverlay?.classList.contains("mobile-nav-closed")) {
+            toggleMobileMenu();
+        }
+    });
+</script>

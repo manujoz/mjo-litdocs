@@ -1,0 +1,108 @@
+---
+export interface Props {
+    variant?: "primary" | "secondary" | "ghost" | "outline";
+    size?: "sm" | "md" | "lg";
+    href?: string;
+    type?: "button" | "submit" | "reset";
+    disabled?: boolean;
+    class?: string;
+}
+
+const { variant = "primary", size = "md", href, type = "button", disabled = false, class: className = "", ...rest } = Astro.props;
+
+const baseClasses = "btn";
+const variantClasses = `btn-${variant}`;
+const sizeClasses = `btn-${size}`;
+const allClasses = [baseClasses, variantClasses, sizeClasses, className].filter(Boolean).join(" ");
+
+const Element = href ? "a" : "button";
+---
+
+<Element class={allClasses} href={href} type={href ? undefined : type} disabled={disabled} {...rest}>
+    <slot />
+</Element>
+
+<style>
+    .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 0.375rem;
+        font-size: 0.875rem;
+        font-weight: 500;
+        transition-property: color, background-color, border-color;
+        transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+        transition-duration: 150ms;
+        cursor: pointer;
+        text-decoration: none;
+    }
+
+    .btn:focus-visible {
+        outline: 2px solid oklch(var(--color-primary));
+        outline-offset: 2px;
+    }
+
+    .btn:disabled {
+        pointer-events: none;
+        opacity: 0.5;
+    }
+
+    .btn-primary {
+        background-color: oklch(var(--color-primary));
+        color: oklch(var(--color-primary-foreground));
+    }
+
+    .btn-primary:hover {
+        background-color: oklch(var(--color-primary) / 0.9);
+    }
+
+    .btn-secondary {
+        background-color: oklch(var(--color-secondary));
+        color: oklch(var(--color-secondary-foreground));
+    }
+
+    .btn-secondary:hover {
+        background-color: oklch(var(--color-secondary) / 0.8);
+    }
+
+    .btn-ghost {
+        color: oklch(var(--color-foreground));
+    }
+
+    .btn-ghost:hover {
+        background-color: oklch(var(--color-accent));
+        color: oklch(var(--color-accent-foreground));
+    }
+
+    .btn-outline {
+        border: 1px solid oklch(var(--color-input));
+        background-color: oklch(var(--color-background));
+        color: oklch(var(--color-foreground));
+    }
+
+    .btn-outline:hover {
+        background-color: oklch(var(--color-accent));
+        color: oklch(var(--color-accent-foreground));
+    }
+
+    /* Button Size Variants */
+    .btn-sm {
+        height: 2.25rem;
+        padding-left: 0.75rem;
+        padding-right: 0.75rem;
+    }
+
+    .btn-md {
+        height: 2.5rem;
+        padding-left: 1rem;
+        padding-right: 1rem;
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
+    }
+
+    .btn-lg {
+        height: 2.75rem;
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
+</style>

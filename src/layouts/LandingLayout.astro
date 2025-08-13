@@ -1,0 +1,27 @@
+---
+import Footer from "../components/layout/Footer.astro";
+import Header from "../components/layout/Header.astro";
+import BaseLayout from "./BaseLayout.astro";
+
+export interface Props {
+    title?: string;
+    description?: string;
+}
+
+const { title = "MJO-LITUI", description = "Modern Lit component library for building beautiful user interfaces" } = Astro.props;
+---
+
+<BaseLayout title={title} description={description}>
+    <div class="landing-layout">
+        <!-- Header -->
+        <Header />
+
+        <!-- Main Content -->
+        <main class="landing-main">
+            <slot />
+        </main>
+
+        <!-- Footer -->
+        <Footer />
+    </div>
+</BaseLayout>

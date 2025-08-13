@@ -1,0 +1,46 @@
+export default {
+    content: ["./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}"],
+    darkMode: "class",
+    theme: {
+        extend: {
+            colors: {
+                primary: "oklch(var(--color-primary) / <alpha-value>)",
+                "primary-foreground": "oklch(var(--color-primary-foreground) / <alpha-value>)",
+                secondary: "oklch(var(--color-secondary) / <alpha-value>)",
+                "secondary-foreground": "oklch(var(--color-secondary-foreground) / <alpha-value>)",
+                background: "oklch(var(--color-background) / <alpha-value>)",
+                foreground: "oklch(var(--color-foreground) / <alpha-value>)",
+                muted: "oklch(var(--color-muted) / <alpha-value>)",
+                "muted-foreground": "oklch(var(--color-muted-foreground) / <alpha-value>)",
+                border: "oklch(var(--color-border) / <alpha-value>)",
+                input: "oklch(var(--color-input) / <alpha-value>)",
+                accent: "oklch(var(--color-accent) / <alpha-value>)",
+                "accent-foreground": "oklch(var(--color-accent-foreground) / <alpha-value>)",
+                destructive: "oklch(var(--color-destructive) / <alpha-value>)",
+                "destructive-foreground": "oklch(var(--color-destructive-foreground) / <alpha-value>)",
+                success: "oklch(var(--color-success) / <alpha-value>)",
+                "success-foreground": "oklch(var(--color-success-foreground) / <alpha-value>)",
+                warning: "oklch(var(--color-warning) / <alpha-value>)",
+                "warning-foreground": "oklch(var(--color-warning-foreground) / <alpha-value>)",
+                "code-bg": "oklch(var(--color-code-bg) / <alpha-value>)",
+                "code-border": "oklch(var(--color-code-border) / <alpha-value>)",
+            },
+            boxShadow: {
+                sm: "var(--shadow-sm)",
+                md: "var(--shadow-md)",
+                lg: "var(--shadow-lg)",
+            },
+            borderRadius: {
+                sm: "var(--radius-sm)",
+                md: "var(--radius-md)",
+                lg: "var(--radius-lg)",
+                xl: "var(--radius-xl)",
+            },
+            fontFamily: {
+                sans: ["Inter Variable", "system-ui", "sans-serif"],
+                mono: ["JetBrains Mono Variable", "Consolas", "monospace"],
+            },
+        },
+    },
+    plugins: [],
+};

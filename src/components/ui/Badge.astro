@@ -1,0 +1,67 @@
+---
+export interface Props {
+    label?: string;
+    variant?: "default" | "secondary" | "destructive" | "outline";
+}
+
+const { label = "v1.0.0 Released", variant = "default" } = Astro.props;
+---
+
+<span class={`badge badge-${variant}`}>{label}</span>
+
+<style>
+    .badge {
+        display: inline-flex;
+        align-items: center;
+        border-radius: 9999px;
+        border: 1px solid;
+        padding-left: 0.625rem;
+        padding-right: 0.625rem;
+        padding-top: 0.125rem;
+        padding-bottom: 0.125rem;
+        font-size: 0.75rem;
+        font-weight: 600;
+        transition-property: color, background-color, border-color;
+        transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+        transition-duration: 150ms;
+    }
+
+    .badge:focus {
+        outline: 2px solid oklch(var(--color-primary));
+        outline-offset: 2px;
+    }
+
+    .badge-default {
+        border-color: transparent;
+        background-color: oklch(var(--color-primary));
+        color: oklch(var(--color-primary-foreground));
+    }
+
+    .badge-default:hover {
+        background-color: oklch(var(--color-primary) / 0.8);
+    }
+
+    .badge-secondary {
+        border-color: transparent;
+        background-color: oklch(var(--color-secondary));
+        color: oklch(var(--color-secondary-foreground));
+    }
+
+    .badge-secondary:hover {
+        background-color: oklch(var(--color-secondary) / 0.8);
+    }
+
+    .badge-destructive {
+        border-color: transparent;
+        background-color: oklch(var(--color-destructive));
+        color: oklch(var(--color-destructive-foreground));
+    }
+
+    .badge-destructive:hover {
+        background-color: oklch(var(--color-destructive) / 0.8);
+    }
+
+    .badge-outline {
+        color: oklch(var(--color-foreground));
+    }
+</style>
