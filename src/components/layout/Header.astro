@@ -4,6 +4,7 @@ import Button from "@/components/ui/Button.astro";
 import Search from "@/icons/search.svg";
 import GitHub from "@/icons/brand-github.svg";
 import Menu from "@/icons/menu.svg";
+import Logo from "../ui/Logo.astro";
 
 export interface Props {
     currentPath?: string;
@@ -27,7 +28,7 @@ const navigation = [
         <!-- Logo and Brand -->
         <div class="logo-container">
             <a href="/" class="site-logo">
-                <img src="/logos/logo-horizontal-light.svg" alt="MJO-LITUI" />
+                <Logo type="horizontal" />
             </a>
         </div>
 
@@ -43,7 +44,7 @@ const navigation = [
         </nav>
 
         <!-- Actions -->
-        <div class="flex items-center gap-1">
+        <div class="actions">
             <!-- Search Button (placeholder) -->
             <Button variant="ghost" size="sm" class="hidden md:flex" aria-label="Search" title="Search documentation">
                 <Search class="w-5 h-5" />
@@ -176,7 +177,7 @@ const navigation = [
     @reference "../../styles/global.css";
 
     .site-header {
-        @apply sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur-sm;
+        @apply sticky top-0 z-50 w-full bg-background/95 backdrop-blur-sm pl-3 pr-3;
     }
 
     @supports (backdrop-filter: blur(8px)) {
@@ -202,11 +203,11 @@ const navigation = [
     }
 
     .site-nav {
-        @apply hidden items-center gap-6 md:flex;
+        @apply hidden grow justify-center self-stretch items-stretch gap-6 md:flex;
     }
 
     .site-nav-link {
-        @apply text-sm font-medium text-muted-foreground transition-colors duration-200 no-underline;
+        @apply text-sm font-medium text-muted-foreground transition-colors duration-200 flex items-center no-underline;
     }
 
     .site-nav-link:hover {
@@ -215,5 +216,8 @@ const navigation = [
 
     .site-nav-link-active {
         @apply text-foreground;
+    }
+    .actions {
+        @apply flex w-48 items-end justify-end gap-1;
     }
 </style>

@@ -7,8 +7,8 @@ import Sun from "@/icons/sun.svg";
 
 <Button id="theme-toggle" variant="ghost" size="sm" aria-label="Toggle theme" title="Toggle theme">
     <span class="sr-only">Toggle theme</span>
-    <Sun id="theme-icon-light" class="w-5 h-5 hidden dark:block" />
-    <Moon id="theme-icon-dark" class="w-5 h-5 block dark:hidden" />
+    <Sun id="theme-icon-light" class="w-5 h-5 block dark:block" />
+    <Moon id="theme-icon-dark" class="w-5 h-5 hidden dark:hidden" />
 </Button>
 
 <script>
@@ -19,6 +19,14 @@ import Sun from "@/icons/sun.svg";
     if (themeToggle) {
         themeToggle.addEventListener("click", () => {
             themeManager.toggleTheme();
+
+            if (themeManager.isDark()) {
+                themeToggle.querySelector("#theme-icon-light")?.classList.remove("hidden");
+                themeToggle.querySelector("#theme-icon-dark")?.classList.add("hidden");
+            } else {
+                themeToggle.querySelector("#theme-icon-light")?.classList.add("hidden");
+                themeToggle.querySelector("#theme-icon-dark")?.classList.remove("hidden");
+            }
         });
     }
 </script>

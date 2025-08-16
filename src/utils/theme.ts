@@ -1,7 +1,7 @@
 // Theme management utilities
 export class ThemeManager {
     private static instance: ThemeManager;
-    private currentTheme: "light" | "dark" | "auto" = "auto";
+    private currentTheme: "light" | "dark" = "dark";
 
     static getInstance(): ThemeManager {
         if (!ThemeManager.instance) {
@@ -17,52 +17,36 @@ export class ThemeManager {
     }
 
     private init(): void {
-        // Get saved theme from localStorage or default to auto
-        const savedTheme = localStorage.getItem("theme") as "light" | "dark" | "auto";
-        this.currentTheme = savedTheme || "auto";
+        const savedTheme = localStorage.getItem("theme") as "light" | "dark";
+        this.currentTheme = savedTheme || "dark";
         this.applyTheme();
-
-        // Listen for system theme changes
-        window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => {
-            if (this.currentTheme === "auto") {
-                this.applyTheme();
-            }
-        });
     }
 
-    setTheme(theme: "light" | "dark" | "auto"): void {
+    setTheme(theme: "light" | "dark"): void {
         this.currentTheme = theme;
         localStorage.setItem("theme", theme);
         this.applyTheme();
+
+        document.dispatchEvent(new CustomEvent("theme-change", { detail: this.currentTheme }));
     }
 
-    getTheme(): "light" | "dark" | "auto" {
+    getTheme(): "light" | "dark" {
         return this.currentTheme;
     }
 
     private applyTheme(): void {
-        const html = document.documentElement;
+        const html = document.body;
 
         if (this.currentTheme === "dark") {
             html.classList.add("dark");
-        } else if (this.currentTheme === "light") {
-            html.classList.remove("dark");
         } else {
-            // Auto mode - follow system preference
-            const isDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches;
-            if (isDarkMode) {
-                html.classList.add("dark");
-            } else {
-                html.classList.remove("dark");
-            }
+            html.classList.remove("dark");
         }
     }
 
     toggleTheme(): void {
         if (this.currentTheme === "light") {
             this.setTheme("dark");
-        } else if (this.currentTheme === "dark") {
-            this.setTheme("auto");
         } else {
             this.setTheme("light");
         }
@@ -70,10 +54,14 @@ export class ThemeManager {
 
     isDark(): boolean {
         if (this.currentTheme === "dark") return true;
-        if (this.currentTheme === "light") return false;
-        // Auto mode - check system preference
-        return window.matchMedia("(prefers-color-scheme: dark)").matches;
+        return false;
     }
 }
 
 export const themeManager = ThemeManager.getInstance();
+
+declare global {
+    interface HTMLElementEventMap {
+        "theme-change": CustomEvent<"light" | "dark">;
+    }
+}

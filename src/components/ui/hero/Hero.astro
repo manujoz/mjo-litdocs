@@ -1,6 +1,7 @@
 ---
 import Badge from "../Badge.astro";
 import Button from "../Button.astro";
+import Logo from "../Logo.astro";
 ---
 
 <section class="hero-section">
@@ -9,10 +10,10 @@ import Button from "../Button.astro";
             <div class="hero-badge">
                 <Badge label="v1.0.0 Released" variant="secondary" />
             </div>
-            <h1 class="hero-title">
-                <p>Build beautiful interfaces with</p>
-                <p class="hero-title-highlight">MJO-LITUI</p>
-            </h1>
+            <h1 class="hero-title">Build beautiful interfaces with</h1>
+            <p class="logo">
+                <Logo type="vertical" />
+            </p>
             <p class="hero-description">
                 A modern Lit component library designed for developers who want to create stunning user interfaces with minimal effort. Built with TypeScript,
                 accessibility-first, and fully customizable.
@@ -20,20 +21,6 @@ import Button from "../Button.astro";
             <div class="hero-actions">
                 <Button href="/docs" size="lg">Get Started</Button>
                 <Button href="/docs/components" variant="outline" size="lg">View Components</Button>
-            </div>
-            <div class="hero-stats">
-                <div class="stat-item">
-                    <div class="stat-number">20+</div>
-                    <div class="stat-label">Components</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number">100%</div>
-                    <div class="stat-label">TypeScript</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number">A11Y</div>
-                    <div class="stat-label">Accessible</div>
-                </div>
             </div>
         </div>
         <div class="hero-visual">
@@ -65,6 +52,8 @@ import Button from "../Button.astro";
 </section>
 
 <style>
+    @reference "../../../styles/global.css";
+
     .hero-section {
         position: relative;
         overflow: hidden;
@@ -92,10 +81,7 @@ import Button from "../Button.astro";
     }
 
     .hero-title {
-        font-size: 2.25rem;
-        font-weight: 700;
-        letter-spacing: -0.025em;
-        color: oklch(var(--color-foreground));
+        @apply text-4xl pt-10 font-bold;
     }
 
     @media (min-width: 640px) {
@@ -104,14 +90,13 @@ import Button from "../Button.astro";
         }
     }
 
-    .hero-subtitle {
-        margin-left: auto;
-        margin-right: auto;
-        margin-top: 1.5rem;
-        max-width: 42rem;
-        font-size: 1.125rem;
-        line-height: 2;
-        color: oklch(var(--color-muted-foreground));
+    .logo {
+        @apply relative m-auto max-w-60 pt-10 pb-10;
+    }
+
+    .hero-description {
+        margin: 1.5rem auto 0;
+        @apply max-w-[800px] text-lg;
     }
 
     .hero-actions {
