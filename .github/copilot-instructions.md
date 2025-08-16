@@ -5,7 +5,8 @@ Modern documentation site for a Lit component library built with **Astro 5.12** 
 
 ## 🚫 CRITICAL RULES - NEVER BREAK THESE
 
-### 1. English Only
+### 1. Languages
+- Always talk to me in spanish
 - All content, code, comments, file names, git commits MUST be in English
 - No Spanish text anywhere in the codebase
 

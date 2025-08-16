@@ -9,7 +9,9 @@
       "@/components/*": ["./src/components/*"],
       "@/layouts/*": ["./src/layouts/*"],
       "@/utils/*": ["./src/utils/*"],
-      "@/styles/*": ["./src/styles/*"]
+      "@/styles/*": ["./src/styles/*"],
+      "@/icons/*": ["./src/assets/icons/*"],
+      "@/assets/*": ["./src/assets/*"]
     },
     "strict": true,
     "moduleResolution": "bundler",

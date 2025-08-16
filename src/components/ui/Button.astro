@@ -6,6 +6,10 @@ export interface Props {
     type?: "button" | "submit" | "reset";
     disabled?: boolean;
     class?: string;
+    title?: string;
+    target?: "_blank" | "_self" | "_parent" | "_top";
+    rel?: string;
+    [key: string]: any;
 }
 
 const { variant = "primary", size = "md", href, type = "button", disabled = false, class: className = "", ...rest } = Astro.props;
@@ -16,6 +20,9 @@ const sizeClasses = `btn-${size}`;
 const allClasses = [baseClasses, variantClasses, sizeClasses, className].filter(Boolean).join(" ");
 
 const Element = href ? "a" : "button";
+
+// Force Tailwind to include these utility classes
+// bg-primary-200 text-accent-foreground bg-secondary bg-accent text-primary-foreground
 ---
 
 <Element class={allClasses} href={href} type={href ? undefined : type} disabled={disabled} {...rest}>
@@ -23,86 +30,62 @@ const Element = href ? "a" : "button";
 </Element>
 
 <style>
+    @reference "../../styles/global.css";
+
     .btn {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 0.375rem;
-        font-size: 0.875rem;
-        font-weight: 500;
-        transition-property: color, background-color, border-color;
-        transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-        transition-duration: 150ms;
-        cursor: pointer;
-        text-decoration: none;
+        @apply inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors cursor-pointer no-underline;
     }
 
     .btn:focus-visible {
-        outline: 2px solid oklch(var(--color-primary));
-        outline-offset: 2px;
+        @apply outline-none ring-2 ring-primary ring-offset-2;
     }
 
     .btn:disabled {
-        pointer-events: none;
-        opacity: 0.5;
+        @apply pointer-events-none opacity-50;
     }
 
     .btn-primary {
-        background-color: oklch(var(--color-primary));
-        color: oklch(var(--color-primary-foreground));
+        @apply bg-primary text-primary-foreground;
     }
 
     .btn-primary:hover {
-        background-color: oklch(var(--color-primary) / 0.9);
+        @apply bg-primary-600;
     }
 
     .btn-secondary {
-        background-color: oklch(var(--color-secondary));
-        color: oklch(var(--color-secondary-foreground));
+        @apply bg-secondary text-secondary-foreground;
     }
 
     .btn-secondary:hover {
-        background-color: oklch(var(--color-secondary) / 0.8);
+        @apply bg-secondary/80;
     }
 
     .btn-ghost {
-        color: oklch(var(--color-foreground));
+        @apply text-foreground;
     }
 
     .btn-ghost:hover {
-        background-color: oklch(var(--color-accent));
-        color: oklch(var(--color-accent-foreground));
+        @apply bg-primary-100 text-black;
     }
 
     .btn-outline {
-        border: 1px solid oklch(var(--color-input));
-        background-color: oklch(var(--color-background));
-        color: oklch(var(--color-foreground));
+        @apply border border-input bg-background text-foreground;
     }
 
     .btn-outline:hover {
-        background-color: oklch(var(--color-accent));
-        color: oklch(var(--color-accent-foreground));
+        @apply bg-accent text-accent-foreground;
     }
 
     /* Button Size Variants */
     .btn-sm {
-        height: 2.25rem;
-        padding-left: 0.75rem;
-        padding-right: 0.75rem;
+        @apply h-9 px-3;
     }
 
     .btn-md {
-        height: 2.5rem;
-        padding-left: 1rem;
-        padding-right: 1rem;
-        padding-top: 0.5rem;
-        padding-bottom: 0.5rem;
+        @apply h-10 px-4 py-2;
     }
 
     .btn-lg {
-        height: 2.75rem;
-        padding-left: 2rem;
-        padding-right: 2rem;
+        @apply h-11 px-8;
     }
 </style>
