@@ -1,4 +1,5 @@
-// Theme management utilities
+import type { ThemeToggleEvent } from "@/types/theme";
+
 export class ThemeManager {
     private static instance: ThemeManager;
     private currentTheme: "light" | "dark" = "dark";
@@ -62,6 +63,6 @@ export const themeManager = ThemeManager.getInstance();
 
 declare global {
     interface HTMLElementEventMap {
-        "theme-change": CustomEvent<"light" | "dark">;
+        "theme-change": ThemeToggleEvent;
     }
 }

@@ -8,25 +8,25 @@ const { type = "horizontal", alt = "MJO-LITUI" } = Astro.props;
 const logoId = `logo-${Math.random().toString(36).substring(2, 9)}`;
 ---
 
-<img id={logoId} class="logo" src={`/logos/logo-${type}-dark.svg`} alt={alt} />
+<img id={logoId} class="logo" src={`/logos/logo-${type}-dark.svg`} alt={alt} data-type={type} />
 
-<script is:inline define:vars={{ logoId, type }}>
-    const theme = localStorage.getItem("theme") || "dark";
+<script>
+    function updateLogos() {
+        const theme = localStorage.getItem("theme") || "dark";
+        const logos = document.querySelectorAll(".logo");
 
-    const logo = document.getElementById(logoId);
-    console.log(logo);
-    if (logo) {
-        const imgElement = logo;
-
-        imgElement.src = theme === "dark" ? `/logos/logo-${type}-dark.svg` : `/logos/logo-${type}-light.svg`;
+        logos.forEach((logo) => {
+            const imgElement = logo as HTMLImageElement;
+            const logoType = imgElement.dataset.type || "horizontal";
+            imgElement.src = theme === "dark" ? `/logos/logo-${logoType}-dark.svg` : `/logos/logo-${logoType}-light.svg`;
+        });
     }
 
-    document.addEventListener("theme-change", (event) => {
-        const newTheme = event.detail;
+    // Update on load
+    updateLogos();
 
-        if (logo) {
-            const imgElement = logo;
-            imgElement.src = newTheme === "dark" ? `/logos/logo-${type}-dark.svg` : `/logos/logo-${type}-light.svg`;
-        }
+    // Update on theme change
+    document.addEventListener("theme-change", () => {
+        updateLogos();
     });
 </script>

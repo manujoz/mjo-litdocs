@@ -1,5 +1,7 @@
+import type { ThemeToggleEvent } from "@/types/theme";
+
 import { LitElement, css, html, type PropertyValues } from "lit";
-import { customElement, query, state } from "lit/decorators.js";
+import { customElement, property, query, state } from "lit/decorators.js";
 import { AiOutlineMoon, AiOutlineSun } from "mjo-icons/ai";
 
 import { themeManager } from "@/utils/theme";
@@ -10,6 +12,8 @@ import "mjo-litui/mjo-textfield";
 
 @customElement("theme-toggle")
 export class ThemeToggle extends LitElement {
+    @property({ type: String }) id = "";
+
     @state() icon: string = AiOutlineSun;
 
     @query("button") button!: HTMLButtonElement;
@@ -25,22 +29,30 @@ export class ThemeToggle extends LitElement {
     connectedCallback(): void {
         super.connectedCallback();
 
-        console.log(document.body.classList.contains("dark"));
-        setTimeout(() => {
-            this.icon = document.body.classList.contains("dark") ? AiOutlineSun : AiOutlineMoon;
-        }, 50);
+        document.addEventListener("theme-change", this.#handleTheme);
+    }
+
+    disconnectedCallback(): void {
+        super.disconnectedCallback();
+
+        document.removeEventListener("theme-change", this.#handleTheme);
     }
 
     firstUpdated(_changedProperties: PropertyValues): void {
         setTimeout(() => {
+            this.icon = document.body.classList.contains("dark") ? AiOutlineSun : AiOutlineMoon;
             this.button.classList.remove("hidden");
         }, 50);
     }
 
     #handleClick = () => {
         themeManager?.toggleTheme();
+    };
 
-        if (themeManager?.isDark()) {
+    #handleTheme = (ev: Event) => {
+        const theme = (ev as ThemeToggleEvent).detail;
+
+        if (theme === "dark") {
             this.icon = AiOutlineSun;
         } else {
             this.icon = AiOutlineMoon;

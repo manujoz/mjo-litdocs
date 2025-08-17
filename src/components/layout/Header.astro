@@ -41,7 +41,7 @@ const { currentPath = "" } = Astro.props;
         <!-- Actions -->
         <div class="actions">
             <!-- Search Button (placeholder) -->
-            <Button variant="ghost" size="sm" class="button-flex" aria-label="Search" title="Search documentation">
+            <Button variant="ghost" size="sm" aria-label="Search" title="Search documentation">
                 <Search class="w-5 h-5" />
                 <span class="sr-only">Search</span>
             </Button>
@@ -62,7 +62,9 @@ const { currentPath = "" } = Astro.props;
             </Button>
 
             <!-- Theme Toggle -->
-            <ThemeToggle />
+            <div class="button-flex">
+                <ThemeToggle />
+            </div>
 
             <div class="mobile-navigation md:hidden">
                 <MobileNavigation client:only />

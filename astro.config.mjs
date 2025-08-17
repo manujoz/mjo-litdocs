@@ -3,12 +3,17 @@ import { defineConfig, fontProviders } from "astro/config";
 
 import tailwindcss from "@tailwindcss/vite";
 
-import lit from "@astrojs/lit";
+import lit from "mjo-astro-lit";
 
 // https://astro.build/config
 export default defineConfig({
     vite: {
         plugins: [tailwindcss()],
+        resolve: {
+            alias: {
+                "@astrojs/lit": "mjo-astro-lit",
+            },
+        },
     },
 
     integrations: [lit()],

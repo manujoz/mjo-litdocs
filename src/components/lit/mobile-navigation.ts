@@ -27,7 +27,15 @@ export class MobileNavigation extends LitElement {
                 </nav>
                 <div class="actions">
                     <div>
-                        <mjo-icon src=${AiOutlineGithub}></mjo-icon>
+                        <a
+                            href="https://github.com/manujoz/mjo-litui"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            aria-label="GitHub repository"
+                            title="View on GitHub"
+                        >
+                            <mjo-icon src=${AiOutlineGithub}></mjo-icon>
+                        </a>
                     </div>
                     <div>
                         <theme-toggle></theme-toggle>
