@@ -1,10 +1,12 @@
 ---
-import ThemeToggle from "@/components/ui/ThemeToggle.astro";
+import { ThemeToggle } from "@/components/lit/theme-toggle";
 import Button from "@/components/ui/Button.astro";
-import Search from "@/icons/search.svg";
 import GitHub from "@/icons/brand-github.svg";
-import Menu from "@/icons/menu.svg";
+import Search from "@/icons/search.svg";
+import { navigationMenu } from "@/utils/navigation";
 import Logo from "../ui/Logo.astro";
+
+import { MobileNavigation } from "@/components/lit/mobile-navigation";
 
 export interface Props {
     currentPath?: string;
@@ -14,13 +16,6 @@ const { currentPath = "" } = Astro.props;
 
 // Force Tailwind to include these utility classes
 // border-border bg-background/95 bg-background/60 backdrop-blur-sm text-muted-foreground
-
-const navigation = [
-    { name: "Docs", href: "/docs" },
-    { name: "Components", href: "/docs/components" },
-    { name: "Examples", href: "/docs/examples" },
-    { name: "Themes", href: "/docs/themes" },
-];
 ---
 
 <header class="site-header">
@@ -35,7 +30,7 @@ const navigation = [
         <!-- Desktop Navigation -->
         <nav class="site-nav">
             {
-                navigation.map((item) => (
+                navigationMenu.map((item) => (
                     <a href={item.href} class={`site-nav-link ${currentPath.startsWith(item.href) ? "site-nav-link-active" : ""}`}>
                         {item.name}
                     </a>
@@ -46,7 +41,7 @@ const navigation = [
         <!-- Actions -->
         <div class="actions">
             <!-- Search Button (placeholder) -->
-            <Button variant="ghost" size="sm" class="hidden md:flex" aria-label="Search" title="Search documentation">
+            <Button variant="ghost" size="sm" class="button-flex" aria-label="Search" title="Search documentation">
                 <Search class="w-5 h-5" />
                 <span class="sr-only">Search</span>
             </Button>
@@ -55,6 +50,7 @@ const navigation = [
             <Button
                 href="https://github.com/manujoz/mjo-litui"
                 variant="ghost"
+                class="button-flex"
                 size="sm"
                 aria-label="GitHub repository"
                 title="View on GitHub"
@@ -68,15 +64,9 @@ const navigation = [
             <!-- Theme Toggle -->
             <ThemeToggle />
 
-            <!-- Mobile Menu Button -->
-            <button id="mobile-menu-button" class="btn-ghost btn-sm md:hidden" aria-label="Toggle mobile menu" title="Toggle navigation">
-                <svg id="mobile-menu-icon-open" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-                </svg>
-                <svg id="mobile-menu-icon-close" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                </svg>
-            </button>
+            <div class="mobile-navigation md:hidden">
+                <MobileNavigation client:only />
+            </div>
         </div>
     </div>
 
@@ -100,7 +90,7 @@ const navigation = [
             <nav class="mobile-nav-body">
                 <div class="space-y-1">
                     {
-                        navigation.map((item) => (
+                        navigationMenu.map((item) => (
                             <a href={item.href} class={`sidebar-nav-link ${currentPath.startsWith(item.href) ? "sidebar-nav-link-active" : ""}`}>
                                 {item.name}
                             </a>
@@ -125,53 +115,6 @@ const navigation = [
         </div>
     </div>
 </header>
-
-<script>
-    // Mobile menu functionality
-    const mobileMenuButton = document.getElementById("mobile-menu-button");
-    const mobileNavOverlay = document.getElementById("mobile-nav-overlay");
-    const mobileNavContent = document.getElementById("mobile-nav-content");
-    const mobileNavClose = document.getElementById("mobile-nav-close");
-    const openIcon = document.getElementById("mobile-menu-icon-open");
-    const closeIcon = document.getElementById("mobile-menu-icon-close");
-
-    function toggleMobileMenu() {
-        const isOpen = !mobileNavOverlay?.classList.contains("mobile-nav-closed");
-
-        if (isOpen) {
-            // Close menu
-            mobileNavOverlay?.classList.add("mobile-nav-closed");
-            mobileNavContent?.classList.add("mobile-nav-closed");
-            openIcon?.classList.remove("hidden");
-            closeIcon?.classList.add("hidden");
-            document.body.classList.remove("overflow-hidden");
-        } else {
-            // Open menu
-            mobileNavOverlay?.classList.remove("mobile-nav-closed");
-            mobileNavContent?.classList.remove("mobile-nav-closed");
-            openIcon?.classList.add("hidden");
-            closeIcon?.classList.remove("hidden");
-            document.body.classList.add("overflow-hidden");
-        }
-    }
-
-    mobileMenuButton?.addEventListener("click", toggleMobileMenu);
-    mobileNavClose?.addEventListener("click", toggleMobileMenu);
-
-    // Close menu when clicking overlay
-    mobileNavOverlay?.addEventListener("click", (e) => {
-        if (e.target === mobileNavOverlay) {
-            toggleMobileMenu();
-        }
-    });
-
-    // Close menu on escape key
-    document.addEventListener("keydown", (e) => {
-        if (e.key === "Escape" && !mobileNavOverlay?.classList.contains("mobile-nav-closed")) {
-            toggleMobileMenu();
-        }
-    });
-</script>
 
 <style>
     @reference "../../styles/global.css";
@@ -219,5 +162,8 @@ const navigation = [
     }
     .actions {
         @apply flex w-48 items-end justify-end gap-1;
+    }
+    .button-flex {
+        @apply hidden md:flex;
     }
 </style>
