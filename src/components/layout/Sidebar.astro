@@ -3,7 +3,11 @@ export interface Props {
     currentPath?: string;
 }
 
+import { getVersion } from "@/utils/mjolitui";
+import Version from "../ui/Version.astro";
+
 const { currentPath = "" } = Astro.props;
+const version = getVersion();
 
 // Navigation structure for documentation
 const navigation = [
@@ -96,7 +100,7 @@ const navigation = [
         <div class="px-3">
             <div class="flex items-center justify-between text-xs text-muted-foreground">
                 <span>Version</span>
-                <span class="font-mono">v1.0.0</span>
+                <span class="font-mono"><Version /></span>
             </div>
             <div class="mt-2">
                 <a
@@ -130,7 +134,28 @@ const navigation = [
     @reference "../../styles/global.css";
 
     .sidebar {
-        @apply sticky top-20 h-[calc(100vh-5rem)] overflow-y-auto pb-10;
+        @apply sticky top-[64px] h-[calc(100vh-64px)] overflow-y-auto py-10;
+        scrollbar-width: thin;
+        scrollbar-color: var(--scrollbar-thumb-color) transparent;
+        scrollbar-color: var(--scrollbar-thumb-color) transparent;
+    }
+
+    .sidebar::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    .sidebar::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    .sidebar::-webkit-scrollbar-thumb {
+        background: var(--scrollbar-thumb-color);
+        border-radius: 8px;
+        transition: background 0.2s ease;
+    }
+
+    .sidebar::-webkit-scrollbar-thumb:hover {
+        background: var(--scrollbar-thumb-hover-color);
     }
 
     .sidebar-section {
@@ -138,7 +163,7 @@ const navigation = [
     }
 
     .sidebar-section-title {
-        @apply mb-3 px-3 text-xs font-semibold uppercase tracking-wide text-muted-foreground;
+        @apply mb-3 px-3 text-xs font-semibold uppercase tracking-wide;
     }
 
     .sidebar-nav {
@@ -146,11 +171,11 @@ const navigation = [
     }
 
     .sidebar-nav-item {
-        @apply block;
+        @apply block pl-2;
     }
 
     .sidebar-nav-link {
-        @apply flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-muted-foreground transition-all duration-200 no-underline hover:bg-accent hover:text-accent-foreground;
+        @apply flex items-center gap-3 rounded-lg px-3 py-2 text-xs font-medium text-muted-foreground transition-all duration-200 no-underline hover:bg-accent hover:text-accent-foreground;
     }
 
     .sidebar-nav-link-active {

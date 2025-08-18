@@ -1,0 +1,121 @@
+<aside class="docs-toc">
+    <div class="toc-header">
+        <h3 class="toc-title">On This Page</h3>
+    </div>
+    <nav class="toc-nav" id="toc-nav">
+        <!-- TOC will be populated by JavaScript -->
+    </nav>
+</aside>
+
+<style>
+    @reference "../../styles/global.css";
+
+    .docs-toc {
+        @apply hidden;
+    }
+
+    .toc {
+        @apply sticky top-20 h-[calc(100vh-5rem)] overflow-y-auto;
+    }
+
+    .toc-title {
+        @apply mb-4 text-sm font-semibold text-foreground;
+    }
+
+    .toc-nav {
+        @apply flex flex-col gap-2;
+    }
+
+    .toc-link {
+        @apply block py-1 text-xs text-muted-foreground transition-colors duration-200 no-underline hover:text-foreground;
+    }
+
+    .toc-link-active {
+        @apply text-primary border-l-2 border-primary pl-2;
+    }
+
+    @media (min-width: 1280px) {
+        .docs-toc {
+            @apply block;
+        }
+    }
+</style>
+
+<!-- Table of Contents Script -->
+<script>
+    // Generate table of contents from headings
+    function generateTOC() {
+        const toc = document.getElementById("toc-nav");
+        if (!toc) return;
+
+        const headings = document.querySelectorAll(".docs-article h1, .docs-article h2, .docs-article h3, .docs-article h4");
+
+        if (headings.length === 0) {
+            toc.innerHTML = '<p class="toc-empty">No headings found</p>';
+            return;
+        }
+
+        const tocList = document.createElement("ul");
+        tocList.className = "toc-list";
+
+        headings.forEach((heading) => {
+            if (!heading.id) {
+                // Generate ID from heading text
+                heading.id =
+                    heading.textContent
+                        ?.toLowerCase()
+                        .replace(/[^\w\s-]/g, "")
+                        .replace(/\s+/g, "-")
+                        .trim() || "";
+            }
+
+            const listItem = document.createElement("li");
+            listItem.className = `toc-item toc-${heading.tagName.toLowerCase()}`;
+
+            const link = document.createElement("a");
+            link.href = `#${heading.id}`;
+            link.textContent = heading.textContent;
+            link.className = "toc-link";
+
+            listItem.appendChild(link);
+            tocList.appendChild(listItem);
+        });
+
+        toc.appendChild(tocList);
+
+        // Add scroll spy functionality
+        addScrollSpy();
+    }
+
+    function addScrollSpy() {
+        const tocLinks = document.querySelectorAll(".toc-link");
+        const headings = document.querySelectorAll(".docs-article h1, .docs-article h2, .docs-article h3, .docs-article h4");
+
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    const id = entry.target.id;
+                    const tocLink = document.querySelector(`.toc-link[href="#${id}"]`);
+
+                    if (entry.isIntersecting) {
+                        // Remove active class from all links
+                        tocLinks.forEach((link) => link.classList.remove("toc-link-active"));
+                        // Add active class to current link
+                        tocLink?.classList.add("toc-link-active");
+                    }
+                });
+            },
+            {
+                rootMargin: "-80px 0px -60% 0px",
+                threshold: 0,
+            }
+        );
+
+        headings.forEach((heading) => {
+            observer.observe(heading);
+        });
+    }
+
+    // Initialize TOC when DOM is loaded
+    document.addEventListener("DOMContentLoaded", generateTOC);
+</script>

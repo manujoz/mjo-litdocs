@@ -1,0 +1,105 @@
+---
+// Version component - shows loading spinner while fetching, then displays version
+export interface Props {
+    suffix?: string;
+}
+
+const { suffix } = Astro.props;
+---
+
+<span class="version-container" data-suffix={suffix || ""}>
+    <span class="version-loader" aria-label="Loading version">
+        <svg class="spinner" viewBox="0 0 24 24" fill="none">
+            <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-dasharray="31.416" stroke-dashoffset="31.416"
+            ></circle>
+        </svg>
+    </span>
+    <span class="version-text" style="display: none;"></span>
+</span>
+
+<style>
+    .version-container {
+        display: inline-block;
+    }
+
+    .spinner {
+        width: 1em;
+        height: 1em;
+        animation: spin 1s linear infinite;
+    }
+
+    .spinner circle {
+        animation: dash 1.5s ease-in-out infinite;
+    }
+
+    @keyframes spin {
+        from {
+            transform: rotate(0deg);
+        }
+        to {
+            transform: rotate(360deg);
+        }
+    }
+
+    @keyframes dash {
+        0% {
+            stroke-dasharray: 1, 150;
+            stroke-dashoffset: 0;
+        }
+        50% {
+            stroke-dasharray: 90, 150;
+            stroke-dashoffset: -35;
+        }
+        100% {
+            stroke-dasharray: 90, 150;
+            stroke-dashoffset: -124;
+        }
+    }
+
+    .version-text {
+        font-family: monospace;
+    }
+</style>
+
+<script define:vars={{}}>
+    // This script runs in the browser (client-side)
+    document.addEventListener("DOMContentLoaded", async function () {
+        // Find all version containers
+        const containers = document.querySelectorAll(".version-container");
+
+        containers.forEach(async (container) => {
+            const loader = container.querySelector(".version-loader");
+            const versionText = container.querySelector(".version-text");
+            const suffix = container.getAttribute("data-suffix") || "";
+
+            try {
+                // Inline the fetch logic here since we can't import modules in browser scripts
+                const response = await fetch("https://raw.githubusercontent.com/manujoz/mjo-litui/master/package.json");
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const packageData = await response.json();
+                const version = packageData.version || "1.0.0";
+
+                if (loader && versionText) {
+                    loader.style.display = "none";
+                    versionText.style.display = "inline";
+                    // Add suffix if provided
+                    const displayText = suffix ? `v${version} ${suffix}` : `v${version}`;
+                    versionText.textContent = displayText;
+                }
+            } catch (error) {
+                console.warn("Failed to load version:", error);
+                if (loader && versionText) {
+                    loader.style.display = "none";
+                    versionText.style.display = "inline";
+                    // Add suffix to fallback version too
+                    const fallbackText = suffix ? `v1.0.0 ${suffix}` : `v1.0.0`;
+                    versionText.textContent = fallbackText;
+                }
+            }
+        });
+    });
+</script>

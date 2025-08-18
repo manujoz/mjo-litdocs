@@ -79,4 +79,34 @@
 
     --color-card: oklch(20.019% 0.00002 271.152);
     --shadow: 0 2px 10px 0 oklch(0% 0 0);
+
+    --scrollbar-track-color: oklch(21.779% 0.00002 271.152);
+    --scrollbar-thumb-color: oklch(36.002% 0.00004 271.152);
+    --scrollbar-thumb-hover-color: oklch(45.35% 0.00165 285.873);
+}
+
+/* === CUSTOM SCROLLBAR STYLES === */
+
+/* General page scrollbar - Webkit-based browsers (Chrome, Safari, Edge) */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--scrollbar-track-color);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-thumb-color);
+    border-radius: 8px;
+    transition: background 0.2s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--scrollbar-thumb-hover-color);
+}
+
+html {
+    scrollbar-width: auto;
+    scrollbar-color: var(--scrollbar-thumb-color) transparent;
 }

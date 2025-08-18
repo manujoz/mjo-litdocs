@@ -2,6 +2,7 @@
 import Badge from "./Badge.astro";
 import Button from "./Button.astro";
 import Logo from "./Logo.astro";
+import Version from "./Version.astro";
 ---
 
 <section class="hero-section">
@@ -9,7 +10,9 @@ import Logo from "./Logo.astro";
     <div class="hero-container">
         <div class="hero-content">
             <div class="hero-badge">
-                <Badge label="v1.0.0 Released" variant="secondary" />
+                <Badge variant="secondary">
+                    <Version suffix="Released" />
+                </Badge>
             </div>
             <p class="hero-title">Build beautiful interfaces with</p>
             <p class="logo">

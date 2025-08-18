@@ -1,16 +1,17 @@
 ---
 export interface Props {
-    label?: string;
     variant?: "default" | "secondary" | "destructive" | "outline";
 }
 
-const { label = "v1.0.0 Released", variant = "default" } = Astro.props;
+const { variant = "default" } = Astro.props;
 
 // Force Tailwind to include these utility classes
 // bg-destructive text-destructive-foreground bg-destructive/80 ring-primary ring-offset-2
 ---
 
-<span class={`badge badge-${variant}`}>{label}</span>
+<span class={`badge badge-${variant}`}>
+    <slot />
+</span>
 
 <style>
     @reference "../../styles/global.css";

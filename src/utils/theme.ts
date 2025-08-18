@@ -36,12 +36,15 @@ export class ThemeManager {
     }
 
     private applyTheme(): void {
-        const html = document.body;
+        const html = document.querySelector("html");
+        const body = document.body;
 
         if (this.currentTheme === "dark") {
-            html.classList.add("dark");
+            if (html) html.classList.add("dark");
+            if (body) body.classList.add("dark");
         } else {
-            html.classList.remove("dark");
+            if (html) html.classList.remove("dark");
+            if (body) body.classList.remove("dark");
         }
     }
 
