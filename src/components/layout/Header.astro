@@ -1,0 +1,126 @@
+---
+import { ThemeToggle } from "@/components/lit/theme-toggle";
+import Button from "@/components/ui/Button.astro";
+import GitHub from "@/icons/brand-github.svg";
+import Search from "@/icons/search.svg";
+import { navigationMenu } from "@/utils/navigation";
+import Logo from "../ui/Logo.astro";
+
+import { MobileNavigation } from "@/components/lit/mobile-navigation";
+
+export interface Props {
+    currentPath?: string;
+}
+
+const { currentPath = "" } = Astro.props;
+---
+
+<header class="site-header">
+    <div class="site-header-inner">
+        <!-- Logo and Brand -->
+        <div class="logo-container">
+            <a href="/" class="site-logo">
+                <Logo type="horizontal" />
+            </a>
+        </div>
+
+        <!-- Desktop Navigation -->
+        <nav class="site-nav">
+            {
+                navigationMenu.map((item) => (
+                    <a href={item.href} class={`site-nav-link ${currentPath.startsWith(item.href) ? "site-nav-link-active" : ""}`}>
+                        {item.name}
+                    </a>
+                ))
+            }
+        </nav>
+
+        <!-- Actions -->
+        <div class="actions">
+            <!-- Search Button (placeholder) -->
+            <Button variant="ghost" size="sm" aria-label="Search" title="Search documentation">
+                <Search class="w-5 h-5" />
+                <span class="sr-only">Search</span>
+            </Button>
+
+            <!-- GitHub Link -->
+            <Button
+                href="https://github.com/manujoz/mjo-litui"
+                variant="ghost"
+                class="button-flex"
+                size="sm"
+                aria-label="GitHub repository"
+                title="View on GitHub"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                <GitHub class="w-5 h-5" />
+                <span class="sr-only">GitHub</span>
+            </Button>
+
+            <!-- Theme Toggle -->
+            <Button class="button-flex" variant="ghost" size="sm">
+                <ThemeToggle />
+            </Button>
+
+            <div class="mobile-navigation">
+                <MobileNavigation client:only />
+            </div>
+        </div>
+    </div>
+</header>
+
+<style>
+    @reference "../../styles/global.css";
+
+    .site-header {
+        @apply sticky top-0 z-50 w-full bg-background/95 backdrop-blur-sm pl-3 pr-3;
+    }
+
+    @supports (backdrop-filter: blur(8px)) {
+        .site-header {
+            @apply bg-background/60;
+        }
+    }
+
+    .site-header-inner {
+        @apply flex h-16 items-center justify-between;
+    }
+
+    .logo-container {
+        @apply relative flex-none w-48;
+    }
+
+    .site-logo {
+        @apply relative transition-opacity duration-300;
+    }
+
+    .site-logo:hover {
+        @apply opacity-80;
+    }
+
+    .site-nav {
+        @apply hidden grow justify-center self-stretch items-stretch gap-6 md:flex;
+    }
+
+    .site-nav-link {
+        @apply text-sm font-medium text-muted-foreground transition-colors duration-200 flex items-center no-underline;
+    }
+
+    .site-nav-link:hover {
+        @apply text-foreground;
+    }
+
+    .site-nav-link-active {
+        @apply text-foreground;
+    }
+    .actions {
+        @apply flex w-48 items-end justify-end gap-1;
+    }
+    .button-flex {
+        @apply hidden md:flex;
+    }
+    .mobile-navigation {
+        @apply w-[35px] md:hidden;
+    }
+</style>

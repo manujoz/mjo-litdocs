@@ -1,0 +1,128 @@
+---
+export interface Props {
+    currentPath?: string;
+}
+
+const { currentPath = "" } = Astro.props;
+
+// Navigation structure for documentation
+const navigation = [
+    {
+        title: "Getting Started",
+        items: [
+            { name: "Introduction", href: "/docs" },
+            { name: "Installation", href: "/docs/installation" },
+            { name: "Quick Start", href: "/docs/quick-start" },
+            { name: "Configuration", href: "/docs/configuration" },
+        ],
+    },
+    {
+        title: "Components",
+        items: [
+            { name: "Overview", href: "/docs/components" },
+            { name: "Autocomplete", href: "/docs/components/autocomplete" },
+            { name: "Button", href: "/docs/components/button" },
+            { name: "Card", href: "/docs/components/card" },
+            { name: "Input", href: "/docs/components/input" },
+            { name: "Modal", href: "/docs/components/modal" },
+            { name: "Navigation", href: "/docs/components/navigation" },
+            { name: "Table", href: "/docs/components/table" },
+        ],
+    },
+    {
+        title: "Theming",
+        items: [
+            { name: "Overview", href: "/docs/themes" },
+            { name: "Colors", href: "/docs/themes/colors" },
+            { name: "Typography", href: "/docs/themes/typography" },
+            { name: "Dark Mode", href: "/docs/themes/dark-mode" },
+            { name: "Customization", href: "/docs/themes/customization" },
+        ],
+    },
+    {
+        title: "Examples",
+        items: [
+            { name: "Basic Usage", href: "/docs/examples" },
+            { name: "Forms", href: "/docs/examples/forms" },
+            { name: "Data Display", href: "/docs/examples/data-display" },
+            { name: "Layouts", href: "/docs/examples/layouts" },
+            { name: "Integrations", href: "/docs/examples/integrations" },
+        ],
+    },
+    {
+        title: "Advanced",
+        items: [
+            { name: "Accessibility", href: "/docs/accessibility" },
+            { name: "Performance", href: "/docs/performance" },
+            { name: "Testing", href: "/docs/testing" },
+            { name: "Migration", href: "/docs/migration" },
+        ],
+    },
+];
+---
+
+<aside class="sidebar">
+    <nav class="space-y-6">
+        {
+            navigation.map((section) => (
+                <div class="sidebar-section">
+                    <h3 class="sidebar-section-title">{section.title}</h3>
+                    <ul class="sidebar-nav">
+                        {section.items.map((item) => (
+                            <li class="sidebar-nav-item">
+                                <a
+                                    href={item.href}
+                                    class={`sidebar-nav-link ${
+                                        currentPath === item.href || (item.href !== "/docs" && currentPath.startsWith(item.href))
+                                            ? "sidebar-nav-link-active"
+                                            : ""
+                                    }`}
+                                >
+                                    <span>{item.name}</span>
+                                    {/* Badge for new/beta items */}
+                                    {item.name === "Autocomplete" && <span class="badge badge-default text-[10px] px-1.5 py-0.5">New</span>}
+                                    {item.name === "Testing" && <span class="badge badge-secondary text-[10px] px-1.5 py-0.5">Beta</span>}
+                                </a>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+            ))
+        }
+    </nav>
+
+    <!-- Version Info -->
+    <div class="mt-8 pt-6 border-t border-border">
+        <div class="px-3">
+            <div class="flex items-center justify-between text-xs text-muted-foreground">
+                <span>Version</span>
+                <span class="font-mono">v1.0.0</span>
+            </div>
+            <div class="mt-2">
+                <a
+                    href="https://github.com/username/mjo-litui/releases"
+                    class="text-xs text-muted-foreground hover:text-foreground transition-colors"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    View releases →
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="mt-4">
+        <div class="px-3 space-y-2">
+            <a
+                href="https://github.com/username/mjo-litui/issues/new"
+                class="block text-xs text-muted-foreground hover:text-foreground transition-colors"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                Report an issue
+            </a>
+            <a href="/docs/contributing" class="block text-xs text-muted-foreground hover:text-foreground transition-colors"> Contribute </a>
+        </div>
+    </div>
+</aside>

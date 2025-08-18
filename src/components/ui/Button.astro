@@ -1,0 +1,91 @@
+---
+export interface Props {
+    variant?: "primary" | "secondary" | "ghost" | "outline";
+    size?: "sm" | "md" | "lg";
+    href?: string;
+    type?: "button" | "submit" | "reset";
+    disabled?: boolean;
+    class?: string;
+    title?: string;
+    target?: "_blank" | "_self" | "_parent" | "_top";
+    rel?: string;
+    [key: string]: any;
+}
+
+const { variant = "primary", size = "md", href, type = "button", disabled = false, class: className = "", ...rest } = Astro.props;
+
+const baseClasses = "btn";
+const variantClasses = `btn-${variant}`;
+const sizeClasses = `btn-${size}`;
+const allClasses = [baseClasses, variantClasses, sizeClasses, className].filter(Boolean).join(" ");
+
+const Element = href ? "a" : "button";
+
+// Force Tailwind to include these utility classes
+// bg-primary-200 text-accent-foreground bg-secondary bg-accent text-primary-foreground
+---
+
+<Element class={allClasses} href={href} type={href ? undefined : type} disabled={disabled} {...rest}>
+    <slot />
+</Element>
+
+<style>
+    @reference "../../styles/global.css";
+
+    .btn {
+        @apply inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors cursor-pointer no-underline;
+    }
+
+    .btn:focus-visible {
+        @apply outline-none ring-2 ring-primary ring-offset-2;
+    }
+
+    .btn:disabled {
+        @apply pointer-events-none opacity-50;
+    }
+
+    .btn-primary {
+        @apply bg-primary text-primary-foreground;
+    }
+
+    .btn-primary:hover {
+        @apply bg-primary-600;
+    }
+
+    .btn-secondary {
+        @apply bg-secondary text-secondary-foreground;
+    }
+
+    .btn-secondary:hover {
+        @apply bg-secondary/80;
+    }
+
+    .btn-ghost {
+        @apply text-foreground;
+    }
+
+    .btn-ghost:hover {
+        @apply bg-primary-100 text-black;
+    }
+
+    .btn-outline {
+        @apply border border-input bg-background text-foreground;
+    }
+
+    .btn-outline:hover {
+        @apply bg-accent text-accent-foreground;
+    }
+
+    /* Button Size Variants */
+    .btn-sm {
+        @apply h-9 px-3;
+    }
+
+    .btn-md {
+        @apply h-10 px-4 py-2;
+    }
+
+    .btn-lg {
+        @apply h-11 px-8;
+    }
+</style>

@@ -1,0 +1,145 @@
+---
+// Footer component with links and company information
+---
+
+<footer class="site-footer">
+    <div class="site-footer-inner">
+        <div class="footer-grid">
+            <!-- Documentation Links -->
+            <div class="footer-section">
+                <h3 class="footer-title">Documentation</h3>
+                <ul class="footer-links">
+                    <li>
+                        <a href="/docs" class="footer-link">Getting Started</a>
+                    </li>
+                    <li>
+                        <a href="/docs/installation" class="footer-link">Installation</a>
+                    </li>
+                    <li>
+                        <a href="/docs/components" class="footer-link">Components</a>
+                    </li>
+                    <li>
+                        <a href="/docs/examples" class="footer-link">Examples</a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Community Links -->
+            <div class="footer-section">
+                <h3 class="footer-title">Community</h3>
+                <ul class="footer-links">
+                    <li>
+                        <a href="https://github.com/username/mjo-litui" class="footer-link" target="_blank" rel="noopener noreferrer"> GitHub </a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/username/mjo-litui/issues" class="footer-link" target="_blank" rel="noopener noreferrer"> Issues </a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/username/mjo-litui/discussions" class="footer-link" target="_blank" rel="noopener noreferrer">
+                            Discussions
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/username/mjo-litui/releases" class="footer-link" target="_blank" rel="noopener noreferrer"> Releases </a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Resources -->
+            <div class="footer-section">
+                <h3 class="footer-title">Resources</h3>
+                <ul class="footer-links">
+                    <li>
+                        <a href="/docs/themes" class="footer-link">Theming Guide</a>
+                    </li>
+                    <li>
+                        <a href="/docs/accessibility" class="footer-link">Accessibility</a>
+                    </li>
+                    <li>
+                        <a href="/docs/contributing" class="footer-link">Contributing</a>
+                    </li>
+                    <li>
+                        <a href="/docs/changelog" class="footer-link">Changelog</a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Technology Stack -->
+            <div class="footer-section">
+                <h3 class="footer-title">Built With</h3>
+                <ul class="footer-links">
+                    <li>
+                        <a href="https://lit.dev" class="footer-link" target="_blank" rel="noopener noreferrer"> Lit </a>
+                    </li>
+                    <li>
+                        <a href="https://astro.build" class="footer-link" target="_blank" rel="noopener noreferrer"> Astro </a>
+                    </li>
+                    <li>
+                        <a href="https://tailwindcss.com" class="footer-link" target="_blank" rel="noopener noreferrer"> Tailwind CSS </a>
+                    </li>
+                    <li>
+                        <a href="https://www.typescriptlang.org" class="footer-link" target="_blank" rel="noopener noreferrer"> TypeScript </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Footer Bottom -->
+        <div class="footer-bottom">
+            <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+                <p class="text-sm text-muted-foreground">
+                    © {new Date().getFullYear()} MJO-LITUI. Built with ❤️ for the web component community.
+                </p>
+
+                <div class="flex items-center gap-4">
+                    <a
+                        href="https://github.com/username/mjo-litui/blob/main/LICENSE"
+                        class="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        MIT License
+                    </a>
+                    <span class="text-muted-foreground">•</span>
+                    <a href="/privacy" class="text-sm text-muted-foreground hover:text-foreground transition-colors"> Privacy </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<style>
+    @reference "../../styles/global.css";
+
+    .site-footer {
+        @apply border-t border-border bg-muted/50 mt-16;
+    }
+
+    .site-footer-inner {
+        @apply py-12;
+    }
+
+    .footer-grid {
+        @apply grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4;
+    }
+
+    .footer-section {
+        @apply flex flex-col gap-4;
+    }
+
+    .footer-title {
+        @apply text-sm font-semibold text-foreground;
+    }
+
+    .footer-links {
+        @apply flex flex-col gap-2;
+    }
+
+    .footer-link {
+        @apply text-sm text-muted-foreground transition-colors duration-200 no-underline hover:text-foreground;
+    }
+
+    .footer-bottom {
+        @apply border-t border-border pt-8 mt-8 text-center text-sm text-muted-foreground;
+    }
+</style>

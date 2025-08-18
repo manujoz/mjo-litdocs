@@ -1,0 +1,312 @@
+/* Prism.js Custom Theme - Compatible with MJO-LITUI Design System */
+
+/* Base code styling */
+code[class*="language-"],
+pre[class*="language-"] {
+    color: oklch(var(--color-foreground));
+    background: none;
+    text-shadow: none;
+    font-family: ui-monospace, SFMono-Regular, "SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Consolas, "Courier New", monospace;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    direction: ltr;
+    text-align: left;
+    white-space: pre;
+    word-spacing: normal;
+    word-break: normal;
+    word-wrap: normal;
+    tab-size: 2;
+    hyphens: none;
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+    padding: 1rem;
+    margin: 0.5em 0;
+    overflow: auto;
+    border-radius: 0.5rem;
+    background: oklch(var(--color-muted));
+    border: 1px solid oklch(var(--color-border));
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+    padding: 0.125rem 0.25rem;
+    border-radius: 0.25rem;
+    background: oklch(var(--color-muted));
+    color: oklch(var(--color-foreground));
+    font-size: 0.875rem;
+}
+
+/* Dark theme support */
+.dark pre[class*="language-"] {
+    background: oklch(0.1 0.01 247);
+    border-color: oklch(0.15 0.01 247);
+}
+
+.dark :not(pre) > code[class*="language-"] {
+    background: oklch(0.1 0.01 247);
+}
+
+/* Syntax highlighting tokens */
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+    color: oklch(var(--color-muted-foreground));
+    font-style: italic;
+}
+
+.token.punctuation {
+    color: oklch(var(--color-foreground));
+}
+
+.token.namespace {
+    opacity: 0.7;
+}
+
+.token.property,
+.token.tag,
+.token.constant,
+.token.symbol,
+.token.deleted {
+    color: oklch(0.65 0.18 29); /* Red-ish */
+}
+
+.token.boolean,
+.token.number {
+    color: oklch(0.7 0.15 266); /* Purple */
+}
+
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted {
+    color: oklch(0.65 0.15 142); /* Green */
+}
+
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string,
+.token.variable {
+    color: oklch(0.7 0.12 200); /* Blue */
+}
+
+.token.atrule,
+.token.attr-value,
+.token.function,
+.token.class-name {
+    color: oklch(0.75 0.15 85); /* Yellow */
+}
+
+.token.keyword {
+    color: oklch(0.65 0.18 320); /* Magenta */
+    font-weight: 600;
+}
+
+.token.regex,
+.token.important {
+    color: oklch(0.7 0.15 50); /* Orange */
+}
+
+.token.important,
+.token.bold {
+    font-weight: bold;
+}
+
+.token.italic {
+    font-style: italic;
+}
+
+.token.entity {
+    cursor: help;
+}
+
+/* Line numbers plugin */
+pre[class*="language-"].line-numbers {
+    position: relative;
+    padding-left: 3.8em;
+    counter-reset: linenumber;
+}
+
+pre[class*="language-"].line-numbers > code {
+    position: relative;
+    white-space: inherit;
+}
+
+.line-numbers .line-numbers-rows {
+    position: absolute;
+    pointer-events: none;
+    top: 0;
+    font-size: 100%;
+    left: -3.8em;
+    width: 3em;
+    letter-spacing: -1px;
+    border-right: 1px solid oklch(var(--color-border));
+    user-select: none;
+}
+
+.line-numbers-rows > span {
+    display: block;
+    counter-increment: linenumber;
+}
+
+.line-numbers-rows > span:before {
+    content: counter(linenumber);
+    color: oklch(var(--color-muted-foreground));
+    display: block;
+    padding-right: 0.8em;
+    text-align: right;
+}
+
+/* Copy to clipboard plugin */
+div.code-toolbar {
+    position: relative;
+}
+
+div.code-toolbar > .toolbar {
+    position: absolute;
+    top: 0.3em;
+    right: 0.2em;
+    transition: opacity 0.3s ease-in-out;
+    opacity: 0;
+}
+
+div.code-toolbar:hover > .toolbar {
+    opacity: 1;
+}
+
+div.code-toolbar > .toolbar .toolbar-item {
+    display: inline-block;
+}
+
+div.code-toolbar > .toolbar a {
+    cursor: pointer;
+}
+
+div.code-toolbar > .toolbar button {
+    background: oklch(var(--color-muted));
+    border: 1px solid oklch(var(--color-border));
+    border-radius: 0.25rem;
+    color: oklch(var(--color-foreground));
+    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+div.code-toolbar > .toolbar button:hover {
+    background: oklch(var(--color-accent));
+    color: oklch(var(--color-accent-foreground));
+}
+
+/* Show language plugin */
+div.code-toolbar > .toolbar .toolbar-item span {
+    background: oklch(var(--color-primary));
+    color: oklch(var(--color-primary-foreground));
+    font-size: 0.75rem;
+    padding: 0.125rem 0.5rem;
+    border-radius: 0.25rem;
+    margin-right: 0.5rem;
+    font-weight: 500;
+}
+
+/* Custom code block styling for documentation */
+.code-example {
+    margin: 1.5rem 0;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    border: 1px solid oklch(var(--color-border));
+}
+
+.code-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: oklch(var(--color-muted));
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid oklch(var(--color-border));
+}
+
+.code-tabs {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.code-tab {
+    padding: 0.25rem 0.75rem;
+    font-size: 0.875rem;
+    border: none;
+    background: transparent;
+    color: oklch(var(--color-muted-foreground));
+    border-radius: 0.25rem;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.code-tab:hover {
+    color: oklch(var(--color-foreground));
+    background: oklch(var(--color-background));
+}
+
+.code-tab-active {
+    color: oklch(var(--color-foreground));
+    background: oklch(var(--color-background));
+    font-weight: 500;
+}
+
+.code-copy {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.25rem 0.5rem;
+    font-size: 0.875rem;
+    border: 1px solid oklch(var(--color-border));
+    background: oklch(var(--color-background));
+    color: oklch(var(--color-foreground));
+    border-radius: 0.25rem;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.code-copy:hover {
+    background: oklch(var(--color-accent));
+    color: oklch(var(--color-accent-foreground));
+}
+
+.code-content {
+    position: relative;
+}
+
+.code-content pre {
+    margin: 0;
+    border-radius: 0;
+    border: none;
+    background: oklch(var(--color-card));
+}
+
+/* Quickstart example styles */
+.quickstart-example {
+    margin-top: 2rem;
+}
+
+.example-title {
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: oklch(var(--color-foreground));
+}
+
+/* Language tag in code header */
+.code-language {
+    background: oklch(var(--color-primary));
+    color: oklch(var(--color-primary-foreground));
+    font-size: 0.75rem;
+    padding: 0.125rem 0.5rem;
+    border-radius: 0.25rem;
+    font-weight: 500;
+}

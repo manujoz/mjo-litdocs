@@ -1,0 +1,32 @@
+---
+export interface Props {
+    type?: "vertical" | "horizontal";
+    alt?: string;
+}
+
+const { type = "horizontal", alt = "MJO-LITUI" } = Astro.props;
+const logoId = `logo-${Math.random().toString(36).substring(2, 9)}`;
+---
+
+<img id={logoId} class="logo" src={`/logos/logo-${type}-dark.svg`} alt={alt} data-type={type} />
+
+<script>
+    function updateLogos() {
+        const theme = localStorage.getItem("theme") || "dark";
+        const logos = document.querySelectorAll(".logo");
+
+        logos.forEach((logo) => {
+            const imgElement = logo as HTMLImageElement;
+            const logoType = imgElement.dataset.type || "horizontal";
+            imgElement.src = theme === "dark" ? `/logos/logo-${logoType}-dark.svg` : `/logos/logo-${logoType}-light.svg`;
+        });
+    }
+
+    // Update on load
+    updateLogos();
+
+    // Update on theme change
+    document.addEventListener("theme-change", () => {
+        updateLogos();
+    });
+</script>
