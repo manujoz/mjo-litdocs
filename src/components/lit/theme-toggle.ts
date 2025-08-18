@@ -16,13 +16,13 @@ export class ThemeToggle extends LitElement {
 
     @state() icon: string = AiOutlineSun;
 
-    @query("button") button!: HTMLButtonElement;
+    @query("span") span!: HTMLSpanElement;
 
     render() {
         return html`
-            <button class="hidden" @click=${this.#handleClick}>
+            <span class="hidden" @click=${this.#handleClick}>
                 <mjo-icon src=${this.icon}></mjo-icon>
-            </button>
+            </span>
         `;
     }
 
@@ -41,7 +41,7 @@ export class ThemeToggle extends LitElement {
     firstUpdated(_changedProperties: PropertyValues): void {
         setTimeout(() => {
             this.icon = document.body.classList.contains("dark") ? AiOutlineSun : AiOutlineMoon;
-            this.button.classList.remove("hidden");
+            this.span.classList.remove("hidden");
         }, 50);
     }
 
@@ -64,13 +64,16 @@ export class ThemeToggle extends LitElement {
             :host {
                 display: block;
             }
-            button {
-                background: none;
-                border: none;
+            span {
+                position: relative;
+                display: inline-block;
                 cursor: pointer;
                 color: currentColor;
                 transition: all 0.3s;
                 opacity: 1;
+            }
+            mjo-icon {
+                vertical-align: middle;
             }
             .hidden {
                 opacity: 0;

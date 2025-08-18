@@ -5,6 +5,7 @@ import Logo from "../Logo.astro";
 ---
 
 <section class="hero-section">
+    <div class="hero-gradient"></div>
     <div class="hero-container">
         <div class="hero-content">
             <div class="hero-badge">
@@ -19,8 +20,12 @@ import Logo from "../Logo.astro";
                 accessibility-first, and fully customizable.
             </p>
             <div class="hero-actions">
-                <Button href="/docs" size="lg">Get Started</Button>
-                <Button href="/docs/components" variant="outline" size="lg">View Components</Button>
+                <div class="hero-action">
+                    <Button href="/docs" size="lg">Get Started</Button>
+                </div>
+                <div class="hero-action right">
+                    <Button href="/docs/components" variant="outline" size="lg">Components</Button>
+                </div>
             </div>
         </div>
         <div class="hero-visual">
@@ -55,55 +60,112 @@ import Logo from "../Logo.astro";
     @reference "../../../styles/global.css";
 
     .hero-section {
-        position: relative;
-        overflow: hidden;
-        padding-top: 6rem;
-        padding-bottom: 6rem;
+        @apply relative overflow-hidden pt-24 pb-24 lg:pt-32 lg:pb-32;
     }
 
-    @media (min-width: 1024px) {
-        .hero-section {
-            padding-top: 8rem;
-            padding-bottom: 8rem;
-        }
+    .hero-container {
+        @apply container flex-col mx-auto px-4 lg:flex lg:items-center lg:gap-16;
     }
 
     .hero-gradient {
-        position: absolute;
-        inset: 0;
+        @apply absolute inset-0;
         background: linear-gradient(to bottom right, oklch(var(--color-primary) / 0.1), oklch(var(--color-accent) / 0.05), oklch(var(--color-secondary) / 0.1));
     }
 
     .hero-content {
-        position: relative;
-        z-index: 10;
-        text-align: center;
+        @apply relative z-10 text-center lg:flex-1;
+    }
+
+    .hero-badge {
+        @apply mb-6;
     }
 
     .hero-title {
-        @apply text-4xl pt-10 font-bold;
-    }
-
-    @media (min-width: 640px) {
-        .hero-title {
-            font-size: 3.75rem;
-        }
+        @apply text-4xl sm:text-6xl font-bold pt-10;
+        text-wrap: balance;
     }
 
     .logo {
-        @apply relative m-auto max-w-60 pt-10 pb-10;
+        @apply relative mx-auto max-w-60 pt-10 pb-10;
     }
 
     .hero-description {
-        margin: 1.5rem auto 0;
-        @apply max-w-[800px] text-lg;
+        @apply mt-6 mx-auto max-w-[800px] text-lg text-muted-foreground;
+        text-wrap: pretty;
     }
 
     .hero-actions {
-        margin-top: 2.5rem;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 1.5rem;
+        @apply mt-10 flex items-center justify-center gap-6;
+    }
+
+    .hero-action {
+        @apply flex-1 justify-end flex;
+    }
+    .hero-action.right {
+        @apply justify-start;
+    }
+
+    .hero-visual {
+        @apply mt-16 lg:mt-0 lg:flex-1;
+    }
+
+    .component-preview {
+        @apply relative mx-auto max-w-lg;
+    }
+
+    .preview-window {
+        @apply rounded-lg border bg-amber-200 shadow-2xl overflow-hidden;
+    }
+
+    .preview-header {
+        @apply flex items-center justify-between px-4 py-3 bg-muted/50 border-b;
+    }
+
+    .preview-controls {
+        @apply flex items-center gap-2;
+    }
+
+    .control-dot {
+        @apply w-3 h-3 rounded-full;
+    }
+
+    .control-red {
+        @apply bg-red-500;
+    }
+
+    .control-yellow {
+        @apply bg-yellow-500;
+    }
+
+    .control-green {
+        @apply bg-green-500;
+    }
+
+    .preview-title {
+        @apply text-sm font-medium text-muted-foreground;
+    }
+
+    .preview-content {
+        @apply p-6;
+    }
+
+    .preview-component {
+        @apply space-y-4;
+    }
+
+    .demo-button {
+        @apply inline-flex items-center justify-center px-4 py-2 bg-primary text-primary-foreground font-medium rounded-md hover:bg-primary/90 transition-colors;
+    }
+
+    .demo-card {
+        @apply rounded-lg border bg-amber-100 p-4 shadow-sm;
+    }
+
+    .demo-card-header {
+        @apply font-semibold text-foreground mb-2;
+    }
+
+    .demo-card-content {
+        @apply text-sm text-muted-foreground;
     }
 </style>

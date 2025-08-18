@@ -1,6 +1,7 @@
 ---
 import Footer from "../components/layout/Footer.astro";
 import Header from "../components/layout/Header.astro";
+import ParticlesBackground from "../components/ui/ParticlesBackground.astro";
 import BaseLayout from "./BaseLayout.astro";
 
 export interface Props {
@@ -13,15 +14,11 @@ const { title = "MJO-LITUI - Lit Element Library", description = "Modern Lit com
 
 <BaseLayout title={title} description={description}>
     <div class="landing-layout">
-        <!-- Header -->
+        <ParticlesBackground />
         <Header />
-
-        <!-- Main Content -->
         <main class="landing-main">
             <slot />
         </main>
-
-        <!-- Footer -->
         <Footer />
     </div>
 </BaseLayout>

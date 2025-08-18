@@ -1,6 +1,8 @@
+import type { MjoMenuButtonToggleEvent } from "mjo-litui/types/mjo-menu-button";
+
 import { navigationMenu } from "@/utils/navigation";
 import { LitElement, css, html } from "lit";
-import { customElement } from "lit/decorators.js";
+import { customElement, query, state } from "lit/decorators.js";
 import { repeat } from "lit/directives/repeat.js";
 
 import { AiOutlineGithub } from "mjo-icons/ai";
@@ -11,11 +13,16 @@ import "mjo-litui/mjo-menu-button";
 
 @customElement("mobile-navigation")
 export class MobileNavigation extends LitElement {
+    @state() isOpen = false;
+
+    @query(".container") container!: HTMLDivElement;
+    @query(".background") background!: HTMLDivElement;
+
     render() {
         return html`
-            <mjo-menu-button size="sm"></mjo-menu-button>
+            <mjo-menu-button size="sm" ?data-isopen=${this.isOpen} @menu-button-toggle=${this.#handleToggle}></mjo-menu-button>
             <div class="background"></div>
-            <aside class="menu-container">
+            <aside class="container">
                 <nav>
                     <ul>
                         ${repeat(
@@ -45,6 +52,49 @@ export class MobileNavigation extends LitElement {
         `;
     }
 
+    open() {
+        this.#open();
+    }
+
+    close() {
+        this.#close();
+    }
+
+    #close() {
+        this.isOpen = false;
+
+        this.background.animate(
+            [
+                { opacity: 1, display: "block" },
+                { opacity: 0, display: "none" },
+            ],
+            { duration: 300, fill: "forwards" }
+        );
+        this.container.animate([{ transform: "translateX(0)" }, { transform: "translateX(-100%)" }], { duration: 300, fill: "forwards" });
+    }
+
+    #open() {
+        this.isOpen = true;
+
+        this.background.animate(
+            [
+                { opacity: 0, display: "block" },
+                { opacity: 1, display: "block" },
+            ],
+            { duration: 300, fill: "forwards" }
+        );
+        this.container.animate([{ transform: "translateX(-100%)" }, { transform: "translateX(0)" }], { duration: 300, fill: "forwards" });
+    }
+
+    #handleToggle = (ev: MjoMenuButtonToggleEvent) => {
+        if (ev.detail.isOpen) {
+            console.log("Is open");
+            this.#open();
+        } else {
+            this.#close();
+        }
+    };
+
     static styles = [
         css`
             :host {
@@ -55,17 +105,8 @@ export class MobileNavigation extends LitElement {
                 top: -2px;
                 z-index: 1;
             }
-            .menu-container {
-                position: fixed;
-                top: 0;
-                left: 0;
-                height: 100dvh;
-                width: 250px;
-                padding: 20px 0 10px;
-                box-sizing: border-box;
-                display: flex;
-                flex-direction: column;
-                background-color: var(--color-background);
+            mjo-menu-button[data-isopen] {
+                color: white;
             }
             .background {
                 position: fixed;
@@ -74,6 +115,21 @@ export class MobileNavigation extends LitElement {
                 width: 100vw;
                 height: 100dvh;
                 background: rgba(0, 0, 0, 0.8);
+                /* display: none; */
+                opacity: 0;
+            }
+            .container {
+                position: fixed;
+                top: 0;
+                left: 0;
+                height: 100dvh;
+                width: 270px;
+                padding: 20px 0 10px;
+                box-sizing: border-box;
+                display: flex;
+                flex-direction: column;
+                background-color: var(--color-background);
+                transform: translateX(-100%);
             }
             nav {
                 position: relative;
