@@ -119,6 +119,8 @@ import DocsLayout from "../../layouts/DocsLayout.astro";
 </DocsLayout>
 
 <style>
+    @reference "../../styles/global.css";
+
     .prose {
         @apply max-w-none;
     }
@@ -149,7 +151,6 @@ import DocsLayout from "../../layouts/DocsLayout.astro";
 
     .action-card {
         @apply block p-6 rounded-lg border border-border bg-background hover:bg-accent/50 transition-colors;
-        @apply text-decoration-none;
     }
 
     .action-card-icon {
@@ -171,6 +172,6 @@ import DocsLayout from "../../layouts/DocsLayout.astro";
 
     .community-link {
         @apply inline-flex items-center gap-2 px-4 py-2 rounded-md border border-border;
-        @apply text-foreground hover:bg-accent transition-colors text-decoration-none;
+        @apply text-foreground hover:bg-accent transition-colors;
     }
 </style>
