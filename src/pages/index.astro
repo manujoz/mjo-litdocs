@@ -1,12 +1,22 @@
 ---
+import Container from "@/components/ui/Container.astro";
 import LandingLayout from "../layouts/LandingLayout.astro";
 import Hero from "@/components/ui/Hero.astro";
+
+import { ComponentsCloud } from "@/components/lit/components-cloud.ts";
 ---
 
 <LandingLayout>
+    <!-- Hero Section -->
     <Hero />
+
+    <!-- Components cloud -->
+    <Container class="py-12" tag="section">
+        <ComponentsCloud client:only />
+    </Container>
+
     <!-- Features Section -->
-    <section class="features-section">
+    <Container class="pt-5 pb-16" tag="section">
         <div class="features-container">
             <div class="features-header">
                 <h2 class="features-title">Why Choose MJO-LITUI?</h2>
@@ -89,10 +99,9 @@ import Hero from "@/components/ui/Hero.astro";
                 </div>
             </div>
         </div>
-    </section>
-
+    </Container>
     <!-- Quick Start Section -->
-    <section class="quickstart-section">
+    <Container class="py-8" tag="section">
         <div class="quickstart-container">
             <div class="quickstart-content">
                 <h2 class="quickstart-title">Get Started in Seconds</h2>
@@ -169,7 +178,7 @@ import Hero from "@/components/ui/Hero.astro";
                 </div>
             </div>
         </div>
-    </section>
+    </Container>
 </LandingLayout>
 
 <script>
@@ -221,18 +230,6 @@ import Hero from "@/components/ui/Hero.astro";
 </script>
 
 <style>
-    .features-section {
-        padding-top: 6rem;
-        padding-bottom: 6rem;
-    }
-
-    @media (min-width: 640px) {
-        .features-section {
-            padding-top: 8rem;
-            padding-bottom: 8rem;
-        }
-    }
-
     .features-header {
         margin-left: auto;
         margin-right: auto;
