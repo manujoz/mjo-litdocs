@@ -1,0 +1,66 @@
+---
+export interface BreadcrumbItem {
+    label: string;
+    href?: string;
+    isCurrentPage?: boolean;
+}
+
+interface Props {
+    items: BreadcrumbItem[];
+}
+
+const { items } = Astro.props;
+---
+
+<nav aria-label="Breadcrumb" class="breadcrumb-nav">
+    <ol class="breadcrumb-list">
+        {
+            items.map((item, index) => (
+                <li class="breadcrumb-item">
+                    {item.href && !item.isCurrentPage ? (
+                        <a href={item.href} class="breadcrumb-link">
+                            {item.label}
+                        </a>
+                    ) : (
+                        <span class="breadcrumb-current" aria-current={item.isCurrentPage ? "page" : undefined}>
+                            {item.label}
+                        </span>
+                    )}
+                    {index < items.length - 1 && (
+                        <span class="breadcrumb-separator" aria-hidden="true">
+                            /
+                        </span>
+                    )}
+                </li>
+            ))
+        }
+    </ol>
+</nav>
+
+<style>
+    @reference "../../styles/global.css";
+
+    .breadcrumb-nav {
+        @apply mb-6;
+    }
+
+    .breadcrumb-list {
+        @apply flex items-center gap-2 text-sm;
+    }
+
+    .breadcrumb-item {
+        @apply flex items-center gap-2;
+    }
+
+    .breadcrumb-link {
+        @apply text-muted-foreground hover:text-foreground transition-colors no-underline;
+    }
+
+    .breadcrumb-current {
+        @apply text-foreground font-medium;
+    }
+
+    .breadcrumb-separator {
+        @apply text-muted-foreground;
+    }
+</style>

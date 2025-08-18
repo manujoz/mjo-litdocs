@@ -1,0 +1,11 @@
+# https://www.robotstxt.org/robotstxt.html
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://mjo-litui.dev/sitemap.xml
+
+# Disallow unnecessary paths
+Disallow: /api/
+Disallow: /_astro/
+Disallow: /admin/

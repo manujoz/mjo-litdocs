@@ -7,9 +7,18 @@ import LandingLayout from "../layouts/LandingLayout.astro";
 
 import { ComponentsCloud } from "@/components/lit/components-cloud.ts";
 import FeatureCard from "@/components/ui/FeatureCard.astro";
+
+// SEO metadata
+const seoData = {
+    title: "MJO LITUI - Modern Lit Element Component Library",
+    description: "Build beautiful, accessible web applications with MJO LITUI - A comprehensive Lit Element component library with TypeScript support, modern design, and excellent developer experience.",
+    keywords: "lit element, web components, ui library, typescript, javascript, modern ui, component library, lit framework, web development",
+    ogImage: "/og-homepage.jpg",
+    canonicalUrl: "https://mjo-litui.dev"
+};
 ---
 
-<LandingLayout>
+<LandingLayout {...seoData}>
     <!-- Hero Section -->
     <Hero />
 
