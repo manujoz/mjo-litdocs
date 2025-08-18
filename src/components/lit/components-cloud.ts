@@ -75,7 +75,7 @@ export class ComponentsCloud extends LitElement {
 
             .container {
                 position: relative;
-                height: 400px;
+                height: 500px;
             }
 
             @keyframes float {

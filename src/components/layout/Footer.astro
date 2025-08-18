@@ -1,9 +1,9 @@
 ---
-// Footer component with links and company information
+import Container from "../ui/Container.astro";
 ---
 
 <footer class="site-footer">
-    <div class="site-footer-inner">
+    <Container tag="div">
         <div class="footer-grid">
             <!-- Documentation Links -->
             <div class="footer-section">
@@ -29,18 +29,18 @@
                 <h3 class="footer-title">Community</h3>
                 <ul class="footer-links">
                     <li>
-                        <a href="https://github.com/username/mjo-litui" class="footer-link" target="_blank" rel="noopener noreferrer"> GitHub </a>
+                        <a href="https://github.com/manujoz/mjo-litui" class="footer-link" target="_blank" rel="noopener noreferrer"> GitHub </a>
                     </li>
                     <li>
-                        <a href="https://github.com/username/mjo-litui/issues" class="footer-link" target="_blank" rel="noopener noreferrer"> Issues </a>
+                        <a href="https://github.com/manujoz/mjo-litui/issues" class="footer-link" target="_blank" rel="noopener noreferrer"> Issues </a>
                     </li>
                     <li>
-                        <a href="https://github.com/username/mjo-litui/discussions" class="footer-link" target="_blank" rel="noopener noreferrer">
+                        <a href="https://github.com/manujoz/mjo-litui/discussions" class="footer-link" target="_blank" rel="noopener noreferrer">
                             Discussions
                         </a>
                     </li>
                     <li>
-                        <a href="https://github.com/username/mjo-litui/releases" class="footer-link" target="_blank" rel="noopener noreferrer"> Releases </a>
+                        <a href="https://github.com/manujoz/mjo-litui/releases" class="footer-link" target="_blank" rel="noopener noreferrer"> Releases </a>
                     </li>
                 </ul>
             </div>
@@ -63,32 +63,15 @@
                     </li>
                 </ul>
             </div>
-
-            <!-- Technology Stack -->
-            <div class="footer-section">
-                <h3 class="footer-title">Built With</h3>
-                <ul class="footer-links">
-                    <li>
-                        <a href="https://lit.dev" class="footer-link" target="_blank" rel="noopener noreferrer"> Lit </a>
-                    </li>
-                    <li>
-                        <a href="https://astro.build" class="footer-link" target="_blank" rel="noopener noreferrer"> Astro </a>
-                    </li>
-                    <li>
-                        <a href="https://tailwindcss.com" class="footer-link" target="_blank" rel="noopener noreferrer"> Tailwind CSS </a>
-                    </li>
-                    <li>
-                        <a href="https://www.typescriptlang.org" class="footer-link" target="_blank" rel="noopener noreferrer"> TypeScript </a>
-                    </li>
-                </ul>
-            </div>
         </div>
+    </Container>
 
-        <!-- Footer Bottom -->
-        <div class="footer-bottom">
+    <!-- Footer Bottom -->
+    <div class="footer-bottom">
+        <Container tag="div">
             <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
                 <p class="text-sm text-muted-foreground">
-                    © {new Date().getFullYear()} MJO-LITUI. Built with ❤️ for the web component community.
+                    © {new Date().getFullYear()} MJO LITUI. Built with ❤️ for the web component community.
                 </p>
 
                 <div class="flex items-center gap-4">
@@ -104,7 +87,7 @@
                     <a href="/privacy" class="text-sm text-muted-foreground hover:text-foreground transition-colors"> Privacy </a>
                 </div>
             </div>
-        </div>
+        </Container>
     </div>
 </footer>
 
@@ -115,16 +98,12 @@
         @apply border-t border-border bg-muted/50 mt-16;
     }
 
-    .site-footer-inner {
-        @apply py-12;
-    }
-
     .footer-grid {
-        @apply grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4;
+        @apply py-14 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3;
     }
 
     .footer-section {
-        @apply flex flex-col gap-4;
+        @apply flex flex-col gap-4 items-center justify-center text-center;
     }
 
     .footer-title {
@@ -140,6 +119,6 @@
     }
 
     .footer-bottom {
-        @apply border-t border-border pt-8 mt-8 text-center text-sm text-muted-foreground;
+        @apply border-t border-border py-14 text-center text-sm text-muted-foreground;
     }
 </style>

@@ -59,6 +59,9 @@
     --color-border: oklch(85.452% 0.0001 271.152);
     --color-muted: oklch(0.96 0.01 247);
     --color-muted-foreground: oklch(38.141% 0.03364 262.104);
+
+    --color-card: oklch(98.288% 0.00104 11.251);
+    --shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.2);
 }
 
 @theme inline {
@@ -70,7 +73,10 @@
     /* Base UI colors - DARK THEME */
     --color-background: oklch(13.441% 0.00002 271.152); /* Very dark background */
     --color-foreground: oklch(0.98 0.003 247); /* Light text */
-    --color-border: oklch(0.27 0.006 286); /* Dark gray borders */
-    --color-muted: oklch(0.15 0.004 285); /* Subtle elements */
+    --color-border: oklch(26.982% 0.00553 285.95); /* Dark gray borders */
+    --color-muted: oklch(19.125% 0.00002 271.152); /* Subtle elements */
     --color-muted-foreground: oklch(81.399% 0.02694 259.095); /* Muted text */
+
+    --color-card: oklch(20.019% 0.00002 271.152);
+    --shadow: 0 2px 10px 0 oklch(0% 0 0);
 }
