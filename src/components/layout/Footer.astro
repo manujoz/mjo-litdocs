@@ -107,3 +107,39 @@
         </div>
     </div>
 </footer>
+
+<style>
+    @reference "../../styles/global.css";
+
+    .site-footer {
+        @apply border-t border-border bg-muted/50 mt-16;
+    }
+
+    .site-footer-inner {
+        @apply py-12;
+    }
+
+    .footer-grid {
+        @apply grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4;
+    }
+
+    .footer-section {
+        @apply flex flex-col gap-4;
+    }
+
+    .footer-title {
+        @apply text-sm font-semibold text-foreground;
+    }
+
+    .footer-links {
+        @apply flex flex-col gap-2;
+    }
+
+    .footer-link {
+        @apply text-sm text-muted-foreground transition-colors duration-200 no-underline hover:text-foreground;
+    }
+
+    .footer-bottom {
+        @apply border-t border-border pt-8 mt-8 text-center text-sm text-muted-foreground;
+    }
+</style>

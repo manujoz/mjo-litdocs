@@ -1,0 +1,86 @@
+<!-- Component Preview Placeholder -->
+<div class="component-preview">
+    <div class="preview-window">
+        <div class="preview-header">
+            <div class="preview-controls">
+                <div class="control-dot control-red"></div>
+                <div class="control-dot control-yellow"></div>
+                <div class="control-dot control-green"></div>
+            </div>
+            <div class="preview-title">Component Preview</div>
+        </div>
+        <div class="preview-content">
+            <div class="preview-component">
+                <!-- This will be replaced with actual Lit components -->
+                <div class="demo-button">Click me</div>
+                <div class="demo-card">
+                    <div class="demo-card-header">Card Title</div>
+                    <div class="demo-card-content">Beautiful card component with smooth animations.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    @reference "../../../styles/global.css";
+
+    .component-preview {
+        @apply relative mx-auto max-w-lg;
+    }
+
+    .preview-window {
+        @apply rounded-lg border bg-amber-200 shadow-2xl overflow-hidden;
+    }
+
+    .preview-header {
+        @apply flex items-center justify-between px-4 py-3 bg-muted/50 border-b;
+    }
+
+    .preview-controls {
+        @apply flex items-center gap-2;
+    }
+
+    .control-dot {
+        @apply w-3 h-3 rounded-full;
+    }
+
+    .control-red {
+        @apply bg-red-500;
+    }
+
+    .control-yellow {
+        @apply bg-yellow-500;
+    }
+
+    .control-green {
+        @apply bg-green-500;
+    }
+
+    .preview-title {
+        @apply text-sm font-medium text-muted-foreground;
+    }
+
+    .preview-content {
+        @apply p-6;
+    }
+
+    .preview-component {
+        @apply space-y-4;
+    }
+
+    .demo-button {
+        @apply inline-flex items-center justify-center px-4 py-2 bg-primary text-primary-foreground font-medium rounded-md hover:bg-primary/90 transition-colors;
+    }
+
+    .demo-card {
+        @apply rounded-lg border bg-amber-100 p-4 shadow-sm;
+    }
+
+    .demo-card-header {
+        @apply font-semibold text-foreground mb-2;
+    }
+
+    .demo-card-content {
+        @apply text-sm text-muted-foreground;
+    }
+</style>

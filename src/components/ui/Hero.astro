@@ -1,0 +1,82 @@
+---
+import Badge from "./Badge.astro";
+import Button from "./Button.astro";
+import Logo from "./Logo.astro";
+---
+
+<section class="hero-section">
+    <div class="hero-gradient"></div>
+    <div class="hero-container">
+        <div class="hero-content">
+            <div class="hero-badge">
+                <Badge label="v1.0.0 Released" variant="secondary" />
+            </div>
+            <h1 class="hero-title">Build beautiful interfaces with</h1>
+            <p class="logo">
+                <Logo type="vertical" />
+            </p>
+            <p class="hero-description">
+                A modern Lit component library designed for developers who want to create stunning user interfaces with minimal effort. Built with TypeScript,
+                accessibility-first, and fully customizable.
+            </p>
+            <div class="hero-actions">
+                <div class="hero-action">
+                    <Button href="/docs" size="lg">Get Started</Button>
+                </div>
+                <div class="hero-action right">
+                    <Button href="/docs/components" variant="outline" size="lg">Components</Button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    @reference "../../styles/global.css";
+
+    .hero-section {
+        @apply relative overflow-hidden pt-24 pb-24 lg:pt-32 lg:pb-32;
+    }
+
+    .hero-container {
+        @apply container flex-col mx-auto px-4 lg:flex lg:items-center lg:gap-16;
+    }
+
+    .hero-gradient {
+        @apply absolute inset-0;
+        background: linear-gradient(to bottom right, oklch(var(--color-primary) / 0.1), oklch(var(--color-accent) / 0.05), oklch(var(--color-secondary) / 0.1));
+    }
+
+    .hero-content {
+        @apply relative z-10 text-center lg:flex-1;
+    }
+
+    .hero-badge {
+        @apply mb-6;
+    }
+
+    .hero-title {
+        @apply text-4xl sm:text-6xl font-bold pt-10;
+        text-wrap: balance;
+    }
+
+    .logo {
+        @apply relative mx-auto max-w-60 pt-10 pb-10;
+    }
+
+    .hero-description {
+        @apply mt-6 mx-auto max-w-[800px] text-lg text-muted-foreground;
+        text-wrap: pretty;
+    }
+
+    .hero-actions {
+        @apply mt-10 flex items-center justify-center gap-6;
+    }
+
+    .hero-action {
+        @apply flex-1 justify-end flex;
+    }
+    .hero-action.right {
+        @apply justify-start;
+    }
+</style>
