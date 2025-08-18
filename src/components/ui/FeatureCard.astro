@@ -1,0 +1,55 @@
+---
+interface FeatureCardProps {
+    icon: string;
+    title: string;
+    color: "primary" | "secondary";
+}
+
+import { BsBox } from "mjo-icons/bs";
+
+const { icon = BsBox, title, color = "primary" } = Astro.props as FeatureCardProps;
+
+const classLists = "card " + color;
+---
+
+<article class={classLists}>
+    <header class="header">
+        <div class="icon" set:html={icon} />
+        <h3 class="title">{title}</h3>
+    </header>
+    <p class="description">
+        <slot />
+    </p>
+</article>
+
+<style>
+    @reference "../../styles/global.css";
+
+    .card {
+        @apply p-6 bg-card rounded-lg shadow;
+    }
+
+    .header {
+        @apply flex gap-4 mb-6;
+    }
+
+    .icon {
+        @apply grow-0 basis-14  rounded-tl-sm rounded-tr-2xl rounded-bl-2xl rounded-br-sm p-3;
+    }
+
+    .primary .icon {
+        @apply text-primary bg-primary-500/10;
+    }
+
+    .secondary .icon {
+        @apply text-secondary bg-secondary-500/10;
+    }
+
+    .title {
+        @apply text-base font-semibold leading-7 text-foreground flex items-center;
+    }
+
+    .description {
+        @apply text-base leading-7 text-muted-foreground;
+    }
+</style>
