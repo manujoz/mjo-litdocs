@@ -126,3 +126,59 @@ const navigation = [
         </div>
     </div>
 </aside>
+<style>
+    @reference "../../styles/global.css";
+
+    .sidebar {
+        @apply sticky top-20 h-[calc(100vh-5rem)] overflow-y-auto pb-10;
+    }
+
+    .sidebar-section {
+        @apply mb-6;
+    }
+
+    .sidebar-section-title {
+        @apply mb-3 px-3 text-xs font-semibold uppercase tracking-wide text-muted-foreground;
+    }
+
+    .sidebar-nav {
+        @apply flex flex-col gap-1;
+    }
+
+    .sidebar-nav-item {
+        @apply block;
+    }
+
+    .sidebar-nav-link {
+        @apply flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-muted-foreground transition-all duration-200 no-underline hover:bg-accent hover:text-accent-foreground;
+    }
+
+    .sidebar-nav-link-active {
+        @apply bg-accent text-accent-foreground;
+    }
+
+    .sidebar-nav-icon {
+        @apply w-4 h-4 shrink-0;
+    }
+
+    /* Table of Contents */
+    .toc {
+        @apply sticky top-20 h-[calc(100vh-5rem)] overflow-y-auto;
+    }
+
+    .toc-title {
+        @apply mb-4 text-sm font-semibold text-foreground;
+    }
+
+    .toc-nav {
+        @apply flex flex-col gap-2;
+    }
+
+    .toc-link {
+        @apply block py-1 text-xs text-muted-foreground transition-colors duration-200 no-underline hover:text-foreground;
+    }
+
+    .toc-link-active {
+        @apply text-primary border-l-2 border-primary pl-2;
+    }
+</style>

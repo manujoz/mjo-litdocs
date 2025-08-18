@@ -1,7 +1,4 @@
 @import "tailwindcss";
-/* @import "./themes.css"; */
-@import "./components.css";
-@import "./layout.css";
 @import "./prism.css";
 
 @theme {
@@ -52,16 +49,16 @@
     --color-destructive-900: oklch(39.6% 0.141 25.723);
     --color-destructive-950: oklch(25.8% 0.092 26.042);
 
+    /* Accent color palette */
+    --color-accent: oklch(62.598% 0.26677 340.647);
+    --color-accent-foreground: oklch(100% 0.00011 271.152);
+
     /* Base UI colors - LIGHT THEM */
     --color-background: oklch(94.688% 0.00105 11.528);
     --color-foreground: oklch(0.13 0.028 261);
-    --color-accent: oklch(0.96 0.01 247);
-    --color-accent-foreground: oklch(0.13 0.028 261);
-    --color-input: oklch(0.89 0.006 264);
-    --color-border: oklch(0.89 0.006 264);
+    --color-border: oklch(85.452% 0.0001 271.152);
     --color-muted: oklch(0.96 0.01 247);
     --color-muted-foreground: oklch(38.141% 0.03364 262.104);
-    --color-ring: oklch(69.577% 0.14756 237.41);
 }
 
 @theme inline {
@@ -74,19 +71,6 @@
     --color-background: oklch(14.247% 0.02318 253.402); /* Very dark background */
     --color-foreground: oklch(0.98 0.003 247); /* Light text */
     --color-border: oklch(0.27 0.006 286); /* Dark gray borders */
-    --color-input: oklch(0.27 0.006 286); /* Input backgrounds */
     --color-muted: oklch(0.15 0.004 285); /* Subtle elements */
-    --color-muted-foreground: oklch(0.64 0.017 285); /* Secondary text */
-
-    /* Primary colors in dark theme */
-    --color-primary-foreground: oklch(0.09 0.01 247); /* Text on primary */
-
-    /* Destructive colors in dark theme */
-    --color-destructive-foreground: oklch(0.98 0.003 247); /* Text on destructive */
-
-    /* Accent colors in dark theme */
-    --color-accent: oklch(0.27 0.006 286); /* Accent background */
-    --color-accent-foreground: oklch(0.98 0.003 247); /* Text on accent */
-
-    --color-muted-foreground: oklch(81.399% 0.02694 259.095);
+    --color-muted-foreground: oklch(81.399% 0.02694 259.095); /* Muted text */
 }
