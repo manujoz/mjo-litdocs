@@ -2,7 +2,7 @@
 import QuickStart from "@/components/index/QuickStart.astro";
 import Container from "@/components/ui/Container.astro";
 import Hero from "@/components/ui/Hero.astro";
-import { BsBox, BsCodeSlash, BsGrid1X2, BsLightningCharge, BsSliders, BsUniversalAccess } from "mjo-icons/bs";
+import { BsBox, BsCodeSlash, BsLightningCharge, BsServer, BsSliders, BsUniversalAccess } from "mjo-icons/bs";
 import LandingLayout from "../layouts/LandingLayout.astro";
 
 import { ComponentsCloud } from "@/components/lit/components-cloud.ts";
@@ -11,10 +11,11 @@ import FeatureCard from "@/components/ui/FeatureCard.astro";
 // SEO metadata
 const seoData = {
     title: "MJO LITUI - Modern Lit Element Component Library",
-    description: "Build beautiful, accessible web applications with MJO LITUI - A comprehensive Lit Element component library with TypeScript support, modern design, and excellent developer experience.",
+    description:
+        "Build beautiful, accessible web applications with MJO LITUI - A comprehensive Lit Element component library with TypeScript support, modern design, and excellent developer experience.",
     keywords: "lit element, web components, ui library, typescript, javascript, modern ui, component library, lit framework, web development",
     ogImage: "/og-homepage.jpg",
-    canonicalUrl: "https://mjo-litui.dev"
+    canonicalUrl: "https://mjo-litui.dev",
 };
 ---
 
@@ -23,7 +24,7 @@ const seoData = {
     <Hero />
 
     <!-- Components cloud -->
-    <Container class="py-12" tag="section">
+    <Container class="py-12 h-[700px] overflow-x-hidden" tag="section">
         <ComponentsCloud client:only />
     </Container>
 
@@ -40,8 +41,8 @@ const seoData = {
                     Built on Lit for optimal performance with minimal bundle size and efficient updates.
                 </FeatureCard>
 
-                <FeatureCard icon={BsGrid1X2} title="Fully Responsive">
-                    Components adapt beautifully to any screen size with mobile-first design principles.
+                <FeatureCard icon={BsServer} title="SSR Support">
+                    Server side rendering (SSR) support with @lit-labs/ssr and responsive design out of the box.
                 </FeatureCard>
 
                 <FeatureCard icon={BsUniversalAccess} title="Accessible First">

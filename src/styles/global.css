@@ -83,6 +83,8 @@
     --scrollbar-track-color: oklch(21.779% 0.00002 271.152);
     --scrollbar-thumb-color: oklch(36.002% 0.00004 271.152);
     --scrollbar-thumb-hover-color: oklch(45.35% 0.00165 285.873);
+
+    --aa: oklch(25.197% 0.00003 271.152);
 }
 
 /* === CUSTOM SCROLLBAR STYLES === */
