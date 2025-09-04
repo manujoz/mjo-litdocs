@@ -1,4 +1,5 @@
 import type { MjoIconClickEvent } from "mjo-litui/types/mjo-icon";
+import type { MjoThemeChangeEvent, MjoThemeConfig, MjoThemeModes } from "mjo-litui/types/mjo-theme";
 
 import { LitElement, css, html } from "lit";
 import { customElement, state } from "lit/decorators.js";
@@ -7,27 +8,18 @@ import { GiPeaceDove } from "mjo-icons/gi";
 import { SiLit } from "mjo-icons/si";
 import { TbDeviceTvOldFilled } from "mjo-icons/tb";
 
-import type { ThemeToggleEvent } from "@/types/theme";
+import { themeConfig } from "@/utils/theme";
+
 import "mjo-litui/mjo-button";
 import "mjo-litui/mjo-card";
 import "mjo-litui/mjo-chip";
 import "mjo-litui/mjo-image";
 import "mjo-litui/mjo-textfield";
 import "mjo-litui/mjo-theme";
-import type { MjoThemeConfig, MjoThemeModes } from "mjo-litui/types/mjo-theme";
 
 const themeDefault: MjoThemeConfig = {
-    spaceLarge: "0px",
-    light: {
-        backgroundColorCard: {
-            default: "#faf9f9",
-        },
-    },
-    dark: {
-        backgroundColorCard: {
-            default: "#161616",
-        },
-    },
+    ...themeConfig,
+    spaceLarge: "0",
 };
 const themePeace: MjoThemeConfig = {
     primaryColor: "#23BCA0",
@@ -127,9 +119,9 @@ export class ThemingExample extends LitElement {
                         </div>
                         <div class="info">
                             <mjo-typography tag="h4" size="heading2" weight="bold">John Doe</mjo-typography>
-                            <mjo-typography tag="p" size="body1" weight="regular"
-                                >Fullstack developer with extensive knowledge in web technologies.</mjo-typography
-                            >
+                            <mjo-typography tag="p" size="body1" weight="regular">
+                                Fullstack developer with extensive knowledge in web technologies.
+                            </mjo-typography>
                             <div class="skills">
                                 <mjo-chip label="React" variant=${this.themeConfig === "retro" ? "solid" : "flat"} color="info"></mjo-chip>
                                 <mjo-chip label="PHP" variant=${this.themeConfig === "retro" ? "solid" : "flat"} color="warning"></mjo-chip>
@@ -148,13 +140,13 @@ export class ThemingExample extends LitElement {
 
         this.theme = this.#getThemeFromCookie() || "dark";
 
-        document.addEventListener("theme-change", this.#handleThemeToggle);
+        document.addEventListener("mjo-theme:change", this.#handleThemeToggle);
     }
 
     disconnectedCallback(): void {
         super.disconnectedCallback();
 
-        document.removeEventListener("theme-change", this.#handleThemeToggle);
+        document.removeEventListener("mjo-theme:change", this.#handleThemeToggle);
     }
 
     #getThemeFromCookie(): MjoThemeModes | null {
@@ -166,7 +158,7 @@ export class ThemingExample extends LitElement {
     }
 
     #handleThemeToggle = (event: Event) => {
-        const theme = (event as ThemeToggleEvent).detail;
+        const theme = (event as MjoThemeChangeEvent).detail.theme;
         if (theme) {
             this.theme = theme;
         }
@@ -201,7 +193,7 @@ export class ThemingExample extends LitElement {
                 margin-bottom: 20px;
             }
             .selectable > div {
-                background-color: var(--mjo-background-color-low);
+                background-color: var(--mjo-background-color-card);
                 padding: 2px 7px;
                 border-radius: var(--mjo-radius-large);
                 display: flex;
@@ -217,7 +209,7 @@ export class ThemingExample extends LitElement {
                 color: var(--mjo-primary-color);
             }
             mjo-theme {
-                height: 200px;
+                height: 170px;
             }
             .user {
                 position: relative;

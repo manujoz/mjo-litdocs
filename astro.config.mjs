@@ -2,8 +2,6 @@
 import sitemap from "@astrojs/sitemap";
 import { defineConfig, fontProviders } from "astro/config";
 
-import tailwindcss from "@tailwindcss/vite";
-
 import lit from "mjo-astro-lit";
 
 // https://astro.build/config
@@ -11,7 +9,6 @@ export default defineConfig({
     site: "https://mjo-litui.dev",
     output: "server",
     vite: {
-        plugins: [tailwindcss()],
         resolve: {
             alias: {
                 "@astrojs/lit": "mjo-astro-lit",

@@ -1,71 +1,44 @@
-import type { ThemeToggleEvent } from "@/types/theme";
+import type { MjoThemeConfig } from "mjo-litui/types/mjo-theme";
 
-export class ThemeManager {
-    private static instance: ThemeManager;
-    private currentTheme: "light" | "dark" = "dark";
-
-    static getInstance(): ThemeManager {
-        if (!ThemeManager.instance) {
-            ThemeManager.instance = new ThemeManager();
-        }
-        return ThemeManager.instance;
-    }
-
-    constructor() {
-        if (typeof window !== "undefined") {
-            this.init();
-        }
-    }
-
-    private init(): void {
-        const savedTheme = localStorage.getItem("theme") as "light" | "dark";
-        this.currentTheme = savedTheme || "dark";
-        this.applyTheme();
-    }
-
-    setTheme(theme: "light" | "dark"): void {
-        this.currentTheme = theme;
-        localStorage.setItem("theme", theme);
-        this.applyTheme();
-
-        document.dispatchEvent(new CustomEvent("theme-change", { detail: this.currentTheme }));
-    }
-
-    getTheme(): "light" | "dark" {
-        return this.currentTheme;
-    }
-
-    private applyTheme(): void {
-        const html = document.querySelector("html");
-        const body = document.body;
-
-        if (this.currentTheme === "dark") {
-            if (html) html.classList.add("dark");
-            if (body) body.classList.add("dark");
-        } else {
-            if (html) html.classList.remove("dark");
-            if (body) body.classList.remove("dark");
-        }
-    }
-
-    toggleTheme(): void {
-        if (this.currentTheme === "light") {
-            this.setTheme("dark");
-        } else {
-            this.setTheme("light");
-        }
-    }
-
-    isDark(): boolean {
-        if (this.currentTheme === "dark") return true;
-        return false;
-    }
-}
-
-export const themeManager = ThemeManager.getInstance();
-
-declare global {
-    interface HTMLElementEventMap {
-        "theme-change": ThemeToggleEvent;
-    }
-}
+export const themeConfig: MjoThemeConfig = {
+    light: {
+        borderColor: {
+            low: "#dddddd",
+            default: "#cccccc",
+            high: "#aaaaaa",
+        },
+        backgroundColor: {
+            low: "#f0f0f0",
+            default: "#eeeded",
+            high: "#dddddd",
+        },
+        foregroundColor: {
+            low: "#333333",
+            default: "#111111",
+            high: "#000000",
+        },
+        backgroundColorCard: {
+            default: "#faf9f9",
+        },
+    },
+    dark: {
+        borderColor: {
+            low: "#181818",
+            default: "#333333",
+            high: "#555555",
+        },
+        backgroundColor: {
+            low: "#000000",
+            default: "#080808",
+            high: "#181818",
+        },
+        foregroundColor: {
+            low: "#bbbbbb",
+            default: "#f7f9fa",
+            high: "#ffffff",
+        },
+        backgroundColorCard: {
+            default: "#161616",
+        },
+    },
+};

@@ -128,7 +128,7 @@
     .particles-gradient {
         position: absolute;
         inset: 0;
-        background: radial-gradient(ellipse at center, var(--color-accent), transparent 70%);
+        background: radial-gradient(ellipse at center, var(--mjo-secondary-color), transparent 70%);
         opacity: 0.02;
         will-change: transform;
     }
@@ -162,34 +162,34 @@
 
     /* Primary particles - Blue gradient */
     .particle-primary {
-        background: radial-gradient(circle, var(--color-primary-100), var(--color-primary-400));
+        background: radial-gradient(circle, var(--mjo-primary-color-100), var(--mjo-primary-color-400));
         opacity: 0.5;
     }
 
     :global(.dark) .particle-primary {
-        background: radial-gradient(circle, var(--color-primary-200), var(--color-primary-500));
+        background: radial-gradient(circle, var(--mjo-primary-color-200), var(--mjo-primary-color-500));
         opacity: 0.25;
     }
 
     /* Secondary particles - Green gradient */
     .particle-secondary {
-        background: radial-gradient(circle, var(--color-secondary-100), var(--color-secondary-400));
+        background: radial-gradient(circle, var(--color-secondary-100), var(--mjo-secondary-color-400));
         opacity: 0.6;
     }
 
     :global(.dark) .particle-secondary {
-        background: radial-gradient(circle, var(--color-secondary-200), var(--color-secondary-500));
+        background: radial-gradient(circle, var(--mjo-secondary-color-200), var(--mjo-secondary-color-500));
         opacity: 0.2;
     }
 
     /* Accent particles - Gray gradient */
     .particle-accent {
-        background: var(--color-destructive);
+        background: var(--mjo-color-red);
         opacity: 0.1;
     }
 
     :global(.dark) .particle-accent {
-        background: var(--color-destructive);
+        background: var(--mjo-color-red);
         opacity: 0.15;
     }
 

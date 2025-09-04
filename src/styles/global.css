@@ -1,93 +1,13 @@
-@import "tailwindcss";
 @import "./prism.css";
 
-@theme {
-    /* === TEMA CLARO (por defecto) === */
-
-    /* Primary color palette */
-    --color-primary: rgb(26, 168, 237);
-    --color-primary: oklch(69.577% 0.14756 237.41);
-    --color-primary-foreground: oklch(1 0 0);
-    --color-primary-50: oklch(97.7% 0.013 236.71);
-    --color-primary-100: oklch(95.315% 0.02171 236.91);
-    --color-primary-200: oklch(90.531% 0.04942 230.99);
-    --color-primary-300: oklch(83.446% 0.09813 230.4);
-    --color-primary-400: oklch(75.461% 0.14285 232.75);
-    --color-primary-500: oklch(69.577% 0.14756 237.41);
-    --color-primary-600: oklch(60.092% 0.13227 242.05);
-    --color-primary-700: oklch(50.969% 0.1147 242.84);
-    --color-primary-800: oklch(44.946% 0.09713 240.88);
-    --color-primary-900: oklch(39.423% 0.08357 240.96);
-    --color-primary-950: oklch(29.3% 0.066 243.24);
-
-    /* Secondary color palette */
-    --color-secondary: oklch(75.208% 0.20202 131.66);
-    --color-secondary-foreground: oklch(1 0 0);
-    --color-secondary-50: oklch(98.6% 0.031 121.57);
-    --color-secondary-100: oklch(96.382% 0.0608 123.14);
-    --color-secondary-200: oklch(93.163% 0.11461 125.14);
-    --color-secondary-300: oklch(88.745% 0.17741 127.48);
-    --color-secondary-400: oklch(82.826% 0.21321 129.66);
-    --color-secondary-500: oklch(75.208% 0.20202 131.66);
-    --color-secondary-600: oklch(63.526% 0.17521 132.5);
-    --color-secondary-700: oklch(52.245% 0.13841 132.4);
-    --color-secondary-800: oklch(44.663% 0.11161 131.75);
-    --color-secondary-900: oklch(40.182% 0.0948 131.88);
-    --color-secondary-950: oklch(27.4% 0.072 132.92);
-
-    /* Destructive color palette */
-    --color-destructive: oklch(63.7% 0.237 25.331);
-    --color-destructive-foreground: oklch(1 0 0);
-    --color-destructive-50: oklch(97.1% 0.013 17.38);
-    --color-destructive-100: oklch(93.6% 0.032 17.717);
-    --color-destructive-200: oklch(88.5% 0.062 18.334);
-    --color-destructive-300: oklch(80.8% 0.114 19.571);
-    --color-destructive-400: oklch(70.4% 0.191 22.216);
-    --color-destructive-500: oklch(63.7% 0.237 25.331);
-    --color-destructive-600: oklch(57.7% 0.245 27.325);
-    --color-destructive-700: oklch(50.5% 0.213 27.518);
-    --color-destructive-800: oklch(44.4% 0.177 26.899);
-    --color-destructive-900: oklch(39.6% 0.141 25.723);
-    --color-destructive-950: oklch(25.8% 0.092 26.042);
-
-    /* Accent color palette */
-    --color-accent: oklch(75.208% 0.20199 131.682);
-    --color-accent-foreground: oklch(100% 0.00011 271.152);
-
-    /* Base UI colors - LIGHT THEM */
-    --color-background: oklch(94.688% 0.00105 11.528);
-    --color-foreground: oklch(12.964% 0.02739 261.707);
-    --color-border: oklch(85.452% 0.0001 271.152);
-    --color-muted: oklch(0.96 0.01 247);
-    --color-muted-foreground: oklch(38.141% 0.03364 262.104);
-
-    --color-card: oklch(98.288% 0.00104 11.251);
-    --shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.2);
-
+:root {
     --scrollbar-thumb-color: oklch(82.968% 0.00009 271.152);
 }
 
-@theme inline {
-    --font-sans: var(--font-montserrat);
-}
-
-/* === DARK THEME - activated when <html> has class="dark" === */
 .dark {
-    /* Base UI colors - DARK THEME */
-    --color-background: oklch(13.441% 0.00002 271.152); /* Very dark background */
-    --color-foreground: oklch(98.089% 0.0026 230.444); /* Light text */
-    --color-border: oklch(26.982% 0.00553 285.95); /* Dark gray borders */
-    --color-muted: oklch(19.125% 0.00002 271.152); /* Subtle elements */
-    --color-muted-foreground: oklch(81.399% 0.02694 259.095); /* Muted text */
-
-    --color-card: oklch(20.019% 0.00002 271.152);
-    --shadow: 0 2px 10px 0 oklch(0% 0 0);
-
     --scrollbar-track-color: oklch(21.779% 0.00002 271.152);
     --scrollbar-thumb-color: oklch(36.002% 0.00004 271.152);
     --scrollbar-thumb-hover-color: oklch(45.35% 0.00165 285.873);
-
-    --aa: oklch(25.197% 0.00003 271.152);
 }
 
 /* === CUSTOM SCROLLBAR STYLES === */
@@ -116,6 +36,8 @@ html {
     scrollbar-color: var(--scrollbar-thumb-color) transparent;
 }
 body {
+    padding: 0;
+    margin: 0;
     min-height: 100dvh;
     background-color: var(--mjo-background-color);
     color: var(--mjo-foreground-color);

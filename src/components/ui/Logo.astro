@@ -11,8 +11,10 @@ const logoId = `logo-${Math.random().toString(36).substring(2, 9)}`;
 <img id={logoId} class="logo" src={`/logos/logo-${type}-dark.svg`} alt={alt} data-type={type} />
 
 <script>
+    import Cookies from "js-cookie";
+
     function updateLogos() {
-        const theme = localStorage.getItem("theme") || "dark";
+        const theme = Cookies.get("mjo-theme") || "dark";
         const logos = document.querySelectorAll(".logo");
 
         logos.forEach((logo) => {
@@ -26,7 +28,7 @@ const logoId = `logo-${Math.random().toString(36).substring(2, 9)}`;
     updateLogos();
 
     // Update on theme change
-    document.addEventListener("theme-change", () => {
+    document.addEventListener("mjo-theme:change", () => {
         updateLogos();
     });
 </script>

@@ -1,10 +1,8 @@
-import type { ThemeToggleEvent } from "@/types/theme";
+import type { MjoThemeChangeEvent } from "mjo-litui/types/mjo-theme";
 
 import { LitElement, css, html, type PropertyValues } from "lit";
 import { customElement, property, query, state } from "lit/decorators.js";
 import { AiOutlineMoon, AiOutlineSun } from "mjo-icons/ai";
-
-import { themeManager } from "@/utils/theme";
 
 import "mjo-litui/mjo-form";
 import "mjo-litui/mjo-icon";
@@ -29,13 +27,13 @@ export class ThemeToggle extends LitElement {
     connectedCallback(): void {
         super.connectedCallback();
 
-        document.addEventListener("theme-change", this.#handleTheme);
+        document.addEventListener("mjo-theme:change", this.#handleTheme);
     }
 
     disconnectedCallback(): void {
         super.disconnectedCallback();
 
-        document.removeEventListener("theme-change", this.#handleTheme);
+        document.removeEventListener("mjo-theme:change", this.#handleTheme);
     }
 
     firstUpdated(_changedProperties: PropertyValues): void {
@@ -46,11 +44,18 @@ export class ThemeToggle extends LitElement {
     }
 
     #handleClick = () => {
-        themeManager?.toggleTheme();
+        const themeComponent = document.querySelector("theme-component");
+
+        if (!themeComponent) {
+            console.error("Theme component not found");
+            return;
+        }
+
+        themeComponent.toggleTheme();
     };
 
     #handleTheme = (ev: Event) => {
-        const theme = (ev as ThemeToggleEvent).detail;
+        const theme = (ev as MjoThemeChangeEvent).detail.theme;
 
         if (theme === "dark") {
             this.icon = AiOutlineSun;
