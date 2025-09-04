@@ -66,7 +66,7 @@ const navigation = [
 ---
 
 <aside class="sidebar">
-    <nav class="space-y-6">
+    <nav class="sidebar-nav-container">
         {
             navigation.map((section) => (
                 <div class="sidebar-section">
@@ -83,9 +83,8 @@ const navigation = [
                                     }`}
                                 >
                                     <span>{item.name}</span>
-                                    {/* Badge for new/beta items */}
-                                    {item.name === "Autocomplete" && <span class="badge badge-default text-[10px] px-1.5 py-0.5">New</span>}
-                                    {item.name === "Testing" && <span class="badge badge-secondary text-[10px] px-1.5 py-0.5">Beta</span>}
+                                    {item.name === "Autocomplete" && <span class="badge badge-new">New</span>}
+                                    {item.name === "Testing" && <span class="badge badge-beta">Beta</span>}
                                 </a>
                             </li>
                         ))}
@@ -95,48 +94,34 @@ const navigation = [
         }
     </nav>
 
-    <!-- Version Info -->
-    <div class="mt-8 pt-6 border-t border-border">
-        <div class="px-3">
-            <div class="flex items-center justify-between text-xs text-muted-foreground">
+    <div class="sidebar-version">
+        <div class="sidebar-version-content">
+            <div class="sidebar-version-info">
                 <span>Version</span>
-                <span class="font-mono"><Version /></span>
+                <span class="sidebar-version-number"><Version /></span>
             </div>
-            <div class="mt-2">
-                <a
-                    href="https://github.com/username/mjo-litui/releases"
-                    class="text-xs text-muted-foreground hover:text-foreground transition-colors"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    View releases →
-                </a>
+            <div class="sidebar-version-link">
+                <a href="https://github.com/username/mjo-litui/releases" class="sidebar-link" target="_blank" rel="noopener noreferrer"> View releases → </a>
             </div>
         </div>
     </div>
 
-    <!-- Quick Actions -->
-    <div class="mt-4">
-        <div class="px-3 space-y-2">
-            <a
-                href="https://github.com/username/mjo-litui/issues/new"
-                class="block text-xs text-muted-foreground hover:text-foreground transition-colors"
-                target="_blank"
-                rel="noopener noreferrer"
-            >
-                Report an issue
-            </a>
-            <a href="/docs/contributing" class="block text-xs text-muted-foreground hover:text-foreground transition-colors"> Contribute </a>
+    <div class="sidebar-actions">
+        <div class="sidebar-actions-content">
+            <a href="https://github.com/username/mjo-litui/issues/new" class="sidebar-link" target="_blank" rel="noopener noreferrer"> Report an issue </a>
+            <a href="/docs/contributing" class="sidebar-link"> Contribute </a>
         </div>
     </div>
 </aside>
 <style>
-    @reference "../../styles/global.css";
-
     .sidebar {
-        @apply sticky top-[64px] h-[calc(100vh-64px)] overflow-y-auto py-10;
+        position: sticky;
+        top: 64px;
+        height: calc(100vh - 64px);
+        overflow-y: auto;
+        padding-top: 2.5rem;
+        padding-bottom: 2.5rem;
         scrollbar-width: thin;
-        scrollbar-color: var(--scrollbar-thumb-color) transparent;
         scrollbar-color: var(--scrollbar-thumb-color) transparent;
     }
 
@@ -158,52 +143,177 @@ const navigation = [
         background: var(--scrollbar-thumb-hover-color);
     }
 
+    .sidebar-nav-container {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
     .sidebar-section {
-        @apply mb-6;
+        margin-bottom: 1.5rem;
     }
 
     .sidebar-section-title {
-        @apply mb-3 px-3 text-xs font-semibold uppercase tracking-wide;
+        margin-bottom: 0.75rem;
+        padding-left: 0.75rem;
+        padding-right: 0.75rem;
+        font-size: 0.75rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
     }
 
     .sidebar-nav {
-        @apply flex flex-col gap-1;
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
     }
 
     .sidebar-nav-item {
-        @apply block pl-2;
+        display: block;
+        padding-left: 0.5rem;
     }
 
     .sidebar-nav-link {
-        @apply flex items-center gap-3 rounded-lg px-3 py-2 text-xs font-medium text-muted-foreground transition-all duration-200 no-underline hover:bg-accent hover:text-accent-foreground;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        border-radius: 0.5rem;
+        padding-left: 0.75rem;
+        padding-right: 0.75rem;
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
+        font-size: 0.75rem;
+        font-weight: 500;
+        color: var(--mjo-foreground-color-low);
+        transition: all 0.2s ease-in-out;
+        text-decoration: none;
+    }
+
+    .sidebar-nav-link:hover {
+        background-color: var(--color-accent);
+        color: var(--color-accent-foreground);
     }
 
     .sidebar-nav-link-active {
-        @apply bg-accent text-accent-foreground;
+        background-color: var(--color-accent);
+        color: var(--color-accent-foreground);
     }
 
     .sidebar-nav-icon {
-        @apply w-4 h-4 shrink-0;
+        width: 1rem;
+        height: 1rem;
+        flex-shrink: 0;
     }
 
-    /* Table of Contents */
+    .badge {
+        font-size: 10px;
+        padding-left: 0.375rem;
+        padding-right: 0.375rem;
+        padding-top: 0.125rem;
+        padding-bottom: 0.125rem;
+        border-radius: 0.25rem;
+        font-weight: 500;
+    }
+
+    .badge-new {
+        background-color: var(--mjo-primary-color);
+        color: var(--mjo-primary-foreground-color);
+    }
+
+    .badge-beta {
+        background-color: var(--mjo-secondary-color);
+        color: var(--mjo-secondary-foreground-color);
+    }
+
+    .sidebar-version {
+        margin-top: 2rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid var(--mjo-border-color);
+    }
+
+    .sidebar-version-content {
+        padding-left: 0.75rem;
+        padding-right: 0.75rem;
+    }
+
+    .sidebar-version-info {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 0.75rem;
+        color: var(--mjo-foreground-color-low);
+    }
+
+    .sidebar-version-number {
+        font-family: ui-monospace, SFMono-Regular, "SF Mono", Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    }
+
+    .sidebar-version-link {
+        margin-top: 0.5rem;
+    }
+
+    .sidebar-actions {
+        margin-top: 1rem;
+    }
+
+    .sidebar-actions-content {
+        padding-left: 0.75rem;
+        padding-right: 0.75rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .sidebar-link {
+        display: block;
+        font-size: 0.75rem;
+        color: var(--mjo-foreground-color-low);
+        transition: color 0.15s ease-in-out;
+        text-decoration: none;
+    }
+
+    .sidebar-link:hover {
+        color: var(--mjo-foreground-color);
+    }
+
     .toc {
-        @apply sticky top-20 h-[calc(100vh-5rem)] overflow-y-auto;
+        position: sticky;
+        top: 5rem;
+        height: calc(100vh - 5rem);
+        overflow-y: auto;
     }
 
     .toc-title {
-        @apply mb-4 text-sm font-semibold text-foreground;
+        margin-bottom: 1rem;
+        font-size: 0.875rem;
+        font-weight: 600;
+        color: var(--mjo-foreground-color);
     }
 
     .toc-nav {
-        @apply flex flex-col gap-2;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
     }
 
     .toc-link {
-        @apply block py-1 text-xs text-muted-foreground transition-colors duration-200 no-underline hover:text-foreground;
+        display: block;
+        padding-top: 0.25rem;
+        padding-bottom: 0.25rem;
+        font-size: 0.75rem;
+        color: var(--mjo-foreground-color-low);
+        transition: color 0.2s ease-in-out;
+        text-decoration: none;
+    }
+
+    .toc-link:hover {
+        color: var(--mjo-foreground-color);
     }
 
     .toc-link-active {
-        @apply text-primary border-l-2 border-primary pl-2;
+        color: var(--mjo-primary-color);
+        border-left: 2px solid var(--mjo-primary-color);
+        padding-left: 0.5rem;
     }
 </style>

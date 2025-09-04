@@ -5,6 +5,7 @@
     /* === TEMA CLARO (por defecto) === */
 
     /* Primary color palette */
+    --color-primary: rgb(26, 168, 237);
     --color-primary: oklch(69.577% 0.14756 237.41);
     --color-primary-foreground: oklch(1 0 0);
     --color-primary-50: oklch(97.7% 0.013 236.71);
@@ -50,18 +51,20 @@
     --color-destructive-950: oklch(25.8% 0.092 26.042);
 
     /* Accent color palette */
-    --color-accent: oklch(75.208% 0.20202 131.66);
+    --color-accent: oklch(75.208% 0.20199 131.682);
     --color-accent-foreground: oklch(100% 0.00011 271.152);
 
     /* Base UI colors - LIGHT THEM */
     --color-background: oklch(94.688% 0.00105 11.528);
-    --color-foreground: oklch(0.13 0.028 261);
+    --color-foreground: oklch(12.964% 0.02739 261.707);
     --color-border: oklch(85.452% 0.0001 271.152);
     --color-muted: oklch(0.96 0.01 247);
     --color-muted-foreground: oklch(38.141% 0.03364 262.104);
 
     --color-card: oklch(98.288% 0.00104 11.251);
     --shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.2);
+
+    --scrollbar-thumb-color: oklch(82.968% 0.00009 271.152);
 }
 
 @theme inline {
@@ -72,7 +75,7 @@
 .dark {
     /* Base UI colors - DARK THEME */
     --color-background: oklch(13.441% 0.00002 271.152); /* Very dark background */
-    --color-foreground: oklch(0.98 0.003 247); /* Light text */
+    --color-foreground: oklch(98.089% 0.0026 230.444); /* Light text */
     --color-border: oklch(26.982% 0.00553 285.95); /* Dark gray borders */
     --color-muted: oklch(19.125% 0.00002 271.152); /* Subtle elements */
     --color-muted-foreground: oklch(81.399% 0.02694 259.095); /* Muted text */
@@ -111,4 +114,24 @@
 html {
     scrollbar-width: auto;
     scrollbar-color: var(--scrollbar-thumb-color) transparent;
+}
+body {
+    min-height: 100dvh;
+    background-color: var(--mjo-background-color);
+    color: var(--mjo-foreground-color);
+    font-family: var(--font-montserrat);
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
 }

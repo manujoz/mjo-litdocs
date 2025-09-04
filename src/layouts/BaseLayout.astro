@@ -2,6 +2,8 @@
 import "../styles/global.css";
 import Font from "astro/components/Font.astro";
 import { ThemeComponent } from "../components/lit/theme-component";
+import { MjoThemeSSRGenerator } from "mjo-litui/lib/theme";
+import type { MjoThemeConfig } from "mjo-litui/types/mjo-theme";
 
 export interface Props {
     title: string;
@@ -20,6 +22,42 @@ const {
     author = "MJO LITUI",
     canonicalUrl,
 } = Astro.props;
+
+// Get theme from cookie
+const mjoThemeCookie = (Astro.cookies.get("mjo-theme")?.value as "light" | "dark") || "dark";
+
+const themeConfig: MjoThemeConfig = {
+    light: {
+        backgroundColor: {
+            low: "#f0f0f0",
+            default: "#eeeded",
+            high: "#dddddd",
+        },
+        foregroundColor: {
+            low: "#333333",
+            default: "#111111",
+            high: "#000000",
+        },
+        backgroundColorCard: {
+            default: "#faf9f9",
+        },
+    },
+    dark: {
+        backgroundColor: {
+            low: "#000000",
+            default: "#080808",
+            high: "#181818",
+        },
+        foregroundColor: {
+            low: "#bbbbbb",
+            default: "#f7f9fa",
+            high: "#ffffff",
+        },
+        backgroundColorCard: {
+            default: "#161616",
+        },
+    },
+};
 ---
 
 <!doctype html>
@@ -48,6 +86,7 @@ const {
         <meta name="twitter:description" content={description} />
         <meta name="twitter:image" content={ogImage} />
         <meta name="twitter:creator" content="@mjolitui" />
+        <Fragment set:html={MjoThemeSSRGenerator({ themeMode: mjoThemeCookie, userConfig: themeConfig })} />
         <Font cssVariable="--font-montserrat" />
 
         <title>{title}</title>
@@ -80,22 +119,27 @@ const {
         </script>
 
         <!-- Theme initialization script - runs before content loads -->
-        <script is:inline>
+        <script is:inline define:vars={{ themeFromCookie: mjoThemeCookie }}>
             // Initialize theme before page renders to prevent flash
             (function () {
+                const cookieTheme = themeFromCookie;
                 const savedTheme = localStorage.getItem("theme");
 
-                if (savedTheme === "light") {
+                // Priority: cookie -> localStorage -> default (dark)
+                const theme = cookieTheme || savedTheme || "dark";
+
+                if (theme === "light") {
                     document.documentElement.classList.remove("dark");
+                } else {
+                    document.documentElement.classList.add("dark");
                 }
 
-                if (!savedTheme) {
-                    localStorage.setItem("theme", "dark");
-                }
+                // Sync localStorage with the determined theme
+                localStorage.setItem("theme", theme);
             })();
         </script>
     </head>
-    <body class="min-h-full bg-background text-foreground font-sans antialiased overflow-x-hidden dark">
+    <body class={`${mjoThemeCookie === "light" ? "" : "dark"}`}>
         <ThemeComponent client:idle />
         <slot />
 

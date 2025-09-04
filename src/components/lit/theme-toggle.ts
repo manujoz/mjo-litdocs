@@ -65,6 +65,8 @@ export class ThemeToggle extends LitElement {
                 display: block;
             }
             span {
+                padding-left: calc(var(--spacing, 0.25rem) * 3);
+                padding-right: calc(var(--spacing, 0.25rem) * 3);
                 position: relative;
                 display: inline-block;
                 cursor: pointer;
@@ -73,6 +75,7 @@ export class ThemeToggle extends LitElement {
                 opacity: 1;
             }
             mjo-icon {
+                top: -1px;
                 vertical-align: middle;
             }
             .hidden {

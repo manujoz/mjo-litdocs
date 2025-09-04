@@ -1,0 +1,58 @@
+---
+export interface Props {
+    size?: "xs" | "sm" | "md" | "lg" | "xl" | "title";
+    weight?: "light" | "normal" | "bold";
+    color?: "primary" | "secondary" | "accent" | "default";
+    tag?: "p" | "span" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
+    class?: string;
+}
+
+const { size = "md", weight = "normal", color = "default", tag = "span", class: className } = Astro.props;
+
+const Element = tag;
+---
+
+<Element class:list={["container", "text-" + color, "font-" + weight, "text-" + size, className]} {...Astro.props}>
+    <slot />
+</Element>
+
+<style>
+    .text-primary {
+        color: var(--mjo-primary-color);
+    }
+    .text-secondary {
+        color: var(--mjo-secondary-color);
+    }
+    .text-accent {
+        color: var(--mjo-secondary-color);
+    }
+    .font-light {
+        font-weight: 300;
+    }
+    .font-normal {
+        font-weight: 400;
+    }
+    .font-bold {
+        font-weight: 700;
+    }
+    .text-xs {
+        font-size: 0.75rem;
+        line-height: 1rem;
+    }
+    .text-sm {
+        font-size: 0.875rem;
+        line-height: 1.25rem;
+    }
+    .text-lg {
+        font-size: 1.125rem;
+        line-height: 1.75rem;
+    }
+    .text-xl {
+        font-size: 1.25rem;
+        line-height: 1.75rem;
+    }
+    .text-title {
+        font-size: 2.25rem;
+        line-height: 2.5rem;
+    }
+</style>

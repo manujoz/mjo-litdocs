@@ -23,33 +23,42 @@ const classLists = "card " + color;
 </article>
 
 <style>
-    @reference "../../styles/global.css";
-
     .card {
-        @apply p-6 bg-card rounded-lg shadow;
+        padding: 24px;
+        background-color: var(--mjo-background-color-card);
+        border-radius: var(--mjo-radius-large);
+        box-shadow: var(--mjo-box-shadow-2);
     }
-
     .header {
-        @apply flex gap-4 mb-6;
+        position: relative;
+        display: flex;
+        gap: 16px;
+        margin-bottom: 24px;
     }
-
     .icon {
-        @apply grow-0 basis-14  rounded-tl-sm rounded-tr-2xl rounded-bl-2xl rounded-br-sm p-3;
+        flex-grow: 0;
+        flex-basis: 56px;
+        border-radius: var(--mjo-radius-small) var(--mjo-radius-large) var(--mjo-radius-small) var(--mjo-radius-large);
+        padding: 12px;
     }
-
     .primary .icon {
-        @apply text-primary bg-primary-500/10;
+        color: var(--mjo-primary-color);
+        background-color: var(--mjo-primary-color-alpha1);
     }
-
     .secondary .icon {
-        @apply text-secondary bg-secondary-500/10;
+        color: var(--mjo-secondary-color);
+        background-color: var(--mjo-secondary-color-alpha1);
     }
-
     .title {
-        @apply text-base font-semibold leading-7 text-foreground flex items-center;
+        font-size: 1.1em;
+        font-weight: 500;
+        line-height: 1em;
+        color: var(--mjo-foreground-color);
+        font-weight: 600;
+        display: flex;
+        align-items: center;
     }
-
     .description {
-        @apply text-base leading-7 text-muted-foreground;
+        color: var(--mjo-foreground-color-low);
     }
 </style>

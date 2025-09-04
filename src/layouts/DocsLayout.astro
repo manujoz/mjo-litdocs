@@ -64,26 +64,29 @@ const breadcrumbItemsExample = [
 </BaseLayout>
 
 <style>
-    @reference "../styles/global.css";
-
     /* Documentation Layout */
     .docs-layout {
-        @apply grid grid-cols-1 gap-8;
+        position: relative;
+        display: grid;
+        grid-template-columns: repeat(1, minmax(0, 1fr));
+        gap: 32px;
     }
 
     @media (min-width: 1024px) {
         .docs-layout {
-            @apply grid-cols-[280px_1fr];
+            grid-template-columns: 280px 1fr;
         }
     }
 
     @media (min-width: 1280px) {
         .docs-layout {
-            @apply grid-cols-[280px_1fr_240px];
+            grid-template-columns: 280px 1fr 240px;
         }
     }
 
     .docs-content {
-        @apply relative pt-10 pb-18;
+        position: relative;
+        padding-top: 2.5rem;
+        padding-bottom: 4.5rem;
     }
 </style>

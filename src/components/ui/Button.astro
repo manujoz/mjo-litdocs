@@ -17,7 +17,7 @@ const { variant = "primary", size = "md", href, type = "button", disabled = fals
 const baseClasses = "btn";
 const variantClasses = `btn-${variant}`;
 const sizeClasses = `btn-${size}`;
-const allClasses = [baseClasses, variantClasses, sizeClasses, className].filter(Boolean).join(" ");
+const allClasses = [baseClasses, variantClasses, sizeClasses, className];
 
 const Element = href ? "a" : "button";
 
@@ -25,67 +25,87 @@ const Element = href ? "a" : "button";
 // bg-primary-200 text-accent-foreground bg-secondary bg-accent text-primary-foreground
 ---
 
-<Element class={allClasses} href={href} type={href ? undefined : type} disabled={disabled} {...rest}>
+<Element class:list={allClasses} href={href} type={href ? undefined : type} disabled={disabled} {...rest}>
     <slot />
 </Element>
 
 <style>
-    @reference "../../styles/global.css";
-
     .btn {
-        @apply inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors cursor-pointer no-underline;
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: var(--mjo-radius-medium);
+        font-size: var(--mjo-font-size-small);
+        font-weight: 500;
+        text-decoration-line: none;
+        transition:
+            background-color 200ms,
+            color 200ms;
     }
 
     .btn:focus-visible {
-        @apply outline-none ring-2 ring-primary ring-offset-2;
+        outline: solid 2px var(--mjo-primary-color);
     }
 
     .btn:disabled {
-        @apply pointer-events-none opacity-50;
+        pointer-events: none;
+        opacity: 0.5;
     }
 
     .btn-primary {
-        @apply bg-primary text-primary-foreground;
+        background-color: var(--mjo-primary-color);
+        color: var(--mjo-primary-foreground-color);
     }
 
     .btn-primary:hover {
-        @apply bg-primary-600;
+        background-color: var(--mjo-primary-color-600);
     }
 
     .btn-secondary {
-        @apply bg-secondary text-secondary-foreground;
+        background-color: var(--mjo-secondary-color);
+        color: var(--mjo-secondary-foreground-color);
     }
 
     .btn-secondary:hover {
-        @apply bg-secondary/80;
+        background-color: var(--mjo-secondary-color-600);
     }
 
     .btn-ghost {
-        @apply text-foreground;
+        background-color: transparent;
+        color: var(--mjo-foreground-color);
     }
 
     .btn-ghost:hover {
-        @apply bg-primary-100 text-black;
+        background-color: var(--mjo-primary-color-100);
+        color: var(--mjo-color-black);
     }
 
     .btn-outline {
-        @apply border border-border bg-background text-foreground;
+        border: solid 1px var(--mjo-border-color);
+        background-color: var(--mjo-background-color);
+        color: var(--mjo-foreground-color);
     }
 
     .btn-outline:hover {
-        @apply bg-accent text-accent-foreground;
+        background-color: var(--mjo-secondary-color);
+        color: var(--font-secondary-foreground-color);
     }
 
     /* Button Size Variants */
     .btn-sm {
-        @apply h-9 px-3;
+        height: 36px;
+        padding-left: 12px;
+        padding-right: 12px;
     }
 
     .btn-md {
-        @apply h-10 px-4 py-2;
+        height: 40px;
+        padding: 8px 16px;
     }
 
     .btn-lg {
-        @apply h-11 px-8;
+        height: 44px;
+        padding-inline: 32px;
     }
 </style>

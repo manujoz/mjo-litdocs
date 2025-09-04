@@ -8,35 +8,53 @@
 </aside>
 
 <style>
-    @reference "../../styles/global.css";
-
     .docs-toc {
-        @apply hidden;
+        display: none;
     }
 
     .toc {
-        @apply sticky top-20 h-[calc(100vh-5rem)] overflow-y-auto;
+        position: sticky;
+        top: 5rem;
+        height: calc(100vh - 5rem);
+        overflow-y: auto;
     }
 
     .toc-title {
-        @apply mb-4 text-sm font-semibold text-foreground;
+        margin-bottom: 1rem;
+        font-size: 0.875rem;
+        font-weight: 600;
+        color: var(--mjo-foreground-color);
     }
 
     .toc-nav {
-        @apply flex flex-col gap-2;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
     }
 
     .toc-link {
-        @apply block py-1 text-xs text-muted-foreground transition-colors duration-200 no-underline hover:text-foreground;
+        display: block;
+        padding-top: 0.25rem;
+        padding-bottom: 0.25rem;
+        font-size: 0.75rem;
+        color: var(--mjo-foreground-color-low);
+        transition: color 0.2s ease-in-out;
+        text-decoration: none;
+    }
+
+    .toc-link:hover {
+        color: var(--mjo-foreground-color);
     }
 
     .toc-link-active {
-        @apply text-primary border-l-2 border-primary pl-2;
+        color: var(--mjo-primary-color);
+        border-left: 2px solid var(--mjo-primary-color);
+        padding-left: 0.5rem;
     }
 
     @media (min-width: 1280px) {
         .docs-toc {
-            @apply block;
+            display: block;
         }
     }
 </style>

@@ -20,7 +20,7 @@ export class MobileNavigation extends LitElement {
 
     render() {
         return html`
-            <mjo-menu-button size="sm" ?data-isopen=${this.isOpen} @menu-button-toggle=${this.#handleToggle}></mjo-menu-button>
+            <mjo-menu-button size="sm" ?data-isopen=${this.isOpen} @mjo-menu-button:toggle=${this.#handleToggle}></mjo-menu-button>
             <div class="background"></div>
             <aside class="container">
                 <nav>
@@ -50,6 +50,12 @@ export class MobileNavigation extends LitElement {
                 </div>
             </aside>
         `;
+    }
+
+    protected firstUpdated(): void {
+        setTimeout(() => {
+            this.shadowRoot?.querySelector("mjo-menu-button")?.classList.add("visible");
+        }, 0);
     }
 
     open() {
@@ -104,6 +110,11 @@ export class MobileNavigation extends LitElement {
             mjo-menu-button {
                 top: -2px;
                 z-index: 1;
+                transition: transform 0.3s ease;
+                transform: scale(0) rotate(180deg);
+            }
+            mjo-menu-button.visible {
+                transform: scale(1) rotate(0deg);
             }
             mjo-menu-button[data-isopen] {
                 color: white;
@@ -115,7 +126,7 @@ export class MobileNavigation extends LitElement {
                 width: 100vw;
                 height: 100dvh;
                 background: rgba(0, 0, 0, 0.8);
-                /* display: none; */
+                display: none;
                 opacity: 0;
             }
             .container {
@@ -124,7 +135,7 @@ export class MobileNavigation extends LitElement {
                 left: 0;
                 height: 100dvh;
                 width: 270px;
-                padding: 20px 0 10px;
+                padding: 20px 0 0;
                 box-sizing: border-box;
                 display: flex;
                 flex-direction: column;
@@ -158,12 +169,22 @@ export class MobileNavigation extends LitElement {
                 position: relative;
                 flex: 0 1 auto;
                 display: flex;
+                align-items: center;
+                border-top: 1px solid var(--mjo-border-color-low);
                 gap: 8px;
+                font-size: 24px;
+                padding: 12px 16px;
+                background-color: var(--mjo-background-color-low);
             }
             .actions > div {
                 flex: 1 1 0;
                 display: flex;
                 justify-content: center;
+                align-items: center;
+            }
+            .actions a {
+                display: flex;
+                align-items: center;
             }
         `,
     ];

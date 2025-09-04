@@ -43,7 +43,7 @@ const { currentPath = "" } = Astro.props;
         <div class="actions">
             <!-- Search Button (placeholder) -->
             <Button variant="ghost" size="sm" aria-label="Search" title="Search documentation">
-                <Search class="w-5 h-5" />
+                <Search class="icon" />
                 <span class="sr-only">Search</span>
             </Button>
 
@@ -58,12 +58,12 @@ const { currentPath = "" } = Astro.props;
                 target="_blank"
                 rel="noopener noreferrer"
             >
-                <GitHub class="w-5 h-5" />
+                <GitHub class="icon" />
                 <span class="sr-only">GitHub</span>
             </Button>
 
             <!-- Theme Toggle -->
-            <Button class="button-flex" variant="ghost" size="sm">
+            <Button class="button-flex toggle-button" variant="ghost" size="sm">
                 <ThemeToggle />
             </Button>
 
@@ -75,56 +75,101 @@ const { currentPath = "" } = Astro.props;
 </header>
 
 <style>
-    @reference "../../styles/global.css";
-
     .site-header {
-        @apply sticky top-0 z-50 w-full bg-background/95 backdrop-blur-sm pl-3 pr-3;
-    }
-
-    @supports (backdrop-filter: blur(8px)) {
-        .site-header {
-            @apply bg-background/60;
-        }
+        position: sticky;
+        top: 0;
+        z-index: 20;
+        width: 100%;
+        background-color: color-mix(in srgb, var(--mjo-background-color) 20%, transparent);
+        backdrop-filter: blur(8px);
+        padding: 0 12px;
+        display: flex;
+        justify-content: center;
     }
 
     .site-header-inner {
-        @apply flex h-16 items-center justify-between;
+        display: flex;
+        flex: 1 1 0;
+        height: 64px;
+        justify-content: space-between;
+        align-items: center;
+        max-width: 1280px;
     }
 
     .logo-container {
-        @apply relative flex-none w-48;
+        position: relative;
+        width: 192px;
+        flex: none;
     }
 
     .site-logo {
-        @apply relative transition-opacity duration-300;
+        position: relative;
+        transition: opacity 300ms;
     }
 
     .site-logo:hover {
-        @apply opacity-80;
+        opacity: 0.8;
     }
 
     .site-nav {
-        @apply hidden grow justify-center self-stretch items-stretch gap-6 md:flex;
+        display: none;
+        flex-grow: 1;
+        justify-content: center;
+        align-self: stretch;
     }
 
     .site-nav-link {
-        @apply text-sm font-medium text-muted-foreground transition-colors duration-200 flex items-center no-underline;
+        font-size: 14px;
+        font-weight: 500;
+        color: var(--mjo-foreground-color-low);
+        text-decoration-line: none;
+        display: flex;
+        align-items: center;
+        transition: color 200ms;
     }
-
     .site-nav-link:hover {
-        @apply text-foreground;
+        color: var(--mjo-foreground-color);
     }
 
     .site-nav-link-active {
-        @apply text-foreground;
+        color: var(--mjo-primary-color);
     }
     .actions {
-        @apply flex w-48 items-end justify-end gap-1;
+        position: relative;
+        display: flex;
+        width: 192px;
+        justify-content: flex-end;
+        gap: 4px;
+    }
+    .icon {
+        width: 20px;
+        height: 20px;
     }
     .button-flex {
-        @apply hidden md:flex;
+        position: relative;
+        display: none;
+        font-size: 20px;
+    }
+    .toggle-button {
+        padding-left: 0;
+        padding-right: 0;
     }
     .mobile-navigation {
-        @apply w-[35px] md:hidden;
+        width: 35px;
+        align-self: stretch;
+    }
+
+    @media (min-width: 768px) {
+        .site-nav {
+            display: flex;
+            gap: 24px;
+            align-items: stretch;
+        }
+        .button-flex {
+            display: flex;
+        }
+        .mobile-navigation {
+            display: none;
+        }
     }
 </style>
