@@ -3,7 +3,7 @@
 /* Base code styling */
 code[class*="language-"],
 pre[class*="language-"] {
-    color: oklch(var(--color-foreground));
+    color: var(--mjo-foreground-color);
     background: none;
     text-shadow: none;
     font-family: ui-monospace, SFMono-Regular, "SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Consolas, "Courier New", monospace;
@@ -17,6 +17,25 @@ pre[class*="language-"] {
     word-wrap: normal;
     tab-size: 2;
     hyphens: none;
+
+    --token-variable: #00b4bc;
+    --token-parameter: var(--token-variable);
+    --token-property-access: var(--token-variable);
+    --token-string: #3ebb33;
+    --token-number: #729afb;
+    --token-html-tag: #e8594a;
+    --token-classname: #d9a514;
+    --token-function: var(--token-classname);
+    --token-keyword: #be64d2;
+    --token-important: #e77f3e;
+    --token-lit-html: #1cafdb;
+    --token-lit-css: var(--token-lit-html);
+    --token-attr-name: #0ecfda;
+    --token-attr-value: var(--token-string);
+    --token-css-selector: var(--token-html-tag);
+    --token-css-property: var(--token-variable);
+    --token-css-string: var(--token-string);
+    --token-template-string-interpolation: #d12eb6;
 }
 
 /* Code blocks */
@@ -25,27 +44,27 @@ pre[class*="language-"] {
     margin: 0.5em 0;
     overflow: auto;
     border-radius: 0.5rem;
-    background: oklch(var(--color-muted));
-    border: 1px solid oklch(var(--color-border));
+    border: none;
+    background: var(--mjo-background-color-card);
 }
 
 /* Inline code */
 :not(pre) > code[class*="language-"] {
     padding: 0.125rem 0.25rem;
     border-radius: 0.25rem;
-    background: oklch(var(--color-muted));
-    color: oklch(var(--color-foreground));
+    background: var(--mjo-background-color-card);
+    color: var(--mjo-foreground-color);
     font-size: 0.875rem;
 }
 
-/* Dark theme support */
-.dark pre[class*="language-"] {
-    background: oklch(0.1 0.01 247);
-    border-color: oklch(0.15 0.01 247);
+.code-content {
+    position: relative;
 }
-
-.dark :not(pre) > code[class*="language-"] {
-    background: oklch(0.1 0.01 247);
+.code-content pre {
+    margin: 0;
+    border-radius: 0;
+    border: none;
+    background: var(--mjo-background-color-card);
 }
 
 /* Syntax highlighting tokens */
@@ -70,12 +89,12 @@ pre[class*="language-"] {
 .token.constant,
 .token.symbol,
 .token.deleted {
-    color: oklch(0.65 0.18 29); /* Red-ish */
+    color: var(--token-html-tag);
 }
 
 .token.boolean,
 .token.number {
-    color: oklch(0.7 0.15 266); /* Purple */
+    color: var(--token-number);
 }
 
 .token.selector,
@@ -84,7 +103,7 @@ pre[class*="language-"] {
 .token.char,
 .token.builtin,
 .token.inserted {
-    color: oklch(0.65 0.15 142); /* Green */
+    color: var(--token-string);
 }
 
 .token.operator,
@@ -93,24 +112,24 @@ pre[class*="language-"] {
 .language-css .token.string,
 .style .token.string,
 .token.variable {
-    color: oklch(0.7 0.12 200); /* Blue */
+    color: var(--token-variable);
 }
 
 .token.atrule,
 .token.attr-value,
 .token.function,
 .token.class-name {
-    color: oklch(0.75 0.15 85); /* Yellow */
+    color: var(--token-classname);
 }
 
 .token.keyword {
-    color: oklch(0.65 0.18 320); /* Magenta */
+    color: var(--token-keyword);
     font-weight: 600;
 }
 
 .token.regex,
 .token.important {
-    color: oklch(0.7 0.15 50); /* Orange */
+    color: var(--token-important);
 }
 
 .token.important,
@@ -124,6 +143,130 @@ pre[class*="language-"] {
 
 .token.entity {
     cursor: help;
+}
+
+/* Lit Element template literals styling */
+.token.lit-html .token.template-punctuation {
+    color: var(--token-lit-html);
+    font-weight: 600;
+}
+
+.token.lit-css .token.template-punctuation {
+    color: var(--token-lit-css);
+    font-weight: 600;
+}
+
+/* HTML content inside lit-html templates */
+.token.lit-html .token.html .token.tag {
+    color: var(--token-html-tag);
+}
+
+.token.lit-html .token.html .token.attr-name {
+    color: var(--token-attr-name);
+}
+
+.token.lit-html .token.html .token.attr-value {
+    color: var(--token-attr-value);
+}
+
+.token.lit-html .token.html .token.punctuation {
+    color: oklch(var(--color-foreground)); /* Default for HTML punctuation */
+}
+
+/* CSS content inside lit-css templates */
+.token.lit-css .token.css .token.selector {
+    color: var(--token-css-selector);
+}
+
+.token.lit-css .token.css .token.property {
+    color: var(--token-css-property);
+}
+
+.token.lit-css .token.css .token.string {
+    color: var(--token-css-string);
+}
+
+/* JavaScript interpolations inside templates */
+.token.lit-html .token.interpolation .token.interpolation-punctuation,
+.token.lit-css .token.interpolation .token.interpolation-punctuation {
+    color: var(--token-template-string-interpolation);
+    font-weight: 600;
+}
+
+/* Nested lit-html inside interpolations */
+.token.lit-html .token.interpolation .token.nested-lit-html .token.template-punctuation {
+    color: var(--token-lit-html);
+    font-weight: 600;
+}
+
+.token.lit-html .token.interpolation .token.nested-lit-html .token.nested-interpolation .token.interpolation-punctuation {
+    color: var(--token-template-string-interpolation);
+    font-weight: 600;
+}
+
+/* HTML content inside nested templates */
+.token.lit-html .token.interpolation .token.nested-lit-html .token.html .token.tag {
+    color: var(--token-html-tag);
+}
+
+.token.lit-html .token.interpolation .token.nested-lit-html .token.html .token.attr-name {
+    color: var(--token-attr-name);
+}
+
+.token.lit-html .token.interpolation .token.nested-lit-html .token.html .token.attr-value {
+    color: var(--token-attr-value);
+}
+
+.token.lit-html .token.interpolation .token.nested-lit-html .token.html .token.punctuation {
+    color: oklch(var(--color-foreground)); /* Default for HTML punctuation */
+}
+
+/* JavaScript content inside interpolations */
+.token.lit-html .token.interpolation .token.function,
+.token.lit-css .token.interpolation .token.function {
+    --token-variable: #00b4bc;
+    --token-string: #3ebb33;
+    --token-number: #729afb;
+    --token-html-tag: #e8594a;
+    --token-classname: #d9a514;
+    --token-function: var(--token-classname);
+    --token-keyword: #be64d2;
+    --token-important: #e77f3e;
+    --token-lit-html: #1cafdb;
+    --token-lit-css: #1cafdb;
+    --token-attr-name: #0ecfda;
+    --token-attr-value: #3ebb33;
+    --token-css-selector: #e8594a;
+    --token-css-property: #00b4bc;
+    --token-css-string: #3ebb33;
+    --token-template-string-interpolation: #d12eb6;
+    color: var(--token-function);
+}
+
+.token.lit-html .token.interpolation .token.keyword,
+.token.lit-css .token.interpolation .token.keyword {
+    color: var(--token-keyword);
+    font-weight: 600;
+}
+
+.token.lit-html .token.interpolation .token.operator,
+.token.lit-css .token.interpolation .token.operator {
+    color: oklch(var(--color-foreground)); /* Default for operators */
+}
+
+.token.lit-html .token.interpolation .token.variable,
+.token.lit-css .token.interpolation .token.variable {
+    color: var(--token-variable);
+}
+
+.token.lit-html .token.interpolation .token.parameter,
+.token.lit-css .token.interpolation .token.parameter {
+    color: var(--token-parameter);
+}
+
+.token.lit-html .token.interpolation .token.property-access,
+.token.lit-css .token.interpolation .token.property-access {
+    color: var(--token-property-access);
 }
 
 /* Line numbers plugin */
@@ -223,15 +366,6 @@ div.code-toolbar > .toolbar .toolbar-item span {
     border: 1px solid oklch(var(--color-border));
 }
 
-.code-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background: oklch(var(--color-muted));
-    padding: 0.75rem 1rem;
-    border-bottom: 1px solid oklch(var(--color-border));
-}
-
 .code-tabs {
     display: flex;
     gap: 0.5rem;
@@ -276,17 +410,6 @@ div.code-toolbar > .toolbar .toolbar-item span {
 .code-copy:hover {
     background: oklch(var(--color-accent));
     color: oklch(var(--color-accent-foreground));
-}
-
-.code-content {
-    position: relative;
-}
-
-.code-content pre {
-    margin: 0;
-    border-radius: 0;
-    border: none;
-    background: oklch(var(--color-card));
 }
 
 /* Quickstart example styles */

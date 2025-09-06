@@ -22,51 +22,43 @@ const seoData = {
 ---
 
 <LandingLayout {...seoData}>
-    <!-- Hero Section -->
     <Hero />
-
-    <!-- Components cloud -->
     <Container class="components-cloud-section" tag="section">
         <ComponentsCloud client:only />
     </Container>
-
-    <!-- Features Section -->
     <Container class="features-section" tag="section">
         <div class="features-container">
             <div class="features-header">
-                <p class="features-title">Why Choose <strong class="features-title-highlight">MJO LITUI</strong>?</p>
-                <h2 class="features-description">Built with Lit Element and developer experience in mind.</h2>
+                <Typography tag="h2" size="title1" weight="bold">
+                    Why Choose <strong class="features-title-highlight">MJO LITUI</strong>?
+                </Typography>
+                <Typography tag="h2" size="md" color="default" class="features-description" spacing="md">
+                    Built with Lit Element and developer experience in mind.
+                </Typography>
             </div>
-
             <div class="features-grid">
                 <FeatureCard icon={BsLightningCharge} title="Lightning Fast">
                     Built on Lit for optimal performance with minimal bundle size and efficient updates.
                 </FeatureCard>
-
                 <FeatureCard icon={BsServer} title="SSR Support">
                     Server side rendering (SSR) support with @lit-labs/ssr and responsive design out of the box.
                 </FeatureCard>
-
                 <FeatureCard icon={BsUniversalAccess} title="Accessible First">
                     WCAG 2.1 compliant components with keyboard navigation and screen reader support.
                 </FeatureCard>
-
                 <FeatureCard icon={BsSliders} title="Highly Customizable"> Extensive theming system with CSS custom properties and design tokens. </FeatureCard>
-
                 <FeatureCard icon={BsCodeSlash} title="Developer Friendly">
                     Full TypeScript support, excellent documentation, and intuitive API design.
                 </FeatureCard>
-
                 <FeatureCard icon={BsBox} title="Web Standards Based">
                     Built on native Web Components and Custom Elements for maximum compatibility and future-proofing.
                 </FeatureCard>
             </div>
         </div>
     </Container>
-
     <Container tag="section" class="theming-example">
         <div class="theming-description">
-            <Typography tag="h3" weight="bold" size="title" color="secondary" class="theming-title">Customize your theme, make it your own</Typography>
+            <Typography tag="h3" weight="bold" size="title1" color="secondary" class="theming-title">Customize your theme, make it your own</Typography>
             <Typography tag="p" size="md" color="default" class="theming-text">
                 <span class="theming-highlight">MJOLITUI</span> allows a high level of customization. Not only do you get a powerful library, but you can also make
                 it your own so your site has a completely unique look.
@@ -76,14 +68,9 @@ const seoData = {
             <ThemingExample client:only />
         </div>
     </Container>
-
-    <!-- Quick Start Section -->
     <Container class="quick-start-section" tag="section">
         <QuickStart />
     </Container>
-
-    <!-- Component Compound Example -->
-    <Container class="compound-example-section" tag="section"> Components compound example, for example a product card or a user profile card. </Container>
 
     <style>
         .components-cloud-section {
@@ -123,7 +110,8 @@ const seoData = {
         }
 
         .features-title-highlight {
-            border-bottom: 2px solid var(--mjo-secondary-color);
+            color: var(--mjo-primary-color);
+            border-bottom: 3px solid var(--mjo-secondary-color);
         }
 
         .features-grid {
@@ -141,7 +129,8 @@ const seoData = {
             display: flex;
             flex-direction: column;
             gap: 2rem;
-            padding: 150px 0;
+            padding-top: 150px;
+            padding-bottom: 150px;
         }
         .theming-description {
             justify-content: center;

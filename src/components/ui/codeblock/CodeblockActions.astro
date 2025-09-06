@@ -1,0 +1,113 @@
+---
+export interface Props {
+    butTitle?: string;
+}
+
+import { BsBug, BsCopy, BsCheck2 } from "mjo-icons/bs";
+import { getUniqueId } from "@/utils/strings";
+
+const uniqueId = getUniqueId();
+
+const { butTitle } = Astro.props;
+---
+
+<div class="codeblock-actions">
+    <button id={uniqueId} title="Copy code" set:html={BsCopy} tabindex="0" aria-label="Copy code" />
+    {
+        butTitle && (
+            <a
+                title="Report issue"
+                class="button"
+                set:html={BsBug}
+                role="button"
+                tabindex="0"
+                aria-label="Report issue"
+                href={`https://github.com/manujoz/mjo-litui/issues/new?assignees=&labels=bug&template=bug_report.yml&title=${butTitle}`}
+                target="_blank"
+                rel="noopener noreferrer"
+            />
+        )
+    }
+</div>
+
+<script define:vars={{ uniqueId, BsCheck2 }}>
+    document.addEventListener("DOMContentLoaded", () => {
+        const copyBtn = document.getElementById(uniqueId);
+        copyBtn?.addEventListener("click", () => {
+            const $pre = copyBtn.closest("pre");
+            if (!$pre) return;
+
+            const activeBlock = $pre.querySelector("code");
+            const text = activeBlock?.textContent || "";
+            console.log(text);
+
+            navigator.clipboard.writeText(text).then(() => {
+                const originalHTML = copyBtn.innerHTML;
+                copyBtn.innerHTML = BsCheck2;
+                copyBtn.classList.add("copied");
+                copyBtn.setAttribute("aria-label", "Copied!");
+
+                setTimeout(() => {
+                    copyBtn.innerHTML = originalHTML;
+                    copyBtn.classList.remove("copied");
+                    copyBtn.setAttribute("aria-label", "Copy code");
+                }, 2000);
+            });
+        });
+    });
+</script>
+
+<style>
+    .codeblock-actions {
+        position: absolute;
+        top: calc(1rem - 3px);
+        right: 1rem;
+        display: flex;
+        justify-content: flex-end;
+    }
+    .codeblock-actions button,
+    .codeblock-actions a {
+        position: relative;
+        flex: 0 1 auto;
+        box-sizing: border-box;
+        width: 38px;
+        height: 28px;
+        padding: 0 10px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        border: none;
+        margin: 0;
+        background-color: var(--mjo-background-color-card-high);
+        color: var(--mjo-foreground-color);
+        cursor: pointer;
+        transition:
+            background-color 0.2s ease,
+            color 0.2s ease;
+    }
+    .codeblock-actions button:first-child,
+    .codeblock-actions a:first-child {
+        border-top-left-radius: var(--mjo-radius-large);
+        border-bottom-left-radius: var(--mjo-radius-large);
+    }
+    .codeblock-actions button:last-child,
+    .codeblock-actions a:last-child {
+        border-top-right-radius: var(--mjo-radius-large);
+        border-bottom-right-radius: var(--mjo-radius-large);
+    }
+    .codeblock-actions button:hover,
+    .codeblock-actions a:hover {
+        background-color: var(--mjo-primary-color-100);
+        color: #222222;
+    }
+    .codeblock-actions button.copied {
+        background-color: var(--mjo-background-color-card-low);
+        color: var(--mjo-color-success);
+    }
+    .codeblock-actions button:focus-visible,
+    .codeblock-actions a:focus-visible {
+        outline: 2px solid var(--mjo-primary-color);
+        outline-offset: -2px;
+    }
+</style>

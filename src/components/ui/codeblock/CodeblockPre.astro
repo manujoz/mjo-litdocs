@@ -1,0 +1,31 @@
+---
+import CodeblockActions from "./CodeblockActions.astro";
+
+export interface Props {
+    language: "javascript" | "typescript" | "bash" | "html" | "css";
+    content?: string;
+    active?: boolean;
+    butTitle?: string;
+}
+
+const { language, content, active, butTitle } = Astro.props;
+---
+
+<pre
+    class="pre"
+    data-content={content}
+    data-active={active}>
+    <code class={`language-${language}`}>
+        <slot />
+    </code>
+    <CodeblockActions butTitle={butTitle} />
+</pre>
+
+<style>
+    pre[data-content] {
+        display: none;
+    }
+    pre[data-content][data-active="true"] {
+        display: block;
+    }
+</style>

@@ -18,7 +18,9 @@ export const themeConfig: MjoThemeConfig = {
             high: "#000000",
         },
         backgroundColorCard: {
+            low: "#ffffff",
             default: "#faf9f9",
+            high: "#eaeaea",
         },
     },
     dark: {
@@ -38,7 +40,9 @@ export const themeConfig: MjoThemeConfig = {
             high: "#ffffff",
         },
         backgroundColorCard: {
+            low: "#111111",
             default: "#161616",
+            high: "#252525",
         },
     },
 };

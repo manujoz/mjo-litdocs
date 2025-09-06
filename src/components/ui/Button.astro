@@ -1,6 +1,6 @@
 ---
 export interface Props {
-    variant?: "primary" | "secondary" | "ghost" | "outline";
+    variant?: "primary" | "secondary" | "ghost" | "outline" | "codeblock";
     size?: "sm" | "md" | "lg";
     href?: string;
     type?: "button" | "submit" | "reset";
@@ -9,15 +9,17 @@ export interface Props {
     title?: string;
     target?: "_blank" | "_self" | "_parent" | "_top";
     rel?: string;
+    active?: boolean;
     [key: string]: any;
 }
 
-const { variant = "primary", size = "md", href, type = "button", disabled = false, class: className = "", ...rest } = Astro.props;
+const { variant = "primary", size = "md", href, type = "button", disabled = false, active = false, class: className = "", ...rest } = Astro.props;
 
 const baseClasses = "btn";
 const variantClasses = `btn-${variant}`;
 const sizeClasses = `btn-${size}`;
-const allClasses = [baseClasses, variantClasses, sizeClasses, className];
+const activeClasses = active ? "btn-active" : "";
+const allClasses = [baseClasses, variantClasses, sizeClasses, activeClasses, className];
 
 const Element = href ? "a" : "button";
 
@@ -25,7 +27,7 @@ const Element = href ? "a" : "button";
 // bg-primary-200 text-accent-foreground bg-secondary bg-accent text-primary-foreground
 ---
 
-<Element class:list={allClasses} href={href} type={href ? undefined : type} disabled={disabled} {...rest}>
+<Element class:list={allClasses} href={href} type={href ? undefined : type} disabled={disabled} tabindex={active ? -1 : 0} {...rest}>
     <slot />
 </Element>
 
@@ -108,5 +110,33 @@ const Element = href ? "a" : "button";
     .btn-lg {
         height: 44px;
         padding-inline: 32px;
+    }
+
+    .btn-codeblock {
+        height: auto;
+        background-color: var(--mjo-background-color-card);
+        color: var(--mjo-foreground-color);
+        font-size: var(--mjo-font-size-small);
+        padding: 7px 15px;
+        cursor: pointer;
+        display: block;
+        border-radius: 0;
+        font-weight: 600;
+        overflow: hidden;
+    }
+    .btn-codeblock:first-of-type {
+        border-top-left-radius: var(--mjo-radius-large);
+    }
+    .btn-codeblock:last-of-type {
+        border-top-right-radius: var(--mjo-radius-large);
+    }
+    .btn-codeblock:focus-visible {
+        outline: solid 2px var(--mjo-primary-color);
+        outline-offset: -2px;
+    }
+    .btn-codeblock.btn-active,
+    .btn-codeblock:hover {
+        color: #111111;
+        background-color: var(--mjo-primary-color-100);
     }
 </style>

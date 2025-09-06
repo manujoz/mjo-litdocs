@@ -11,7 +11,9 @@
       "@/utils/*": ["./src/utils/*"],
       "@/styles/*": ["./src/styles/*"],
       "@/icons/*": ["./src/assets/icons/*"],
-      "@/assets/*": ["./src/assets/*"]
+      "@/assets/*": ["./src/assets/*"],
+      "@/types/*": ["./src/types/*"],
+      "@/scripts/*": ["./src/scripts/*"]
     },
     "strict": true,
     "moduleResolution": "bundler",

@@ -1,13 +1,15 @@
 @import "./prism.css";
 
 :root {
-    --scrollbar-thumb-color: oklch(82.968% 0.00009 271.152);
+    --scrollbar-thumb-color: #c7c7c7;
+
+    --codeblock-background: #333333;
 }
 
 .dark {
-    --scrollbar-track-color: oklch(21.779% 0.00002 271.152);
-    --scrollbar-thumb-color: oklch(36.002% 0.00004 271.152);
-    --scrollbar-thumb-hover-color: oklch(45.35% 0.00165 285.873);
+    --scrollbar-track-color: #1a1a1a;
+    --scrollbar-thumb-color: #3d3d3d;
+    --scrollbar-thumb-hover-color: #565657;
 }
 
 /* === CUSTOM SCROLLBAR STYLES === */

@@ -1,18 +1,19 @@
 ---
 export interface Props {
-    size?: "xs" | "sm" | "md" | "lg" | "xl" | "title";
+    size?: "xxs" | "xs" | "sm" | "md" | "lg" | "xl" | "xxl" | "title3" | "title2" | "title1";
     weight?: "light" | "normal" | "bold";
     color?: "primary" | "secondary" | "accent" | "default";
     tag?: "p" | "span" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
+    spacing?: "none" | "sm" | "md" | "lg";
     class?: string;
 }
 
-const { size = "md", weight = "normal", color = "default", tag = "span", class: className } = Astro.props;
+const { size = "md", weight = "normal", color = "default", tag = "span", spacing = "none", class: className } = Astro.props;
 
 const Element = tag;
 ---
 
-<Element class:list={["container", "text-" + color, "font-" + weight, "text-" + size, className]} {...Astro.props}>
+<Element class:list={["container", "text-" + color, "font-" + weight, "text-" + size, `spacing-${spacing}`, className]} {...Astro.props}>
     <slot />
 </Element>
 
@@ -40,6 +41,9 @@ const Element = tag;
     .font-bold {
         font-weight: 700;
     }
+    .text-xxs {
+        font-size: var(--mjo-font-size-xxsmall);
+    }
     .text-xs {
         font-size: var(--mjo-font-size-xsmall);
     }
@@ -52,8 +56,28 @@ const Element = tag;
     .text-xl {
         font-size: var(--mjo-font-size-xlarge);
     }
-    .text-title {
+    .text-sxl {
+        font-size: var(--mjo-font-size-sxlarge);
+    }
+    .text-title1 {
         font-size: var(--mjo-font-size-title1);
         line-height: 1em;
+    }
+    .text-title2 {
+        font-size: var(--mjo-font-size-title2);
+        line-height: 1em;
+    }
+    .text-title3 {
+        font-size: var(--mjo-font-size-title3);
+        line-height: 1em;
+    }
+    .spacing-sm {
+        margin: 0.8em 0;
+    }
+    .spacing-md {
+        margin: 1em 0;
+    }
+    .spacing-lg {
+        margin: 1.5em 0;
     }
 </style>

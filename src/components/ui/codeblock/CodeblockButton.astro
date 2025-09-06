@@ -1,0 +1,53 @@
+---
+export interface Props {
+    active?: boolean;
+    content?: string;
+}
+
+import { getUniqueId } from "@/utils/strings";
+import Button from "@/components/ui/Button.astro";
+
+const { active, content } = Astro.props;
+
+const uniqueId = getUniqueId("codeblock-button");
+---
+
+<Button variant="codeblock" size="sm" slot="header" active={active} data-content={content} id={uniqueId}>
+    <slot />
+</Button>
+
+<script define:vars={{ uniqueId, content }}>
+    const setupContentButton = () => {
+        if (!content) return;
+
+        const button = document.getElementById(uniqueId);
+        if (!button) return;
+
+        button.addEventListener("click", () => {
+            const codeblockContainer = button.closest(".codeblock-container");
+            if (!codeblockContainer) return;
+
+            const preContent = codeblockContainer.querySelector(`pre[data-content="${content}"]`);
+            if (!preContent) return;
+
+            const allPreContents = codeblockContainer.querySelectorAll("pre[data-content]");
+            allPreContents.forEach((el) => {
+                if (el !== preContent) {
+                    el.removeAttribute("data-active");
+                }
+            });
+
+            const allButtons = codeblockContainer.querySelectorAll("button[data-content]");
+            allButtons.forEach((el) => {
+                if (el !== button) {
+                    el.classList.remove("btn-active");
+                }
+            });
+
+            button.classList.add("btn-active");
+            preContent.setAttribute("data-active", "true");
+        });
+    };
+
+    document.addEventListener("DOMContentLoaded", setupContentButton);
+</script>
