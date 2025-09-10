@@ -5,10 +5,10 @@ export interface Props {
     language: "javascript" | "typescript" | "bash" | "html" | "css";
     content?: string;
     active?: boolean;
-    butTitle?: string;
+    bugTitle?: string;
 }
 
-const { language, content, active, butTitle } = Astro.props;
+const { language, content, active, bugTitle } = Astro.props;
 ---
 
 <pre
@@ -18,14 +18,18 @@ const { language, content, active, butTitle } = Astro.props;
     <code class={`language-${language}`}>
         <slot />
     </code>
-    <CodeblockActions butTitle={butTitle} />
+    <CodeblockActions bugTitle={bugTitle} />
 </pre>
 
 <style>
-    pre[data-content] {
+    .pre {
+        max-height: calc(100dvh - 200px);
+        overflow-y: auto;
+    }
+    .pre[data-content] {
         display: none;
     }
-    pre[data-content][data-active="true"] {
+    .pre[data-content][data-active="true"] {
         display: block;
     }
 </style>

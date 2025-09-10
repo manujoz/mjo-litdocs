@@ -1,0 +1,23 @@
+---
+import type { NavigationSections } from "@/types/navigation";
+import SidebarSection from "./SidebarSection.astro";
+
+export interface Props {
+    navigationSections: NavigationSections;
+    currentPath?: string;
+}
+
+const { navigationSections, currentPath } = Astro.props;
+---
+
+<nav class="navContainer">
+    {navigationSections.map((section) => <SidebarSection navigationSection={section} currentPath={currentPath} />)}
+</nav>
+
+<style>
+    .navContainer {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+</style>

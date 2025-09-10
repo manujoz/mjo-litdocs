@@ -1,6 +1,6 @@
 ---
 export interface Props {
-    butTitle?: string;
+    bugTitle?: string;
 }
 
 import { BsBug, BsCopy, BsCheck2 } from "mjo-icons/bs";
@@ -8,13 +8,13 @@ import { getUniqueId } from "@/utils/strings";
 
 const uniqueId = getUniqueId();
 
-const { butTitle } = Astro.props;
+const { bugTitle } = Astro.props;
 ---
 
 <div class="codeblock-actions">
     <button id={uniqueId} title="Copy code" set:html={BsCopy} tabindex="0" aria-label="Copy code" />
     {
-        butTitle && (
+        bugTitle && (
             <a
                 title="Report issue"
                 class="button"
@@ -22,7 +22,7 @@ const { butTitle } = Astro.props;
                 role="button"
                 tabindex="0"
                 aria-label="Report issue"
-                href={`https://github.com/manujoz/mjo-litui/issues/new?assignees=&labels=bug&template=bug_report.yml&title=${butTitle}`}
+                href={`https://github.com/manujoz/mjo-litui/issues/new?assignees=&labels=bug&template=bug_report.yml&title=${bugTitle}`}
                 target="_blank"
                 rel="noopener noreferrer"
             />

@@ -18,6 +18,7 @@ pre[class*="language-"] {
     tab-size: 2;
     hyphens: none;
 
+    --token-comment: #414141;
     --token-variable: #00b4bc;
     --token-parameter: var(--token-variable);
     --token-property-access: var(--token-variable);
@@ -72,12 +73,12 @@ pre[class*="language-"] {
 .token.prolog,
 .token.doctype,
 .token.cdata {
-    color: oklch(var(--color-muted-foreground));
+    color: var(--token-comment);
     font-style: italic;
 }
 
 .token.punctuation {
-    color: oklch(var(--color-foreground));
+    color: var(--mjo-foreground-color);
 }
 
 .token.namespace {
@@ -99,6 +100,7 @@ pre[class*="language-"] {
 
 .token.selector,
 .token.attr-name,
+.token.special-attr,
 .token.string,
 .token.char,
 .token.builtin,
@@ -156,7 +158,131 @@ pre[class*="language-"] {
     font-weight: 600;
 }
 
+/* New Lit-specific attribute styling */
+.token.lit-event-attr,
+.token.lit-property-attr,
+.token.lit-boolean-attr {
+    color: var(--token-attr-name);
+    font-weight: 600;
+}
+
+.token.regular-attr {
+    color: var(--token-attr-name);
+}
+
+.token.standalone-attr {
+    color: var(--token-attr-name);
+}
+
+/* Opening tag with attributes styling */
+.token.opening-tag-with-attrs .token.tag-name {
+    color: var(--token-html-tag);
+}
+
+.token.opening-tag-with-attrs .token.punctuation {
+    color: var(--token-html-tag);
+}
+
+/* Closing tag styling */
+.token.closing-tag .token.tag-name {
+    color: var(--token-html-tag);
+}
+
+.token.closing-tag .token.punctuation {
+    color: var(--token-html-tag);
+}
+
 /* HTML content inside lit-html templates */
+.token.lit-html .token.html-content .token.opening-tag-name,
+.token.lit-html .token.html-content .token.tag-close.punctuation {
+    color: var(--token-html-tag);
+}
+
+.token.lit-html .token.html-content .token.lit-event-attr {
+    color: var(--token-attr-name);
+    font-weight: 600;
+}
+
+.token.lit-html .token.html-content .token.lit-property-attr {
+    color: var(--token-attr-name);
+    font-weight: 600;
+}
+
+.token.lit-html .token.html-content .token.lit-boolean-attr {
+    color: var(--token-attr-name);
+    font-weight: 600;
+}
+
+.token.lit-html .token.html-content .token.attr-equals {
+    color: var(--token-number);
+}
+
+.token.lit-html .token.html-content .token.tag-close {
+    color: var(--token-number);
+}
+
+.token.lit-html .token.html-content .token.tag .token.tag-name {
+    color: var(--token-html-tag);
+}
+
+.token.lit-html .token.html-content .token.tag .token.attr-name {
+    color: var(--token-attr-name);
+}
+
+.token.lit-html .token.html-content .token.tag .token.attr-value {
+    color: var(--token-attr-value);
+}
+
+.token.lit-html .token.html-content .token.tag .token.punctuation {
+    color: var(--token-html-tag);
+}
+
+/* Fallback for direct tokens */
+.token.lit-html .token.html-content .token.tag {
+    color: var(--token-html-tag);
+}
+
+.token.lit-html .token.html-content .token.attr-name {
+    color: var(--token-attr-name);
+}
+
+.token.lit-html .token.html-content .token.attr-value {
+    color: var(--token-attr-value);
+}
+
+/* Legacy support for old html tokens */
+.token.lit-html .token.html .token.tag .token.tag-name {
+    color: var(--token-html-tag);
+}
+
+.token.lit-html .token.html .token.tag .token.attr-name {
+    color: var(--token-attr-name);
+}
+
+.token.lit-html .token.html .token.tag .token.lit-event {
+    color: var(--token-attr-name);
+    font-weight: 600;
+}
+
+.token.lit-html .token.html .token.tag .token.lit-property {
+    color: var(--token-attr-name);
+    font-weight: 600;
+}
+
+.token.lit-html .token.html .token.tag .token.lit-boolean {
+    color: var(--token-attr-name);
+    font-weight: 600;
+}
+
+.token.lit-html .token.html .token.tag .token.attr-value {
+    color: var(--token-attr-value);
+}
+
+.token.lit-html .token.html .token.tag .token.punctuation {
+    color: var(--token-html-tag);
+}
+
+/* Fallback for direct tokens */
 .token.lit-html .token.html .token.tag {
     color: var(--token-html-tag);
 }
@@ -165,12 +291,17 @@ pre[class*="language-"] {
     color: var(--token-attr-name);
 }
 
+.token.lit-html .token.html .token.special-attr {
+    color: var(--token-attr-name);
+    font-weight: 600;
+}
+
 .token.lit-html .token.html .token.attr-value {
     color: var(--token-attr-value);
 }
 
 .token.lit-html .token.html .token.punctuation {
-    color: oklch(var(--color-foreground)); /* Default for HTML punctuation */
+    color: var(--mjo-foreground-color); /* Default for HTML punctuation */
 }
 
 /* CSS content inside lit-css templates */
@@ -213,33 +344,22 @@ pre[class*="language-"] {
     color: var(--token-attr-name);
 }
 
+.token.lit-html .token.interpolation .token.nested-lit-html .token.html .token.special-attr {
+    color: var(--token-attr-name);
+    font-weight: 600;
+}
+
 .token.lit-html .token.interpolation .token.nested-lit-html .token.html .token.attr-value {
     color: var(--token-attr-value);
 }
 
 .token.lit-html .token.interpolation .token.nested-lit-html .token.html .token.punctuation {
-    color: oklch(var(--color-foreground)); /* Default for HTML punctuation */
+    color: var(--token-html-tag); /* Default for HTML punctuation */
 }
 
 /* JavaScript content inside interpolations */
 .token.lit-html .token.interpolation .token.function,
 .token.lit-css .token.interpolation .token.function {
-    --token-variable: #00b4bc;
-    --token-string: #3ebb33;
-    --token-number: #729afb;
-    --token-html-tag: #e8594a;
-    --token-classname: #d9a514;
-    --token-function: var(--token-classname);
-    --token-keyword: #be64d2;
-    --token-important: #e77f3e;
-    --token-lit-html: #1cafdb;
-    --token-lit-css: #1cafdb;
-    --token-attr-name: #0ecfda;
-    --token-attr-value: #3ebb33;
-    --token-css-selector: #e8594a;
-    --token-css-property: #00b4bc;
-    --token-css-string: #3ebb33;
-    --token-template-string-interpolation: #d12eb6;
     color: var(--token-function);
 }
 
@@ -251,7 +371,7 @@ pre[class*="language-"] {
 
 .token.lit-html .token.interpolation .token.operator,
 .token.lit-css .token.interpolation .token.operator {
-    color: oklch(var(--color-foreground)); /* Default for operators */
+    color: var(--token-number); /* Default for operators */
 }
 
 .token.lit-html .token.interpolation .token.variable,
@@ -289,7 +409,7 @@ pre[class*="language-"].line-numbers > code {
     left: -3.8em;
     width: 3em;
     letter-spacing: -1px;
-    border-right: 1px solid oklch(var(--color-border));
+    border-right: 1px solid var(--mjo-border-coloir);
     user-select: none;
 }
 
@@ -300,136 +420,29 @@ pre[class*="language-"].line-numbers > code {
 
 .line-numbers-rows > span:before {
     content: counter(linenumber);
-    color: oklch(var(--color-muted-foreground));
+    color: var(--mjo-foreground-color-low);
     display: block;
     padding-right: 0.8em;
     text-align: right;
 }
 
-/* Copy to clipboard plugin */
-div.code-toolbar {
-    position: relative;
-}
-
-div.code-toolbar > .toolbar {
-    position: absolute;
-    top: 0.3em;
-    right: 0.2em;
-    transition: opacity 0.3s ease-in-out;
-    opacity: 0;
-}
-
-div.code-toolbar:hover > .toolbar {
-    opacity: 1;
-}
-
-div.code-toolbar > .toolbar .toolbar-item {
-    display: inline-block;
-}
-
-div.code-toolbar > .toolbar a {
-    cursor: pointer;
-}
-
-div.code-toolbar > .toolbar button {
-    background: oklch(var(--color-muted));
-    border: 1px solid oklch(var(--color-border));
-    border-radius: 0.25rem;
-    color: oklch(var(--color-foreground));
-    font-size: 0.75rem;
-    padding: 0.25rem 0.5rem;
-    cursor: pointer;
-    transition: all 0.2s ease-in-out;
-}
-
-div.code-toolbar > .toolbar button:hover {
-    background: oklch(var(--color-accent));
-    color: oklch(var(--color-accent-foreground));
-}
-
-/* Show language plugin */
-div.code-toolbar > .toolbar .toolbar-item span {
-    background: oklch(var(--color-primary));
-    color: oklch(var(--color-primary-foreground));
-    font-size: 0.75rem;
-    padding: 0.125rem 0.5rem;
-    border-radius: 0.25rem;
-    margin-right: 0.5rem;
-    font-weight: 500;
-}
-
-/* Custom code block styling for documentation */
-.code-example {
-    margin: 1.5rem 0;
-    border-radius: 0.5rem;
-    overflow: hidden;
-    border: 1px solid oklch(var(--color-border));
-}
-
-.code-tabs {
-    display: flex;
-    gap: 0.5rem;
-}
-
-.code-tab {
-    padding: 0.25rem 0.75rem;
-    font-size: 0.875rem;
-    border: none;
-    background: transparent;
-    color: oklch(var(--color-muted-foreground));
-    border-radius: 0.25rem;
-    cursor: pointer;
-    transition: all 0.2s ease-in-out;
-}
-
-.code-tab:hover {
-    color: oklch(var(--color-foreground));
-    background: oklch(var(--color-background));
-}
-
-.code-tab-active {
-    color: oklch(var(--color-foreground));
-    background: oklch(var(--color-background));
-    font-weight: 500;
-}
-
-.code-copy {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.25rem 0.5rem;
-    font-size: 0.875rem;
-    border: 1px solid oklch(var(--color-border));
-    background: oklch(var(--color-background));
-    color: oklch(var(--color-foreground));
-    border-radius: 0.25rem;
-    cursor: pointer;
-    transition: all 0.2s ease-in-out;
-}
-
-.code-copy:hover {
-    background: oklch(var(--color-accent));
-    color: oklch(var(--color-accent-foreground));
-}
-
-/* Quickstart example styles */
-.quickstart-example {
-    margin-top: 2rem;
-}
-
-.example-title {
-    font-size: 1.125rem;
-    font-weight: 600;
-    margin-bottom: 1rem;
-    color: oklch(var(--color-foreground));
-}
-
 /* Language tag in code header */
 .code-language {
-    background: oklch(var(--color-primary));
-    color: oklch(var(--color-primary-foreground));
+    background: var(--mjo-primary-color);
+    color: var(--mjo-primary-foreground-color);
     font-size: 0.75rem;
     padding: 0.125rem 0.5rem;
     border-radius: 0.25rem;
     font-weight: 500;
+}
+
+p > code:not([class*="language-"]),
+code.inline {
+    background: var(--mjo-background-color-card);
+    color: var(--mjo-foreground-color);
+    font-size: 0.875rem;
+    font-weight: lighter;
+    padding: 0.125rem 0.25rem;
+    border-radius: 0.25rem;
+    white-space: nowrap;
 }

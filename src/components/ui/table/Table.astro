@@ -1,0 +1,19 @@
+<div class="table-container">
+    <table class="table">
+        <slot />
+    </table>
+</div>
+
+<style>
+    .table-container {
+        max-width: 100%;
+        overflow-x: auto;
+    }
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+        border-spacing: 0;
+        margin-bottom: 1.5rem;
+        font-size: 0.875rem;
+    }
+</style>

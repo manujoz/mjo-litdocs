@@ -2,13 +2,10 @@
 import Codeblock from "../ui/codeblock/Codeblock.astro";
 import CodeblockButton from "../ui/codeblock/CodeblockButton.astro";
 import CodeblockPre from "../ui/codeblock/CodeblockPre.astro";
-import Typography from "../ui/Typography.astro";
 ---
 
 <div class="quickstart-container">
     <div class="quickstart-content">
-        <Typography tag="h2" size="xxl" weight="bold" color="primary">Get Started in Seconds</Typography>
-        <Typography tag="p" size="md" spacing="md">Install MJO-LITUI and start building beautiful interfaces right away.</Typography>
         <Codeblock showHeader>
             <CodeblockButton slot="header" content="npm" active aria-label="npm command">npm</CodeblockButton>
             <CodeblockButton slot="header" content="yarn" aria-label="yarn command">yarn</CodeblockButton>
@@ -22,8 +19,8 @@ import Typography from "../ui/Typography.astro";
 
 <style>
     .quickstart-container {
-        margin: 0 auto 200px;
-        max-width: 600px;
+        margin: 50px auto 0;
+        max-width: 400px;
     }
 
     .quickstart-title {
@@ -36,5 +33,20 @@ import Typography from "../ui/Typography.astro";
         font-size: 1rem;
         color: var(--mjo-text-color);
         margin-bottom: 1rem;
+    }
+    .hero-actions {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 24px;
+        margin-top: 40px;
+    }
+    .hero-action {
+        flex: 1;
+        display: flex;
+        justify-content: flex-end;
+    }
+    .hero-action.right {
+        justify-content: flex-start;
     }
 </style>

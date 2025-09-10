@@ -1,4 +1,5 @@
 // @ts-check
+import node from "@astrojs/node";
 import sitemap from "@astrojs/sitemap";
 import { defineConfig, fontProviders } from "astro/config";
 
@@ -8,6 +9,9 @@ import lit from "mjo-astro-lit";
 export default defineConfig({
     site: "https://mjo-litui.dev",
     output: "server",
+    adapter: node({
+        mode: "standalone",
+    }),
     vite: {
         resolve: {
             alias: {

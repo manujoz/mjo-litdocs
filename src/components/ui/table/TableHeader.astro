@@ -1,0 +1,24 @@
+<thead class="table-header">
+    <slot />
+</thead>
+
+<style>
+    .table-header {
+        margin-bottom: 10px;
+    }
+    .table-header :global(th) {
+        text-align: left;
+        padding: 0.5rem 0.75rem;
+        font-weight: 500;
+        color: var(--mjo-foreground-color);
+        background-color: var(--mjo-background-color-card);
+    }
+    .table-header :global(tr:first-child) :global(th:first-child) {
+        border-top-left-radius: var(--mjo-radius-large);
+        border-bottom-left-radius: var(--mjo-radius-large);
+    }
+    .table-header :global(tr:first-child) :global(th:last-child) {
+        border-top-right-radius: var(--mjo-radius-large);
+        border-bottom-right-radius: var(--mjo-radius-large);
+    }
+</style>

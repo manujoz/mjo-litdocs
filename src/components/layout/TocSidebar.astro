@@ -1,0 +1,42 @@
+---
+import { TableContent } from "../lit/table-content";
+---
+
+<aside class="toc-sidebar">
+    <TableContent client:only />
+</aside>
+
+<style>
+    .toc-sidebar {
+        position: sticky;
+        top: 64px;
+        max-height: calc(100vh - 64px);
+        overflow-y: auto;
+        align-self: flex-start;
+        padding-top: 2.5rem;
+        padding-bottom: 2.5rem;
+        box-sizing: border-box;
+        scrollbar-width: thin;
+        scrollbar-color: transparent transparent;
+        display: none;
+    }
+    .toc-sidebar::-webkit-scrollbar {
+        width: 3px;
+    }
+    .toc-sidebar::-webkit-scrollbar-track {
+        background: transparent;
+    }
+    .toc-sidebar::-webkit-scrollbar-thumb {
+        background: transparent;
+        border-radius: 8px;
+        transition: background 0.2s ease;
+    }
+    .toc-sidebar::-webkit-scrollbar-thumb:hover {
+        background: transparent;
+    }
+    @media (min-width: 1280px) {
+        .toc-sidebar {
+            display: block;
+        }
+    }
+</style>

@@ -1,0 +1,64 @@
+---
+import Typography from "./Typography.astro";
+
+export interface Props {
+    href: string;
+    title: string;
+    icon: string;
+}
+
+const { title, icon, href } = Astro.props;
+---
+
+<a href={href} class="action-card">
+    <div class="header">
+        <div class="icon" set:html={icon} />
+        <Typography tag="h4" size="lg" weight="bold">
+            {title}
+        </Typography>
+    </div>
+    <Typography class="description" tag="p" spacing="md">
+        <slot />
+    </Typography>
+</a>
+
+<style>
+    .action-card {
+        position: relative;
+        text-decoration-line: none;
+        color: var(--mjo-foreground-color);
+        padding: var(--mjo-space-medium);
+        border: 1px solid var(--mjo-border-color);
+        border-radius: var(--mjo-radius-large);
+        transition: all 0.3s;
+        outline: solid 2px transparent;
+    }
+    .action-card .header {
+        position: relative;
+        display: flex;
+        align-items: center;
+        gap: var(--mjo-space-medium);
+    }
+    .action-card .icon {
+        flex: 0 1 20px;
+        padding: 15px;
+        border-radius: var(--mjo-radius-medium);
+        color: var(--mjo-primary-color);
+        background-color: var(--mjo-primary-color-alpha1);
+        vertical-align: middle;
+    }
+    .action-card .icon svg {
+        vertical-align: middle;
+    }
+    .action-card:hover {
+        background-color: var(--mjo-background-color-card-low);
+    }
+    .action-card:hover,
+    .action-card:focus-visible {
+        outline: solid 2px var(--mjo-secondary-color);
+        outline-offset: 2px;
+    }
+    .action-card .description {
+        color: var(--mjo-foreground-color-low) !important;
+    }
+</style>

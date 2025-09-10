@@ -1,0 +1,72 @@
+---
+import { BasicExample } from "@/components/examples/misc/basic-example";
+import Codeblock from "@/components/ui/codeblock/Codeblock.astro";
+import CodeblockButton from "@/components/ui/codeblock/CodeblockButton.astro";
+import CodeblockPre from "@/components/ui/codeblock/CodeblockPre.astro";
+import CodeExample from "@/components/ui/CodeExample.astro";
+import Link from "@/components/ui/Link.astro";
+import Typography from "@/components/ui/Typography.astro";
+import DocsLayout from "../../layouts/DocsLayout.astro";
+---
+
+<DocsLayout title="Installation - MJO-LITUI" description="Installation instructions for the Lit component library MJO-LITUI" currentPath="/docs/installation">
+    <article class="prose">
+        <Typography tag="h1" size="title2" weight="bold">Installation</Typography>
+        <Typography tag="p" spacing="md">
+            To install MJO-LITUI, you need to have Node.js 18 or later and npm (Node Package Manager) installed on your machine. If you don't have them
+            installed, you can download and install them from
+            <Link href="https://nodejs.org/" target="_blank" rel="noopener noreferrer" color="primary">the official Node.js website</Link>.
+        </Typography>
+        <Codeblock showHeader>
+            <CodeblockButton slot="header" content="npm" active aria-label="npm command">npm</CodeblockButton>
+            <CodeblockButton slot="header" content="yarn" aria-label="yarn command">yarn</CodeblockButton>
+            <CodeblockButton slot="header" content="pnpm" aria-label="pnpm command">pnpm</CodeblockButton>
+            <CodeblockPre language="bash" content="npm" active>npm install mjo-litui</CodeblockPre>
+            <CodeblockPre language="bash" content="yarn">yarn add mjo-litui</CodeblockPre>
+            <CodeblockPre language="bash" content="pnpm">pnpm install mjo-litui</CodeblockPre>
+        </Codeblock>
+        <Typography tag="h2" size="title2" weight="bold" spacing="md">Basic usage</Typography>
+        <Typography tag="p" spacing="md">
+            Once you have installed MJO-LITUI, you can start using its components in your project. Here's a simple example:
+        </Typography>
+        <CodeExample>
+            <BasicExample client:only slot="preview" />
+            <Codeblock showHeader slot="code">
+                <CodeblockPre language="typescript">
+                    {
+                        `import type { MjoButton } from "mjo-litui/mjo-button";
+                        
+import { LitElement, html } from "lit";                        
+import { customElement, query } from "lit/decorators.js";
+
+import "mjo-litui/mjo-button";
+
+@customElement("basic-example")
+export class BasicExample extends LitElement {
+    @query("mjo-button") $button!: MjoButton;
+
+    render() {
+        return html\`<mjo-button @mjo-button:click=\${this.#handleClick}>CLICK ME!</mjo-button>\`;
+    }
+
+    #handleClick = () => {
+        this.$button.loading = true;
+
+        setTimeout(() => {
+            this.$button.loading = false;
+        }, 2000);
+    };
+}
+`
+                    }</CodeblockPre
+                >
+            </Codeblock>
+        </CodeExample>
+    </article>
+</DocsLayout>
+
+<style>
+    .prose {
+        position: relative;
+    }
+</style>

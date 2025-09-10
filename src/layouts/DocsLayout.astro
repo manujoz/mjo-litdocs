@@ -4,9 +4,11 @@ import type { BreadcrumbItem } from "@/types/docs";
 import Footer from "@/components/layout/Footer.astro";
 import Header from "@/components/layout/Header.astro";
 import Sidebar from "@/components/layout/Sidebar.astro";
-import Toc from "@/components/layout/Toc.astro";
 import Breadcrumb from "@/components/ui/Breadcrumb.astro";
 import BaseLayout from "@/layouts/BaseLayout.astro";
+
+import TocSidebar from "@/components/layout/TocSidebar.astro";
+import { navigationSections } from "@/lib/navgation";
 
 export interface Props {
     title?: string;
@@ -28,23 +30,14 @@ const breadcrumbItemsExample = [
 ---
 
 <BaseLayout title={fullTitle} description={description}>
-    <!-- Header -->
     <Header />
     <div class="docs-layout">
-        <!-- Sidebar -->
-        <Sidebar currentPath={currentPath} />
-
-        <!-- Main Content Area -->
+        <Sidebar navigationSections={navigationSections} currentPath={currentPath} />
         <main class="docs-content">
-            <!-- Breadcrumbs -->
-            <Breadcrumb items={breadcrumbItemsExample} />
-
-            <!-- Page Content -->
+            <Breadcrumb items={breadcrumbItems} />
             <div class="docs-article">
                 <slot />
             </div>
-
-            <!-- Page Navigation -->
             <div class="docs-page-nav">
                 <div class="page-nav-prev">
                     <!-- This will be populated dynamically based on the current page -->
@@ -54,12 +47,8 @@ const breadcrumbItemsExample = [
                 </div>
             </div>
         </main>
-
-        <!-- Table of Contents -->
-        <Toc />
+        <TocSidebar />
     </div>
-
-    <!-- Footer -->
     <Footer />
 </BaseLayout>
 
@@ -70,23 +59,29 @@ const breadcrumbItemsExample = [
         display: grid;
         grid-template-columns: repeat(1, minmax(0, 1fr));
         gap: 32px;
+        max-width: 1400px;
+        margin: 0 auto;
     }
-
+    .docs-content {
+        position: relative;
+        padding: 2.5rem 15px 4.5rem;
+        box-sizing: border-box;
+    }
     @media (min-width: 1024px) {
         .docs-layout {
-            grid-template-columns: 280px 1fr;
+            grid-template-columns: 280px minmax(0, 1fr);
+        }
+        .docs-content {
+            padding: 2.5rem 15px 4.5rem 0;
         }
     }
 
     @media (min-width: 1280px) {
         .docs-layout {
-            grid-template-columns: 280px 1fr 240px;
+            grid-template-columns: 280px minmax(0, 1fr) 240px;
         }
-    }
-
-    .docs-content {
-        position: relative;
-        padding-top: 2.5rem;
-        padding-bottom: 4.5rem;
+        .docs-content {
+            padding: 2.5rem 0 4.5rem;
+        }
     }
 </style>

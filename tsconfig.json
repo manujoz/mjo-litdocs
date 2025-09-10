@@ -15,6 +15,7 @@
       "@/types/*": ["./src/types/*"],
       "@/scripts/*": ["./src/scripts/*"]
     },
+    "types": ["vitest/globals"],
     "strict": true,
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,

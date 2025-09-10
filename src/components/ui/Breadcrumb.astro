@@ -12,30 +12,32 @@ interface Props {
 const { items } = Astro.props;
 ---
 
-<nav aria-label="Breadcrumb" class="breadcrumb-nav">
-    <ol class="breadcrumb-list">
-        {
-            items.map((item, index) => (
-                <li class="breadcrumb-item">
-                    {item.href && !item.isCurrentPage ? (
-                        <a href={item.href} class="breadcrumb-link">
-                            {item.label}
-                        </a>
-                    ) : (
-                        <span class="breadcrumb-current" aria-current={item.isCurrentPage ? "page" : undefined}>
-                            {item.label}
-                        </span>
-                    )}
-                    {index < items.length - 1 && (
-                        <span class="breadcrumb-separator" aria-hidden="true">
-                            /
-                        </span>
-                    )}
-                </li>
-            ))
-        }
-    </ol>
-</nav>
+{
+    items.length > 0 && (
+        <nav aria-label="Breadcrumb" class="breadcrumb-nav">
+            <ol class="breadcrumb-list">
+                {items.map((item, index) => (
+                    <li class="breadcrumb-item">
+                        {item.href && !item.isCurrentPage ? (
+                            <a href={item.href} class="breadcrumb-link">
+                                {item.label}
+                            </a>
+                        ) : (
+                            <span class="breadcrumb-current" aria-current={item.isCurrentPage ? "page" : undefined}>
+                                {item.label}
+                            </span>
+                        )}
+                        {index < items.length - 1 && (
+                            <span class="breadcrumb-separator" aria-hidden="true">
+                                /
+                            </span>
+                        )}
+                    </li>
+                ))}
+            </ol>
+        </nav>
+    )
+}
 
 <style>
     .breadcrumb-nav {

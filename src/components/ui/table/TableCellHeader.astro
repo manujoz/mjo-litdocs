@@ -1,0 +1,12 @@
+---
+export interface Props {
+    width?: string;
+    minWidth?: string;
+}
+
+const { width = "auto", minWidth = "0" } = Astro.props;
+---
+
+<th style={`width: ${width}; min-width: ${minWidth}`}>
+    <slot />
+</th>

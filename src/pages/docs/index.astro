@@ -1,89 +1,75 @@
 ---
+import ActionCard from "@/components/ui/ActionCard.astro";
+import Typography from "@/components/ui/Typography.astro";
 import DocsLayout from "../../layouts/DocsLayout.astro";
+
+import { RiBox2Line, RiBrush2Line, RiClockwise2Line, RiInstallLine } from "mjo-icons/ri";
 ---
 
 <DocsLayout title="Documentation" description="Complete documentation for MJO-LITUI component library" currentPath="/docs">
     <article class="prose">
-        <h1>Welcome to MJO-LITUI Documentation</h1>
-        <p class="lead">
-            MJO-LITUI is a modern Lit component library designed to help developers build beautiful, accessible, and performant user interfaces with ease.
-        </p>
-        <h2>What is MJO-LITUI?</h2>
-        <p>
-            MJO-LITUI is a comprehensive component library built on top of Lit, providing a collection of reusable, customizable components that follow modern
-            web standards and accessibility guidelines.
-        </p>
+        <Typography tag="h1" size="title2" weight="bold">Introduction</Typography>
+        <Typography tag="p" spacing="md">Welcome to the MJO-LITUI documentation.</Typography>
+        <Typography tag="h2" size="title3" weight="bold" spacing="md">What is MJO-LITUI?</Typography>
+        <Typography tag="p" spacing="md">
+            MJO-LITUI is a component library based on <strong>Lit</strong>, designed to help developers build beautiful, accessible, and high-performance user
+            interfaces with ease.
+        </Typography>
+        <Typography tag="p" spacing="md">
+            It was created due to the lack of component libraries for this web components-based framework and to meet the need for developers to have a library
+            that helps them build user interfaces faster.
+        </Typography>
+        <Typography tag="p" spacing="md">
+            Thanks to its lightweight nature and "use the platform" approach, Lit is, in my opinion, one of the best libraries for building user interfaces, and
+            MJO-LITUI aims to fill the gap that Lit currently has in terms of community dependencies.
+        </Typography>
+        <Typography tag="p" spacing="md"> MJO-LITUI is completely open source and can be used in any project regardless of its purpose. </Typography>
+        <Typography tag="p" spacing="md">
+            This library is designed to be easy to use and customize, and is fully compatible with SSR, so you will not encounter any server-side rendering
+            issues as it takes into account the lifecycle both on the server and the client.
+        </Typography>
         <div class="feature-highlight">
-            <h3>Key Features</h3>
+            <Typography tag="h3" size="title3" weight="bold">Key Features</Typography>
             <ul>
-                <li><strong>TypeScript First:</strong> Built with TypeScript for excellent developer experience</li>
-                <li><strong>Accessibility:</strong> WCAG 2.1 compliant with keyboard navigation support</li>
-                <li><strong>Customizable:</strong> Extensive theming system with CSS custom properties</li>
-                <li><strong>Performance:</strong> Optimized for speed with minimal bundle size</li>
-                <li><strong>Framework Agnostic:</strong> Works with any framework or vanilla JavaScript</li>
+                <li>
+                    <Typography tag="span">
+                        <b>Typescript first</b>: Built with TypeScript for excellent developer experience
+                    </Typography>
+                </li>
+                <li>
+                    <Typography tag="span">
+                        <b>Accessibility</b>: WCAG 2.1 compliant with keyboard navigation support
+                    </Typography>
+                </li>
+                <li>
+                    <Typography tag="span">
+                        <b>Customizable</b>: Extensive theming system with CSS custom properties
+                    </Typography>
+                </li>
+                <li>
+                    <Typography tag="span">
+                        <b>Performance</b>: Optimized for speed with minimal bundle size
+                    </Typography>
+                </li>
+                <li>
+                    <Typography tag="span">
+                        <b>Framework Agnostic</b>: Works with any framework or vanilla JavaScript
+                    </Typography>
+                </li>
             </ul>
         </div>
-        <h2>Getting Started</h2>
-        <p>Ready to start building? Check out our quick start guide to get up and running in just a few minutes.</p>
+        <Typography tag="h2" size="title3" weight="bold">Getting Started</Typography>
+        <Typography tag="p" spacing="md">Ready to start building? Check out our quick start guide to get up and running in just a few minutes.</Typography>
         <div class="action-cards">
-            <a href="/docs/installation" class="action-card">
-                <div class="action-card-icon">
-                    <svg class="action-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4-4m0 0l-4 4m4-4v12"></path>
-                    </svg>
-                </div>
-                <h3>Installation</h3>
-                <p>Learn how to install and set up MJO-LITUI in your project.</p>
-            </a>
-            <a href="/docs/quick-start" class="action-card">
-                <div class="action-card-icon">
-                    <svg class="action-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-                    </svg>
-                </div>
-                <h3>Quick Start</h3>
-                <p>Get started quickly with our step-by-step guide.</p>
-            </a>
-
-            <a href="/docs/components" class="action-card">
-                <div class="action-card-icon">
-                    <svg class="action-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"
-                        ></path>
-                    </svg>
-                </div>
-                <h3>Components</h3>
-                <p>Explore our collection of ready-to-use components.</p>
-            </a>
-
-            <a href="/docs/themes" class="action-card">
-                <div class="action-card-icon">
-                    <svg class="action-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zM21 5a2 2 0 00-2-2h-4a2 2 0 00-2 2v12a4 4 0 004 4h4a2 2 0 002-2V5z"
-                        ></path>
-                    </svg>
-                </div>
-                <h3>Theming</h3>
-                <p>Learn how to customize the appearance of components.</p>
-            </a>
+            <ActionCard href="/docs/installation" title="Installation" icon={RiInstallLine}>
+                Learn how to install and set up MJO-LITUI in your project.
+            </ActionCard>
+            <ActionCard href="/docs/quick-start" title="Quick Start" icon={RiClockwise2Line}> Get started quickly with our step-by-step guide. </ActionCard>
+            <ActionCard href="/docs/components" title="Components" icon={RiBox2Line}> Explore our collection of ready-to-use components. </ActionCard>
+            <ActionCard href="/docs/themes" title="Theming" icon={RiBrush2Line}> Learn how to customize the appearance of components. </ActionCard>
         </div>
-
-        <h2>Community & Support</h2>
-
-        <p>Need help or want to contribute? Our community is here to help you succeed.</p>
-
+        <Typography tag="h2" size="title3" weight="bold">Community & Support</Typography>
+        <Typography tag="p" spacing="md">Need help or want to contribute? Our community is here to help you succeed.</Typography>
         <div class="community-links">
             <a href="https://github.com/username/mjo-litui" class="community-link" target="_blank" rel="noopener noreferrer">
                 <svg class="community-icon" fill="currentColor" viewBox="0 0 20 20">
@@ -94,7 +80,6 @@ import DocsLayout from "../../layouts/DocsLayout.astro";
                 </svg>
                 GitHub
             </a>
-
             <a href="/docs/contributing" class="community-link">
                 <svg class="community-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path
@@ -112,38 +97,33 @@ import DocsLayout from "../../layouts/DocsLayout.astro";
 
 <style>
     .prose {
-        max-width: none;
+        position: relative;
     }
-
-    .lead {
-        font-size: 1.25rem;
-        color: var(--mjo-foreground-color-low);
-        margin-bottom: 2rem;
-    }
-
     .feature-highlight {
-        background-color: color-mix(in oklch, var(--mjo-secondary-color) 50%, transparent);
-        border-radius: 0.5rem; /* rounded-lg */
-        padding: 1.5rem; /* p-6 */
-        margin-top: 2rem; /* my-8 */
+        background-color: var(--mjo-secondary-color-alpha4);
+        border-radius: 0.5rem;
+        padding: 1.5rem;
+        margin-top: 2rem;
         margin-bottom: 2rem;
     }
-
     .feature-highlight h3 {
-        font-size: 1.125rem; /* text-lg */
-        font-weight: 600; /* font-semibold */
-        margin-bottom: 1rem; /* mb-4 */
+        font-size: 1.125rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
     }
-
     .feature-highlight ul {
         display: flex;
+        margin: 0;
+        padding: 0 0 0 10px;
         flex-direction: column;
-        gap: 0.5rem; /* space-y-2 */
+        gap: 0.5rem;
     }
-
     .feature-highlight li {
         display: flex;
         align-items: flex-start;
+    }
+    .feature-highlight b {
+        font-weight: 600;
     }
 
     .action-cards {

@@ -17,68 +17,19 @@ import "prismjs/components/prism-yaml";
 import "prismjs/plugins/line-numbers/prism-line-numbers";
 import "prismjs/plugins/normalize-whitespace/prism-normalize-whitespace";
 
-// Custom Lit Element template literals grammar for proper HTML highlighting
-// This creates a more sophisticated grammar that handles nested templates and interpolations
-
-// First, create a complex pattern for lit-html that handles JavaScript interpolations
-const createLitHtmlGrammar = () => {
-    return {
-        pattern: /html`(?:[^`\\$]|\\[\s\S]|\$(?!\{)|\$\{(?:[^{}]|\{(?:[^{}]|\{[^}]*\})*\})*\})*`/,
-        greedy: true,
-        inside: {
-            "template-punctuation": {
-                pattern: /^html`|`$/,
-                alias: "punctuation",
-            },
-            interpolation: {
-                pattern: /\$\{(?:[^{}]|\{(?:[^{}]|\{[^}]*\})*\})*\}/,
-                inside: {
-                    "interpolation-punctuation": {
-                        pattern: /^\$\{|\}$/,
-                        alias: "punctuation",
-                    },
-                    // Nested html templates inside interpolations
-                    "nested-lit-html": {
-                        pattern: /html`(?:[^`\\$]|\\[\s\S]|\$(?!\{)|\$\{(?:[^{}]|\{(?:[^{}]|\{[^}]*\})*\})*\})*`/,
-                        inside: {
-                            "template-punctuation": {
-                                pattern: /^html`|`$/,
-                                alias: "punctuation",
-                            },
-                            "nested-interpolation": {
-                                pattern: /\$\{(?:[^{}]|\{(?:[^{}]|\{[^}]*\})*\})*\}/,
-                                inside: {
-                                    "interpolation-punctuation": {
-                                        pattern: /^\$\{|\}$/,
-                                        alias: "punctuation",
-                                    },
-                                    rest: Prism.languages.typescript,
-                                },
-                            },
-                            html: {
-                                pattern: /(?!\$\{)[^$]+|(?:\$(?!\{))+/,
-                                inside: Prism.languages.markup,
-                            },
-                        },
-                    },
-                    rest: Prism.languages.typescript,
-                },
-            },
-            html: {
-                pattern: /(?!\$\{)[^$]+|(?:\$(?!\{))+/,
-                inside: Prism.languages.markup,
-            },
-        },
-    };
-};
-
+// Custom function to create Lit CSS grammar
 const createLitCssGrammar = () => {
     return {
-        pattern: /css`(?:[^`\\$]|\\[\s\S]|\$(?!\{)|\$\{(?:[^{}]|\{(?:[^{}]|\{[^}]*\})*\})*\})*`/,
+        pattern: /(^|[^a-zA-Z0-9_-])(css)`(?:[^`\\$]|\\[\s\S]|\$(?!\{)|\$\{(?:[^{}]|\{(?:[^{}]|\{[^}]*\})*\})*\})*`/,
+        lookbehind: true,
         greedy: true,
         inside: {
+            function: {
+                pattern: /^css/,
+                alias: "function",
+            },
             "template-punctuation": {
-                pattern: /^css`|`$/,
+                pattern: /`|`$/,
                 alias: "punctuation",
             },
             interpolation: {
@@ -93,23 +44,255 @@ const createLitCssGrammar = () => {
             },
             css: {
                 pattern: /(?!\$\{)[^$]+|(?:\$(?!\{))+/,
-                inside: Prism.languages.css,
+                inside: (function () {
+                    // Create enhanced CSS grammar with better pseudo-selector highlighting
+                    const enhancedCSS = {
+                        comment: Prism.languages.css.comment,
+                        atrule: Prism.languages.css.atrule,
+                        url: Prism.languages.css.url,
+                        // Enhanced selector with pseudo-selector tokenization
+                        selector: {
+                            pattern:
+                                /(^|[{}\s])[^{}\s](?:[^{};"'\s]|\s+(?![\s{])|(?:"(?:\\(?:\r\n|[\s\S])|[^"\\\r\n])*"|'(?:\\(?:\r\n|[\s\S])|[^'\\\r\n])*'))*(?=\s*\{)/,
+                            lookbehind: true,
+                            inside: {
+                                // Pseudo-selectors and pseudo-elements with function highlighting
+                                pseudo: {
+                                    pattern: /::?[a-z-]+(?:\([^)]*\))?/i,
+                                    inside: {
+                                        "pseudo-argument": {
+                                            pattern: /\([^)]*\)/,
+                                            inside: {
+                                                punctuation: /[()]/,
+                                                string: /"[^"]*"|'[^']*'/,
+                                                number: /\b\d+(?:\.\d+)?[a-z%]*\b/i,
+                                                keyword: /\b(?:odd|even|n|of)\b/,
+                                                operator: /[+\-*\/]/,
+                                            },
+                                        },
+                                    },
+                                    alias: "function",
+                                },
+                                // Class selectors
+                                class: /\.[a-z_-][a-z0-9_-]*/i,
+                                // ID selectors
+                                id: /#[a-z_-][a-z0-9_-]*/i,
+                                // Attribute selectors
+                                attribute: {
+                                    pattern: /\[[^\]]*\]/,
+                                    inside: {
+                                        punctuation: /[\[\]]/,
+                                        operator: /[~|^$*]?=/,
+                                        string: /"[^"]*"|'[^']*'/,
+                                    },
+                                },
+                                // Tag/element selectors
+                                tag: /\b[a-z][a-z0-9-]*\b/i,
+                                // Universal selector
+                                universal: /\*/,
+                                // Combinators
+                                combinator: /[>+~]/,
+                            },
+                        },
+                        string: Prism.languages.css.string,
+                        property: Prism.languages.css.property,
+                        important: Prism.languages.css.important,
+                        function: Prism.languages.css.function,
+                        punctuation: Prism.languages.css.punctuation,
+                    };
+
+                    return enhancedCSS;
+                })(),
             },
         },
     };
 };
 
-// Apply to TypeScript
-Prism.languages.insertBefore("typescript", "template-string", {
-    "lit-html": createLitHtmlGrammar(),
-    "lit-css": createLitCssGrammar(),
-});
+// Custom Lit HTML grammar with improved attribute parsing
+const createLitHtmlGrammar = () => {
+    return {
+        pattern: /(^|[^a-zA-Z0-9_-])(html)`(?:[^`\\$]|\\[\s\S]|\$(?!\{)|\$\{(?:[^{}]|\{(?:[^{}]|\{[^}]*\})*\})*\})*`/,
+        lookbehind: true,
+        greedy: true,
+        inside: {
+            function: {
+                pattern: /^html/,
+                alias: "function",
+            },
+            "template-punctuation": {
+                pattern: /`|`$/,
+                alias: "punctuation",
+            },
+            interpolation: {
+                pattern: /\$\{(?:[^{}]|\{(?:[^{}]|\{[^}]*\})*\})*\}/,
+                inside: {
+                    "interpolation-punctuation": {
+                        pattern: /^\$\{|\}$/,
+                        alias: "punctuation",
+                    },
+                    rest: Prism.languages.typescript,
+                },
+            },
+            // Parse HTML content with special handling for Lit attributes
+            "html-content": {
+                pattern: /(?!\$\{)[^$]+|(?:\$(?!\{))+/,
+                inside: {
+                    // Comments first to avoid conflicts
+                    comment: /<!--[\s\S]*?-->/,
 
-// Apply to JavaScript for compatibility
-Prism.languages.insertBefore("javascript", "template-string", {
-    "lit-html": createLitHtmlGrammar(),
-    "lit-css": createLitCssGrammar(),
-});
+                    // Complete HTML tags (without interpolations)
+                    tag: {
+                        pattern: /<\/?[a-zA-Z][a-zA-Z0-9-]*(?:\s+[^>$]*)?>/,
+                        greedy: true,
+                        inside: {
+                            "tag-name": {
+                                pattern: /^<\/?[a-zA-Z][a-zA-Z0-9-]*/,
+                                inside: {
+                                    punctuation: /^<\/?/,
+                                },
+                            },
+                            // Lit event attributes (@event:name or @event)
+                            "lit-event-attr": {
+                                pattern: /@[a-zA-Z][a-zA-Z0-9-]*(?::[a-zA-Z][a-zA-Z0-9-]*)?(?=\s*=)/,
+                                alias: "attr-name",
+                            },
+                            // Lit property attributes (.property)
+                            "lit-property-attr": {
+                                pattern: /\.[a-zA-Z][a-zA-Z0-9-]*(?=\s*=)/,
+                                alias: "attr-name",
+                            },
+                            // Lit boolean attributes (?boolean)
+                            "lit-boolean-attr": {
+                                pattern: /\?[a-zA-Z][a-zA-Z0-9-]*(?=\s*=)/,
+                                alias: "attr-name",
+                            },
+                            // Regular HTML attributes
+                            "attr-name": {
+                                pattern: /\b[a-zA-Z][a-zA-Z0-9-]*(?=\s*=)/,
+                            },
+                            // Attribute values (strings only, interpolation handled separately)
+                            "attr-value": {
+                                pattern: /=\s*(?:"[^"]*"|'[^']*'|[^\s>$]+)/,
+                                inside: {
+                                    punctuation: /^=/,
+                                    string: /"[^"]*"|'[^']*'/,
+                                },
+                            },
+                            // Boolean HTML attributes (without equals sign)
+                            "boolean-attr": {
+                                pattern: /\b(?:[a-zA-Z][a-zA-Z0-9-]*)(?=\s+|\s*>)/,
+                                alias: "attr-name",
+                            },
+                            punctuation: /\/?>/,
+                        },
+                    },
+
+                    // Opening tag names with attributes that have interpolations
+                    "opening-tag-with-attrs": {
+                        pattern: /<[a-zA-Z][a-zA-Z0-9-]*(?=\s)/,
+                        inside: {
+                            "tag-name": {
+                                pattern: /[a-zA-Z][a-zA-Z0-9-]*/,
+                            },
+                            punctuation: /^</,
+                        },
+                    },
+
+                    // Lit attributes (for cases with interpolations)
+                    "lit-event-attr": {
+                        pattern: /@[a-zA-Z][a-zA-Z0-9-]*(?::[a-zA-Z][a-zA-Z0-9-]*)?(?=\s*=)/,
+                        alias: "attr-name",
+                    },
+                    "lit-property-attr": {
+                        pattern: /\.[a-zA-Z][a-zA-Z0-9-]*(?=\s*=)/,
+                        alias: "attr-name",
+                    },
+                    "lit-boolean-attr": {
+                        pattern: /\?[a-zA-Z][a-zA-Z0-9-]*(?=\s*=)/,
+                        alias: "attr-name",
+                    },
+
+                    // Boolean HTML attributes (without equals sign) - for interpolation cases
+                    "boolean-attr": {
+                        pattern:
+                            /\b(?:disabled|readonly|required|checked|selected|hidden|autofocus|autoplay|controls|defer|multiple|open|scoped|itemscope|allowfullscreen|default|formnovalidate|loop|muted|reversed|async|contenteditable|draggable|spellcheck|translate)(?=\s+\w|\s*>)/,
+                        alias: "attr-name",
+                    },
+
+                    // Regular attributes (for cases with interpolations)
+                    "attr-name": {
+                        pattern: /\b[a-zA-Z][a-zA-Z0-9-]*(?=\s*=)/,
+                    },
+
+                    // Closing tags
+                    "closing-tag": {
+                        pattern: /<\/[a-zA-Z][a-zA-Z0-9-]*>/,
+                        inside: {
+                            "tag-name": {
+                                pattern: /[a-zA-Z][a-zA-Z0-9-]*/,
+                            },
+                            punctuation: /<\/|>/,
+                        },
+                    },
+
+                    // Attribute equals sign
+                    "attr-equals": {
+                        pattern: /=/,
+                        alias: "punctuation",
+                    },
+
+                    // Tag closing brackets
+                    "tag-close": {
+                        pattern: />/,
+                        alias: "punctuation",
+                    },
+
+                    // String values (standalone)
+                    string: {
+                        pattern: /"[^"]*"|'[^']*'/,
+                    },
+
+                    // HTML entities
+                    entity: /&[a-zA-Z0-9#]+;/,
+                },
+            },
+        },
+    };
+};
+
+// Wait for DOM to be ready, then extend Prism grammar
+if (typeof window !== "undefined") {
+    // Apply to TypeScript
+    if (Prism.languages.typescript) {
+        Prism.languages.insertBefore("typescript", "template-string", {
+            "lit-html": createLitHtmlGrammar(),
+            "lit-css": createLitCssGrammar(),
+        });
+    }
+
+    // Apply to JavaScript for compatibility
+    if (Prism.languages.javascript) {
+        Prism.languages.insertBefore("javascript", "template-string", {
+            "lit-html": createLitHtmlGrammar(),
+            "lit-css": createLitCssGrammar(),
+        });
+    }
+} else {
+    // Server-side: apply immediately
+    if (Prism.languages.typescript) {
+        Prism.languages.insertBefore("typescript", "template-string", {
+            "lit-html": createLitHtmlGrammar(),
+            "lit-css": createLitCssGrammar(),
+        });
+    }
+
+    if (Prism.languages.javascript) {
+        Prism.languages.insertBefore("javascript", "template-string", {
+            "lit-html": createLitHtmlGrammar(),
+            "lit-css": createLitCssGrammar(),
+        });
+    }
+}
 
 // Configure normalize whitespace plugin
 Prism.plugins.NormalizeWhitespace.setDefaults({
@@ -119,5 +302,25 @@ Prism.plugins.NormalizeWhitespace.setDefaults({
     "right-trim": true,
 });
 
-export { Prism };
+/**
+ * Sets up the lit-html grammar for Prism.js
+ * This should be called before using Prism to highlight lit-html templates
+ */
+export const setupLitHtmlGrammar = () => {
+    if (Prism.languages.typescript) {
+        Prism.languages.insertBefore("typescript", "template-string", {
+            "lit-html": createLitHtmlGrammar(),
+        });
+    }
+};
+
+/**
+ * Highlights code using Prism.js with lit-html support
+ */
+export const highlightLitHtml = (code: string): string => {
+    setupLitHtmlGrammar();
+    return Prism.highlight(code, Prism.languages.typescript, "typescript");
+};
+
+export { createLitCssGrammar, createLitHtmlGrammar, Prism };
 export default Prism;

@@ -56,8 +56,9 @@ const Element = tag;
     .text-xl {
         font-size: var(--mjo-font-size-xlarge);
     }
-    .text-sxl {
-        font-size: var(--mjo-font-size-sxlarge);
+    .text-xxl {
+        font-size: var(--mjo-font-size-xxlarge);
+        line-height: 1em;
     }
     .text-title1 {
         font-size: var(--mjo-font-size-title1);
@@ -79,5 +80,34 @@ const Element = tag;
     }
     .spacing-lg {
         margin: 1.5em 0;
+    }
+    .text-title1.spacing-sm,
+    .text-title2.spacing-sm,
+    .text-title3.spacing-sm,
+    .text-xxl.spacing-sm {
+        margin: 0.8em 0 0.2em;
+    }
+    .text-title1.spacing-md,
+    .text-title2.spacing-md,
+    .text-title3.spacing-md,
+    .text-xxl.spacing-md {
+        margin: 1em 0 0.2em;
+    }
+    .text-title1.spacing-lg,
+    .text-title2.spacing-lg,
+    .text-title3.spacing-lg,
+    .text-xxl.spacing-lg {
+        margin: 1.5em 0 0.2em;
+    }
+    .text-title1.spacing-sm:first-child,
+    .text-title2.spacing-sm:first-child,
+    .text-title3.spacing-sm:first-child,
+    .text-title1.spacing-md:first-child,
+    .text-title2.spacing-md:first-child,
+    .text-title3.spacing-md:first-child,
+    .text-title1.spacing-lg:first-child,
+    .text-title2.spacing-lg:first-child,
+    .text-title3.spacing-lg:first-child {
+        margin-top: 0;
     }
 </style>
