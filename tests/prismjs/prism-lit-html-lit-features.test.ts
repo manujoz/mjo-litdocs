@@ -229,6 +229,7 @@ describe("Prism.js Lit-HTML Lit-Specific Features", () => {
             expect(containsContent(highlighted, "@click")).toBe(true);
 
             // Boolean attribute should have attr-name class
+            console.log(highlighted);
             expect(highlighted).toMatch(/<span[^>]*class="[^"]*attr-name[^"]*"[^>]*>disabled<\/span>/);
         });
 

@@ -212,13 +212,6 @@ const createLitHtmlGrammar = () => {
                         alias: "attr-name",
                     },
 
-                    // Boolean HTML attributes (without equals sign) - for interpolation cases
-                    "boolean-attr": {
-                        pattern:
-                            /\b(?:disabled|readonly|required|checked|selected|hidden|autofocus|autoplay|controls|defer|multiple|open|scoped|itemscope|allowfullscreen|default|formnovalidate|loop|muted|reversed|async|contenteditable|draggable|spellcheck|translate)(?=\s+\w|\s*>)/,
-                        alias: "attr-name",
-                    },
-
                     // Regular attributes (for cases with interpolations)
                     "attr-name": {
                         pattern: /\b[a-zA-Z][a-zA-Z0-9-]*(?=\s*=)/,

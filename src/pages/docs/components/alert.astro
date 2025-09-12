@@ -1,0 +1,206 @@
+---
+import { AlertDetails } from "@/components/examples/alert/alert-details";
+import { AlertSizes } from "@/components/examples/alert/alert-sizes";
+import { AlertUsage } from "@/components/examples/alert/alert-usage";
+import { AlertVariants } from "@/components/examples/alert/alert-variants";
+import Codeblock from "@/components/ui/codeblock/Codeblock.astro";
+import CodeblockPre from "@/components/ui/codeblock/CodeblockPre.astro";
+import CodeExample from "@/components/ui/CodeExample.astro";
+import Typography from "@/components/ui/Typography.astro";
+import DocsLayout from "@/layouts/DocsLayout.astro";
+---
+
+<DocsLayout
+    title="Alert - MJO-LITUI"
+    description="The alert component is a container that displays important messages to the user. Learn how to use the alert component in your project."
+    currentPath="/docs/components/alert"
+>
+    <article class="prose">
+        <Typography tag="h1" size="title2" weight="bold">mjo-alert</Typography>
+        <Typography class="explain" tag="p" spacing="md">
+            The mjo-alert component is a container that displays important messages to the user. It is useful for drawing attention to specific information or
+            actions that require the user's consideration.
+        </Typography>
+        <Typography tag="h2" size="title3" weight="bold" spacing="md">Import</Typography>
+        <Typography class="explain" tag="p" spacing="md">
+            To use the mjo-alert component in your project, you need to import it first. You can do this by adding the following import statement to your
+            JavaScript or TypeScript file:
+        </Typography>
+        <Codeblock>
+            <CodeblockPre language="typescript" bugTitle="[BUG mjo-alert]">
+                {`import "mjo-litui/mjo-alert";`}
+            </CodeblockPre>
+        </Codeblock>
+        <Typography tag="h2" size="title3" weight="bold" spacing="md">Usage</Typography>
+        <Typography class="explain" tag="p" spacing="md">Basic usage of the mjo-alert component.</Typography>
+        <CodeExample>
+            <AlertUsage client:visible slot="preview" />
+            <Codeblock showHeader slot="code">
+                <CodeblockPre language="typescript" bugTitle="[BUG mjo-alert]">
+                    {
+                        `import { LitElement, css, html } from "lit";
+import { customElement } from "lit/decorators.js";
+
+import "mjo-litui/mjo-alert";
+
+@customElement("alert-usage")
+export class AlertUsage extends LitElement {
+    render() {
+        return html\`
+            <mjo-alert type="info" message="This is an info alert"></mjo-alert>
+            <mjo-alert type="success" message="This is a success alert"></mjo-alert>
+            <mjo-alert type="warning" message="This is a warning alert"></mjo-alert>
+            <mjo-alert type="error" message="This is an error alert"></mjo-alert>
+        \`;
+    }
+
+    static styles = [
+        css\`
+            :host {
+                display: block;
+                display: flex;
+                flex-direction: column;
+                gap: 1rem;
+            }
+        \`,
+    ];
+}
+`
+                    }
+                </CodeblockPre>
+            </Codeblock>
+        </CodeExample>
+        <Typography tag="h3" size="xxl" weight="bold" spacing="md">With details</Typography>
+        <Typography class="explain" tag="p" spacing="md">The alert component support details content for additional context.</Typography>
+        <CodeExample>
+            <AlertDetails client:visible slot="preview" />
+            <Codeblock showHeader slot="code">
+                <CodeblockPre language="typescript" bugTitle="[BUG mjo-alert]">
+                    {
+                        `import { LitElement, css, html } from "lit";
+import { customElement } from "lit/decorators.js";
+
+import "mjo-litui/mjo-alert";
+
+@customElement("alert-details")
+export class AlertDetails extends LitElement {
+    render() {
+        return html\`
+            <mjo-alert type="info" message="This is an info alert" details="Additional information details string"></mjo-alert>
+            <mjo-alert
+                type="info"
+                message="This is an info alert"
+                .details=\${html\`
+                    Additional information with HTML template or other component:
+                    <ul>
+                        <li>Detail 1</li>
+                        <li>Detail 2</li>
+                        <li>Detail 3</li>
+                    </ul>
+                \`}
+            ></mjo-alert>
+        \`;
+    }
+
+    static styles = [
+        css\`
+            :host {
+                display: block;
+                display: flex;
+                flex-direction: column;
+                gap: 1rem;
+            }
+        \`,
+    ];
+}
+`
+                    }
+                </CodeblockPre>
+            </Codeblock>
+        </CodeExample>
+        <Typography tag="h3" size="xxl" weight="bold" spacing="md">Variants</Typography>
+        <Typography class="explain" tag="p" spacing="md">You can use different variants of the alert component.</Typography>
+        <CodeExample>
+            <AlertVariants client:visible slot="preview" />
+            <Codeblock showHeader slot="code">
+                <CodeblockPre language="typescript" bugTitle="[BUG mjo-alert]">
+                    {
+                        `import { LitElement, css, html } from "lit";
+import { customElement } from "lit/decorators.js";
+
+import "mjo-litui/mjo-alert";
+
+@customElement("alert-variants")
+export class AlertVariants extends LitElement {
+    render() {
+        return html\`
+            <mjo-alert type="success" variant="solid" message="This is solid variant"></mjo-alert>
+            <mjo-alert type="success" variant="flat" message="This is flat variant"></mjo-alert>
+        \`;
+    }
+
+    static styles = [
+        css\`
+            :host {
+                display: block;
+                display: flex;
+                flex-direction: column;
+                gap: 1rem;
+            }
+        \`,
+    ];
+}
+`
+                    }
+                </CodeblockPre>
+            </Codeblock>
+        </CodeExample>
+        <Typography tag="h3" size="xxl" weight="bold" spacing="md">Sizes</Typography>
+        <Typography class="explain" tag="p" spacing="md">You can use different sizes of the alert component.</Typography>
+        <CodeExample>
+            <AlertSizes client:visible slot="preview" />
+            <Codeblock showHeader slot="code">
+                <CodeblockPre language="javascript" bugTitle="[BUG mjo-alert]">
+                    {
+                        `import { LitElement, css, html } from "lit";
+import { customElement } from "lit/decorators.js";
+
+import "mjo-litui/mjo-alert";
+
+@customElement("alert-sizes")
+export class AlertSizes extends LitElement {
+    render() {
+        return html\`
+            <mjo-alert type="warning" size="small" message="This is a small size warning alert"></mjo-alert>
+            <mjo-alert type="warning" size="medium" message="This is a medium size warning alert"></mjo-alert>
+            <mjo-alert type="warning" size="large" message="This is a large size warning alert"></mjo-alert>
+        \`;
+    }
+
+    static styles = [
+        css\`
+            :host {
+                display: block;
+                display: flex;
+                flex-direction: column;
+                gap: 1rem;
+            }
+        \`,
+    ];
+}
+`
+                    }
+                </CodeblockPre>
+            </Codeblock>
+        </CodeExample>
+    </article>
+</DocsLayout>
+
+<style>
+    .prose {
+        position: relative;
+    }
+    .explain {
+        color: var(--mjo-foreground-color-low);
+    }
+</style>
