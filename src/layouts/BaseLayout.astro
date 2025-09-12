@@ -109,8 +109,5 @@ const mjoThemeCookie = (Astro.cookies.get("mjo-theme")?.value as "light" | "dark
     <body class={`${mjoThemeCookie === "light" ? "" : "dark"}`}>
         <ThemeComponent client:idle />
         <slot />
-
-        <!-- Prism.js initialization -->
-        <script src="../scripts/prism-init.ts"></script>
     </body>
 </html>

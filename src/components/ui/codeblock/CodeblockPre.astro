@@ -1,35 +1,85 @@
 ---
+import { decodeHtmlEntities } from "@/utils/strings";
+import { Code } from "astro:components";
 import CodeblockActions from "./CodeblockActions.astro";
 
 export interface Props {
-    language: "javascript" | "typescript" | "bash" | "html" | "css";
+    language: "javascript" | "typescript" | "bash" | "html" | "css" | "astro" | "lit";
     content?: string;
     active?: boolean;
     bugTitle?: string;
+    code?: string;
+    theme?: "auto" | "light" | "dark";
 }
 
-const { language, content, active, bugTitle } = Astro.props;
+const { language, content, active, bugTitle, code, theme = "auto" } = Astro.props;
+
+// Use standard themes with our CSS variables override
+const selectedTheme = theme === "light" ? "one-light" : "one-dark-pro";
+
+// Get slot content if code prop is not provided
+const slotContent = await Astro.slots.render("default");
+
+// Clean and decode the slot content
+const rawSlotContent = slotContent.replace(/<[^>]*>/g, "").trim();
+const decodedSlotContent = decodeHtmlEntities(rawSlotContent);
+const codeContent = code || decodedSlotContent;
 ---
 
-<pre
-    class="pre"
-    data-content={content}
-    data-active={active}>
-    <code class={`language-${language}`}>
-        <slot />
-    </code>
+<div class="codeblock-pre" data-content={content} data-active={active}>
+    {
+        codeContent ? (
+            <Code code={codeContent} lang={language} theme={selectedTheme} wrap={true} />
+        ) : (
+            <pre class="fallback-pre">
+                <code class={`language-${language}`}>
+                    <slot />
+                </code>
+            </pre>
+        )
+    }
     <CodeblockActions bugTitle={bugTitle} />
-</pre>
+</div>
 
 <style>
-    .pre {
+    .codeblock-pre {
+        position: relative;
         max-height: calc(100dvh - 200px);
         overflow-y: auto;
     }
-    .pre[data-content] {
+
+    .codeblock-pre[data-content] {
         display: none;
     }
-    .pre[data-content][data-active="true"] {
+
+    .codeblock-pre[data-content][data-active="true"] {
         display: block;
+    }
+
+    .codeblock-pre :global(.astro-code) {
+        margin: 0;
+        border-radius: 0;
+        border: none;
+        background: var(--mjo-shiki-background);
+    }
+
+    .fallback-pre {
+        margin: 0;
+        padding: 1rem;
+        background: var(--mjo-shiki-background);
+        border: none;
+        border-radius: 0;
+        overflow-x: auto;
+        font-family: ui-monospace, SFMono-Regular, "SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Consolas, "Courier New", monospace;
+        font-size: 0.875rem;
+        line-height: 1.5;
+        color: var(--mjo-shiki-foreground);
+    }
+
+    .fallback-pre code {
+        background: none;
+        color: inherit;
+        font-family: inherit;
+        font-size: inherit;
     }
 </style>

@@ -27,11 +27,9 @@
         "mjo-astro-lit": "^1.0.1",
         "mjo-icons": "^2.0.0",
         "mjo-litui": "^0.7.15",
-        "prismjs": "^1.30.0",
         "typescript": "^5.9.2"
     },
     "devDependencies": {
-        "@types/prismjs": "^1.26.5",
         "@vitest/coverage-v8": "^3.2.4",
         "@vitest/ui": "^3.2.4",
         "vitest": "^3.2.4"

@@ -34,7 +34,8 @@ const { bugTitle } = Astro.props;
     document.addEventListener("DOMContentLoaded", () => {
         const copyBtn = document.getElementById(uniqueId);
         copyBtn?.addEventListener("click", () => {
-            const $pre = copyBtn.closest("pre");
+            const $pre = copyBtn.closest(".codeblock-pre");
+            console.log("Hola", $pre);
             if (!$pre) return;
 
             const activeBlock = $pre.querySelector("code");
@@ -79,8 +80,8 @@ const { bugTitle } = Astro.props;
         overflow: hidden;
         border: none;
         margin: 0;
-        background-color: var(--mjo-background-color-card-high);
-        color: var(--mjo-foreground-color);
+        background-color: #252525;
+        color: #f7f9fa;
         cursor: pointer;
         transition:
             background-color 0.2s ease,
@@ -102,7 +103,7 @@ const { bugTitle } = Astro.props;
         color: #222222;
     }
     .codeblock-actions button.copied {
-        background-color: var(--mjo-background-color-card-low);
+        background-color: #111111;
         color: var(--mjo-color-success);
     }
     .codeblock-actions button:focus-visible,

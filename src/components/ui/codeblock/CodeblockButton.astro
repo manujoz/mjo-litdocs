@@ -27,10 +27,10 @@ const uniqueId = getUniqueId("codeblock-button");
             const codeblockContainer = button.closest(".codeblock-container");
             if (!codeblockContainer) return;
 
-            const preContent = codeblockContainer.querySelector(`pre[data-content="${content}"]`);
+            const preContent = codeblockContainer.querySelector(`.code-content [data-content="${content}"]`);
             if (!preContent) return;
 
-            const allPreContents = codeblockContainer.querySelectorAll("pre[data-content]");
+            const allPreContents = codeblockContainer.querySelectorAll(".code-content [data-content]");
             allPreContents.forEach((el) => {
                 if (el !== preContent) {
                     el.removeAttribute("data-active");

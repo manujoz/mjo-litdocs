@@ -387,6 +387,30 @@
 			"label": "Test Fixed CSS Tokenization",
 			"type": "shell",
 			"command": "npx tsx test-fixed-css-tokenization.js"
+		},
+		{
+			"label": "Run Lit Transformer Tests",
+			"type": "shell",
+			"command": "npm run test:run tests/lit-transformer",
+			"group": "test"
+		},
+		{
+			"label": "Run Lit Transformer Tests",
+			"type": "shell",
+			"command": "npm run test:run tests/lit-transformer",
+			"group": "test"
+		},
+		{
+			"label": "Run Lit Transformer Tests",
+			"type": "shell",
+			"command": "npm run test:run tests/lit-transformer",
+			"group": "test"
+		},
+		{
+			"label": "Run Lit Transformer Tests",
+			"type": "shell",
+			"command": "npm run test:run tests/lit-transformer",
+			"group": "test"
 		}
 	]
 }

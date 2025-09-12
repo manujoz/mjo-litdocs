@@ -36,7 +36,7 @@ import DocsLayout from "@/layouts/DocsLayout.astro";
         <CodeExample>
             <AlertUsage client:visible slot="preview" />
             <Codeblock showHeader slot="code">
-                <CodeblockPre language="typescript" bugTitle="[BUG mjo-alert]">
+                <CodeblockPre language="lit" bugTitle="[BUG mjo-alert]">
                     {
                         `import { LitElement, css, html } from "lit";
 import { customElement } from "lit/decorators.js";
@@ -75,18 +75,24 @@ export class AlertUsage extends LitElement {
         <CodeExample>
             <AlertDetails client:visible slot="preview" />
             <Codeblock showHeader slot="code">
-                <CodeblockPre language="typescript" bugTitle="[BUG mjo-alert]">
+                <CodeblockPre language="lit" bugTitle="[BUG mjo-alert]">
                     {
                         `import { LitElement, css, html } from "lit";
 import { customElement } from "lit/decorators.js";
 
 import "mjo-litui/mjo-alert";
 
+const test = "test";
+
 @customElement("alert-details")
 export class AlertDetails extends LitElement {
     render() {
         return html\`
-            <mjo-alert type="info" message="This is an info alert" details="Additional information details string"></mjo-alert>
+            <mjo-alert 
+                type="info" 
+                message="This is an info alert \${test}" 
+                details="Additional information details string"
+            ></mjo-alert>
             <mjo-alert
                 type="info"
                 message="This is an info alert"
@@ -123,7 +129,7 @@ export class AlertDetails extends LitElement {
         <CodeExample>
             <AlertVariants client:visible slot="preview" />
             <Codeblock showHeader slot="code">
-                <CodeblockPre language="typescript" bugTitle="[BUG mjo-alert]">
+                <CodeblockPre language="lit" bugTitle="[BUG mjo-alert]">
                     {
                         `import { LitElement, css, html } from "lit";
 import { customElement } from "lit/decorators.js";
@@ -160,7 +166,7 @@ export class AlertVariants extends LitElement {
         <CodeExample>
             <AlertSizes client:visible slot="preview" />
             <Codeblock showHeader slot="code">
-                <CodeblockPre language="javascript" bugTitle="[BUG mjo-alert]">
+                <CodeblockPre language="lit" bugTitle="[BUG mjo-alert]">
                     {
                         `import { LitElement, css, html } from "lit";
 import { customElement } from "lit/decorators.js";

@@ -12,6 +12,17 @@ export default defineConfig({
     adapter: node({
         mode: "standalone",
     }),
+    markdown: {
+        syntaxHighlight: "shiki",
+        shikiConfig: {
+            themes: {
+                light: "github-light",
+                dark: "github-dark",
+            },
+            defaultColor: false, // Use CSS variables instead of inline styles
+            wrap: true,
+        },
+    },
     vite: {
         resolve: {
             alias: {

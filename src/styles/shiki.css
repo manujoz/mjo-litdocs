@@ -1,0 +1,13 @@
+/* Override Shiki's default styling with MJO variables */
+.astro-code {
+    padding: 1rem !important;
+    margin: 0 !important;
+    overflow-x: auto !important;
+    background: #161616 !important;
+    color: #f7f9fa !important;
+    font-family: ui-monospace, SFMono-Regular, "SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Consolas, "Courier New", monospace !important;
+    font-size: 0.875rem !important;
+    line-height: 1.5 !important;
+    border: none !important;
+    border-radius: 0 !important;
+}

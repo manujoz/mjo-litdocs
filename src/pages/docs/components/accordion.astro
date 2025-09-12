@@ -52,7 +52,7 @@ const eventToggleDetail = `{
             JavaScript or TypeScript file:
         </Typography>
         <Codeblock>
-            <CodeblockPre language="typescript" bugTitle="[BUG mjo-accordion]">
+            <CodeblockPre language="lit" bugTitle="[BUG mjo-accordion]">
                 {`import "mjo-litui/mjo-accordion";`}
             </CodeblockPre>
         </Codeblock>
@@ -61,7 +61,7 @@ const eventToggleDetail = `{
         <CodeExample>
             <AccordionUsage client:visible slot="preview" />
             <Codeblock showHeader slot="code">
-                <CodeblockPre language="typescript" bugTitle="[BUG mjo-accordion]">
+                <CodeblockPre language="lit" bugTitle="[BUG mjo-accordion]">
                     {
                         `import { LitElement, css, html } from "lit";
 import { customElement } from "lit/decorators.js";
@@ -96,7 +96,7 @@ export class AccordionUsage extends LitElement {
         <CodeExample>
             <AccordionSubtitles client:visible slot="preview" />
             <Codeblock showHeader slot="code">
-                <CodeblockPre language="typescript" bugTitle="[BUG mjo-accordion]">
+                <CodeblockPre language="lit" bugTitle="[BUG mjo-accordion]">
                     {
                         `import { LitElement, html } from "lit";
 import { customElement } from "lit/decorators.js";
@@ -133,7 +133,7 @@ export class AccordionSubtitles extends LitElement {
         <CodeExample>
             <AccordionMultiple client:visible slot="preview" />
             <Codeblock showHeader slot="code">
-                <CodeblockPre language="typescript" bugTitle="[BUG mjo-accordion]">
+                <CodeblockPre language="lit" bugTitle="[BUG mjo-accordion]">
                     {
                         `import { LitElement, html } from "lit";
 import { customElement } from "lit/decorators.js";
@@ -168,7 +168,7 @@ export class AccordionMultiple extends LitElement {
         <CodeExample>
             <AccordionCompact client:only slot="preview" />
             <Codeblock showHeader slot="code">
-                <CodeblockPre language="typescript" bugTitle="[BUG mjo-accordion]">
+                <CodeblockPre language="lit" bugTitle="[BUG mjo-accordion]">
                     {
                         `import { LitElement, html } from "lit";
 import { customElement } from "lit/decorators.js";
@@ -205,7 +205,7 @@ export class AccordionCompact extends LitElement {
         <CodeExample>
             <AccordionDisabled client:only slot="preview" />
             <Codeblock showHeader slot="code">
-                <CodeblockPre language="typescript" bugTitle="[BUG mjo-accordion]">
+                <CodeblockPre language="lit" bugTitle="[BUG mjo-accordion]">
                     {
                         `import { LitElement, html } from "lit";
 import { customElement } from "lit/decorators.js";
@@ -245,7 +245,7 @@ export class AccordionDisabled extends LitElement {
         <CodeExample>
             <AccordionExpanded client:only slot="preview" />
             <Codeblock showHeader slot="code">
-                <CodeblockPre language="typescript" bugTitle="[BUG mjo-accordion]">
+                <CodeblockPre language="lit" bugTitle="[BUG mjo-accordion]">
                     {
                         `import { LitElement, html } from "lit";
 import { customElement } from "lit/decorators.js";
@@ -285,7 +285,7 @@ export class AccordionExpanded extends LitElement {
         <CodeExample>
             <AccordionIcons client:only slot="preview" />
             <Codeblock showHeader slot="code">
-                <CodeblockPre language="typescript" bugTitle="[BUG mjo-accordion]">
+                <CodeblockPre language="lit" bugTitle="[BUG mjo-accordion]">
                     {
                         `import { LitElement, html } from "lit";
 import { customElement } from "lit/decorators.js";
@@ -329,7 +329,7 @@ export class AccordionIcons extends LitElement {
         <CodeExample>
             <AccordionUsage client:visible slot="preview" />
             <Codeblock showHeader slot="code">
-                <CodeblockPre language="typescript" bugTitle="[BUG mjo-accordion]">
+                <CodeblockPre language="lit" bugTitle="[BUG mjo-accordion]">
                     {
                         `import { LitElement, css, html } from "lit";
 import { customElement } from "lit/decorators.js";
@@ -366,7 +366,7 @@ export class AccordionUsage extends LitElement {
         <CodeExample>
             <AccordionSolid client:only slot="preview" />
             <Codeblock showHeader slot="code">
-                <CodeblockPre language="typescript" bugTitle="[BUG mjo-accordion]">
+                <CodeblockPre language="lit" bugTitle="[BUG mjo-accordion]">
                     {
                         `import { LitElement, html } from "lit";
 import { customElement } from "lit/decorators.js";
@@ -403,7 +403,7 @@ export class AccordionSolid extends LitElement {
         <CodeExample>
             <AccordionShadow client:only slot="preview" />
             <Codeblock showHeader slot="code">
-                <CodeblockPre language="typescript" bugTitle="[BUG mjo-accordion]">
+                <CodeblockPre language="lit" bugTitle="[BUG mjo-accordion]">
                     {
                         `import { LitElement, html } from "lit";
 import { customElement } from "lit/decorators.js";
@@ -441,7 +441,7 @@ export class AccordionShadow extends LitElement {
         <CodeExample>
             <AccordionBordered client:only slot="preview" />
             <Codeblock showHeader slot="code">
-                <CodeblockPre language="typescript" bugTitle="[BUG mjo-accordion]">
+                <CodeblockPre language="lit" bugTitle="[BUG mjo-accordion]">
                     {
                         `import { LitElement, html } from "lit";
 import { customElement } from "lit/decorators.js";
@@ -478,7 +478,7 @@ export class AccordionBordered extends LitElement {
         <CodeExample>
             <AccordionSplitted client:only slot="preview" />
             <Codeblock showHeader slot="code">
-                <CodeblockPre language="typescript" bugTitle="[BUG mjo-accordion]">
+                <CodeblockPre language="lit" bugTitle="[BUG mjo-accordion]">
                     {
                         `import { LitElement, html } from "lit";
 import { customElement } from "lit/decorators.js";
@@ -782,7 +782,7 @@ export class AccordionSplitted extends LitElement {
             >.
         </Typography>
         <Codeblock>
-            <CodeblockPre language="typescript">
+            <CodeblockPre language="lit">
                 {
                     `export interface MjoAccordionTheme {
     backgroundColor?: string;
@@ -811,7 +811,7 @@ export class AccordionSplitted extends LitElement {
         <CodeExample>
             <AccordionCustom client:only slot="preview" />
             <Codeblock showHeader slot="code">
-                <CodeblockPre language="typescript" bugTitle="[BUG mjo-accordion]">
+                <CodeblockPre language="lit" bugTitle="[BUG mjo-accordion]">
                     {
                         `import { LitElement, css, html } from "lit";
 import { customElement } from "lit/decorators.js";
@@ -925,7 +925,7 @@ export class AccordionTheme extends LitElement {
         <CodeExample>
             <AccordionCssparts client:only slot="preview" />
             <Codeblock showHeader slot="code">
-                <CodeblockPre language="typescript" bugTitle="[BUG mjo-accordion]">
+                <CodeblockPre language="lit" bugTitle="[BUG mjo-accordion]">
                     {
                         `import { LitElement, css, html } from "lit";
 import { customElement } from "lit/decorators.js";
