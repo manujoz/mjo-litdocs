@@ -28,7 +28,7 @@ const mjoThemeCookie = (Astro.cookies.get("mjo-theme")?.value as "light" | "dark
 ---
 
 <!doctype html>
-<html lang="en" class="h-full">
+<html lang="en" class={mjoThemeCookie}>
     <head>
         <meta charset="UTF-8" />
         <meta name="description" content={description} />
@@ -106,7 +106,7 @@ const mjoThemeCookie = (Astro.cookies.get("mjo-theme")?.value as "light" | "dark
             })();
         </script>
     </head>
-    <body class={`${mjoThemeCookie === "light" ? "" : "dark"}`}>
+    <body class={`${mjoThemeCookie}`}>
         <ThemeComponent client:idle />
         <slot />
     </body>

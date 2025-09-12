@@ -52,6 +52,20 @@ export class ThemeToggle extends LitElement {
         }
 
         themeComponent.toggleTheme();
+
+        const theme = themeComponent.theme;
+        console.log(theme);
+        if (theme === "dark") {
+            document.querySelector("html")?.classList.remove("light");
+            document.querySelector("html")?.classList.add("dark");
+            document.body.classList.add("dark");
+            document.body.classList.remove("light");
+        } else {
+            document.querySelector("html")?.classList.remove("dark");
+            document.querySelector("html")?.classList.add("light");
+            document.body.classList.add("light");
+            document.body.classList.remove("dark");
+        }
     };
 
     #handleTheme = (ev: Event) => {

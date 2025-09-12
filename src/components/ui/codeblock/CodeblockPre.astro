@@ -29,7 +29,7 @@ const codeContent = code || decodedSlotContent;
 <div class="codeblock-pre" data-content={content} data-active={active}>
     {
         codeContent ? (
-            <Code code={codeContent} lang={language} theme={selectedTheme} wrap={true} />
+            <Code code={codeContent} lang={language} theme={selectedTheme} wrap={false} />
         ) : (
             <pre class="fallback-pre">
                 <code class={`language-${language}`}>

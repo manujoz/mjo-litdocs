@@ -27,6 +27,7 @@ export class ThemeComponent extends LitElement {
 
     toggleTheme() {
         this.mjoTheme.toggleTheme();
+        this.theme = this.mjoTheme.theme;
     }
 
     static styles = [

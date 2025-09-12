@@ -80,8 +80,8 @@ const { bugTitle } = Astro.props;
         overflow: hidden;
         border: none;
         margin: 0;
-        background-color: #252525;
-        color: #f7f9fa;
+        background-color: var(--mjo-background-color-card-high);
+        color: var(--mjo-foreground-color);
         cursor: pointer;
         transition:
             background-color 0.2s ease,
@@ -103,7 +103,7 @@ const { bugTitle } = Astro.props;
         color: #222222;
     }
     .codeblock-actions button.copied {
-        background-color: #111111;
+        background-color: var(--mjo-background-color-card-high);
         color: var(--mjo-color-success);
     }
     .codeblock-actions button:focus-visible,

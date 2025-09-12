@@ -508,47 +508,79 @@ export class AccordionSplitted extends LitElement {
                 </CodeblockPre>
             </Codeblock>
         </CodeExample>
-        <Typography tag="h2" size="title3" weight="bold" spacing="md">Events</Typography>
-        <Typography class="explain" tag="p" spacing="md">The mjo-accordion has the following events available:</Typography>
+        <Typography tag="h2" size="title3" weight="bold" spacing="md">Properties</Typography>
+        <Typography class="explain" tag="p" spacing="md">Properties available on the mjo-accordion component.</Typography>
+        <Typography tag="h3" size="xl" weight="bold" spacing="md">mjo-accordion</Typography>
         <Table>
             <TableHeader>
                 <TableRow>
-                    <TableCellHeader width="190px">Event</TableCellHeader>
-                    <TableCellHeader width="190px">CustomEvent type</TableCellHeader>
-                    <TableCellHeader>Detail</TableCellHeader>
-                    <TableCellHeader minWidth="200px">Notes</TableCellHeader>
+                    <TableCellHeader>Property</TableCellHeader>
+                    <TableCellHeader>Type</TableCellHeader>
+                    <TableCellHeader>Default</TableCellHeader>
+                    <TableCellHeader minWidth="200px">Description</TableCellHeader>
                 </TableRow>
             </TableHeader>
             <TableBody>
                 <TableRow>
-                    <TableCell><code class="inline">mjo-accordion:toggle</code></TableCell>
-                    <TableCell><code class="inline">MjoAccordionToggleEvent</code></TableCell>
-                    <TableCell><pre>{eventToggleDetail}</pre></TableCell>
-                    <TableCell>Emitted when any section is expanded or collapsed.</TableCell>
+                    <TableCell><code class="inline">variant</code></TableCell>
+                    <TableCell><code class="inline">{`light|shadow|bordered|splitted`}</code></TableCell>
+                    <TableCell><code class="inline">{`light`}</code></TableCell>
+                    <TableCell>The variant of the accordion.</TableCell>
                 </TableRow>
                 <TableRow>
-                    <TableCell><code class="inline">mjo-accordion:will-expand</code></TableCell>
-                    <TableCell><code class="inline">MjoAccordionWillExpandEvent</code></TableCell>
-                    <TableCell><pre>{eventToggleDetail}</pre></TableCell>
-                    <TableCell>Emitted before a section is about to be expanded.</TableCell>
+                    <TableCell><code class="inline">selectionMode</code></TableCell>
+                    <TableCell><code class="inline">{`single|multiple`}</code></TableCell>
+                    <TableCell><code class="inline">{`single`}</code></TableCell>
+                    <TableCell>Selection mode of the accordion allow multiple expanded items.</TableCell>
                 </TableRow>
                 <TableRow>
-                    <TableCell><code class="inline">mjo-accordion:expanded</code></TableCell>
-                    <TableCell><code class="inline">MjoAccordionExpandedEvent</code></TableCell>
-                    <TableCell><pre>{eventToggleDetail}</pre></TableCell>
-                    <TableCell>Emitted after a section finishes expanding.</TableCell>
+                    <TableCell><code class="inline">compact</code></TableCell>
+                    <TableCell><code class="inline">{`boolean`}</code></TableCell>
+                    <TableCell><code class="inline">{`false`}</code></TableCell>
+                    <TableCell>Whether the accordion items should be compact.</TableCell>
+                </TableRow>
+            </TableBody>
+        </Table>
+        <Typography tag="h3" size="xl" weight="bold" spacing="md">mjo-accordion-item</Typography>
+        <Table>
+            <TableHeader>
+                <TableRow>
+                    <TableCellHeader>Property</TableCellHeader>
+                    <TableCellHeader>Type</TableCellHeader>
+                    <TableCellHeader>Default</TableCellHeader>
+                    <TableCellHeader minWidth="200px">Description</TableCellHeader>
+                </TableRow>
+            </TableHeader>
+            <TableBody>
+                <TableRow>
+                    <TableCell><code class="inline">itemTitle</code></TableCell>
+                    <TableCell><code class="inline">{`string|TemplateResult<1>`}</code></TableCell>
+                    <TableCell><code class="inline">{`""`}</code></TableCell>
+                    <TableCell>The title of the accordion item.</TableCell>
                 </TableRow>
                 <TableRow>
-                    <TableCell><code class="inline">mjo-accordion:will-collapse</code></TableCell>
-                    <TableCell><code class="inline">MjoAccordionWillCollapseEvent</code></TableCell>
-                    <TableCell><pre>{eventToggleDetail}</pre></TableCell>
-                    <TableCell>Emitted before a section is about to be collapsed.</TableCell>
+                    <TableCell><code class="inline">itemSubtitle</code></TableCell>
+                    <TableCell><code class="inline">{`string`}</code></TableCell>
+                    <TableCell><code class="inline">{`""`}</code></TableCell>
+                    <TableCell>The subtitle of the accordion item.</TableCell>
                 </TableRow>
                 <TableRow>
-                    <TableCell><code class="inline">mjo-accordion:collapsed</code></TableCell>
-                    <TableCell><code class="inline">MjoAccordionCollapsedEvent</code></TableCell>
-                    <TableCell><pre>{eventToggleDetail}</pre></TableCell>
-                    <TableCell>Emitted after a section finishes collapsing.</TableCell>
+                    <TableCell><code class="inline">expanded</code></TableCell>
+                    <TableCell><code class="inline">{`boolean`}</code></TableCell>
+                    <TableCell><code class="inline">{`false`}</code></TableCell>
+                    <TableCell>Whether the accordion item is expanded by default.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">disabled</code></TableCell>
+                    <TableCell><code class="inline">{`boolean`}</code></TableCell>
+                    <TableCell><code class="inline">{`false`}</code></TableCell>
+                    <TableCell>Whether the accordion item is disabled.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">icon</code></TableCell>
+                    <TableCell><code class="inline">{`string`}</code></TableCell>
+                    <TableCell><code class="inline">{`""`}</code></TableCell>
+                    <TableCell>Icon of the accordion item must be SVG.</TableCell>
                 </TableRow>
             </TableBody>
         </Table>
@@ -631,6 +663,50 @@ export class AccordionSplitted extends LitElement {
                     <TableCell><code class="inline">-</code></TableCell>
                     <TableCell><code class="inline">void</code></TableCell>
                     <TableCell>Focuses the item.</TableCell>
+                </TableRow>
+            </TableBody>
+        </Table>
+        <Typography tag="h2" size="title3" weight="bold" spacing="md">Events</Typography>
+        <Typography class="explain" tag="p" spacing="md">The mjo-accordion has the following events available:</Typography>
+        <Table>
+            <TableHeader>
+                <TableRow>
+                    <TableCellHeader width="190px">Event</TableCellHeader>
+                    <TableCellHeader width="190px">CustomEvent type</TableCellHeader>
+                    <TableCellHeader>Detail</TableCellHeader>
+                    <TableCellHeader minWidth="200px">Notes</TableCellHeader>
+                </TableRow>
+            </TableHeader>
+            <TableBody>
+                <TableRow>
+                    <TableCell><code class="inline">mjo-accordion:toggle</code></TableCell>
+                    <TableCell><code class="inline">MjoAccordionToggleEvent</code></TableCell>
+                    <TableCell><pre>{eventToggleDetail}</pre></TableCell>
+                    <TableCell>Emitted when any section is expanded or collapsed.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">mjo-accordion:will-expand</code></TableCell>
+                    <TableCell><code class="inline">MjoAccordionWillExpandEvent</code></TableCell>
+                    <TableCell><pre>{eventToggleDetail}</pre></TableCell>
+                    <TableCell>Emitted before a section is about to be expanded.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">mjo-accordion:expanded</code></TableCell>
+                    <TableCell><code class="inline">MjoAccordionExpandedEvent</code></TableCell>
+                    <TableCell><pre>{eventToggleDetail}</pre></TableCell>
+                    <TableCell>Emitted after a section finishes expanding.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">mjo-accordion:will-collapse</code></TableCell>
+                    <TableCell><code class="inline">MjoAccordionWillCollapseEvent</code></TableCell>
+                    <TableCell><pre>{eventToggleDetail}</pre></TableCell>
+                    <TableCell>Emitted before a section is about to be collapsed.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">mjo-accordion:collapsed</code></TableCell>
+                    <TableCell><code class="inline">MjoAccordionCollapsedEvent</code></TableCell>
+                    <TableCell><pre>{eventToggleDetail}</pre></TableCell>
+                    <TableCell>Emitted after a section finishes collapsing.</TableCell>
                 </TableRow>
             </TableBody>
         </Table>
