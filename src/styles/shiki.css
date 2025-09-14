@@ -63,3 +63,7 @@ code.inline {
     color: var(--mjo-foreground-color);
     border-radius: 3px;
 }
+code.inline.wrap {
+    white-space: normal;
+    line-height: 2em;
+}

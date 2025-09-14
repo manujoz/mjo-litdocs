@@ -7,10 +7,13 @@ import "mjo-litui/mjo-alert";
 export class AlertUsage extends LitElement {
     render() {
         return html`
-            <mjo-alert type="info" message="This is an info alert"></mjo-alert>
+            <mjo-alert type="default" message="This is a default alert"></mjo-alert>
+            <mjo-alert type="primary" message="This is a primary alert"></mjo-alert>
+            <mjo-alert type="secondary" message="This is a secondary alert"></mjo-alert>
+            <mjo-alert type="info" message="This is a info alert"></mjo-alert>
             <mjo-alert type="success" message="This is a success alert"></mjo-alert>
             <mjo-alert type="warning" message="This is a warning alert"></mjo-alert>
-            <mjo-alert type="error" message="This is an error alert"></mjo-alert>
+            <mjo-alert type="error" message="This is a error alert"></mjo-alert>
         `;
     }
 

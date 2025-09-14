@@ -1,11 +1,17 @@
 ---
+export interface Props {
+    space?: "none" | "sm" | "md" | "lg" | "xl" | "xxl";
+}
+
 import { getUniqueId } from "@/utils/strings";
 import Button from "./Button.astro";
 
 const uniqueId = getUniqueId();
+
+const { space = "xxl" } = Astro.props;
 ---
 
-<div class="example-container">
+<div class:list={["example-container", `margin-${space}`]}>
     <div class="header">
         <Button variant="codeblock" size="sm" slot="header" active id={`btn-prev-${uniqueId}`}>Preview</Button>
         <Button variant="codeblock" size="sm" slot="header" id={`btn-code-${uniqueId}`}>Code</Button>
@@ -43,8 +49,27 @@ const uniqueId = getUniqueId();
         position: relative;
         display: flex;
         flex-direction: column;
+    }
+    .example-container.margin-none {
+        margin-bottom: 0;
+    }
+    .example-container.margin-sm {
+        margin-bottom: var(--mjo-space-small);
+    }
+
+    .example-container.margin-md {
+        margin-bottom: var(--mjo-space-medium);
+    }
+    .example-container.margin-lg {
+        margin-bottom: var(--mjo-space-large);
+    }
+    .example-container.margin-xl {
+        margin-bottom: var(--mjo-space-xlarge);
+    }
+    .example-container.margin-xxl {
         margin-bottom: var(--mjo-space-xxlarge);
     }
+
     .example-container .header {
         position: relative;
         display: flex;

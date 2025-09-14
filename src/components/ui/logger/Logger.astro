@@ -1,0 +1,28 @@
+---
+export interface Props {
+    id: string;
+    initialMessage: string;
+}
+
+const { id, initialMessage } = Astro.props;
+---
+
+<div id={id} class="logger">
+    <pre class="output">{initialMessage}</pre>
+</div>
+
+<style>
+    .logger {
+        border: 1px solid var(--mjo-border-color);
+        border-radius: var(--mjo-radius-large);
+        background-color: var(--mjo-background-color-high);
+        height: 110px;
+        overflow: auto;
+    }
+    .logger .output {
+        margin: 0;
+        white-space: pre-wrap;
+        word-break: break-word;
+        padding: var(--mjo-space-small);
+    }
+</style>
