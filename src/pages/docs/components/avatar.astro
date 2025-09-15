@@ -1,6 +1,7 @@
 ---
 import { AvatarBordered } from "@/components/examples/avatar/avatar-bordered";
 import { AvatarClickable } from "@/components/examples/avatar/avatar-clickable";
+import { AvatarCssvars } from "@/components/examples/avatar/avatar-cssvars";
 import { AvatarDisabled } from "@/components/examples/avatar/avatar-disabled";
 import { AvatarFallbackicon } from "@/components/examples/avatar/avatar-fallbackicon";
 import { AvatarName } from "@/components/examples/avatar/avatar-name";
@@ -65,7 +66,7 @@ const eventErrorDetail = `
         <CodeExample>
             <AvatarUsage client:visible slot="preview" />
             <Codeblock showHeader slot="code">
-                <CodeblockPre language="lit" bugTitle="[BUG mjo-alert]">
+                <CodeblockPre language="lit" bugTitle="[BUG mjo-avatar]">
                     {
                         `import { LitElement, css, html } from "lit";
 import { customElement } from "lit/decorators.js";
@@ -659,30 +660,136 @@ export class AvatarNamecoloured extends LitElement {
             <TableBody>
                 <TableRow>
                     <TableCell><code class="inline">container</code></TableCell>
-                    <TableCell>The main alert container.</TableCell>
+                    <TableCell>The main avatar container.</TableCell>
                 </TableRow>
                 <TableRow>
-                    <TableCell><code class="inline">message-container</code></TableCell>
-                    <TableCell>The container for the message, icon and close button.</TableCell>
+                    <TableCell><code class="inline">image-container</code></TableCell>
+                    <TableCell>The image/content container.</TableCell>
                 </TableRow>
                 <TableRow>
-                    <TableCell><code class="inline">icon-container</code></TableCell>
-                    <TableCell>The container for the alert icon.</TableCell>
+                    <TableCell><code class="inline">fallback</code></TableCell>
+                    <TableCell>The fallback container.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">name</code></TableCell>
+                    <TableCell>The name container.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">image</code></TableCell>
+                    <TableCell>The avatar image element.</TableCell>
                 </TableRow>
                 <TableRow>
                     <TableCell><code class="inline">icon</code></TableCell>
-                    <TableCell>The icon element (via exportparts from mjo-icon).</TableCell>
-                </TableRow>
-                <TableRow>
-                    <TableCell><code class="inline">message</code></TableCell>
-                    <TableCell>The message content area.</TableCell>
-                </TableRow>
-                <TableRow>
-                    <TableCell><code class="inline">detail</code></TableCell>
-                    <TableCell>The detail content area.</TableCell>
+                    <TableCell>The avatar icon element (via mjo-icon).</TableCell>
                 </TableRow>
             </TableBody>
         </Table>
+        <Typography tag="h3" size="xl" weight="bold" spacing="md">Theme interface</Typography>
+        <Typography class="explain" tag="p" spacing="md">
+            Interface for the <code class="inline">mjo-avatar</code> theme that can be applied to the <code class="inline">MjoTheme</code> component or <code
+                class="inline">MjoThemeSSRGenerator</code
+            >.
+        </Typography>
+        <Codeblock>
+            <CodeblockPre language="lit">
+                {
+                    `export interface MjoAvatarTheme {
+    backgroundColor?: string;
+    borderColor?: string;
+    borderWidth?: string;
+    fallbackColor?: string;
+    fallbackSizeSmall?: string;
+    fallbackSizeMedium?: string;
+    fallbackSizeLarge?: string;
+    nameColor?: string;
+    nameAutoBackgroundColor?: string;
+    nameAutoForegroundColor?: string;
+    radiusSmall?: string;
+    radiusMedium?: string;
+    radiusLarge?: string;
+    sizeSmall?: string;
+    sizeMedium?: string;
+    sizeLarge?: string;
+}
+`
+                }
+            </CodeblockPre>
+        </Codeblock>
+        <Typography tag="h3" size="xl" weight="bold" spacing="md">Examples</Typography>
+        <CodeExample>
+            <AvatarCssvars client:only slot="preview" />
+            <Codeblock showHeader slot="code">
+                <CodeblockPre language="lit" bugTitle="[BUG mjo-avatar]">
+                    {
+                        `import type { MjoThemeConfig } from "mjo-litui/types/mjo-theme";
+                        
+import { LitElement, css, html } from "lit";
+import { customElement } from "lit/decorators.js";
+
+import { AiOutlineUser } from "mjo-icons/ai";
+
+import "mjo-litui/mjo-avatar";
+import "mjo-litui/mjo-theme";
+
+const config: MjoThemeConfig = {
+    components: {
+        mjoAvatar: {
+            backgroundColor:
+                "linear-gradient(130deg,rgba(23, 170, 193, 1) 0%, rgba(35, 144, 161, 1) 5%, rgba(26, 114, 131, 1) 14%, rgba(17, 81, 97, 1) 25%, rgba(5, 56, 72, 1) 41%, rgba(0, 46, 61, 1) 56%, rgba(29, 38, 65, 1) 72%, rgba(50, 32, 68, 1) 85%, rgba(88, 22, 74, 1) 100%);",
+            sizeMedium: "80px",
+            borderWidth: "3px",
+            fallbackSizeMedium: "50px",
+            fallbackColor: "#fafafa",
+        },
+    },
+};
+
+@customElement("avatar-cssvars")
+export class AvatarCssvars extends LitElement {
+    render() {
+        return html\`
+            <mjo-avatar class="cssvars" bordered color="primary" fallbackIcon=\${AiOutlineUser} name="Josh Williams"></mjo-avatar>
+            <mjo-avatar class="cssparts" bordered color="secondary" src="https://i.pravatar.cc/150?img=8" name="Josh Williams"></mjo-avatar>
+            <mjo-theme .config=\${config}>
+                <mjo-avatar bordered color="default" fallbackIcon=\${AiOutlineUser} name="Josh Williams"></mjo-avatar>
+            </mjo-theme>
+        \`;
+    }
+
+    static styles = [
+        css\`
+            :host {
+                display: block;
+                display: flex;
+                flex-flow: row wrap;
+                gap: var(--mjo-space-medium);
+                align-items: center;
+            }
+            .cssvars {
+                --mjo-avatar-border-width: 6px;
+                --mjo-avatar-size-medium: 80px;
+                --mjo-avatar-fallback-size-medium: 50px;
+                --mjo-avatar-background-color: #353535;
+                --mjo-avatar-fallback-color: var(--mjo-secondary-color);
+            }
+            .cssparts::part(container) {
+                width: 74px;
+                height: 74px;
+                border-radius: 0 10px 0 10px;
+                border-color: #cc31aa;
+                border-width: 4px;
+            }
+            .cssparts::part(image-container) {
+                border-radius: 0 6px 0 6px;
+            }
+        \`,
+    ];
+}
+`
+                    }
+                </CodeblockPre>
+            </Codeblock>
+        </CodeExample>
     </article>
 </DocsLayout>
 
