@@ -12,6 +12,8 @@ import { BadgeVisibility } from "@/components/examples/badge/badge-visibility";
 import Codeblock from "@/components/ui/codeblock/Codeblock.astro";
 import CodeblockPre from "@/components/ui/codeblock/CodeblockPre.astro";
 import CodeExample from "@/components/ui/CodeExample.astro";
+import List from "@/components/ui/list/List.astro";
+import ListItem from "@/components/ui/list/ListItem.astro";
 import Logger from "@/components/ui/logger/Logger.astro";
 import Table from "@/components/ui/table/Table.astro";
 import TableBody from "@/components/ui/table/TableBody.astro";
@@ -50,54 +52,47 @@ const eventClickDetail = `{
         </Codeblock>
 
         <Typography tag="h2" size="title3" weight="bold" spacing="md">Usage</Typography>
-        <Typography class="explain" tag="p" spacing="md"> The basic usage of the badge component to display notification indicators. </Typography>
+        <Typography class="explain" tag="p" spacing="md">
+            The basic usage of the badge component to display notification indicators. The badge will be positioned absolutely over its child element.
+        </Typography>
         <CodeExample>
             <BadgeUsage client:load slot="preview" />
-            <Codeblock slot="code">
+            <Codeblock showHeader slot="code">
                 <CodeblockPre language="lit">
                     {
                         `import { LitElement, css, html } from "lit";
 import { customElement } from "lit/decorators.js";
 
+import "mjo-litui/mjo-avatar";
 import "mjo-litui/mjo-badge";
 
 @customElement("badge-usage")
 export class BadgeUsage extends LitElement {
     render() {
         return html\`
-            <div style="display: flex; gap: 2rem; align-items: center;">
-                <mjo-badge label="5" show>
-                    <button>Messages</button>
-                </mjo-badge>
-                
-                <mjo-badge label="New" color="success" show>
-                    <button>Features</button>
-                </mjo-badge>
-                
-                <mjo-badge label="!" color="error" show>
-                    <button>Alerts</button>
-                </mjo-badge>
-            </div>
+            <mjo-badge label="5" show>
+                <mjo-avatar radius="large" src="https://i.pravatar.cc/150?img=15" name="Jimmy"></mjo-avatar>
+            </mjo-badge>
+            <mjo-badge label="New" color="success" show>
+                <mjo-avatar radius="large" src="https://i.pravatar.cc/150?img=16" name="Juliet"></mjo-avatar>
+            </mjo-badge>
+            <mjo-badge label="!" color="error" show>
+                <mjo-avatar radius="large" src="https://i.pravatar.cc/150?img=17" name="Jack"></mjo-avatar>
+            </mjo-badge>
         \`;
     }
 
     static styles = [
         css\`
-            button {
-                padding: 0.5rem 1rem;
-                border: 1px solid #ccc;
-                border-radius: 0.25rem;
-                background: white;
-                cursor: pointer;
-                font-size: 0.875rem;
+            :host {
+                display: flex;
+                gap: 2rem;
+                align-items: center;
             }
-            
-            button:hover {
-                background: #f5f5f5;
-            }
-        \`
+        \`,
     ];
-}`
+}
+`
                     }
                 </CodeblockPre>
             </Codeblock>
@@ -109,49 +104,52 @@ export class BadgeUsage extends LitElement {
         </Typography>
         <CodeExample>
             <BadgeColors client:load slot="preview" />
-            <Codeblock slot="code">
+            <Codeblock showHeader slot="code">
                 <CodeblockPre language="lit">
                     {
                         `import { LitElement, css, html } from "lit";
 import { customElement } from "lit/decorators.js";
 
+import "mjo-litui/mjo-avatar";
 import "mjo-litui/mjo-badge";
 
 @customElement("badge-colors")
 export class BadgeColors extends LitElement {
     render() {
         return html\`
-            <div style="display: flex; gap: 2rem; align-items: center; flex-wrap: wrap;">
-                <mjo-badge label="3" color="primary" show>
-                    <button>Primary</button>
-                </mjo-badge>
-                
-                <mjo-badge label="7" color="secondary" show>
-                    <button>Secondary</button>
-                </mjo-badge>
-                
-                <mjo-badge label="5" color="success" show>
-                    <button>Success</button>
-                </mjo-badge>
-                
-                <mjo-badge label="2" color="warning" show>
-                    <button>Warning</button>
-                </mjo-badge>
-                
-                <mjo-badge label="!" color="error" show>
-                    <button>Error</button>
-                </mjo-badge>
-                
-                <mjo-badge label="8" color="info" show>
-                    <button>Info</button>
-                </mjo-badge>
-                
-                <mjo-badge label="1" color="default" show>
-                    <button>Default</button>
-                </mjo-badge>
-            </div>
+            <mjo-badge label="3" color="primary" show>
+                <mjo-avatar radius="large" src="https://i.pravatar.cc/150?img=15" name="Jimmy"></mjo-avatar>
+            </mjo-badge>
+            <mjo-badge label="7" color="secondary" show>
+                <mjo-avatar radius="large" src="https://i.pravatar.cc/150?img=16" name="Juliet"></mjo-avatar>
+            </mjo-badge>
+            <mjo-badge label="5" color="success" show>
+                <mjo-avatar radius="large" src="https://i.pravatar.cc/150?img=17" name="Jack"></mjo-avatar>
+            </mjo-badge>
+            <mjo-badge label="2" color="warning" show>
+                <mjo-avatar radius="large" src="https://i.pravatar.cc/150?img=18" name="Jill"></mjo-avatar>
+            </mjo-badge>
+            <mjo-badge label="!" color="error" show>
+                <mjo-avatar radius="large" src="https://i.pravatar.cc/150?img=19" name="Jack"></mjo-avatar>
+            </mjo-badge>
+            <mjo-badge label="8" color="info" show>
+                <mjo-avatar radius="large" src="https://i.pravatar.cc/150?img=20" name="Jill"></mjo-avatar>
+            </mjo-badge>
+            <mjo-badge label="1" color="default" show>
+                <mjo-avatar radius="large" src="https://i.pravatar.cc/150?img=21" name="Jack"></mjo-avatar>
+            </mjo-badge>
         \`;
     }
+
+    static styles = [
+        css\`
+            :host {
+                display: flex;
+                gap: 1.5rem;
+                align-items: center;
+            }
+        \`,
+    ];
 }`
                     }
                 </CodeblockPre>
@@ -162,33 +160,43 @@ export class BadgeColors extends LitElement {
         <Typography class="explain" tag="p" spacing="md"> The badge component supports different sizes to fit various design needs. </Typography>
         <CodeExample>
             <BadgeSizes client:load slot="preview" />
-            <Codeblock slot="code">
+            <Codeblock showHeader slot="code">
                 <CodeblockPre language="lit">
                     {
                         `import { LitElement, css, html } from "lit";
 import { customElement } from "lit/decorators.js";
 
+import "mjo-litui/mjo-avatar";
 import "mjo-litui/mjo-badge";
 
-@customElement("badge-sizes")
-export class BadgeSizes extends LitElement {
+@customElement("badge-variants")
+export class BadgeVariants extends LitElement {
     render() {
         return html\`
-            <div style="display: flex; gap: 2rem; align-items: center;">
-                <mjo-badge label="S" size="small" show>
-                    <button>Small</button>
-                </mjo-badge>
-                
-                <mjo-badge label="M" size="medium" show>
-                    <button>Medium</button>
-                </mjo-badge>
-                
-                <mjo-badge label="L" size="large" show>
-                    <button>Large</button>
-                </mjo-badge>
-            </div>
+            <mjo-badge label="5" variant="solid" show>
+                <mjo-avatar radius="large" src="https://i.pravatar.cc/150?img=15" name="Jimmy"></mjo-avatar>
+            </mjo-badge>
+            <mjo-badge label="2" variant="flat" show>
+                <mjo-avatar radius="large" src="https://i.pravatar.cc/150?img=16" name="Juliet"></mjo-avatar>
+            </mjo-badge>
+            <mjo-badge label="8" variant="ghost" show>
+                <mjo-avatar radius="large" src="https://i.pravatar.cc/150?img=17" name="Jack"></mjo-avatar>
+            </mjo-badge>
+            <mjo-badge label="!" variant="brilliant" show>
+                <mjo-avatar radius="large" src="https://i.pravatar.cc/150?img=18" name="Jill"></mjo-avatar>
+            </mjo-badge>
         \`;
     }
+
+    static styles = [
+        css\`
+            :host {
+                display: flex;
+                gap: 1.5rem;
+                align-items: center;
+            }
+        \`,
+    ];
 }`
                     }
                 </CodeblockPre>
@@ -199,38 +207,48 @@ export class BadgeSizes extends LitElement {
         <Typography class="explain" tag="p" spacing="md"> You can use different visual variants to customize the appearance of the badge. </Typography>
         <CodeExample>
             <BadgeVariants client:load slot="preview" />
-            <Codeblock slot="code">
+            <Codeblock showHeader slot="code">
                 <CodeblockPre language="lit">
                     {
                         `import { LitElement, css, html } from "lit";
 import { customElement } from "lit/decorators.js";
 
+import "mjo-litui/mjo-avatar";
 import "mjo-litui/mjo-badge";
 
 @customElement("badge-variants")
 export class BadgeVariants extends LitElement {
     render() {
         return html\`
-            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem;">
-                <mjo-badge label="5" variant="solid" show>
-                    <div class="demo-box">Solid</div>
-                </mjo-badge>
-                
-                <mjo-badge label="2" variant="flat" show>
-                    <div class="demo-box">Flat</div>
-                </mjo-badge>
-                
-                <mjo-badge label="8" variant="ghost" show>
-                    <div class="demo-box">Ghost</div>
-                </mjo-badge>
-                
-                <mjo-badge label="!" variant="brilliant" show>
-                    <div class="demo-box">Brilliant</div>
-                </mjo-badge>
-            </div>
+            <mjo-badge label="5" variant="solid" show>
+                <mjo-avatar radius="large" src="https://i.pravatar.cc/150?img=15" name="Jimmy"></mjo-avatar>
+            </mjo-badge>
+            <mjo-badge label="2" variant="flat" show>
+                <mjo-avatar radius="large" src="https://i.pravatar.cc/150?img=16" name="Juliet"></mjo-avatar>
+            </mjo-badge>
+            <mjo-badge label="8" variant="ghost" show>
+                <mjo-avatar radius="large" src="https://i.pravatar.cc/150?img=17" name="Jack"></mjo-avatar>
+            </mjo-badge>
+            <mjo-badge label="!" variant="brilliant" show>
+                <mjo-avatar radius="large" src="https://i.pravatar.cc/150?img=18" name="Jill"></mjo-avatar>
+            </mjo-badge>
+            <mjo-badge label="5" variant="shadow" show>
+                <mjo-avatar radius="large" src="https://i.pravatar.cc/150?img=18" name="Jill"></mjo-avatar>
+            </mjo-badge>
         \`;
     }
-}`
+
+    static styles = [
+        css\`
+            :host {
+                display: flex;
+                gap: 1.5rem;
+                align-items: center;
+            }
+        \`,
+    ];
+}
+`
                     }
                 </CodeblockPre>
             </Codeblock>
@@ -240,37 +258,43 @@ export class BadgeVariants extends LitElement {
         <Typography class="explain" tag="p" spacing="md"> The badge can be positioned in different corners relative to the slotted element. </Typography>
         <CodeExample>
             <BadgePositions client:load slot="preview" />
-            <Codeblock slot="code">
+            <Codeblock showHeader slot="code">
                 <CodeblockPre language="lit">
                     {
                         `import { LitElement, css, html } from "lit";
 import { customElement } from "lit/decorators.js";
 
+import "mjo-litui/mjo-avatar";
 import "mjo-litui/mjo-badge";
 
 @customElement("badge-positions")
 export class BadgePositions extends LitElement {
     render() {
         return html\`
-            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 3rem;">
-                <mjo-badge label="TR" position="top-right" show>
-                    <div class="demo-box">Top Right</div>
-                </mjo-badge>
-                
-                <mjo-badge label="TL" position="top-left" show>
-                    <div class="demo-box">Top Left</div>
-                </mjo-badge>
-                
-                <mjo-badge label="BR" position="bottom-right" show>
-                    <div class="demo-box">Bottom Right</div>
-                </mjo-badge>
-                
-                <mjo-badge label="BL" position="bottom-left" show>
-                    <div class="demo-box">Bottom Left</div>
-                </mjo-badge>
-            </div>
+            <mjo-badge label="TL" position="top-left" show>
+                <mjo-avatar radius="large" src="https://i.pravatar.cc/150?img=16" name="Juliet"></mjo-avatar>
+            </mjo-badge>
+            <mjo-badge label="TR" position="top-right" show>
+                <mjo-avatar radius="large" src="https://i.pravatar.cc/150?img=15" name="Jimmy"></mjo-avatar>
+            </mjo-badge>
+            <mjo-badge label="BL" position="bottom-left" show>
+                <mjo-avatar radius="large" src="https://i.pravatar.cc/150?img=18" name="Jill"></mjo-avatar>
+            </mjo-badge>
+            <mjo-badge label="BR" position="bottom-right" show>
+                <mjo-avatar radius="large" src="https://i.pravatar.cc/150?img=17" name="Jack"></mjo-avatar>
+            </mjo-badge>
         \`;
     }
+
+    static styles = [
+        css\`
+            :host {
+                display: flex;
+                gap: 2.5rem;
+                align-items: center;
+            }
+        \`,
+    ];
 }`
                     }
                 </CodeblockPre>
@@ -281,37 +305,43 @@ export class BadgePositions extends LitElement {
         <Typography class="explain" tag="p" spacing="md"> You can adjust the position of the badge using horizontal and vertical offsets. </Typography>
         <CodeExample>
             <BadgeOffset client:load slot="preview" />
-            <Codeblock slot="code">
+            <Codeblock showHeader slot="code">
                 <CodeblockPre language="lit">
                     {
                         `import { LitElement, css, html } from "lit";
 import { customElement } from "lit/decorators.js";
 
+import "mjo-litui/mjo-avatar";
 import "mjo-litui/mjo-badge";
 
 @customElement("badge-offset")
 export class BadgeOffset extends LitElement {
     render() {
         return html\`
-            <div style="display: flex; gap: 3rem; align-items: center;">
-                <mjo-badge label="0" offsetx="0" offsety="0" show>
-                    <div class="demo-box">No Offset</div>
-                </mjo-badge>
-                
-                <mjo-badge label="X" offsetx="10" offsety="0" show>
-                    <div class="demo-box">X Offset</div>
-                </mjo-badge>
-                
-                <mjo-badge label="Y" offsetx="0" offsety="10" show>
-                    <div class="demo-box">Y Offset</div>
-                </mjo-badge>
-                
-                <mjo-badge label="XY" offsetx="8" offsety="8" show>
-                    <div class="demo-box">Both Offset</div>
-                </mjo-badge>
-            </div>
+            <mjo-badge label="0" show>
+                <mjo-avatar radius="large" src="https://i.pravatar.cc/150?img=16" name="Juliet"></mjo-avatar>
+            </mjo-badge>
+            <mjo-badge label="X" offsetx="-20" show>
+                <mjo-avatar radius="large" src="https://i.pravatar.cc/150?img=16" name="Juliet"></mjo-avatar>
+            </mjo-badge>
+            <mjo-badge label="Y" offsety="20" show>
+                <mjo-avatar radius="large" src="https://i.pravatar.cc/150?img=16" name="Juliet"></mjo-avatar>
+            </mjo-badge>
+            <mjo-badge label="XY" offsetx="-20" offsety="20" show>
+                <mjo-avatar radius="large" src="https://i.pravatar.cc/150?img=16" name="Juliet"></mjo-avatar>
+            </mjo-badge>
         \`;
     }
+
+    static styles = [
+        css\`
+            :host {
+                display: flex;
+                gap: 2.5rem;
+                align-items: center;
+            }
+        \`,
+    ];
 }`
                     }
                 </CodeblockPre>
@@ -322,46 +352,63 @@ export class BadgeOffset extends LitElement {
         <Typography class="explain" tag="p" spacing="md"> You can programmatically control the visibility of badges using the provided methods. </Typography>
         <CodeExample>
             <BadgeVisibility client:load slot="preview" />
-            <Codeblock slot="code">
+            <Codeblock showHeader slot="code">
                 <CodeblockPre language="lit">
                     {
-                        `import { LitElement, css, html } from "lit";
-import { customElement, state } from "lit/decorators.js";
+                        `import type { MjoBadge } from "mjo-litui/mjo-badge";
+import type { MjoButton } from "mjo-litui/mjo-button";
 
+import { LitElement, css, html } from "lit";
+import { customElement, query, state } from "lit/decorators.js";
+
+import "mjo-litui/mjo-avatar";
 import "mjo-litui/mjo-badge";
+import "mjo-litui/mjo-button";
 
 @customElement("badge-visibility")
 export class BadgeVisibility extends LitElement {
-    @state()
-    private badgeVisible = true;
+    @state() private badgeVisible = true;
 
-    private toggleBadge() {
-        this.badgeVisible = !this.badgeVisible;
-        
-        const badge = this.shadowRoot?.querySelector('mjo-badge');
-        if (badge) {
-            if (this.badgeVisible) {
-                (badge as any).showBadge();
-            } else {
-                (badge as any).hideBadge();
-            }
-        }
-    }
+    @query("mjo-badge") private $badge!: MjoBadge;
 
     render() {
         return html\`
-            <div style="display: flex; gap: 2rem; align-items: center;">
-                <mjo-badge label="5" ?show="\${this.badgeVisible}">
-                    <button>Messages</button>
-                </mjo-badge>
-                
-                <button @click=\${this.toggleBadge} class="toggle-btn">
-                    \${this.badgeVisible ? 'Hide Badge' : 'Show Badge'}
-                </button>
-            </div>
+            <mjo-badge label="5" color="error" ?show=\${this.badgeVisible}>
+                <mjo-avatar radius="large" src="https://i.pravatar.cc/150?img=16" name="Juliet"></mjo-avatar>
+            </mjo-badge>
+            <mjo-button variant=\${this.#variant} @mjo-button:click=\${this.#toggleBadge}>\${this.#label}</mjo-button>
         \`;
     }
-}`
+
+    get #label() {
+        return this.badgeVisible ? "Hide Badge" : "Show Badge";
+    }
+
+    get #variant(): MjoButton["variant"] {
+        return this.badgeVisible ? "default" : "ghost";
+    }
+
+    #toggleBadge() {
+        this.badgeVisible = !this.badgeVisible;
+
+        if (this.badgeVisible) {
+            this.$badge?.showBadge();
+        } else {
+            this.$badge?.hideBadge();
+        }
+    }
+
+    static styles = [
+        css\`
+            :host {
+                display: flex;
+                gap: 2.5rem;
+                align-items: center;
+            }
+        \`,
+    ];
+}
+`
                     }
                 </CodeblockPre>
             </Codeblock>
@@ -369,53 +416,80 @@ export class BadgeVisibility extends LitElement {
 
         <Typography tag="h3" size="xxl" weight="bold" spacing="md">Clickable</Typography>
         <Typography class="explain" tag="p" spacing="md"> The badge can be made clickable and will emit a custom event when clicked. </Typography>
-        <CodeExample>
+        <CodeExample space="sm">
             <BadgeClickable client:load slot="preview" />
-            <Codeblock slot="code">
+            <Codeblock showHeader slot="code">
                 <CodeblockPre language="lit">
                     {
-                        `import { LitElement, css, html } from "lit";
+                        `import type { MjoBadgeClickEvent } from "mjo-litui/types/mjo-badge";
+
+import { LitElement, css, html } from "lit";
 import { customElement } from "lit/decorators.js";
 
+import { printLog } from "@/lib/logger";
+
+import "mjo-litui/mjo-avatar";
 import "mjo-litui/mjo-badge";
 
 @customElement("badge-clickable")
 export class BadgeClickable extends LitElement {
-    private handleBadgeClick(event: CustomEvent) {
-        const { value, label, color } = event.detail;
-        console.log("Badge clicked:", { value, label, color });
-    }
-
     render() {
         return html\`
-            <div style="display: flex; gap: 2rem; align-items: center;">
-                <mjo-badge
-                    label="5"
-                    value="notifications"
-                    color="error"
-                    clickable
-                    show
-                    aria-label="5 new notifications, click to view"
-                    @mjo-badge:click=\${this.handleBadgeClick}
-                >
-                    <button>Notifications</button>
-                </mjo-badge>
-                
-                <mjo-badge
-                    label="3"
-                    value="messages" 
-                    color="primary"
-                    clickable
-                    show
-                    aria-label="3 new messages, click to view"
-                    @mjo-badge:click=\${this.handleBadgeClick}
-                >
-                    <button>Messages</button>
-                </mjo-badge>
-            </div>
+            <mjo-badge
+                label="5"
+                value="notifications"
+                color="error"
+                clickable
+                show
+                aria-label="5 new notifications, click to view"
+                @mjo-badge:click=\${this.#handleBadgeClick}
+            >
+                <mjo-avatar radius="large" src="https://i.pravatar.cc/150?img=16" name="Juliet"></mjo-avatar>
+            </mjo-badge>
+            <mjo-badge
+                label="3"
+                value="messages"
+                color="primary"
+                clickable
+                show
+                aria-label="3 new messages, click to view"
+                @mjo-badge:click=\${this.#handleBadgeClick}
+            >
+                <mjo-avatar radius="large" src="https://i.pravatar.cc/150?img=17" name="Bill"></mjo-avatar>
+            </mjo-badge>
+            <mjo-badge
+                label="New"
+                value="updates"
+                color="success"
+                clickable
+                show
+                aria-label="New updates available, click to view"
+                @mjo-badge:click=\${this.#handleBadgeClick}
+            >
+                <mjo-avatar radius="large" src="https://i.pravatar.cc/150?img=18" name="Jimmy"></mjo-avatar>
+            </mjo-badge>
         \`;
     }
-}`
+
+    #handleBadgeClick(event: MjoBadgeClickEvent) {
+        printLog({
+            id: "badge-clickable-logger",
+            message: event.detail,
+            event,
+        });
+    }
+
+    static styles = [
+        css\`
+            :host {
+                display: flex;
+                gap: 2.5rem;
+                align-items: center;
+            }
+        \`,
+    ];
+}
+`
                     }
                 </CodeblockPre>
             </Codeblock>
@@ -435,81 +509,109 @@ export class BadgeClickable extends LitElement {
             </TableHeader>
             <TableBody>
                 <TableRow>
-                    <TableCell><code>color</code></TableCell>
-                    <TableCell><code>MjoBadgeColors</code></TableCell>
-                    <TableCell><code>"primary"</code></TableCell>
+                    <TableCell><code class="inline">color</code></TableCell>
+                    <TableCell>
+                        <code class="inline">{`primary|secondary|success`}</code>
+                        <code class="inline">{`warning|error|info|default`}</code>
+                    </TableCell>
+                    <TableCell><code class="inline">{`primary`}</code></TableCell>
                     <TableCell>Color theme of the badge</TableCell>
                 </TableRow>
                 <TableRow>
-                    <TableCell><code>size</code></TableCell>
-                    <TableCell><code>MjoBadgeSizes</code></TableCell>
-                    <TableCell><code>"medium"</code></TableCell>
+                    <TableCell><code class="inline">size</code></TableCell>
+                    <TableCell>
+                        <code class="inline">{`small|medium|large`}</code>
+                    </TableCell>
+                    <TableCell><code class="inline">{`medium`}</code></TableCell>
                     <TableCell>Size of the badge</TableCell>
                 </TableRow>
                 <TableRow>
-                    <TableCell><code>variant</code></TableCell>
-                    <TableCell><code>MjoBadgeVariants</code></TableCell>
-                    <TableCell><code>"solid"</code></TableCell>
+                    <TableCell><code class="inline">variant</code></TableCell>
+                    <TableCell>
+                        <code class="inline">{`solid|flat|ghost|brilliant|shadow`}</code>
+                    </TableCell>
+                    <TableCell><code class="inline">{`solid`}</code></TableCell>
                     <TableCell>Visual variant style</TableCell>
                 </TableRow>
                 <TableRow>
-                    <TableCell><code>position</code></TableCell>
-                    <TableCell><code>MjoBadgePositions</code></TableCell>
-                    <TableCell><code>"top-right"</code></TableCell>
+                    <TableCell><code class="inline">position</code></TableCell>
+                    <TableCell>
+                        <code class="inline">{`top-right|top-left`}</code>
+                        <code class="inline">{`bottom-right|bottom-left`}</code>
+                    </TableCell>
+                    <TableCell><code class="inline">{`top-right`}</code></TableCell>
                     <TableCell>Position relative to the slotted element</TableCell>
                 </TableRow>
                 <TableRow>
-                    <TableCell><code>label</code></TableCell>
-                    <TableCell><code>string</code></TableCell>
-                    <TableCell><code>""</code></TableCell>
+                    <TableCell><code class="inline">label</code></TableCell>
+                    <TableCell>
+                        <code class="inline">{`string`}</code>
+                    </TableCell>
+                    <TableCell><code class="inline">{`""`}</code></TableCell>
                     <TableCell>The content to display in the badge</TableCell>
                 </TableRow>
                 <TableRow>
-                    <TableCell><code>value</code></TableCell>
-                    <TableCell><code>string</code></TableCell>
-                    <TableCell><code>undefined</code></TableCell>
+                    <TableCell><code class="inline">value</code></TableCell>
+                    <TableCell>
+                        <code class="inline">{`string`}</code>
+                    </TableCell>
+                    <TableCell><code class="inline">{`undefined`}</code></TableCell>
                     <TableCell>Optional value associated with the badge</TableCell>
                 </TableRow>
                 <TableRow>
-                    <TableCell><code>offsetx</code></TableCell>
-                    <TableCell><code>number</code></TableCell>
-                    <TableCell><code>0</code></TableCell>
+                    <TableCell><code class="inline">offsetx</code></TableCell>
+                    <TableCell>
+                        <code class="inline">{`number`}</code>
+                    </TableCell>
+                    <TableCell><code class="inline">{`0`}</code></TableCell>
                     <TableCell>Horizontal offset in pixels</TableCell>
                 </TableRow>
                 <TableRow>
-                    <TableCell><code>offsety</code></TableCell>
-                    <TableCell><code>number</code></TableCell>
-                    <TableCell><code>0</code></TableCell>
+                    <TableCell><code class="inline">offsety</code></TableCell>
+                    <TableCell>
+                        <code class="inline">{`number`}</code>
+                    </TableCell>
+                    <TableCell><code class="inline">{`0`}</code></TableCell>
                     <TableCell>Vertical offset in pixels</TableCell>
                 </TableRow>
                 <TableRow>
-                    <TableCell><code>show</code></TableCell>
-                    <TableCell><code>boolean</code></TableCell>
-                    <TableCell><code>false</code></TableCell>
+                    <TableCell><code class="inline">show</code></TableCell>
+                    <TableCell>
+                        <code class="inline">{`boolean`}</code>
+                    </TableCell>
+                    <TableCell><code class="inline">{`false`}</code></TableCell>
                     <TableCell>Whether the badge is visible</TableCell>
                 </TableRow>
                 <TableRow>
-                    <TableCell><code>disabled</code></TableCell>
-                    <TableCell><code>boolean</code></TableCell>
-                    <TableCell><code>false</code></TableCell>
+                    <TableCell><code class="inline">disabled</code></TableCell>
+                    <TableCell>
+                        <code class="inline">{`boolean`}</code>
+                    </TableCell>
+                    <TableCell><code class="inline">{`false`}</code></TableCell>
                     <TableCell>Whether the badge is disabled</TableCell>
                 </TableRow>
                 <TableRow>
-                    <TableCell><code>clickable</code></TableCell>
-                    <TableCell><code>boolean</code></TableCell>
-                    <TableCell><code>false</code></TableCell>
+                    <TableCell><code class="inline">clickable</code></TableCell>
+                    <TableCell>
+                        <code class="inline">{`boolean`}</code>
+                    </TableCell>
+                    <TableCell><code class="inline">{`false`}</code></TableCell>
                     <TableCell>Whether the badge can be clicked</TableCell>
                 </TableRow>
                 <TableRow>
-                    <TableCell><code>hideOutline</code></TableCell>
-                    <TableCell><code>boolean</code></TableCell>
-                    <TableCell><code>false</code></TableCell>
+                    <TableCell><code class="inline">hideOutline</code></TableCell>
+                    <TableCell>
+                        <code class="inline">{`boolean`}</code>
+                    </TableCell>
+                    <TableCell><code class="inline">{`false`}</code></TableCell>
                     <TableCell>Whether to hide the border outline</TableCell>
                 </TableRow>
                 <TableRow>
-                    <TableCell><code>ariaDescribedBy</code></TableCell>
-                    <TableCell><code>string</code></TableCell>
-                    <TableCell><code>undefined</code></TableCell>
+                    <TableCell><code class="inline">ariaDescribedBy</code></TableCell>
+                    <TableCell>
+                        <code class="inline">{`string`}</code>
+                    </TableCell>
+                    <TableCell><code class="inline">{`undefined`}</code></TableCell>
                     <TableCell>Reference to describing elements</TableCell>
                 </TableRow>
             </TableBody>
@@ -528,21 +630,21 @@ export class BadgeClickable extends LitElement {
             </TableHeader>
             <TableBody>
                 <TableRow>
-                    <TableCell><code>showBadge()</code></TableCell>
+                    <TableCell><code class="inline">showBadge()</code></TableCell>
                     <TableCell>-</TableCell>
-                    <TableCell><code>void</code></TableCell>
+                    <TableCell><code class="inline">{`void`}</code></TableCell>
                     <TableCell>Shows the badge</TableCell>
                 </TableRow>
                 <TableRow>
-                    <TableCell><code>hideBadge()</code></TableCell>
+                    <TableCell><code class="inline">hideBadge()</code></TableCell>
                     <TableCell>-</TableCell>
-                    <TableCell><code>void</code></TableCell>
+                    <TableCell><code class="inline">{`void`}</code></TableCell>
                     <TableCell>Hides the badge</TableCell>
                 </TableRow>
                 <TableRow>
-                    <TableCell><code>toggleBadge()</code></TableCell>
+                    <TableCell><code class="inline">toggleBadge()</code></TableCell>
                     <TableCell>-</TableCell>
-                    <TableCell><code>void</code></TableCell>
+                    <TableCell><code class="inline">{`void`}</code></TableCell>
                     <TableCell>Toggles badge visibility</TableCell>
                 </TableRow>
             </TableBody>
@@ -560,13 +662,9 @@ export class BadgeClickable extends LitElement {
             </TableHeader>
             <TableBody>
                 <TableRow>
-                    <TableCell><code>mjo-badge:click</code></TableCell>
+                    <TableCell><code class="inline">mjo-badge:click</code></TableCell>
                     <TableCell>
-                        <Codeblock>
-                            <CodeblockPre language="typescript">
-                                {eventClickDetail}
-                            </CodeblockPre>
-                        </Codeblock>
+                        <pre>{eventClickDetail}</pre>
                     </TableCell>
                     <TableCell>Fired when clickable badge is clicked</TableCell>
                 </TableRow>
@@ -589,34 +687,39 @@ export class BadgeClickable extends LitElement {
             </TableHeader>
             <TableBody>
                 <TableRow>
-                    <TableCell><code>--mjo-badge-border-width</code></TableCell>
-                    <TableCell><code>2px</code></TableCell>
+                    <TableCell><code class="inline">--mjo-badge-border-width</code></TableCell>
+                    <TableCell><code class="inline">{`2px`}</code></TableCell>
                     <TableCell>Border width of the badge</TableCell>
                 </TableRow>
                 <TableRow>
-                    <TableCell><code>--mjo-badge-animation-duration</code></TableCell>
-                    <TableCell><code>0.2s</code></TableCell>
+                    <TableCell><code class="inline">--mjo-badge-animation-duration</code></TableCell>
+                    <TableCell><code class="inline">{`0.2s`}</code></TableCell>
                     <TableCell>Animation duration for scaling</TableCell>
                 </TableRow>
                 <TableRow>
-                    <TableCell><code>--mjo-badge-focus-outline-width</code></TableCell>
-                    <TableCell><code>2px</code></TableCell>
+                    <TableCell><code class="inline">--mjo-badge-focus-outline-width</code></TableCell>
+                    <TableCell><code class="inline">{`2px`}</code></TableCell>
                     <TableCell>Width of focus outline</TableCell>
                 </TableRow>
                 <TableRow>
-                    <TableCell><code>--mjo-badge-focus-outline-offset</code></TableCell>
-                    <TableCell><code>1px</code></TableCell>
+                    <TableCell><code class="inline">--mjo-badge-focus-outline-offset</code></TableCell>
+                    <TableCell><code class="inline">{`1px`}</code></TableCell>
                     <TableCell>Offset of focus outline</TableCell>
                 </TableRow>
                 <TableRow>
-                    <TableCell><code>--mjo-badge-background-color</code></TableCell>
-                    <TableCell>Dynamic</TableCell>
+                    <TableCell><code class="inline">--mjo-badge-background-color</code></TableCell>
+                    <TableCell><code class="inline">{`Dynamic`}</code></TableCell>
                     <TableCell>Background color (varies by color prop)</TableCell>
                 </TableRow>
                 <TableRow>
-                    <TableCell><code>--mjo-badge-color</code></TableCell>
-                    <TableCell>Dynamic</TableCell>
+                    <TableCell><code class="inline">--mjo-badge-color</code></TableCell>
+                    <TableCell><code class="inline">{`Dynamic`}</code></TableCell>
                     <TableCell>Text color (varies by color prop)</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-badge-box-shadow</code></TableCell>
+                    <TableCell><code class="inline">{`--mjo-box-shadow-2`}</code></TableCell>
+                    <TableCell>Box shadow (varies by color prop)</TableCell>
                 </TableRow>
             </TableBody>
         </Table>
@@ -631,16 +734,16 @@ export class BadgeClickable extends LitElement {
             </TableHeader>
             <TableBody>
                 <TableRow>
-                    <TableCell><code>container</code></TableCell>
+                    <TableCell><code class="inline">container</code></TableCell>
                     <TableCell>The main badge container element</TableCell>
                 </TableRow>
                 <TableRow>
-                    <TableCell><code>icon</code></TableCell>
-                    <TableCell>The icon element (from mjo-icon)</TableCell>
+                    <TableCell><code class="inline">icon</code></TableCell>
+                    <TableCell>The icon element (via mjo-icon)</TableCell>
                 </TableRow>
                 <TableRow>
-                    <TableCell><code>label</code></TableCell>
-                    <TableCell>The typography element (from mjo-typography)</TableCell>
+                    <TableCell><code class="inline">label</code></TableCell>
+                    <TableCell>The typography element (via mjo-typography)</TableCell>
                 </TableRow>
             </TableBody>
         </Table>
@@ -666,71 +769,67 @@ export class BadgeClickable extends LitElement {
 
         <Typography tag="h3" size="xl" weight="bold" spacing="md">Examples</Typography>
 
-        <Typography tag="h4" size="xl" weight="bold" spacing="md">With CSS Parts</Typography>
-        <Typography class="explain" tag="p" spacing="md"> Use CSS parts to customize the appearance of the badge. </Typography>
+        <Typography tag="h4" size="lg" weight="bold" spacing="md">With CSS</Typography>
+        <Typography class="explain" tag="p" spacing="md"> Use CSS parts or variables to customize the appearance of the badge. </Typography>
         <CodeExample>
             <BadgeCssparts client:load slot="preview" />
-            <Codeblock slot="code">
+            <Codeblock showHeader slot="code">
                 <CodeblockPre language="lit">
                     {
                         `import { LitElement, css, html } from "lit";
 import { customElement } from "lit/decorators.js";
 
+import "mjo-litui/mjo-avatar";
 import "mjo-litui/mjo-badge";
 
 @customElement("badge-cssparts")
 export class BadgeCssparts extends LitElement {
     render() {
         return html\`
-            <div style="display: flex; gap: 2rem; align-items: center;">
-                <mjo-badge label="Custom" show class="custom-badge">
-                    <button>Custom Styled</button>
-                </mjo-badge>
-                
-                <mjo-badge label="Themed" color="success" show class="themed-badge">
-                    <button>Themed Badge</button>
-                </mjo-badge>
-            </div>
+            <mjo-badge label="Custom" show class="css-parts">
+                <mjo-avatar radius="large" size="large" src="https://i.pravatar.cc/150?img=16" name="Juliet"></mjo-avatar>
+            </mjo-badge>
+            <mjo-badge label="Themed" color="success" show class="css-vars">
+                <mjo-avatar radius="large" size="large" src="https://i.pravatar.cc/150?img=17" name="Billy"></mjo-avatar>
+            </mjo-badge>
         \`;
     }
 
     static styles = [
         css\`
-            .custom-badge::part(container) {
+            :host {
+                display: flex;
+                gap: 2.5rem;
+                align-items: center;
+            }
+            .css-parts::part(container) {
                 background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
-                color: white;
+                color: #111111;
                 border: 2px solid #fff;
                 box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-                transform: scale(1.1);
             }
-            
-            .themed-badge::part(label) {
-                font-weight: bold;
+            .css-parts::part(label) {
                 text-transform: uppercase;
-                letter-spacing: 0.5px;
             }
-            
-            .themed-badge::part(container) {
-                animation: pulse 2s infinite;
+            .css-vars {
+                --mjo-badge-border-width: 5px;
+                --mjo-badge-background-color: #f50bc2;
+                --mjo-badge-color: #a4fffa;
             }
-            
-            @keyframes pulse {
-                0%, 100% { transform: scale(1); }
-                50% { transform: scale(1.05); }
-            }
-        \`
+        \`,
     ];
-}`
+}
+`
                     }
                 </CodeblockPre>
             </Codeblock>
         </CodeExample>
 
-        <Typography tag="h4" size="xl" weight="bold" spacing="md">Theme Customization</Typography>
+        <Typography tag="h4" size="lg" weight="bold" spacing="md">Theme Customization</Typography>
         <Typography class="explain" tag="p" spacing="md"> You can customize the badge appearance through the theme system. </Typography>
         <CodeExample>
-            <BadgeTheme client:load slot="preview" />
-            <Codeblock slot="code">
+            <BadgeTheme client:only slot="preview" />
+            <Codeblock showHeader slot="code">
                 <CodeblockPre language="lit">
                     {
                         `import { LitElement, css, html } from "lit";
@@ -771,32 +870,40 @@ export class BadgeTheme extends LitElement {
                 </CodeblockPre>
             </Codeblock>
         </CodeExample>
-
         <Typography tag="h2" size="title3" weight="bold" spacing="md">Accessibility</Typography>
         <Typography class="explain" tag="p" spacing="md"> The badge component includes comprehensive accessibility features: </Typography>
-        <ul>
-            <li><strong>ARIA Support:</strong> Proper role attribution and live region announcements</li>
-            <li><strong>Keyboard Navigation:</strong> Full keyboard support for clickable badges</li>
-            <li><strong>Screen Reader Support:</strong> Announces badge changes and provides descriptive labels</li>
-            <li><strong>Focus Management:</strong> Visible focus indicators with customizable styling</li>
-        </ul>
-
+        <List listStyle="disc">
+            <ListItem featuredText="ARIA Support"> Proper role attribution and live region announcements </ListItem>
+            <ListItem featuredText="Keyboard Navigation"> Full keyboard support for clickable badges </ListItem>
+            <ListItem featuredText="Screen Reader Support"> Announces badge changes and provides descriptive labels </ListItem>
+            <ListItem featuredText="Focus Management"> Visible focus indicators with customizable styling </ListItem>
+        </List>
         <Typography tag="h3" size="xl" weight="bold" spacing="md">Accessibility Best Practices</Typography>
-        <ul>
-            <li>Use <code>aria-label</code> for badges containing important information</li>
-            <li>For decorative badges, consider using <code>aria-hidden="true"</code></li>
-            <li>Ensure sufficient color contrast for badge content</li>
-            <li>Test with screen readers to verify announcements</li>
-        </ul>
-
+        <List listStyle="disc">
+            <ListItem>Use <code class="inline dense">aria-label</code> for badges containing important information</ListItem>
+            <ListItem>For decorative badges, consider using <code class="inline dense">aria-hidden="true"</code></ListItem>
+            <ListItem>Ensure sufficient color contrast for badge content</ListItem>
+            <ListItem>Test with screen readers to verify announcements</ListItem>
+        </List>
         <Typography tag="h2" size="title3" weight="bold" spacing="md">Type Definitions</Typography>
+        <Typography class="explain" tag="p" spacing="md"> The badge component supports the following type definitions: </Typography>
         <Codeblock>
             <CodeblockPre language="typescript">
                 {
-                    `type MjoBadgeColors = "primary" | "secondary" | "success" | "warning" | "error" | "info" | "default";
-type MjoBadgeSizes = "small" | "medium" | "large";
-type MjoBadgeVariants = "solid" | "flat" | "ghost" | "brilliant";
-type MjoBadgePositions = "top-right" | "top-left" | "bottom-right" | "bottom-left";`
+                    `export type MjoBadgeSizes = "small" | "medium" | "large";
+export type MjoBadgeVariants = "solid" | "flat" | "ghost" | "brilliant" | "shadow";
+export type MjoBadgeColors = "primary" | "secondary" | "success" | "warning" | "error" | "info" | "default";
+export type MjoBadgePositions = "top-right" | "top-left" | "bottom-right" | "bottom-left";
+
+export interface MjoBadgeClickEvent extends CustomEvent {
+    detail: {
+        value?: string;
+        label: string;
+        position: MjoBadgePositions;
+        color: MjoBadgeColors;
+    };
+}
+`
                 }
             </CodeblockPre>
         </Codeblock>

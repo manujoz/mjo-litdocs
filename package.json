@@ -26,7 +26,7 @@
         "lit": "^3.3.1",
         "mjo-astro-lit": "^1.0.1",
         "mjo-icons": "^2.0.0",
-        "mjo-litui": "^0.7.19",
+        "mjo-litui": "^0.7.21",
         "typescript": "^5.9.2"
     },
     "devDependencies": {

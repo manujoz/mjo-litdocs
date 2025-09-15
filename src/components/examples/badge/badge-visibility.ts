@@ -1,61 +1,52 @@
-import { LitElement, css, html } from "lit";
-import { customElement, state } from "lit/decorators.js";
+import type { MjoBadge } from "mjo-litui/mjo-badge";
+import type { MjoButton } from "mjo-litui/mjo-button";
 
+import { LitElement, css, html } from "lit";
+import { customElement, query, state } from "lit/decorators.js";
+
+import "mjo-litui/mjo-avatar";
 import "mjo-litui/mjo-badge";
+import "mjo-litui/mjo-button";
 
 @customElement("badge-visibility")
 export class BadgeVisibility extends LitElement {
-    @state()
-    private badgeVisible = true;
+    @state() private badgeVisible = true;
 
-    private toggleBadge() {
-        this.badgeVisible = !this.badgeVisible;
-
-        const badge = this.shadowRoot?.querySelector("mjo-badge");
-        if (badge) {
-            if (this.badgeVisible) {
-                (badge as any).showBadge();
-            } else {
-                (badge as any).hideBadge();
-            }
-        }
-    }
+    @query("mjo-badge") private $badge!: MjoBadge;
 
     render() {
         return html`
-            <div style="display: flex; gap: 2rem; align-items: center;">
-                <mjo-badge label="5" ?show="${this.badgeVisible}">
-                    <button>Messages</button>
-                </mjo-badge>
-
-                <button @click=${this.toggleBadge} class="toggle-btn">${this.badgeVisible ? "Hide Badge" : "Show Badge"}</button>
-            </div>
+            <mjo-badge label="5" color="error" ?show=${this.badgeVisible}>
+                <mjo-avatar radius="large" src="https://i.pravatar.cc/150?img=16" name="Juliet"></mjo-avatar>
+            </mjo-badge>
+            <mjo-button variant=${this.#variant} @mjo-button:click=${this.#toggleBadge}>${this.#label}</mjo-button>
         `;
+    }
+
+    get #variant(): MjoButton["variant"] {
+        return this.badgeVisible ? "default" : "ghost";
+    }
+
+    get #label() {
+        return this.badgeVisible ? "Hide Badge" : "Show Badge";
+    }
+
+    #toggleBadge() {
+        this.badgeVisible = !this.badgeVisible;
+
+        if (this.badgeVisible) {
+            this.$badge?.showBadge();
+        } else {
+            this.$badge?.hideBadge();
+        }
     }
 
     static styles = [
         css`
-            button {
-                padding: 0.5rem 1rem;
-                border: 1px solid #ccc;
-                border-radius: 0.25rem;
-                background: white;
-                cursor: pointer;
-                font-size: 0.875rem;
-            }
-
-            button:hover {
-                background: #f5f5f5;
-            }
-
-            .toggle-btn {
-                background: #007acc;
-                color: white;
-                border-color: #007acc;
-            }
-
-            .toggle-btn:hover {
-                background: #005a9e;
+            :host {
+                display: flex;
+                gap: 2.5rem;
+                align-items: center;
             }
         `,
     ];

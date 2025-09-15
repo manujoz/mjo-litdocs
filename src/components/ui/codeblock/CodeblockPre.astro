@@ -10,9 +10,10 @@ export interface Props {
     bugTitle?: string;
     code?: string;
     theme?: "auto" | "light" | "dark";
+    wrap?: boolean;
 }
 
-const { language, content, active, bugTitle, code, theme = "auto" } = Astro.props;
+const { language, content, active, bugTitle, code, theme = "auto", wrap = false } = Astro.props;
 
 // Use standard themes with our CSS variables override
 const selectedTheme = theme === "light" ? "one-light" : "one-dark-pro";
@@ -29,7 +30,7 @@ const codeContent = code || decodedSlotContent;
 <div class="codeblock-pre" data-content={content} data-active={active}>
     {
         codeContent ? (
-            <Code code={codeContent} lang={language} theme={selectedTheme} wrap={false} />
+            <Code code={codeContent} lang={language} theme={selectedTheme} wrap={wrap} />
         ) : (
             <pre class="fallback-pre">
                 <code class={`language-${language}`}>

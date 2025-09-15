@@ -1,41 +1,31 @@
 import { LitElement, css, html } from "lit";
 import { customElement } from "lit/decorators.js";
 
+import "mjo-litui/mjo-avatar";
 import "mjo-litui/mjo-badge";
 
 @customElement("badge-sizes")
 export class BadgeSizes extends LitElement {
     render() {
         return html`
-            <div style="display: flex; gap: 2rem; align-items: center;">
-                <mjo-badge label="S" size="small" show>
-                    <button>Small</button>
-                </mjo-badge>
-
-                <mjo-badge label="M" size="medium" show>
-                    <button>Medium</button>
-                </mjo-badge>
-
-                <mjo-badge label="L" size="large" show>
-                    <button>Large</button>
-                </mjo-badge>
-            </div>
+            <mjo-badge label="S" size="small" show>
+                <mjo-avatar radius="large" src="https://i.pravatar.cc/150?img=15" name="Jimmy"></mjo-avatar>
+            </mjo-badge>
+            <mjo-badge label="M" size="medium" show>
+                <mjo-avatar radius="large" src="https://i.pravatar.cc/150?img=16" name="Juliet"></mjo-avatar>
+            </mjo-badge>
+            <mjo-badge label="L" size="large" show>
+                <mjo-avatar radius="large" src="https://i.pravatar.cc/150?img=17" name="Jack"></mjo-avatar>
+            </mjo-badge>
         `;
     }
 
     static styles = [
         css`
-            button {
-                padding: 0.5rem 1rem;
-                border: 1px solid #ccc;
-                border-radius: 0.25rem;
-                background: white;
-                cursor: pointer;
-                font-size: 0.875rem;
-            }
-
-            button:hover {
-                background: #f5f5f5;
+            :host {
+                display: flex;
+                gap: 1.5rem;
+                align-items: center;
             }
         `,
     ];

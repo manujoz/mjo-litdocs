@@ -26,6 +26,8 @@ import { AccordionSplitted } from "@/components/examples/accordion/accordion-spl
 import { AccordionSubtitles } from "@/components/examples/accordion/accordion-subtitles";
 import { AccordionTheme } from "@/components/examples/accordion/accordion-theme";
 import { AccordionUsage } from "@/components/examples/accordion/accordion-usage";
+import List from "@/components/ui/list/List.astro";
+import ListItem from "@/components/ui/list/ListItem.astro";
 
 // Event details object for clean display
 const eventToggleDetail = `{
@@ -1068,6 +1070,86 @@ export class AccordionCssparts extends LitElement {
                 </CodeblockPre>
             </Codeblock>
         </CodeExample>
+        <Typography tag="h2" size="title3" weight="bold" spacing="md">Accessibility</Typography>
+        <Typography class="explain" tag="p" spacing="md"> The badge component includes comprehensive accessibility features: </Typography>
+        <List listStyle="disc">
+            <ListItem featuredText="ARIA Structure"
+                >Complete ARIA implementation with <code class="inline dense">role="button"</code> on title containers, <code class="inline dense"
+                    >aria-expanded</code
+                >, <code class="inline dense">aria-controls</code>, and <code class="inline dense">role="region"</code> on content areas</ListItem
+            >
+            <ListItem featuredText="Keyboard Navigation">
+                Full keyboard support
+                <List listStyle="circle">
+                    <ListItem featuredText="Enter/Space">Toggle expansion</ListItem>
+                    <ListItem featuredText="Arrow Up/Down">Navigate between items</ListItem>
+                    <ListItem featuredText="Home/End">Jump to first/last item</ListItem>
+                    <ListItem featuredText="Escape">Close the accordion</ListItem>
+                </List>
+            </ListItem>
+            <ListItem featuredText="Focus Management"> Visible focus indicators with customizable styling </ListItem>
+            <ListItem featuredText="Screen Reader Support"> Automatic unique IDs and proper labeling relationships </ListItem>
+            <ListItem featuredText="State Communication"> All state changes are properly announced to assistive technologies </ListItem>
+            <ListItem featuredText="Reduced Motion">
+                Respects <code class="inline dense">prefers-reduced-motion</code> user preference by disabling animations
+            </ListItem>
+        </List>
+        <Typography tag="h3" size="xl" weight="bold" spacing="md">Accessibility Best Practices</Typography>
+        <List listStyle="disc">
+            <ListItem
+                >Use <code class="inline dense">aria-describedby</code> in <code class="inline dense">mjo-accordion-item</code> associated to the content slotted.</ListItem
+            >
+        </List>
+        <Typography tag="h2" size="title3" weight="bold" spacing="md">Type Definitions</Typography>
+        <Typography class="explain" tag="p" spacing="md"> The badge component supports the following type definitions: </Typography>
+        <Codeblock>
+            <CodeblockPre language="typescript">
+                {
+                    `export type MjoAccordionVariants = "light" | "solid" | "shadow" | "bordered" | "splitted";
+export type MjoAccordionSelectionModes = "single" | "multiple";
+
+export interface MjoAccordionToggleEvent extends CustomEvent {
+    detail: {
+        item: MjoAccordionItem;
+        expanded: boolean;
+    };
+}
+
+export interface MjoAccordionWillExpandEvent extends CustomEvent {
+    detail: {
+        item: MjoAccordionItem;
+        expanded: boolean;
+        accordion?: MjoAccordion;
+    };
+}
+
+export interface MjoAccordionExpandedEvent extends CustomEvent {
+    detail: {
+        item: MjoAccordionItem;
+        expanded: boolean;
+        accordion?: MjoAccordion;
+    };
+}
+
+export interface MjoAccordionWillCollapseEvent extends CustomEvent {
+    detail: {
+        item: MjoAccordionItem;
+        expanded: boolean;
+        accordion?: MjoAccordion;
+    };
+}
+
+export interface MjoAccordionCollapsedEvent extends CustomEvent {
+    detail: {
+        item: MjoAccordionItem;
+        expanded: boolean;
+        accordion?: MjoAccordion;
+    };
+}
+`
+                }
+            </CodeblockPre>
+        </Codeblock>
     </article>
 </DocsLayout>
 

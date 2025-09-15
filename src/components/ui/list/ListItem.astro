@@ -1,0 +1,30 @@
+---
+export interface Props {
+    class?: string;
+    featuredText?: string;
+}
+
+const { class: className, featuredText } = Astro.props;
+---
+
+<li class:list={[className]}>
+    {
+        featuredText && (
+            <span class="feature-text">
+                {featuredText}
+                <span>:</span>
+            </span>
+        )
+    }
+    <slot />
+</li>
+
+<style>
+    .feature-text {
+        font-weight: 600;
+        margin-right: 0.25rem;
+    }
+    .feature-text span {
+        font-weight:;
+    }
+</style>

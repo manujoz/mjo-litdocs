@@ -1,15 +1,17 @@
+import type { MjoThemeConfig } from "mjo-litui/types/mjo-theme";
+
 import { LitElement, css, html } from "lit";
 import { customElement } from "lit/decorators.js";
 
 import "mjo-litui/mjo-badge";
 import "mjo-litui/mjo-theme";
 
-const badgeTheme = {
+const badgeTheme: MjoThemeConfig = {
     components: {
         mjoBadge: {
             borderWidth: "3px",
-            animationDuration: "0.3s",
-            focusOutlineWidth: "3px",
+            backgroundColor: "#f50bc2",
+            color: "#a4fffa",
         },
     },
 };
@@ -18,33 +20,26 @@ const badgeTheme = {
 export class BadgeTheme extends LitElement {
     render() {
         return html`
-            <mjo-theme .theme=${badgeTheme}>
-                <div style="display: flex; gap: 2rem; align-items: center;">
-                    <mjo-badge label="Custom" show>
-                        <button>Themed Badge</button>
-                    </mjo-badge>
-
-                    <mjo-badge label="5" color="error" clickable show>
-                        <button>Clickable Themed</button>
-                    </mjo-badge>
-                </div>
+            <mjo-theme .config=${badgeTheme}>
+                <mjo-badge label="Custom" show>
+                    <mjo-avatar radius="large" src="https://i.pravatar.cc/150?img=15" name="Jimmy"></mjo-avatar>
+                </mjo-badge>
+                <mjo-badge label="5" color="error" show>
+                    <mjo-avatar radius="large" src="https://i.pravatar.cc/150?img=15" name="Jimmy"></mjo-avatar>
+                </mjo-badge>
             </mjo-theme>
         `;
     }
 
     static styles = [
         css`
-            button {
-                padding: 0.5rem 1rem;
-                border: 1px solid #ccc;
-                border-radius: 0.25rem;
-                background: white;
-                cursor: pointer;
-                font-size: 0.875rem;
+            :host {
+                display: block;
             }
-
-            button:hover {
-                background: #f5f5f5;
+            mjo-theme {
+                display: flex;
+                gap: 2.5rem;
+                align-items: center;
             }
         `,
     ];

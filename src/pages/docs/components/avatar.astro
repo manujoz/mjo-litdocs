@@ -13,6 +13,8 @@ import Codeblock from "@/components/ui/codeblock/Codeblock.astro";
 import CodeblockPre from "@/components/ui/codeblock/CodeblockPre.astro";
 import CodeExample from "@/components/ui/CodeExample.astro";
 import Link from "@/components/ui/Link.astro";
+import List from "@/components/ui/list/List.astro";
+import ListItem from "@/components/ui/list/ListItem.astro";
 import Logger from "@/components/ui/logger/Logger.astro";
 import Table from "@/components/ui/table/Table.astro";
 import TableBody from "@/components/ui/table/TableBody.astro";
@@ -790,6 +792,42 @@ export class AvatarCssvars extends LitElement {
                 </CodeblockPre>
             </Codeblock>
         </CodeExample>
+        <Typography tag="h2" size="title3" weight="bold" spacing="md">Accessibility</Typography>
+        <Typography class="explain" tag="p" spacing="md"> The badge component includes comprehensive accessibility features: </Typography>
+        <List listStyle="disc">
+            <ListItem featuredText="Dynamic roles"> Automatically sets appropriate <code class="inline dense">role</code> attributes </ListItem>
+            <ListItem featuredText="ARIA Labels"> Intelligent <code class="inline dense">aria-label</code> </ListItem>
+            <ListItem featuredText="Keyboard Navigation"> Full keyboard support for clickable badges </ListItem>
+            <ListItem featuredText="State Communication"> Proper state changes communicated to screen readers </ListItem>
+            <ListItem featuredText="Reduced Motion">
+                Respects <code class="inline dense">prefers-reduced-motion</code> user preference by disabling animations
+            </ListItem>
+        </List>
+        <Typography tag="h2" size="title3" weight="bold" spacing="md">Type Definitions</Typography>
+        <Typography class="explain" tag="p" spacing="md"> The badge component supports the following type definitions: </Typography>
+        <Codeblock>
+            <CodeblockPre language="typescript">
+                {
+                    `export type MjoAvatarSize = "small" | "medium" | "large";
+export type MjoAvatarRadius = "none" | "small" | "medium" | "large" | "full";
+export type MjoAvatarColor = "default" | "primary" | "secondary" | "success" | "warning" | "info" | "error";
+
+export interface MjoAvatarClickEvent extends CustomEvent {
+    detail: {
+        value: string;
+    };
+}
+
+export interface MjoAvatarErrorEvent extends CustomEvent {
+    detail: {
+        message: string;
+    };
+}
+
+`
+                }
+            </CodeblockPre>
+        </Codeblock>
     </article>
 </DocsLayout>
 

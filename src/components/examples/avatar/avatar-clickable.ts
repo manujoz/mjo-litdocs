@@ -1,7 +1,9 @@
-import { printLog } from "@/lib/logger";
+import type { MjoAvatarClickEvent } from "mjo-litui/types/mjo-avatar";
+
 import { LitElement, css, html } from "lit";
 import { customElement } from "lit/decorators.js";
-import type { MjoAvatarClickEvent } from "mjo-litui/types/mjo-avatar";
+
+import { printLog } from "@/lib/logger";
 
 @customElement("avatar-clickable")
 export class AvatarClickable extends LitElement {

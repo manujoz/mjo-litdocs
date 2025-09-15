@@ -13,6 +13,8 @@ import Codeblock from "@/components/ui/codeblock/Codeblock.astro";
 import CodeblockPre from "@/components/ui/codeblock/CodeblockPre.astro";
 import CodeExample from "@/components/ui/CodeExample.astro";
 import Link from "@/components/ui/Link.astro";
+import List from "@/components/ui/list/List.astro";
+import ListItem from "@/components/ui/list/ListItem.astro";
 import Table from "@/components/ui/table/Table.astro";
 import TableBody from "@/components/ui/table/TableBody.astro";
 import TableCell from "@/components/ui/table/TableCell.astro";
@@ -929,6 +931,66 @@ export class AlertExtendedExample extends LitElement {
                 </CodeblockPre>
             </Codeblock>
         </CodeExample>
+        <Typography tag="h2" size="title3" weight="bold" spacing="md">Accessibility</Typography>
+        <Typography class="explain" tag="p" spacing="md"> The alert component includes comprehensive accessibility features: </Typography>
+        <List listStyle="disc">
+            <ListItem featuredText="ARIA Live Regions">
+                Configurable <code class="inline dense">aria-live</code> behavior (polite, assertive, off) for screen reader announcements
+            </ListItem>
+            <ListItem featuredText="Focus Management"> Optional automatic focus on show with <code class="inline dense">focusOnShow</code> property </ListItem>
+            <ListItem featuredText="Keyboard Navigation"> Full keyboard support for dismissible alerts (Enter/Space to close when focused) </ListItem>
+            <ListItem featuredText="Screen Reader Support"> Proper semantic HTML structure with descriptive messages and role attribution </ListItem>
+            <ListItem featuredText="State Communication"> Alert state changes and dismissal events are properly announced to assistive technologies </ListItem>
+            <ListItem featuredText="Reduced Motion">
+                Respects <code class="inline dense">prefers-reduced-motion</code> user preference by disabling animations
+            </ListItem>
+        </List>
+        <Typography tag="h3" size="xl" weight="bold" spacing="md">Accessibility Best Practices</Typography>
+        <List listStyle="disc">
+            <ListItem>Use <code class="inline dense">ariaLive="assertive"</code> for critical error messages that require immediate attention</ListItem>
+            <ListItem
+                >Use <code class="inline dense">ariaLive="polite"</code> for informational messages that can wait for user's current activity to complete</ListItem
+            >
+            <ListItem>Set <code class="inline dense">focusOnShow="true"</code> for alerts that require immediate user action</ListItem>
+            <ListItem>Ensure alert messages are clear and actionable</ListItem>
+            <ListItem>Test with screen readers to verify proper announcement behavior</ListItem>
+            <ListItem>Use appropriate alert types to convey semantic meaning (success, warning, error, info)</ListItem>
+        </List>
+        <Typography tag="h2" size="title3" weight="bold" spacing="md">Type Definitions</Typography>
+        <Typography class="explain" tag="p" spacing="md"> The alert component supports the following type definitions: </Typography>
+        <Codeblock>
+            <CodeblockPre language="typescript">
+                {
+                    `export type MjoAlertSizes = "small" | "medium" | "large";
+export type MjoAlertRounded = "none" | "small" | "medium" | "large";
+export type MjoAlertTypes = "default" | "primary" | "secondary" | "success" | "info" | "warning" | "error";
+export type MjoAlertAnimations = "fade" | "slide" | "scale" | "none";
+export type MjoAlertAriaLive = "polite" | "assertive" | "off";
+
+export interface MjoAlertWillShowEvent extends CustomEvent {
+    detail: {
+        element: MjoAlert;
+    };
+}
+export interface MjoAlertWillCloseEvent extends CustomEvent {
+    detail: {
+        element: MjoAlert;
+    };
+}
+export interface MjoAlertClosedEvent extends CustomEvent {
+    detail: {
+        element: MjoAlert;
+    };
+}
+export interface MjoAlertOpenedEvent extends CustomEvent {
+    detail: {
+        element: MjoAlert;
+    };
+}
+`
+                }
+            </CodeblockPre>
+        </Codeblock>
     </article>
 </DocsLayout>
 
