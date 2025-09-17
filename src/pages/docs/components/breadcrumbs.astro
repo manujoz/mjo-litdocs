@@ -761,7 +761,7 @@ export class BreadcrumbsScroll extends LitElement {
         <Typography tag="h4" size="lg" weight="bold" spacing="md">With CSS vars</Typography>
         <Typography class="explain" tag="p" spacing="md">Customize the breadcrumbs appearance using CSS variables.</Typography>
         <CodeExample>
-            <BreadcrumbsCssvars client:only slot="preview" />
+            <BreadcrumbsCssvars client:load slot="preview" />
             <Codeblock showHeader slot="code">
                 <CodeblockPre language="lit">
                     {
@@ -883,7 +883,7 @@ export class BreadcrumbsCssparts extends LitElement {
         <Typography tag="h4" size="lg" weight="bold" spacing="md">Theme Customization</Typography>
         <Typography class="explain" tag="p" spacing="md"> You can customize the breadcrumbs appearance through the theme system. </Typography>
         <CodeExample>
-            <BreadcrumbsTheme client:only slot="preview" />
+            <BreadcrumbsTheme client:load slot="preview" />
             <Codeblock showHeader slot="code">
                 <CodeblockPre language="lit">
                     {

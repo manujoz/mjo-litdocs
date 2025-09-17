@@ -1,0 +1,1006 @@
+---
+import Codeblock from "@/components/ui/codeblock/Codeblock.astro";
+import CodeblockPre from "@/components/ui/codeblock/CodeblockPre.astro";
+import CodeExample from "@/components/ui/CodeExample.astro";
+import Link from "@/components/ui/Link.astro";
+import List from "@/components/ui/list/List.astro";
+import ListItem from "@/components/ui/list/ListItem.astro";
+import Table from "@/components/ui/table/Table.astro";
+import TableBody from "@/components/ui/table/TableBody.astro";
+import TableCell from "@/components/ui/table/TableCell.astro";
+import TableCellHeader from "@/components/ui/table/TableCellHeader.astro";
+import TableHeader from "@/components/ui/table/TableHeader.astro";
+import TableRow from "@/components/ui/table/TableRow.astro";
+import Typography from "@/components/ui/Typography.astro";
+import DocsLayout from "@/layouts/DocsLayout.astro";
+
+// Import button examples
+import { ButtonColors } from "@/components/examples/button/button-colors";
+import { ButtonCssparts } from "@/components/examples/button/button-cssparts";
+import { ButtonCustom } from "@/components/examples/button/button-custom";
+import { ButtonIcons } from "@/components/examples/button/button-icons";
+import { ButtonInteractive } from "@/components/examples/button/button-interactive";
+import { ButtonSizes } from "@/components/examples/button/button-sizes";
+import { ButtonStates } from "@/components/examples/button/button-states";
+import { ButtonTheme } from "@/components/examples/button/button-theme";
+import { ButtonToggle } from "@/components/examples/button/button-toggle";
+import { ButtonUsage } from "@/components/examples/button/button-usage";
+import { ButtonVariants } from "@/components/examples/button/button-variants";
+import Logger from "@/components/ui/logger/Logger.astro";
+
+// Event details objects for clean display
+const eventClickDetail = `{
+  element: MjoButton,
+  toggle?: boolean,
+  originalEvent: MouseEvent | KeyboardEvent
+}`;
+
+const eventToggleDetail = `{
+  element: MjoButton,
+  pressed: boolean,
+  previousState: boolean
+}`;
+
+const eventLoadingDetail = `{
+  element: MjoButton,
+  loading: boolean
+}`;
+---
+
+<DocsLayout
+    title="Button"
+    description="Fully accessible button component providing multiple variants, semantic colors, interactive states, and comprehensive accessibility features including ARIA support, loading states, and toggle functionality."
+    currentPath="/docs/components/button"
+>
+    <article class="prose">
+        <Typography tag="h1" size="title2" weight="bold">mjo-button</Typography>
+        <Typography class="explain" tag="p" spacing="md">
+            Fully accessible button component providing multiple variants, semantic colors, interactive states, and comprehensive accessibility features
+            including ARIA support, loading states, and toggle functionality.
+        </Typography>
+
+        <Typography tag="h2" size="title3" weight="bold" spacing="md">Import</Typography>
+        <Typography class="explain" tag="p" spacing="md">
+            To use the mjo-button component in your project, you need to import it first. You can do this by adding the following import statement to your
+            JavaScript or TypeScript file:
+        </Typography>
+        <Codeblock>
+            <CodeblockPre language="typescript" bugTitle="[BUG mjo-button]">
+                {`import "mjo-litui/mjo-button";`}
+            </CodeblockPre>
+        </Codeblock>
+
+        <Typography tag="h2" size="title3" weight="bold" spacing="md">Usage</Typography>
+        <Typography class="explain" tag="p" spacing="md">Basic usage of the mjo-button component.</Typography>
+        <CodeExample>
+            <ButtonUsage client:visible slot="preview" />
+            <Codeblock showHeader slot="code">
+                <CodeblockPre language="lit" bugTitle="[BUG mjo-button]">
+                    {
+                        `import { LitElement, css, html } from "lit";
+import { customElement } from "lit/decorators.js";
+
+import "mjo-litui/mjo-button";
+
+@customElement("button-usage")
+export class ButtonUsage extends LitElement {
+    render() {
+        return html\`
+            <mjo-button color="primary">Primary Button</mjo-button>
+            <mjo-button color="secondary">Secondary Button</mjo-button>
+            <mjo-button color="success">Success Button</mjo-button>
+        \`;
+    }
+
+    static styles = [
+        css\`
+            :host {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 1rem;
+                align-items: center;
+            }
+        \`,
+    ];
+}`
+                    }
+                </CodeblockPre>
+            </Codeblock>
+        </CodeExample>
+
+        <Typography tag="h3" size="xxl" weight="bold" spacing="md">Colors</Typography>
+        <Typography class="explain" tag="p" spacing="md">
+            The mjo-button component supports different semantic colors to convey meaning and importance.
+        </Typography>
+        <CodeExample>
+            <ButtonColors client:visible slot="preview" />
+            <Codeblock showHeader slot="code">
+                <CodeblockPre language="lit" bugTitle="[BUG mjo-button]">
+                    {
+                        `import { LitElement, css, html } from "lit";
+import { customElement } from "lit/decorators.js";
+
+import "mjo-litui/mjo-button";
+
+@customElement("button-colors")
+export class ButtonColors extends LitElement {
+    render() {
+        return html\`
+            <mjo-button color="primary">Primary</mjo-button>
+            <mjo-button color="secondary">Secondary</mjo-button>
+            <mjo-button color="success">Success</mjo-button>
+            <mjo-button color="info">Info</mjo-button>
+            <mjo-button color="warning">Warning</mjo-button>
+            <mjo-button color="error">Error</mjo-button>
+        \`;
+    }
+
+    static styles = [
+        css\`
+            :host {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 1rem;
+                align-items: center;
+            }
+        \`,
+    ];
+}`
+                    }
+                </CodeblockPre>
+            </Codeblock>
+        </CodeExample>
+
+        <Typography tag="h3" size="xxl" weight="bold" spacing="md">Variants</Typography>
+        <Typography class="explain" tag="p" spacing="md">
+            The button component supports multiple visual styling strategies through the <code>variant</code> property.
+        </Typography>
+        <CodeExample>
+            <ButtonVariants client:visible slot="preview" />
+            <Codeblock showHeader slot="code">
+                <CodeblockPre language="lit" bugTitle="[BUG mjo-button]">
+                    {
+                        `import { LitElement, css, html } from "lit";
+import { customElement } from "lit/decorators.js";
+
+import "mjo-litui/mjo-button";
+
+@customElement("button-variants")
+export class ButtonVariants extends LitElement {
+    render() {
+        return html\`
+            <mjo-button color="primary" variant="default">Default</mjo-button>
+            <mjo-button color="primary" variant="ghost">Ghost</mjo-button>
+            <mjo-button color="primary" variant="flat">Flat</mjo-button>
+            <mjo-button color="primary" variant="dashed">Dashed</mjo-button>
+            <mjo-button color="primary" variant="link">Link</mjo-button>
+            <mjo-button color="primary" variant="text">Text</mjo-button>
+        \`;
+    }
+
+    static styles = [
+        css\`
+            :host {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 1rem;
+                align-items: center;
+            }
+        \`,
+    ];
+}`
+                    }
+                </CodeblockPre>
+            </Codeblock>
+        </CodeExample>
+
+        <Typography tag="h3" size="xxl" weight="bold" spacing="md">Sizes</Typography>
+        <Typography class="explain" tag="p" spacing="md">
+            You can adjust the button size using the <code>size</code> property which affects padding and font-size.
+        </Typography>
+        <CodeExample>
+            <ButtonSizes client:visible slot="preview" />
+            <Codeblock showHeader slot="code">
+                <CodeblockPre language="lit" bugTitle="[BUG mjo-button]">
+                    {
+                        `import { LitElement, css, html } from "lit";
+import { customElement } from "lit/decorators.js";
+
+import "mjo-litui/mjo-button";
+
+@customElement("button-sizes")
+export class ButtonSizes extends LitElement {
+    render() {
+        return html\`
+            <mjo-button color="primary" size="small">Small</mjo-button>
+            <mjo-button color="primary" size="medium">Medium</mjo-button>
+            <mjo-button color="primary" size="large">Large</mjo-button>
+        \`;
+    }
+
+    static styles = [
+        css\`
+            :host {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 1rem;
+                align-items: center;
+            }
+        \`,
+    ];
+}`
+                    }
+                </CodeblockPre>
+            </Codeblock>
+        </CodeExample>
+
+        <Typography tag="h3" size="xxl" weight="bold" spacing="md">States</Typography>
+        <Typography class="explain" tag="p" spacing="md">
+            The button component supports various interactive states including disabled, loading, rounded, and full-width layouts.
+        </Typography>
+        <CodeExample>
+            <ButtonStates client:visible slot="preview" />
+            <Codeblock showHeader slot="code">
+                <CodeblockPre language="lit" bugTitle="[BUG mjo-button]">
+                    {
+                        `import { LitElement, css, html } from "lit";
+import { customElement } from "lit/decorators.js";
+
+import "mjo-litui/mjo-button";
+
+@customElement("button-states")
+export class ButtonStates extends LitElement {
+    render() {
+        return html\`
+            <div>
+                <mjo-button color="primary">Default</mjo-button>
+            </div>
+            <div>
+                <mjo-button color="primary" disabled>Disabled</mjo-button>
+            </div>
+            <div>
+                <mjo-button color="primary" loading>Loading</mjo-button>
+            </div>
+            <div>
+                <mjo-button color="primary" fullwidth>Full Width</mjo-button>
+            </div>
+        \`;
+    }
+
+    static styles = [
+        css\`
+            :host {
+                display: flex;
+                flex-direction: column;
+                gap: 1rem;
+                align-items: stretch;
+            }
+        \`,
+    ];
+}
+`
+                    }
+                </CodeblockPre>
+            </Codeblock>
+        </CodeExample>
+
+        <Typography tag="h3" size="xxl" weight="bold" spacing="md">With Icons</Typography>
+        <Typography class="explain" tag="p" spacing="md">
+            You can add icons to the start or end of the button using the <code>startIcon</code> and <code>endIcon</code> properties.
+        </Typography>
+        <CodeExample>
+            <ButtonIcons client:visible slot="preview" />
+            <Codeblock showHeader slot="code">
+                <CodeblockPre language="lit" bugTitle="[BUG mjo-button]">
+                    {
+                        `import { LitElement, css, html } from "lit";
+import { customElement } from "lit/decorators.js";
+
+import "mjo-litui/mjo-button";
+
+@customElement("button-icons")
+export class ButtonIcons extends LitElement {
+    render() {
+        return html\`
+            <mjo-button color="primary" startIcon="check">Start Icon</mjo-button>
+            <mjo-button color="secondary" endIcon="arrow-right">End Icon</mjo-button>
+            <mjo-button color="success" startIcon="download" endIcon="external-link">Both Icons</mjo-button>
+            <mjo-button color="error" startIcon="trash" rounded></mjo-button>
+        \`;
+    }
+
+    static styles = [
+        css\`
+            :host {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 1rem;
+                align-items: center;
+            }
+        \`,
+    ];
+}`
+                    }
+                </CodeblockPre>
+            </Codeblock>
+        </CodeExample>
+
+        <Typography tag="h3" size="xxl" weight="bold" spacing="md">Toggle Button</Typography>
+        <Typography class="explain" tag="p" spacing="md">
+            Enable toggle functionality using the <code>toggleable</code> property. The button will manage its pressed state and emit toggle events.
+        </Typography>
+        <CodeExample>
+            <ButtonToggle client:visible slot="preview" />
+            <Codeblock showHeader slot="code">
+                <CodeblockPre language="lit" bugTitle="[BUG mjo-button]">
+                    {
+                        `import type { MjoButtonToggleEvent } from "mjo-litui/types/mjo-button";
+
+import { LitElement, css, html } from "lit";
+import { customElement } from "lit/decorators.js";
+
+import "mjo-litui/mjo-button";
+
+@customElement("button-toggle")
+export class ButtonToggle extends LitElement {
+    render() {
+        return html\`
+            <mjo-button color="primary" toggleable button-label="Toggle notifications" @mjo-button:toggle=\${this.#handleToggle}>Notifications</mjo-button>
+        \`;
+    }
+
+    #handleToggle(e: MjoButtonToggleEvent) {
+        console.log("Toggle state:", e.detail.pressed);
+    }
+
+    static styles = [
+        css\`
+            :host {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 1rem;
+                align-items: center;
+            }
+        \`,
+    ];
+}
+`
+                    }
+                </CodeblockPre>
+            </Codeblock>
+        </CodeExample>
+
+        <Typography tag="h3" size="xxl" weight="bold" spacing="md">Interactive Example</Typography>
+        <Typography class="explain" tag="p" spacing="md">
+            Example showing interactive features including loading states, event handling, and dynamic content updates.
+        </Typography>
+        <CodeExample space="sm">
+            <ButtonInteractive client:visible slot="preview" />
+            <Codeblock showHeader slot="code">
+                <CodeblockPre language="lit" bugTitle="[BUG mjo-button]">
+                    {
+                        `import type { MjoButtonClickEvent, MjoButtonToggleEvent } from "mjo-litui/types/mjo-button";
+
+import { LitElement, css, html } from "lit";
+import { customElement, state } from "lit/decorators.js";
+
+import { printLog } from "@/lib/logger";
+import { TbDownload } from "mjo-icons/tb";
+
+import "mjo-litui/mjo-button";
+
+@customElement("button-interactive")
+export class ButtonInteractive extends LitElement {
+    @state() private loading = false;
+    @state() private count = 0;
+
+    render() {
+        return html\`
+            <mjo-button 
+                color="primary" 
+                ?loading=\${this.loading} 
+                @mjo-button:click=\${this.#handleClick}
+                >
+                \${this.loading ? "Processing..." : \`Clicked \${this.count} times\`}
+            </mjo-button>
+            <mjo-button 
+                color="secondary" 
+                toggleable 
+                button-label="Toggle notifications" 
+                @mjo-button:toggle=\${this.#handleToggle}
+                >
+                Notifications
+            </mjo-button>
+            <mjo-button 
+                color="success" 
+                variant="flat" 
+                startIcon=\${TbDownload} 
+                @mjo-button:click=\${this.#handleDownload}
+                >
+                Download File
+            </mjo-button>
+        \`;
+    }
+
+    #handleClick() {
+        this.loading = true;
+        this.count++;
+        setTimeout(() => (this.loading = false), 1000);
+    }
+
+    #handleToggle(e: MjoButtonToggleEvent) {
+        printLog({
+            id: "button-interactive-logger",
+            message: \`Toggle state: \${e.detail.pressed}\`,
+            event: e,
+        });
+    }
+
+    #handleDownload(e: MjoButtonClickEvent) {
+        printLog({
+            id: "button-interactive-logger",
+            message: "Download started!",
+            event: e,
+        });
+    }
+
+    static styles = [
+        css\`
+            :host {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 1rem;
+                align-items: center;
+            }
+        \`,
+    ];
+}
+`
+                    }
+                </CodeblockPre>
+            </Codeblock>
+        </CodeExample>
+        <Logger id="button-interactive-logger" initialMessage="Click the buttons above to see event logs" />
+
+        <Typography tag="h2" size="title3" weight="bold" spacing="md">Properties</Typography>
+        <Typography class="explain" tag="p" spacing="md">Properties available on the mjo-button component.</Typography>
+        <Table>
+            <TableHeader>
+                <TableRow>
+                    <TableCellHeader>Property</TableCellHeader>
+                    <TableCellHeader>Type</TableCellHeader>
+                    <TableCellHeader>Default</TableCellHeader>
+                    <TableCellHeader minWidth="200px">Description</TableCellHeader>
+                </TableRow>
+            </TableHeader>
+            <TableBody>
+                <TableRow>
+                    <TableCell><code class="inline">type</code></TableCell>
+                    <TableCell><code class="inline">{"button|submit|reset|menu"}</code></TableCell>
+                    <TableCell><code class="inline">{"button"}</code></TableCell>
+                    <TableCell>Native button type; submit triggers form submission via FormMixin.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">color</code></TableCell>
+                    <TableCell><code class="inline">{"primary|secondary|success|info|warning|error"}</code></TableCell>
+                    <TableCell><code class="inline">{"primary"}</code></TableCell>
+                    <TableCell>Semantic color; maps to theme variables and token palette.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">variant</code></TableCell>
+                    <TableCell><code class="inline">{"default|ghost|dashed|link|text|flat"}</code></TableCell>
+                    <TableCell><code class="inline">{"default"}</code></TableCell>
+                    <TableCell>Visual styling strategy.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">size</code></TableCell>
+                    <TableCell><code class="inline">{"small|medium|large"}</code></TableCell>
+                    <TableCell><code class="inline">{"medium"}</code></TableCell>
+                    <TableCell>Adjusts padding and font-size.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">fullwidth</code></TableCell>
+                    <TableCell><code class="inline">{"boolean"}</code></TableCell>
+                    <TableCell><code class="inline">{"false"}</code></TableCell>
+                    <TableCell>Forces the host to span 100% width.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">disabled</code></TableCell>
+                    <TableCell><code class="inline">{"boolean"}</code></TableCell>
+                    <TableCell><code class="inline">{"false"}</code></TableCell>
+                    <TableCell>Disables interaction and ripple.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">loading</code></TableCell>
+                    <TableCell><code class="inline">{"boolean"}</code></TableCell>
+                    <TableCell><code class="inline">{"false"}</code></TableCell>
+                    <TableCell>Shows loading bar and blocks toggle/ripple, sets aria-busy="true".</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">rounded</code></TableCell>
+                    <TableCell><code class="inline">{"boolean"}</code></TableCell>
+                    <TableCell><code class="inline">{"false"}</code></TableCell>
+                    <TableCell>Circular shape (ignores width, uses equal padding).</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">toggleable</code></TableCell>
+                    <TableCell><code class="inline">{"boolean"}</code></TableCell>
+                    <TableCell><code class="inline">{"false"}</code></TableCell>
+                    <TableCell>Enables internal pressed state with aria-pressed when clicked and type="button".</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">small-caps</code></TableCell>
+                    <TableCell><code class="inline">{"boolean"}</code></TableCell>
+                    <TableCell><code class="inline">{"false"}</code></TableCell>
+                    <TableCell>Applies font-variant: all-small-caps.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">noink</code></TableCell>
+                    <TableCell><code class="inline">{"boolean"}</code></TableCell>
+                    <TableCell><code class="inline">{"false"}</code></TableCell>
+                    <TableCell>Hides the ripple effect.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">startIcon</code></TableCell>
+                    <TableCell><code class="inline">{"string|undefined"}</code></TableCell>
+                    <TableCell><code class="inline">{"undefined"}</code></TableCell>
+                    <TableCell>Icon name/path prepended to button text.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">endIcon</code></TableCell>
+                    <TableCell><code class="inline">{"string|undefined"}</code></TableCell>
+                    <TableCell><code class="inline">{"undefined"}</code></TableCell>
+                    <TableCell>Icon name/path appended to button text.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">button-label</code></TableCell>
+                    <TableCell><code class="inline">{"string|undefined"}</code></TableCell>
+                    <TableCell><code class="inline">{"undefined"}</code></TableCell>
+                    <TableCell>Custom aria-label for the button.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">described-by</code></TableCell>
+                    <TableCell><code class="inline">{"string|undefined"}</code></TableCell>
+                    <TableCell><code class="inline">{"undefined"}</code></TableCell>
+                    <TableCell>ID of element that describes the button (aria-describedby).</TableCell>
+                </TableRow>
+            </TableBody>
+        </Table>
+
+        <Typography tag="h2" size="title3" weight="bold" spacing="md">API</Typography>
+        <Typography class="explain" tag="p" spacing="md">Methods available on the mjo-button component.</Typography>
+        <Table>
+            <TableHeader>
+                <TableRow>
+                    <TableCellHeader>Method</TableCellHeader>
+                    <TableCellHeader>Parameters</TableCellHeader>
+                    <TableCellHeader>Returns</TableCellHeader>
+                    <TableCellHeader minWidth="200px">Description</TableCellHeader>
+                </TableRow>
+            </TableHeader>
+            <TableBody>
+                <TableRow>
+                    <TableCell><code class="inline">focus()</code></TableCell>
+                    <TableCell><code class="inline">options?: FocusOptions</code></TableCell>
+                    <TableCell><code class="inline">void</code></TableCell>
+                    <TableCell>Sets focus to the button.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">blur()</code></TableCell>
+                    <TableCell><code class="inline">-</code></TableCell>
+                    <TableCell><code class="inline">void</code></TableCell>
+                    <TableCell>Removes focus from the button.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">click()</code></TableCell>
+                    <TableCell><code class="inline">-</code></TableCell>
+                    <TableCell><code class="inline">void</code></TableCell>
+                    <TableCell>Programmatically triggers a click.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">setLoading()</code></TableCell>
+                    <TableCell><code class="inline">loading: boolean</code></TableCell>
+                    <TableCell><code class="inline">void</code></TableCell>
+                    <TableCell>Sets the loading/busy state.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">togglePressed()</code></TableCell>
+                    <TableCell><code class="inline">-</code></TableCell>
+                    <TableCell><code class="inline">void</code></TableCell>
+                    <TableCell>Toggles pressed state (only if toggleable).</TableCell>
+                </TableRow>
+            </TableBody>
+        </Table>
+
+        <Typography tag="h2" size="title3" weight="bold" spacing="md">Events</Typography>
+        <Typography class="explain" tag="p" spacing="md">The mjo-button has the following events available:</Typography>
+        <Table>
+            <TableHeader>
+                <TableRow>
+                    <TableCellHeader width="190px">Event</TableCellHeader>
+                    <TableCellHeader width="190px">CustomEvent type</TableCellHeader>
+                    <TableCellHeader>Detail</TableCellHeader>
+                    <TableCellHeader minWidth="200px">Notes</TableCellHeader>
+                </TableRow>
+            </TableHeader>
+            <TableBody>
+                <TableRow>
+                    <TableCell><code class="inline">click</code></TableCell>
+                    <TableCell><code class="inline">MouseEvent</code></TableCell>
+                    <TableCell>Native MouseEvent</TableCell>
+                    <TableCell>Standard DOM event, prevented when disabled/loading.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">mjo-button:click</code></TableCell>
+                    <TableCell><code class="inline">MjoButtonClickEvent</code></TableCell>
+                    <TableCell><pre>{eventClickDetail}</pre></TableCell>
+                    <TableCell>Custom event with additional context.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">mjo-button:toggle</code></TableCell>
+                    <TableCell><code class="inline">MjoButtonToggleEvent</code></TableCell>
+                    <TableCell><pre>{eventToggleDetail}</pre></TableCell>
+                    <TableCell>Only emitted when toggleable is true.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">mjo-button:loading-change</code></TableCell>
+                    <TableCell><code class="inline">MjoButtonLoadingChangeEvent</code></TableCell>
+                    <TableCell><pre>{eventLoadingDetail}</pre></TableCell>
+                    <TableCell>Emitted whenever loading property changes.</TableCell>
+                </TableRow>
+            </TableBody>
+        </Table>
+
+        <Typography tag="h2" size="title3" weight="bold" spacing="md">Theming</Typography>
+        <Typography class="explain" tag="p" spacing="md">
+            Customization options for the mjo-button component. If you need more information about theming, please refer to the documentation <Link
+                href="/docs/theming"
+                color="primary">here</Link
+            >.
+        </Typography>
+
+        <Typography tag="h3" size="xl" weight="bold" spacing="md">CSS Variables</Typography>
+        <Table>
+            <TableHeader>
+                <TableRow>
+                    <TableCellHeader>Variable</TableCellHeader>
+                    <TableCellHeader>Fallback</TableCellHeader>
+                    <TableCellHeader minWidth="200px">Used for</TableCellHeader>
+                </TableRow>
+            </TableHeader>
+            <TableBody>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-button-background-color</code></TableCell>
+                    <TableCell><code class="inline">Dynamic based on variant/color</code></TableCell>
+                    <TableCell>Background color.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-button-border-radius</code></TableCell>
+                    <TableCell><code class="inline">--mjo-radius-medium, 5px</code></TableCell>
+                    <TableCell>Corner radius (non-rounded).</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-button-border</code></TableCell>
+                    <TableCell><code class="inline">Dynamic based on variant/color</code></TableCell>
+                    <TableCell>Border property (style, width, color).</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-button-color</code></TableCell>
+                    <TableCell><code class="inline">Dynamic based on variant/color</code></TableCell>
+                    <TableCell>Text color.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-button-font-size</code></TableCell>
+                    <TableCell><code class="inline">1rem</code></TableCell>
+                    <TableCell>Font size.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-button-font-weight</code></TableCell>
+                    <TableCell><code class="inline">normal</code></TableCell>
+                    <TableCell>Font weight.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-button-font-family</code></TableCell>
+                    <TableCell><code class="inline">inherit</code></TableCell>
+                    <TableCell>Font family.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-button-gap</code></TableCell>
+                    <TableCell><code class="inline">5px</code></TableCell>
+                    <TableCell>Gap between icon and text.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-button-padding</code></TableCell>
+                    <TableCell><code class="inline">calc(1em / 2 - 1px) calc(1em / 2 + 2px)</code></TableCell>
+                    <TableCell>Button padding.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-button-background-color-hover</code></TableCell>
+                    <TableCell><code class="inline">Dynamic based on variant/color</code></TableCell>
+                    <TableCell>Background color on hover.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-button-opacity-hover</code></TableCell>
+                    <TableCell><code class="inline">1</code></TableCell>
+                    <TableCell>Opacity on hover.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-button-loading-color</code></TableCell>
+                    <TableCell><code class="inline">Dynamic based on color</code></TableCell>
+                    <TableCell>Loading indicator color.</TableCell>
+                </TableRow>
+            </TableBody>
+        </Table>
+
+        <Typography tag="h3" size="xl" weight="bold" spacing="md">CSS Parts</Typography>
+        <Table>
+            <TableHeader>
+                <TableRow>
+                    <TableCellHeader>Part</TableCellHeader>
+                    <TableCellHeader minWidth="200px">Description</TableCellHeader>
+                </TableRow>
+            </TableHeader>
+            <TableBody>
+                <TableRow>
+                    <TableCell><code class="inline">button</code></TableCell>
+                    <TableCell>The native button element.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">loading</code></TableCell>
+                    <TableCell>The loading indicator element (visible when loading is true).</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">start-icon</code></TableCell>
+                    <TableCell>The start icon element (via exportparts).</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">end-icon</code></TableCell>
+                    <TableCell>The end icon element (via exportparts).</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">text</code></TableCell>
+                    <TableCell>The text typography wrapper element (via exportparts).</TableCell>
+                </TableRow>
+            </TableBody>
+        </Table>
+
+        <Typography tag="h3" size="xl" weight="bold" spacing="md">Theme interface</Typography>
+        <Typography class="explain" tag="p" spacing="md">
+            Interface for the <code class="inline">mjo-button</code> theme that can be applied to the <code class="inline">MjoTheme</code> component or <code
+                class="inline">MjoThemeSSRGenerator</code
+            >.
+        </Typography>
+        <Codeblock>
+            <CodeblockPre language="typescript">
+                {
+                    `export interface MjoButtonTheme {
+    backgroundColor?: string;
+    backgroundColorHover?: string;
+    border?: string;
+    borderRadius?: string;
+    color?: string;
+    fontFamily?: string;
+    fontSize?: string;
+    fontWeight?: string;
+    gap?: string;
+    loadingColor?: string;
+    opacityHover?: string;
+    padding?: string;
+}`
+                }
+            </CodeblockPre>
+        </Codeblock>
+
+        <Typography tag="h3" size="xl" weight="bold" spacing="md">Examples</Typography>
+
+        <Typography tag="h4" size="xl" weight="bold" spacing="md">With CSS variables</Typography>
+        <Typography class="explain" tag="p" spacing="md"> Use CSS variables to customize the appearance of the button. </Typography>
+        <CodeExample>
+            <ButtonCustom client:visible slot="preview" />
+            <Codeblock showHeader slot="code">
+                <CodeblockPre language="lit" bugTitle="[BUG mjo-button]">
+                    {
+                        `import { LitElement, css, html } from "lit";
+import { customElement } from "lit/decorators.js";
+
+import "mjo-litui/mjo-button";
+
+@customElement("button-custom")
+export class ButtonCustom extends LitElement {
+    render() {
+        return html\`
+            <mjo-button color="primary">Custom Button 1</mjo-button>
+            <mjo-button color="secondary" variant="ghost">Custom Button 2</mjo-button>
+            <mjo-button color="success" variant="flat">Custom Button 3</mjo-button>
+        \`;
+    }
+
+    static styles = [
+        css\`
+            :host {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 1rem;
+                align-items: center;
+                --mjo-button-border-radius: 2px;
+                --mjo-button-font-weight: 600;
+                --mjo-button-padding: 0.75rem 1.5rem;
+                --mjo-button-font-size: 1.1em;
+            }
+        \`,
+    ];
+}`
+                    }
+                </CodeblockPre>
+            </Codeblock>
+        </CodeExample>
+
+        <Typography tag="h4" size="xl" weight="bold" spacing="md">With theme interface</Typography>
+        <Typography class="explain" tag="p" spacing="md">
+            You can use the <code>MjoButtonTheme</code> for customizing the button styles in a more structured way.
+        </Typography>
+        <CodeExample>
+            <ButtonTheme client:visible slot="preview" />
+            <Codeblock showHeader slot="code">
+                <CodeblockPre language="lit" bugTitle="[BUG mjo-button]">
+                    {
+                        `import type { MjoButtonTheme } from "mjo-litui/types/mjo-theme";
+
+import { LitElement, css, html } from "lit";
+import { customElement } from "lit/decorators.js";
+
+import "mjo-litui/mjo-button";
+import "mjo-litui/mjo-theme";
+
+const customTheme: MjoButtonTheme = {
+    fontSize: "1.1em",
+    fontWeight: "600",
+    padding: "0.75rem 1.25rem",
+    borderRadius: "8px",
+    gap: "8px",
+    backgroundColor: "#2563eb",
+    backgroundColorHover: "#1d4ed8",
+    color: "white",
+    loadingColor: "#60a5fa",
+    opacityHover: "0.9",
+};
+
+@customElement("button-theme")
+export class ButtonTheme extends LitElement {
+    render() {
+        return html\`<mjo-button color="primary" .theme=\${customTheme}>Custom Themed Button</mjo-button>\`;
+    }
+
+    static styles = [
+        css\`
+            :host {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 1rem;
+                align-items: center;
+            }
+        \`,
+    ];
+}
+`
+                    }
+                </CodeblockPre>
+            </Codeblock>
+        </CodeExample>
+
+        <Typography tag="h4" size="xl" weight="bold" spacing="md">With CSS parts</Typography>
+        <Typography class="explain" tag="p" spacing="md">
+            With CSS parts you have greater control over customizing the styles of the internal elements of the button.
+        </Typography>
+        <CodeExample>
+            <ButtonCssparts client:visible slot="preview" />
+            <Codeblock showHeader slot="code">
+                <CodeblockPre language="lit" bugTitle="[BUG mjo-button]">
+                    {
+                        `import { LitElement, css, html } from "lit";
+import { customElement } from "lit/decorators.js";
+
+import { FaDownload } from "mjo-icons/fa6";
+
+import "mjo-litui/mjo-button";
+
+@customElement("button-cssparts")
+export class ButtonCssparts extends LitElement {
+    render() {
+        return html\`
+            <mjo-button color="primary" startIcon=\${FaDownload}>Styled Button</mjo-button>
+            <mjo-button color="secondary" loading>Loading Styled</mjo-button>
+        \`;
+    }
+
+    static styles = [
+        css\`
+            :host {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 1rem;
+                align-items: center;
+            }
+
+            mjo-button::part(button) {
+                border: 2px solid #764ba2;
+                color: white;
+                font-weight: bold;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+                transition: all 0.3s ease;
+            }
+            mjo-button[loading]::part(button) {
+                color: #999999;
+            }
+            mjo-button:not([loading])::part(button) {
+                background: linear-gradient(45deg, #667eea 0%, #764ba2 100%);
+            }
+            mjo-button::part(button):hover {
+                transform: translateY(-2px);
+                box-shadow: 0 8px 25px rgba(118, 75, 162, 0.3);
+            }
+            mjo-button::part(loading) {
+                background: linear-gradient(90deg, #667eea, #764ba2, #667eea);
+            }
+            mjo-button::part(start-icon),
+            mjo-button::part(end-icon) {
+                color: #ffd700;
+                filter: drop-shadow(0 0 4px rgba(255, 215, 0, 0.6));
+            }
+            mjo-button::part(text) {
+                text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+            }
+        \`,
+    ];
+}
+`
+                    }
+                </CodeblockPre>
+            </Codeblock>
+        </CodeExample>
+
+        <Typography tag="h2" size="title3" weight="bold" spacing="md">Accessibility</Typography>
+        <Typography class="explain" tag="p" spacing="md"> The button component includes comprehensive accessibility features: </Typography>
+        <List listStyle="disc">
+            <ListItem featuredText="ARIA Support">
+                Complete ARIA implementation with <code class="inline dense">aria-busy</code> for loading states,
+                <code class="inline dense">aria-pressed</code> for toggle buttons, and custom labeling support
+            </ListItem>
+            <ListItem featuredText="Keyboard Navigation">
+                Full keyboard support with <kbd>Enter</kbd> and <kbd>Space</kbd> key activation
+            </ListItem>
+            <ListItem featuredText="Focus Management"> Visible focus indicators and programmatic focus control methods </ListItem>
+            <ListItem featuredText="Screen Reader Support">
+                Proper labeling via <code class="inline dense">button-label</code> and
+                <code class="inline dense">described-by</code> properties
+            </ListItem>
+            <ListItem featuredText="State Communication"> All state changes are properly announced to assistive technologies </ListItem>
+            <ListItem featuredText="Form Integration">
+                Seamless form submission support via FormMixin when <code class="inline dense">type="submit"</code>
+            </ListItem>
+        </List>
+
+        <Typography tag="h3" size="xl" weight="bold" spacing="md">Accessibility Best Practices</Typography>
+        <List listStyle="disc">
+            <ListItem> Use descriptive text content rather than relying solely on icons </ListItem>
+            <ListItem>
+                Provide <code class="inline dense">button-label</code> for icon-only buttons
+            </ListItem>
+            <ListItem>
+                Use <code class="inline dense">described-by</code> to reference descriptive text when needed
+            </ListItem>
+            <ListItem> Ensure sufficient color contrast for all color variants </ListItem>
+            <ListItem> Test toggle buttons to ensure state changes are clearly communicated </ListItem>
+        </List>
+    </article>
+</DocsLayout>
+
+<style>
+    .prose {
+        position: relative;
+    }
+    .explain {
+        color: var(--mjo-foreground-color-low);
+    }
+</style>
