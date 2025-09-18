@@ -373,7 +373,7 @@ export class ComponentsCloud extends LitElement {
                 top: 60px;
                 left: calc(50% - 300px);
                 width: 250px;
-                height: 200px;
+                height: 252px;
                 display: flex;
                 flex-direction: column;
                 justify-content: space-between;
@@ -405,7 +405,7 @@ export class ComponentsCloud extends LitElement {
                 z-index: 1;
             }
             .four {
-                top: 300px;
+                top: 350px;
                 left: calc(50% - 240px);
                 width: 220px;
                 height: 120px;
@@ -478,7 +478,7 @@ export class ComponentsCloud extends LitElement {
                     z-index: 1;
                 }
                 .four {
-                    top: 300px;
+                    top: 350px;
                     left: calc(50% - 290px);
                 }
                 .five {
@@ -512,7 +512,7 @@ export class ComponentsCloud extends LitElement {
                     left: calc(50% - 135px);
                 }
                 .four {
-                    top: 300px;
+                    top: 350px;
                     left: calc(50% - 370px);
                 }
                 .five {
