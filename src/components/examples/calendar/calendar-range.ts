@@ -7,7 +7,11 @@ import "mjo-litui/mjo-calendar";
 @customElement("calendar-range")
 export class CalendarRange extends LitElement {
     render() {
-        return html`<div><mjo-calendar mode="range" @mjo-calendar:range-selected=${this.#handleDateSelected}></mjo-calendar></div>`;
+        return html`
+            <div>
+                <mjo-calendar mode="range" @mjo-calendar:range-selected=${this.#handleDateSelected} allowCompact></mjo-calendar>
+            </div>
+        `;
     }
 
     #handleDateSelected(event: CustomEvent) {

@@ -4,6 +4,7 @@ import { LitElement, css, html } from "lit";
 import { customElement } from "lit/decorators.js";
 
 import "mjo-litui/mjo-breadcrumbs";
+import "../../lit/title-example";
 
 const items: MjoBreadcrumbsItems = [
     { label: "Home", href: "#" },
@@ -16,12 +17,12 @@ const items: MjoBreadcrumbsItems = [
 export class BreadcrumbsColors extends LitElement {
     render() {
         return html`
-            <div class="color-section">
-                <h4>Primary</h4>
+            <div>
+                <title-example>Primary</title-example>
                 <mjo-breadcrumbs .items=${items} color="primary"></mjo-breadcrumbs>
             </div>
-            <div class="color-section">
-                <h4>Secondary</h4>
+            <div>
+                <title-example>Secondary</title-example>
                 <mjo-breadcrumbs .items=${items} color="secondary"></mjo-breadcrumbs>
             </div>
         `;
@@ -34,18 +35,10 @@ export class BreadcrumbsColors extends LitElement {
                 flex-direction: column;
                 gap: 1.5rem;
             }
-
-            .color-section {
+            div {
                 display: flex;
                 flex-direction: column;
                 gap: 0.5rem;
-            }
-
-            h4 {
-                margin: 0;
-                font-size: 0.875rem;
-                font-weight: 600;
-                color: var(--mjo-foreground-color-secondary);
             }
         `,
     ];

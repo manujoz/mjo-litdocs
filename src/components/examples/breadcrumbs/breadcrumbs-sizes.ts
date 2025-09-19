@@ -4,6 +4,7 @@ import { LitElement, css, html } from "lit";
 import { customElement } from "lit/decorators.js";
 
 import "mjo-litui/mjo-breadcrumbs";
+import "../../lit/title-example";
 
 const items: MjoBreadcrumbsItems = [
     { label: "Home", href: "#" },
@@ -16,16 +17,16 @@ const items: MjoBreadcrumbsItems = [
 export class BreadcrumbsSizes extends LitElement {
     render() {
         return html`
-            <div class="size-section">
-                <h4>Small</h4>
+            <div>
+                <title-example>Small</title-example>
                 <mjo-breadcrumbs .items=${items} size="small"></mjo-breadcrumbs>
             </div>
-            <div class="size-section">
-                <h4>Medium</h4>
+            <div>
+                <title-example>Medium</title-example>
                 <mjo-breadcrumbs .items=${items} size="medium"></mjo-breadcrumbs>
             </div>
-            <div class="size-section">
-                <h4>Large</h4>
+            <div>
+                <title-example>Large</title-example>
                 <mjo-breadcrumbs .items=${items} size="large"></mjo-breadcrumbs>
             </div>
         `;
@@ -38,18 +39,10 @@ export class BreadcrumbsSizes extends LitElement {
                 flex-direction: column;
                 gap: 1.5rem;
             }
-
-            .size-section {
+            div {
                 display: flex;
                 flex-direction: column;
                 gap: 0.5rem;
-            }
-
-            h4 {
-                margin: 0;
-                font-size: 0.875rem;
-                font-weight: 600;
-                color: var(--mjo-foreground-color-secondary);
             }
         `,
     ];

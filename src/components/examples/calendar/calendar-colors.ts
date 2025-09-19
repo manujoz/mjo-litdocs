@@ -7,15 +7,13 @@ import "mjo-litui/mjo-calendar";
 export class CalendarColors extends LitElement {
     render() {
         return html`
-            <div class="colors-container">
-                <div class="color-item">
-                    <h4>Primary</h4>
-                    <mjo-calendar color="primary" mode="single"></mjo-calendar>
-                </div>
-                <div class="color-item">
-                    <h4>Secondary</h4>
-                    <mjo-calendar color="secondary" mode="single"></mjo-calendar>
-                </div>
+            <div>
+                <title-example>Primary</title-example>
+                <mjo-calendar color="primary" allowCompact></mjo-calendar>
+            </div>
+            <div>
+                <title-example>Secondary</title-example>
+                <mjo-calendar color="secondary" allowCompact></mjo-calendar>
             </div>
         `;
     }
@@ -23,18 +21,14 @@ export class CalendarColors extends LitElement {
     static styles = [
         css`
             :host {
-                display: block;
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+                gap: 24px;
             }
             .colors-container {
                 display: grid;
-                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
                 gap: 24px;
-            }
-            .color-item h4 {
-                margin: 0 0 12px 0;
-                color: var(--mjo-foreground-color);
-                font-size: 1rem;
-                font-weight: 600;
             }
         `,
     ];
