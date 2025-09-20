@@ -1,0 +1,1126 @@
+---
+import Codeblock from "@/components/ui/codeblock/Codeblock.astro";
+import CodeblockPre from "@/components/ui/codeblock/CodeblockPre.astro";
+import CodeExample from "@/components/ui/CodeExample.astro";
+import Link from "@/components/ui/Link.astro";
+import List from "@/components/ui/list/List.astro";
+import ListItem from "@/components/ui/list/ListItem.astro";
+import Table from "@/components/ui/table/Table.astro";
+import TableBody from "@/components/ui/table/TableBody.astro";
+import TableCell from "@/components/ui/table/TableCell.astro";
+import TableCellHeader from "@/components/ui/table/TableCellHeader.astro";
+import TableHeader from "@/components/ui/table/TableHeader.astro";
+import TableRow from "@/components/ui/table/TableRow.astro";
+import Typography from "@/components/ui/Typography.astro";
+import DocsLayout from "@/layouts/DocsLayout.astro";
+
+// Import checkbox examples (to be created)
+import { CheckboxBasic } from "@/components/examples/checkbox/checkbox-basic";
+import { CheckboxColors } from "@/components/examples/checkbox/checkbox-colors";
+import { CheckboxCssParts } from "@/components/examples/checkbox/checkbox-cssparts";
+import { CheckboxDisabled } from "@/components/examples/checkbox/checkbox-disabled";
+import { CheckboxGroups } from "@/components/examples/checkbox/checkbox-groups";
+import { CheckboxHelperText } from "@/components/examples/checkbox/checkbox-helper-text";
+import { CheckboxIndeterminate } from "@/components/examples/checkbox/checkbox-indeterminate";
+import { CheckboxSizes } from "@/components/examples/checkbox/checkbox-sizes";
+import { CheckboxTheme } from "@/components/examples/checkbox/checkbox-theme";
+
+// Event details objects for clean display
+const eventChangeDetail = `{
+  element: MjoCheckbox,
+  checked: boolean,
+  indeterminate: boolean,
+  value: string,
+  name: string,
+  previousState: {
+    checked: boolean,
+    indeterminate: boolean
+  }
+}`;
+
+const eventIndeterminateDetail = `{
+  element: MjoCheckbox,
+  indeterminate: boolean,
+  checked: boolean
+}`;
+
+const eventFocusBlurDetail = `{
+  element: MjoCheckbox
+}`;
+---
+
+<DocsLayout
+    title="Checkbox"
+    description="A versatile checkbox component with comprehensive form integration, validation support, and theme customization. Learn how to use the checkbox component in your project."
+    currentPath="/docs/components/checkbox"
+>
+    <article class="prose">
+        <Typography tag="h1" size="title2" weight="bold">mjo-checkbox</Typography>
+        <Typography class="explain" tag="p" spacing="md">
+            A versatile checkbox component with comprehensive form integration, validation support, and theme customization. Features standard and indeterminate
+            states, accessibility compliance, and seamless integration with mjo-form for automatic data handling and validation.
+        </Typography>
+        <Typography tag="h2" size="title3" weight="bold" spacing="md">Import</Typography>
+        <Typography class="explain" tag="p" spacing="md">
+            To use the mjo-checkbox component in your project, you need to import it first. You can do this by adding the following import statement to your
+            JavaScript or TypeScript file:
+        </Typography>
+        <Codeblock>
+            <CodeblockPre language="typescript" bugTitle="[BUG mjo-checkbox]">
+                {`import "mjo-litui/mjo-checkbox";`}
+            </CodeblockPre>
+        </Codeblock>
+        <Typography tag="h2" size="title3" weight="bold" spacing="md">Usage</Typography>
+        <Typography class="explain" tag="p" spacing="md">Basic usage of the mjo-checkbox component.</Typography>
+        <CodeExample>
+            <CheckboxBasic client:visible slot="preview" />
+            <Codeblock showHeader slot="code">
+                <CodeblockPre language="lit" bugTitle="[BUG mjo-checkbox]">
+                    {
+                        `import { LitElement, css, html } from "lit";
+import { customElement } from "lit/decorators.js";
+
+import "mjo-litui/mjo-checkbox";
+
+@customElement("checkbox-basic")
+export class CheckboxBasic extends LitElement {
+    render() {
+        return html\`
+            <mjo-checkbox name="terms" value="accepted" label="I accept the terms and conditions"></mjo-checkbox>
+            <mjo-checkbox name="newsletter" value="subscribe" label="Subscribe to newsletter" checked></mjo-checkbox>
+            <mjo-checkbox name="notifications" value="enabled" label="Enable notifications"></mjo-checkbox>
+        \`;
+    }
+
+    static styles = [
+        css\`
+            :host {
+                padding: var(--mjo-space-large) 0;
+                display: flex;
+                flex-direction: column;
+                gap: var(--mjo-space-large);
+            }
+        \`,
+    ];
+}
+
+`
+                    }
+                </CodeblockPre>
+            </Codeblock>
+        </CodeExample>
+        <Typography tag="h3" size="xxl" weight="bold" spacing="md">Colors</Typography>
+        <Typography class="explain" tag="p" spacing="md">The mjo-checkbox component supports primary and secondary color schemes.</Typography>
+        <CodeExample>
+            <CheckboxColors client:visible slot="preview" />
+            <Codeblock showHeader slot="code">
+                <CodeblockPre language="lit" bugTitle="[BUG mjo-checkbox]">
+                    {
+                        `import { LitElement, css, html } from "lit";
+import { customElement } from "lit/decorators.js";
+
+import "mjo-litui/mjo-checkbox";
+
+@customElement("checkbox-colors")
+export class CheckboxColors extends LitElement {
+    render() {
+        return html\`
+            <mjo-checkbox color="primary" label="Primary checkbox" checked></mjo-checkbox>
+            <mjo-checkbox color="secondary" label="Secondary checkbox" checked></mjo-checkbox>
+        \`;
+    }
+
+    static styles = [
+        css\`
+            :host {
+                padding: var(--mjo-space-large) 0;
+                display: flex;
+                flex-direction: column;
+                gap: var(--mjo-space-large);
+            }
+        \`,
+    ];
+}
+
+`
+                    }
+                </CodeblockPre>
+            </Codeblock>
+        </CodeExample>
+        <Typography tag="h3" size="xxl" weight="bold" spacing="md">Sizes</Typography>
+        <Typography class="explain" tag="p" spacing="md"
+            >The mjo-checkbox component supports three different sizes: small, medium (default), and large.</Typography
+        >
+        <CodeExample>
+            <CheckboxSizes client:visible slot="preview" />
+            <Codeblock showHeader slot="code">
+                <CodeblockPre language="lit" bugTitle="[BUG mjo-checkbox]">
+                    {
+                        `import { LitElement, css, html } from "lit";
+import { customElement } from "lit/decorators.js";
+
+import "mjo-litui/mjo-checkbox";
+
+@customElement("checkbox-sizes")
+export class CheckboxSizes extends LitElement {
+    render() {
+        return html\`
+            <mjo-checkbox size="small" label="Small checkbox" checked></mjo-checkbox>
+            <mjo-checkbox size="medium" label="Medium checkbox" checked></mjo-checkbox>
+            <mjo-checkbox size="large" label="Large checkbox" checked></mjo-checkbox>
+        \`;
+    }
+
+    static styles = [
+        css\`
+            :host {
+                padding: var(--mjo-space-large) 0;
+                display: flex;
+                flex-direction: column;
+                gap: var(--mjo-space-large);
+            }
+        \`,
+    ];
+}
+
+`
+                    }
+                </CodeblockPre>
+            </Codeblock>
+        </CodeExample>
+        <Typography tag="h3" size="xxl" weight="bold" spacing="md">Disabled State</Typography>
+        <Typography class="explain" tag="p" spacing="md">Checkboxes can be disabled to prevent user interaction.</Typography>
+        <CodeExample>
+            <CheckboxDisabled client:visible slot="preview" />
+            <Codeblock showHeader slot="code">
+                <CodeblockPre language="lit" bugTitle="[BUG mjo-checkbox]">
+                    {
+                        `import { LitElement, html } from "lit";
+import { customElement } from "lit/decorators.js";
+
+import "mjo-litui/mjo-checkbox";
+
+@customElement("checkbox-disabled")
+export class CheckboxDisabled extends LitElement {
+    render() {
+        return html\`
+            <mjo-checkbox label="Disabled unchecked" disabled></mjo-checkbox>
+            <mjo-checkbox label="Disabled checked" disabled checked></mjo-checkbox>
+            <mjo-checkbox label="Disabled indeterminate" disabled indeterminate></mjo-checkbox>
+        \`;
+    }
+}
+`
+                    }
+                </CodeblockPre>
+            </Codeblock>
+        </CodeExample>
+        <Typography tag="h3" size="xxl" weight="bold" spacing="md">Indeterminate State</Typography>
+        <Typography class="explain" tag="p" spacing="md"
+            >The checkbox supports an indeterminate state, useful for representing partial selections in groups.</Typography
+        >
+        <CodeExample>
+            <CheckboxIndeterminate client:visible slot="preview" />
+            <Codeblock showHeader slot="code">
+                <CodeblockPre language="lit" bugTitle="[BUG mjo-checkbox]">
+                    {
+                        `import type { MjoCheckbox } from "mjo-litui/mjo-checkbox";
+import type { MjoCheckboxChangeEvent } from "mjo-litui/types/mjo-checkbox";
+
+import { LitElement, css, html } from "lit";
+import { customElement, query, state } from "lit/decorators.js";
+
+import "mjo-litui/mjo-checkbox";
+
+@customElement("checkbox-indeterminate")
+export class CheckboxIndeterminate extends LitElement {
+    @state() private parentChecked = false;
+    @state() private parentIndeterminate = true;
+
+    @query("mjo-checkbox#child-1") $checkbox1!: MjoCheckbox;
+    @query("mjo-checkbox#child-2") $checkbox2!: MjoCheckbox;
+    @query("mjo-checkbox#child-3") $checkbox3!: MjoCheckbox;
+
+    render() {
+        return html\`
+            <mjo-checkbox
+                label="Select all"
+                ?checked=\${this.parentChecked}
+                ?indeterminate=\${this.parentIndeterminate}
+                @mjo-checkbox:change=\${this.#handleParentChange}
+            ></mjo-checkbox>
+            <div class="childrens">
+                <mjo-checkbox id="child-1" checked label="Option 1" @mjo-checkbox:change=\${this.#handleChildChange}></mjo-checkbox>
+                <mjo-checkbox id="child-2" label="Option 2" @mjo-checkbox:change=\${this.#handleChildChange}></mjo-checkbox>
+                <mjo-checkbox id="child-3" label="Option 3" @mjo-checkbox:change=\${this.#handleChildChange}></mjo-checkbox>
+            </div>
+        \`;
+    }
+
+    #handleParentChange(event: MjoCheckboxChangeEvent) {
+        const { checked, indeterminate } = event.detail;
+
+        this.parentChecked = checked;
+        this.parentIndeterminate = indeterminate;
+
+        if (checked) {
+            this.$checkbox1.checked = true;
+            this.$checkbox2.checked = true;
+            this.$checkbox3.checked = true;
+        } else {
+            this.$checkbox1.checked = false;
+            this.$checkbox2.checked = false;
+            this.$checkbox3.checked = false;
+        }
+    }
+
+    #handleChildChange() {
+        const checkedCount = [this.$checkbox1, this.$checkbox2, this.$checkbox3].filter((checkbox) => checkbox.checked).length;
+
+        if (checkedCount === 0) {
+            this.parentChecked = false;
+            this.parentIndeterminate = false;
+        } else if (checkedCount === 3) {
+            this.parentChecked = true;
+            this.parentIndeterminate = false;
+        } else {
+            this.parentChecked = false;
+            this.parentIndeterminate = true;
+        }
+    }
+
+    static styles = [
+        css\`
+            :host {
+                padding: var(--mjo-space-large) 0;
+                display: flex;
+                flex-direction: column;
+                gap: var(--mjo-space-large);
+            }
+            .childrens {
+                display: flex;
+                flex-direction: column;
+                gap: var(--mjo-space-medium);
+                padding-left: 24px;
+            }
+        \`,
+    ];
+}
+
+`
+                    }
+                </CodeblockPre>
+            </Codeblock>
+        </CodeExample>
+        <Typography tag="h3" size="xxl" weight="bold" spacing="md">Helper Text and States</Typography>
+        <Typography class="explain" tag="p" spacing="md"
+            >Checkboxes can display helper text and show error or success states for validation feedback.</Typography
+        >
+        <CodeExample>
+            <CheckboxHelperText client:visible slot="preview" />
+            <Codeblock showHeader slot="code">
+                <CodeblockPre language="lit" bugTitle="[BUG mjo-checkbox]">
+                    {
+                        `import { LitElement, css, html } from "lit";
+import { customElement, state } from "lit/decorators.js";
+import { ifDefined } from "lit/directives/if-defined.js";
+
+import "mjo-litui/mjo-button";
+import "mjo-litui/mjo-checkbox";
+
+@customElement("checkbox-helper-text")
+export class CheckboxHelperText extends LitElement {
+    @state() private showError = false;
+    @state() private showSuccess = false;
+
+    render() {
+        return html\`
+            <mjo-checkbox label="Terms and conditions" helperText="Please read and accept our terms and conditions"></mjo-checkbox>
+            <mjo-checkbox
+                label="Newsletter subscription"
+                helperText="We'll send you updates about new features"
+                ?error=\${this.showError}
+                errormsg=\${ifDefined(this.showError ? "This field is required" : undefined)}
+                ?success=\${this.showSuccess}
+                successmsg=\${ifDefined(this.showSuccess ? "Great choice!" : undefined)}
+            ></mjo-checkbox>
+            <div class="buttons">
+                <mjo-button @click=\${this.#toggleError} variant="ghost" color="error">Toggle Error</mjo-button>
+                <mjo-button @click=\${this.#toggleSuccess} variant="ghost" color="success">Toggle Success</mjo-button>
+            </div>
+        \`;
+    }
+
+    #toggleError() {
+        this.showError = !this.showError;
+        if (this.showError) this.showSuccess = false;
+    }
+
+    #toggleSuccess() {
+        this.showSuccess = !this.showSuccess;
+        if (this.showSuccess) this.showError = false;
+    }
+
+    static styles = [
+        css\`
+            :host {
+                padding: var(--mjo-space-large) 0;
+                display: flex;
+                flex-direction: column;
+                gap: var(--mjo-space-large);
+            }
+            .buttons {
+                position: relative;
+                display: flex;
+                gap: var(--mjo-space-medium);
+            }
+        \`,
+    ];
+}
+
+`
+                    }
+                </CodeblockPre>
+            </Codeblock>
+        </CodeExample>
+        <Typography tag="h3" size="xxl" weight="bold" spacing="md">Checkbox Groups</Typography>
+        <Typography class="explain" tag="p" spacing="md">Multiple checkboxes can be grouped together for related options.</Typography>
+        <CodeExample>
+            <CheckboxGroups client:only slot="preview" />
+            <Codeblock showHeader slot="code">
+                <CodeblockPre language="lit" bugTitle="[BUG mjo-checkbox]">
+                    {
+                        `import type { MjoAlert } from "mjo-litui/mjo-alert";
+import type { MjoFormSubmitEvent } from "mjo-litui/types/mjo-form";
+
+import { LitElement, css, html } from "lit";
+import { customElement, query } from "lit/decorators.js";
+
+import "mjo-litui/mjo-alert";
+import "mjo-litui/mjo-button";
+import "mjo-litui/mjo-checkbox";
+import "mjo-litui/mjo-checkbox-group";
+import "mjo-litui/mjo-form";
+import "../../lit/title-example";
+
+@customElement("checkbox-groups")
+export class CheckboxGroups extends LitElement {
+    @query("mjo-alert") $alert!: MjoAlert;
+
+    render() {
+        return html\`
+            <mjo-form @submit=\${this.#handleSubmit}>
+                <mjo-checkbox-group>
+                    <div class="container">
+                        <title-example>Select at least 2 options:</title-example>
+                        <mjo-checkbox mincheck="2" name="features" value="notifications" label="Email notifications"></mjo-checkbox>
+                        <mjo-checkbox name="features" value="newsletter" label="Weekly newsletter"></mjo-checkbox>
+                        <mjo-checkbox name="features" value="updates" label="Product updates"></mjo-checkbox>
+                    </div>
+                </mjo-checkbox-group>
+                <mjo-alert type="success" message="Your preferences have been saved!" animation="scale" hidden></mjo-alert>
+                <mjo-button type="submit" fullwidth>Submit</mjo-button>
+            </mjo-form>
+        \`;
+    }
+
+    #handleSubmit(event: MjoFormSubmitEvent) {
+        const { response } = event.detail;
+        const button = response.submitButton;
+
+        if (button) button.loading = false;
+
+        if (!response.error) {
+            this.$alert.show();
+        } else {
+            this.$alert.hide();
+        }
+    }
+
+    static styles = [
+        css\`
+            :host {
+                display: block;
+                max-width: 400px;
+            }
+            .container {
+                padding: var(--mjo-space-large) 0;
+                display: flex;
+                flex-direction: column;
+                gap: var(--mjo-space-medium);
+            }
+            mjo-checkbox-group {
+                margin-bottom: var(--mjo-space-small);
+            }
+            mjo-checkbox {
+                width: 100%;
+            }
+            mjo-button {
+                margin-top: var(--mjo-space-small);
+            }
+        \`,
+    ];
+}
+`
+                    }
+                </CodeblockPre>
+            </Codeblock>
+        </CodeExample>
+        <Typography tag="h2" size="title3" weight="bold" spacing="md">Properties</Typography>
+        <Typography class="explain" tag="p" spacing="md">Properties available on the mjo-checkbox component.</Typography>
+        <Table>
+            <TableHeader>
+                <TableRow>
+                    <TableCellHeader>Property</TableCellHeader>
+                    <TableCellHeader>Type</TableCellHeader>
+                    <TableCellHeader>Default</TableCellHeader>
+                    <TableCellHeader>Reflects</TableCellHeader>
+                    <TableCellHeader minWidth="200px">Description</TableCellHeader>
+                </TableRow>
+            </TableHeader>
+            <TableBody>
+                <TableRow>
+                    <TableCell><code class="inline">color</code></TableCell>
+                    <TableCell><code class="inline">{`"primary" | "secondary"`}</code></TableCell>
+                    <TableCell><code class="inline">{`"primary"`}</code></TableCell>
+                    <TableCell><code class="inline">{`false`}</code></TableCell>
+                    <TableCell>Color scheme for the checkbox when checked.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">checked</code></TableCell>
+                    <TableCell><code class="inline">{`boolean`}</code></TableCell>
+                    <TableCell><code class="inline">{`false`}</code></TableCell>
+                    <TableCell><code class="inline">{`true`}</code></TableCell>
+                    <TableCell>Controls whether the checkbox is checked.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">disabled</code></TableCell>
+                    <TableCell><code class="inline">{`boolean`}</code></TableCell>
+                    <TableCell><code class="inline">{`false`}</code></TableCell>
+                    <TableCell><code class="inline">{`true`}</code></TableCell>
+                    <TableCell>Disables interaction with the checkbox.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">indeterminate</code></TableCell>
+                    <TableCell><code class="inline">{`boolean`}</code></TableCell>
+                    <TableCell><code class="inline">{`false`}</code></TableCell>
+                    <TableCell><code class="inline">{`true`}</code></TableCell>
+                    <TableCell>Sets the checkbox to indeterminate/mixed state.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">size</code></TableCell>
+                    <TableCell><code class="inline">{`"small" | "medium" | "large"`}</code></TableCell>
+                    <TableCell><code class="inline">{`"medium"`}</code></TableCell>
+                    <TableCell><code class="inline">{`false`}</code></TableCell>
+                    <TableCell>Size variant of the checkbox.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">label</code></TableCell>
+                    <TableCell><code class="inline">{`string | undefined`}</code></TableCell>
+                    <TableCell><code class="inline">{`undefined`}</code></TableCell>
+                    <TableCell><code class="inline">{`false`}</code></TableCell>
+                    <TableCell>Text label displayed next to the checkbox.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">name</code></TableCell>
+                    <TableCell><code class="inline">{`string | undefined`}</code></TableCell>
+                    <TableCell><code class="inline">{`undefined`}</code></TableCell>
+                    <TableCell><code class="inline">{`false`}</code></TableCell>
+                    <TableCell>Form field name for form submission.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">value</code></TableCell>
+                    <TableCell><code class="inline">{`string`}</code></TableCell>
+                    <TableCell><code class="inline">{`""`}</code></TableCell>
+                    <TableCell><code class="inline">{`false`}</code></TableCell>
+                    <TableCell>Value submitted when checkbox is checked.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">helperText</code></TableCell>
+                    <TableCell><code class="inline">{`string | undefined`}</code></TableCell>
+                    <TableCell><code class="inline">{`undefined`}</code></TableCell>
+                    <TableCell><code class="inline">{`false`}</code></TableCell>
+                    <TableCell>Helper text displayed below the checkbox.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">hideErrors</code></TableCell>
+                    <TableCell><code class="inline">{`boolean`}</code></TableCell>
+                    <TableCell><code class="inline">{`false`}</code></TableCell>
+                    <TableCell><code class="inline">{`false`}</code></TableCell>
+                    <TableCell>Hides error messages from InputErrorMixin.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">ariaDescribedby</code></TableCell>
+                    <TableCell><code class="inline">{`string | undefined`}</code></TableCell>
+                    <TableCell><code class="inline">{`undefined`}</code></TableCell>
+                    <TableCell><code class="inline">{`false`}</code></TableCell>
+                    <TableCell>ARIA describedby attribute for accessibility.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">required</code></TableCell>
+                    <TableCell><code class="inline">{`boolean`}</code></TableCell>
+                    <TableCell><code class="inline">{`false`}</code></TableCell>
+                    <TableCell><code class="inline">{`false`}</code></TableCell>
+                    <TableCell>Makes the checkbox required for form validation.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">mincheck</code></TableCell>
+                    <TableCell><code class="inline">{`number | undefined`}</code></TableCell>
+                    <TableCell><code class="inline">{`undefined`}</code></TableCell>
+                    <TableCell><code class="inline">{`false`}</code></TableCell>
+                    <TableCell>Minimum number of checkboxes that must be checked in group.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">maxcheck</code></TableCell>
+                    <TableCell><code class="inline">{`number | undefined`}</code></TableCell>
+                    <TableCell><code class="inline">{`undefined`}</code></TableCell>
+                    <TableCell><code class="inline">{`false`}</code></TableCell>
+                    <TableCell>Maximum number of checkboxes that can be checked in group.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">error</code></TableCell>
+                    <TableCell><code class="inline">{`boolean`}</code></TableCell>
+                    <TableCell><code class="inline">{`false`}</code></TableCell>
+                    <TableCell><code class="inline">{`false`}</code></TableCell>
+                    <TableCell>Shows error state styling.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">errormsg</code></TableCell>
+                    <TableCell><code class="inline">{`string | undefined`}</code></TableCell>
+                    <TableCell><code class="inline">{`undefined`}</code></TableCell>
+                    <TableCell><code class="inline">{`false`}</code></TableCell>
+                    <TableCell>Error message to display.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">success</code></TableCell>
+                    <TableCell><code class="inline">{`boolean`}</code></TableCell>
+                    <TableCell><code class="inline">{`false`}</code></TableCell>
+                    <TableCell><code class="inline">{`false`}</code></TableCell>
+                    <TableCell>Shows success state styling.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">successmsg</code></TableCell>
+                    <TableCell><code class="inline">{`string | undefined`}</code></TableCell>
+                    <TableCell><code class="inline">{`undefined`}</code></TableCell>
+                    <TableCell><code class="inline">{`false`}</code></TableCell>
+                    <TableCell>Success message to display.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">theme</code></TableCell>
+                    <TableCell><code class="inline">{`MjoCheckboxTheme | undefined`}</code></TableCell>
+                    <TableCell><code class="inline">{`undefined`}</code></TableCell>
+                    <TableCell><code class="inline">{`false`}</code></TableCell>
+                    <TableCell>Theme object to customize appearance.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">formIgnore</code></TableCell>
+                    <TableCell><code class="inline">{`boolean`}</code></TableCell>
+                    <TableCell><code class="inline">{`false`}</code></TableCell>
+                    <TableCell><code class="inline">{`false`}</code></TableCell>
+                </TableRow>
+            </TableBody>
+        </Table>
+        <Typography tag="h2" size="title3" weight="bold" spacing="md">API</Typography>
+        <Typography class="explain" tag="p" spacing="md">Methods available on the mjo-checkbox component.</Typography>
+        <Table>
+            <TableHeader>
+                <TableRow>
+                    <TableCellHeader>Method</TableCellHeader>
+                    <TableCellHeader>Parameters</TableCellHeader>
+                    <TableCellHeader>Returns</TableCellHeader>
+                    <TableCellHeader minWidth="200px">Description</TableCellHeader>
+                </TableRow>
+            </TableHeader>
+            <TableBody>
+                <TableRow>
+                    <TableCell><code class="inline">getValue()</code></TableCell>
+                    <TableCell><code class="inline">-</code></TableCell>
+                    <TableCell><code class="inline">string</code></TableCell>
+                    <TableCell>Returns the checkbox value if checked, empty string if not.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">setValue(value)</code></TableCell>
+                    <TableCell><code class="inline">value: string</code></TableCell>
+                    <TableCell><code class="inline">void</code></TableCell>
+                    <TableCell>Sets the checkbox value property.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">setChecked(checked)</code></TableCell>
+                    <TableCell><code class="inline">checked: boolean</code></TableCell>
+                    <TableCell><code class="inline">void</code></TableCell>
+                    <TableCell>Programmatically sets the checked state.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">setIndeterminate(indeterminate)</code></TableCell>
+                    <TableCell><code class="inline">indeterminate: boolean</code></TableCell>
+                    <TableCell><code class="inline">void</code></TableCell>
+                    <TableCell>Programmatically sets the indeterminate state.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">focus()</code></TableCell>
+                    <TableCell><code class="inline">-</code></TableCell>
+                    <TableCell><code class="inline">void</code></TableCell>
+                    <TableCell>Focuses the checkbox element.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">blur()</code></TableCell>
+                    <TableCell><code class="inline">-</code></TableCell>
+                    <TableCell><code class="inline">void</code></TableCell>
+                </TableRow>
+            </TableBody>
+        </Table>
+        <Typography tag="h2" size="title3" weight="bold" spacing="md">Events</Typography>
+        <Typography class="explain" tag="p" spacing="md">The mjo-checkbox has the following events available:</Typography>
+        <Table>
+            <TableHeader>
+                <TableRow>
+                    <TableCellHeader width="190px">Event</TableCellHeader>
+                    <TableCellHeader width="190px">CustomEvent type</TableCellHeader>
+                    <TableCellHeader>Detail</TableCellHeader>
+                    <TableCellHeader minWidth="200px">Notes</TableCellHeader>
+                </TableRow>
+            </TableHeader>
+            <TableBody>
+                <TableRow>
+                    <TableCell><code class="inline">change</code></TableCell>
+                    <TableCell><code class="inline">Event</code></TableCell>
+                    <TableCell>Native event</TableCell>
+                    <TableCell>Standard HTML input change event for form handling.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">mjo-checkbox:change</code></TableCell>
+                    <TableCell><code class="inline">MjoCheckboxChangeEvent</code></TableCell>
+                    <TableCell><pre>{eventChangeDetail}</pre></TableCell>
+                    <TableCell>Enhanced custom event with detailed state information.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">mjo-checkbox:indeterminate-change</code></TableCell>
+                    <TableCell><code class="inline">MjoCheckboxIndeterminateEvent</code></TableCell>
+                    <TableCell><pre>{eventIndeterminateDetail}</pre></TableCell>
+                    <TableCell>Fired when setIndeterminate() method is called.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">mjo-checkbox:focus</code></TableCell>
+                    <TableCell><code class="inline">MjoCheckboxFocusEvent</code></TableCell>
+                    <TableCell><pre>{eventFocusBlurDetail}</pre></TableCell>
+                    <TableCell>Custom focus event for advanced interactions.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">mjo-checkbox:blur</code></TableCell>
+                    <TableCell><code class="inline">MjoCheckboxBlurEvent</code></TableCell>
+                    <TableCell><pre>{eventFocusBlurDetail}</pre></TableCell>
+                </TableRow>
+            </TableBody>
+        </Table>
+        <Typography tag="h2" size="title3" weight="bold" spacing="md">Theming</Typography>
+        <Typography class="explain" tag="p" spacing="md">
+            Customization options for the mjo-checkbox component. If you need more information about theming, please refer to the documentation <Link
+                href="/docs/theming"
+                color="primary">here</Link
+            >.
+        </Typography>
+        <Typography tag="h3" size="xl" weight="bold" spacing="md">CSS Variables</Typography>
+        <Table>
+            <TableHeader>
+                <TableRow>
+                    <TableCellHeader>Variable</TableCellHeader>
+                    <TableCellHeader>Fallback</TableCellHeader>
+                    <TableCellHeader minWidth="200px">Used for</TableCellHeader>
+                </TableRow>
+            </TableHeader>
+            <TableBody>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-checkbox-size</code></TableCell>
+                    <TableCell><code class="inline">20px</code></TableCell>
+                    <TableCell>Size of the checkbox square.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-checkbox-size-small</code></TableCell>
+                    <TableCell><code class="inline">16px</code></TableCell>
+                    <TableCell>Size for small variant.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-checkbox-size-large</code></TableCell>
+                    <TableCell><code class="inline">24px</code></TableCell>
+                    <TableCell>Size for large variant.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-checkbox-border-radius</code></TableCell>
+                    <TableCell><code class="inline">--mjo-radius-small</code></TableCell>
+                    <TableCell>Border radius of the checkbox.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-checkbox-border-color</code></TableCell>
+                    <TableCell><code class="inline">--mjo-border-color</code></TableCell>
+                    <TableCell>Border color in unchecked state.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-checkbox-border-color-hover</code></TableCell>
+                    <TableCell><code class="inline">--mjo-border-color-hover</code></TableCell>
+                    <TableCell>Border color on hover.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-checkbox-background-color</code></TableCell>
+                    <TableCell><code class="inline">transparent</code></TableCell>
+                    <TableCell>Background color in unchecked state.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-checkbox-background-color-checked</code></TableCell>
+                    <TableCell><code class="inline">--mjo-primary-color</code></TableCell>
+                    <TableCell>Background color when checked (primary).</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-checkbox-background-color-checked-secondary</code></TableCell>
+                    <TableCell><code class="inline">--mjo-secondary-color</code></TableCell>
+                    <TableCell>Background color when checked (secondary).</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-checkbox-icon-color</code></TableCell>
+                    <TableCell><code class="inline">white</code></TableCell>
+                    <TableCell>Color of the check/indeterminate icon.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-checkbox-icon-size</code></TableCell>
+                    <TableCell><code class="inline">12px</code></TableCell>
+                    <TableCell>Size of the check/indeterminate icon.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-checkbox-label-gap</code></TableCell>
+                    <TableCell><code class="inline">--mjo-space-small</code></TableCell>
+                    <TableCell>Gap between checkbox and label.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-checkbox-focus-color</code></TableCell>
+                    <TableCell><code class="inline">--mjo-primary-color</code></TableCell>
+                    <TableCell>Focus ring color.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-checkbox-disabled-opacity</code></TableCell>
+                    <TableCell><code class="inline">0.5</code></TableCell>
+                    <TableCell>Opacity when disabled.</TableCell>
+                </TableRow>
+            </TableBody>
+        </Table>
+        <Typography tag="h3" size="xl" weight="bold" spacing="md">CSS Parts</Typography>
+        <Table>
+            <TableHeader>
+                <TableRow>
+                    <TableCellHeader>Part</TableCellHeader>
+                    <TableCellHeader minWidth="200px">Description</TableCellHeader>
+                </TableRow>
+            </TableHeader>
+            <TableBody>
+                <TableRow>
+                    <TableCell><code class="inline">container</code></TableCell>
+                    <TableCell>The main checkbox container element.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">box</code></TableCell>
+                    <TableCell>The visual checkbox container.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">checkbox</code></TableCell>
+                    <TableCell>The checkbox element itself.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">checkbox-inner</code></TableCell>
+                    <TableCell>The inner area containing the check/indeterminate icon.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">checkbox-icon</code></TableCell>
+                    <TableCell>The check/indeterminate icon (via exportparts from mjo-icon).</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">label-container</code></TableCell>
+                    <TableCell>Container for the label text.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">label-text</code></TableCell>
+                    <TableCell>The label typography element (via exportparts from mjo-typography).</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">helper-text-container</code></TableCell>
+                    <TableCell>Container for helper text (via exportparts from helper component).</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">helper-text-typography</code></TableCell>
+                    <TableCell>The helper text typography (via exportparts from helper component).</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">helper-text-msg-container</code></TableCell>
+                    <TableCell>Container for error/success messages (via exportparts).</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">helper-text-msg-error-message</code></TableCell>
+                    <TableCell>Error message element (via exportparts).</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">helper-text-msg-success-message</code></TableCell>
+                    <TableCell>Success message element (via exportparts).</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">helper-text-msg-icon</code></TableCell>
+                    <TableCell>Icon in error/success messages (via exportparts).</TableCell>
+                </TableRow>
+            </TableBody>
+        </Table>
+        <Typography tag="h3" size="xl" weight="bold" spacing="md">Theme interface</Typography>
+        <Typography class="explain" tag="p" spacing="md">
+            Interface for the <code class="inline">mjo-checkbox</code> theme that can be applied to the <code class="inline">MjoTheme</code> component or <code
+                class="inline">MjoThemeSSRGenerator</code
+            >.
+        </Typography>
+        <Codeblock>
+            <CodeblockPre language="typescript">
+                {
+                    `export interface MjoCheckboxTheme {
+    size?: string;
+    sizeSmall?: string;
+    sizeLarge?: string;
+    borderRadius?: string;
+    borderColor?: string;
+    borderColorHover?: string;
+    backgroundColor?: string;
+    backgroundColorChecked?: string;
+    backgroundColorCheckedSecondary?: string;
+    iconColor?: string;
+    iconSize?: string;
+    labelGap?: string;
+    focusColor?: string;
+    disabledOpacity?: string;
+}
+`
+                }
+            </CodeblockPre>
+        </Codeblock>
+        <Typography tag="h3" size="xl" weight="bold" spacing="md">Examples</Typography>
+        <Typography tag="h4" size="xl" weight="bold" spacing="md">With CSS variables</Typography>
+        <Typography class="explain" tag="p" spacing="md">Use CSS variables to customize the appearance of the checkbox.</Typography>
+        <CodeExample>
+            <CheckboxTheme client:visible slot="preview" />
+            <Codeblock showHeader slot="code">
+                <CodeblockPre language="lit" bugTitle="[BUG mjo-checkbox]">
+                    {
+                        `import { LitElement, css, html } from "lit";
+import { customElement } from "lit/decorators.js";
+
+import "mjo-litui/mjo-checkbox";
+
+@customElement("checkbox-theme")
+export class CheckboxTheme extends LitElement {
+    render() {
+        return html\`
+            <div style="display: flex; flex-direction: column; gap: 16px;">
+                <mjo-checkbox label="Custom primary checkbox" checked class="custom-primary"></mjo-checkbox>
+                <mjo-checkbox label="Custom secondary checkbox" checked class="custom-secondary"></mjo-checkbox>
+                <mjo-checkbox label="Custom size checkbox" checked class="custom-size"></mjo-checkbox>
+            </div>
+        \`;
+    }
+
+    static styles = [
+        css\`
+            :host {
+                display: block;
+            }
+
+            .custom-primary {
+                --mjo-checkbox-background-color-checked: #ff6b6b;
+                --mjo-checkbox-border-color: #ff6b6b;
+                --mjo-checkbox-border-radius: 8px;
+                --mjo-checkbox-focus-color: #ff6b6b;
+            }
+
+            .custom-secondary {
+                --mjo-checkbox-background-color-checked: linear-gradient(45deg, #667eea 0%, #764ba2 100%);
+                --mjo-checkbox-border-color: #667eea;
+                --mjo-checkbox-border-radius: 50%;
+                --mjo-checkbox-focus-color: #667eea;
+            }
+
+            .custom-size {
+                --mjo-checkbox-size: 32px;
+                --mjo-checkbox-icon-size: 20px;
+                --mjo-checkbox-border-radius: 4px;
+                --mjo-checkbox-background-color-checked: #4ecdc4;
+                --mjo-checkbox-border-color: #4ecdc4;
+            }
+        \`,
+    ];
+}
+\``
+                    }
+                </CodeblockPre>
+            </Codeblock>
+        </CodeExample>
+        <Typography tag="h4" size="xl" weight="bold" spacing="md">With CSS parts</Typography>
+        <Typography class="explain" tag="p" spacing="md">
+            With CSS parts you have greater control over customizing the styles of the internal elements of the checkbox.
+        </Typography>
+        <CodeExample>
+            <CheckboxCssParts client:visible slot="preview" />
+            <Codeblock showHeader slot="code">
+                <CodeblockPre language="lit" bugTitle="[BUG mjo-checkbox]">
+                    {
+                        `import { LitElement, css, html } from "lit";
+import { customElement } from "lit/decorators.js";
+
+import "mjo-litui/mjo-checkbox";
+
+@customElement("checkbox-cssparts")
+export class CheckboxCssparts extends LitElement {
+    render() {
+        return html\`
+            <div style="display: flex; flex-direction: column; gap: 16px;">
+                <mjo-checkbox label="Custom styled checkbox" checked helperText="This checkbox has custom parts styling"></mjo-checkbox>
+                <mjo-checkbox label="Another custom checkbox" helperText="Different styling approach"></mjo-checkbox>
+            </div>
+        \`;
+    }
+
+    static styles = [
+        css\`
+            :host {
+                display: block;
+            }
+
+            mjo-checkbox::part(container) {
+                padding: 8px;
+                border-radius: 8px;
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                border: 1px solid rgba(255, 255, 255, 0.2);
+            }
+
+            mjo-checkbox::part(checkbox) {
+                border: 2px solid white;
+                background: rgba(255, 255, 255, 0.1);
+                backdrop-filter: blur(10px);
+            }
+
+            mjo-checkbox::part(checkbox-icon) {
+                color: #fff;
+                font-size: 14px;
+            }
+
+            mjo-checkbox::part(label-text) {
+                color: white;
+                font-weight: 600;
+                text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+            }
+
+            mjo-checkbox::part(helper-text-typography) {
+                color: rgba(255, 255, 255, 0.8);
+                font-size: 12px;
+            }
+        \`,
+    ];
+}
+`
+                    }
+                </CodeblockPre>
+            </Codeblock>
+        </CodeExample>
+        <Typography tag="h2" size="title3" weight="bold" spacing="md">Accessibility</Typography>
+        <Typography class="explain" tag="p" spacing="md">The checkbox component includes comprehensive accessibility features:</Typography>
+        <List listStyle="disc">
+            <ListItem featuredText="ARIA Structure">
+                Complete ARIA implementation with <code class="inline dense">role="checkbox"</code>, <code class="inline dense">aria-checked</code>,
+                <code class="inline dense">aria-describedby</code>, and proper labeling relationships
+            </ListItem>
+            <ListItem featuredText="Keyboard Navigation">
+                Full keyboard support
+                <List listStyle="circle">
+                    <ListItem featuredText="Space">Toggle checkbox state</ListItem>
+                    <ListItem featuredText="Tab/Shift+Tab">Navigate between form elements</ListItem>
+                    <ListItem featuredText="Enter">Submit form when focused</ListItem>
+                </List>
+            </ListItem>
+            <ListItem featuredText="Focus Management"> Visible focus indicators with customizable styling and proper focus ring </ListItem>
+            <ListItem featuredText="Screen Reader Support"> Automatic labeling and state announcements for assistive technologies </ListItem>
+            <ListItem featuredText="State Communication"> All state changes (checked, unchecked, indeterminate) are properly announced </ListItem>
+            <ListItem featuredText="Form Integration"> Seamless integration with form validation and error messaging </ListItem>
+            <ListItem featuredText="High Contrast"> Supports high contrast mode with appropriate color ratios </ListItem>
+        </List>
+        <Typography tag="h3" size="xl" weight="bold" spacing="md">Accessibility Best Practices</Typography>
+        <List listStyle="disc">
+            <ListItem> Use meaningful labels that clearly describe what the checkbox controls </ListItem>
+            <ListItem> Group related checkboxes with fieldset and legend elements when appropriate </ListItem>
+            <ListItem> Provide clear error messages when validation fails </ListItem>
+            <ListItem>
+                Use <code class="inline dense">ariaDescribedby</code> to associate helper text with the checkbox
+            </ListItem>
+            <ListItem> Ensure sufficient color contrast for all states (minimum 3:1 for interactive elements) </ListItem>
+        </List>
+        <Typography tag="h2" size="title3" weight="bold" spacing="md">Type Definitions</Typography>
+        <Typography class="explain" tag="p" spacing="md">The checkbox component supports the following type definitions:</Typography>
+        <Codeblock>
+            <CodeblockPre language="typescript">
+                {
+                    `export type MjoCheckboxColors = "primary" | "secondary";
+export type MjoCheckboxSizes = "small" | "medium" | "large";
+
+export interface MjoCheckboxChangeEvent extends CustomEvent {
+    detail: {
+        element: MjoCheckbox;
+        checked: boolean;
+        indeterminate: boolean;
+        value: string;
+        name: string;
+        previousState: {
+            checked: boolean;
+            indeterminate: boolean;
+        };
+    };
+}
+
+export interface MjoCheckboxIndeterminateEvent extends CustomEvent {
+    detail: {
+        element: MjoCheckbox;
+        indeterminate: boolean;
+        checked: boolean;
+    };
+}
+
+export interface MjoCheckboxFocusEvent extends CustomEvent {
+    detail: {
+        element: MjoCheckbox;
+    };
+}
+
+export interface MjoCheckboxBlurEvent extends CustomEvent {
+    detail: {
+        element: MjoCheckbox;
+    };
+}
+
+export interface MjoCheckboxTheme {
+    size?: string;
+    sizeSmall?: string;
+    sizeLarge?: string;
+    borderRadius?: string;
+    borderColor?: string;
+    borderColorHover?: string;
+    backgroundColor?: string;
+    backgroundColorChecked?: string;
+    backgroundColorCheckedSecondary?: string;
+    iconColor?: string;
+    iconSize?: string;
+    labelGap?: string;
+    focusColor?: string;
+    disabledOpacity?: string;
+}
+`
+                }
+            </CodeblockPre>
+        </Codeblock>
+    </article>
+</DocsLayout>
+
+<style>
+    .prose {
+        position: relative;
+    }
+    .explain {
+        color: var(--mjo-foreground-color-low);
+    }
+</style>

@@ -1,0 +1,524 @@
+---
+import Codeblock from "@/components/ui/codeblock/Codeblock.astro";
+import CodeblockPre from "@/components/ui/codeblock/CodeblockPre.astro";
+import CodeExample from "@/components/ui/CodeExample.astro";
+import Link from "@/components/ui/Link.astro";
+import List from "@/components/ui/list/List.astro";
+import ListItem from "@/components/ui/list/ListItem.astro";
+import Table from "@/components/ui/table/Table.astro";
+import TableBody from "@/components/ui/table/TableBody.astro";
+import TableCell from "@/components/ui/table/TableCell.astro";
+import TableCellHeader from "@/components/ui/table/TableCellHeader.astro";
+import TableHeader from "@/components/ui/table/TableHeader.astro";
+import TableRow from "@/components/ui/table/TableRow.astro";
+import Typography from "@/components/ui/Typography.astro";
+import DocsLayout from "@/layouts/DocsLayout.astro";
+
+import { CardContrast } from "@/components/examples/card/card-contrast";
+import { CardRadius } from "@/components/examples/card/card-radius";
+import { CardSpacing } from "@/components/examples/card/card-spacing";
+import { CardUsage } from "@/components/examples/card/card-usage";
+import { CardVariants } from "@/components/examples/card/card-variants";
+---
+
+<DocsLayout
+    title="Card"
+    description="The card component is a simple, theme-aware container providing background, padding, shadow, and border radius customization through contrast levels and size variants."
+    currentPath="/docs/components/card"
+>
+    <article class="prose">
+        <Typography tag="h1" size="title2" weight="bold">mjo-card</Typography>
+        <Typography class="explain" tag="p" spacing="md">
+            The mjo-card component is a simple, theme-aware container providing a background, padding, shadow, and border radius customization through contrast
+            levels and size variants. It is useful for grouping related content and creating visual hierarchy in your application.
+        </Typography>
+        <Typography tag="h2" size="title3" weight="bold" spacing="md">Import</Typography>
+        <Typography class="explain" tag="p" spacing="md">
+            To use the mjo-card component in your project, you need to import it first. You can do this by adding the following import statement to your
+            JavaScript or TypeScript file:
+        </Typography>
+        <Codeblock>
+            <CodeblockPre language="typescript" bugTitle="[BUG mjo-card]">
+                {`import "mjo-litui/mjo-card";`}
+            </CodeblockPre>
+        </Codeblock>
+        <Typography tag="h2" size="title3" weight="bold" spacing="md">Usage</Typography>
+        <Typography class="explain" tag="p" spacing="md">Basic usage of the mjo-card component.</Typography>
+        <CodeExample>
+            <CardUsage client:visible slot="preview" />
+            <Codeblock showHeader slot="code">
+                <CodeblockPre language="lit" bugTitle="[BUG mjo-card]">
+                    {
+                        `import { LitElement, css, html } from "lit";
+import { customElement } from "lit/decorators.js";
+
+import "mjo-litui/mjo-card";
+
+@customElement("card-usage")
+export class CardUsage extends LitElement {
+    render() {
+        return html\`
+            <mjo-card>
+                <h3>Basic Card</h3>
+                <p>This is a basic card with default styling.</p>
+            </mjo-card>
+
+            <mjo-card space="large">
+                <h3>Card with Large Spacing</h3>
+                <p>This card uses large internal spacing.</p>
+            </mjo-card>
+        \`;
+    }
+
+    static styles = [
+        css\`
+            :host {
+                display: flex;
+                flex-direction: column;
+                gap: 1rem;
+            }
+            h3 {
+                margin: 0 0 1rem 0;
+                color: var(--mjo-foreground-color);
+            }
+            p {
+                margin: 0;
+                color: var(--mjo-foreground-color-low);
+            }
+        \`,
+    ];
+}
+`
+                    }
+                </CodeblockPre>
+            </Codeblock>
+        </CodeExample>
+        <Typography tag="h3" size="xxl" weight="bold" spacing="md">Contrast levels</Typography>
+        <Typography class="explain" tag="p" spacing="md">
+            The card component supports different contrast levels to create visual hierarchy. You can set the <code>contrast</code> attribute to <code>low</code
+            >, <code>high</code>, or leave it undefined for default contrast.
+        </Typography>
+        <CodeExample>
+            <CardContrast client:visible slot="preview" />
+            <Codeblock showHeader slot="code">
+                <CodeblockPre language="lit" bugTitle="[BUG mjo-card]">
+                    {
+                        `import { LitElement, css, html } from "lit";
+import { customElement } from "lit/decorators.js";
+
+import "mjo-litui/mjo-card";
+
+@customElement("card-contrast")
+export class CardContrast extends LitElement {
+    render() {
+        return html\`
+            <mjo-card contrast="low">
+                <h4>Low Contrast Card</h4>
+                <p>Subtle appearance with low contrast.</p>
+            </mjo-card>
+
+            <mjo-card>
+                <h4>Default Card</h4>
+                <p>Normal contrast for balanced appearance.</p>
+            </mjo-card>
+
+            <mjo-card contrast="high">
+                <h4>High Contrast Card</h4>
+                <p>High contrast for prominent display.</p>
+            </mjo-card>
+        \`;
+    }
+
+    static styles = [
+        css\`
+            :host {
+                display: flex;
+                flex-direction: column;
+                gap: 1rem;
+            }
+            h4 {
+                margin: 0 0 0.5rem 0;
+                color: var(--mjo-foreground-color);
+            }
+            p {
+                margin: 0;
+                color: var(--mjo-foreground-color-low);
+            }
+        \`,
+    ];
+}
+`
+                    }
+                </CodeblockPre>
+            </Codeblock>
+        </CodeExample>
+        <Typography tag="h3" size="xxl" weight="bold" spacing="md">Border radius variants</Typography>
+        <Typography class="explain" tag="p" spacing="md">
+            You can customize the border radius of cards using the <code>radius</code> attribute. Options include <code>none</code>, <code>small</code>, <code
+                >medium</code
+            >, and <code>large</code>.
+        </Typography>
+        <CodeExample>
+            <CardRadius client:visible slot="preview" />
+            <Codeblock showHeader slot="code">
+                <CodeblockPre language="lit" bugTitle="[BUG mjo-card]">
+                    {
+                        `import { LitElement, css, html } from "lit";
+import { customElement } from "lit/decorators.js";
+
+import "mjo-litui/mjo-card";
+
+@customElement("card-radius")
+export class CardRadius extends LitElement {
+    render() {
+        return html\`
+            <mjo-card radius="none">
+                <h4>No Radius</h4>
+                <p>Sharp corners.</p>
+            </mjo-card>
+            <mjo-card radius="small">
+                <h4>Small Radius</h4>
+                <p>Slightly rounded corners.</p>
+            </mjo-card>
+            <mjo-card radius="medium">
+                <h4>Medium Radius</h4>
+                <p>Moderately rounded corners.</p>
+            </mjo-card>
+            <mjo-card radius="large">
+                <h4>Large Radius</h4>
+                <p>Prominently rounded corners.</p>
+            </mjo-card>
+        \`;
+    }
+
+    static styles = [
+        css\`
+            :host {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 1rem;
+            }
+            h4 {
+                margin: 0 0 0.5rem 0;
+                color: var(--mjo-foreground-color);
+            }
+            p {
+                margin: 0;
+                color: var(--mjo-foreground-color-low);
+            }
+        \`,
+    ];
+}
+`
+                    }
+                </CodeblockPre>
+            </Codeblock>
+        </CodeExample>
+        <Typography tag="h3" size="xxl" weight="bold" spacing="md">Variant styles</Typography>
+        <Typography class="explain" tag="p" spacing="md">
+            The card component supports different visual variants. You can set the <code>variant</code> attribute to <code>default</code>, <code>modern</code>,
+            or <code>skew</code> for different design styles.
+        </Typography>
+        <CodeExample>
+            <CardVariants client:visible slot="preview" />
+            <Codeblock showHeader slot="code">
+                <CodeblockPre language="lit" bugTitle="[BUG mjo-card]">
+                    {
+                        `import { LitElement, css, html } from "lit";
+import { customElement } from "lit/decorators.js";
+
+import "mjo-litui/mjo-card";
+
+@customElement("card-variants")
+export class CardVariants extends LitElement {
+    render() {
+        return html\`
+            <mjo-card variant="default">
+                <h4>Default Variant</h4>
+                <p>Traditional rectangular card.</p>
+            </mjo-card>
+            <mjo-card variant="modern">
+                <h4>Modern Variant</h4>
+                <p>Contemporary design with cut corners.</p>
+            </mjo-card>
+            <mjo-card variant="skew">
+                <h4>Skew Variant</h4>
+                <p>Dynamic slanted design.</p>
+            </mjo-card>
+        \`;
+    }
+
+    static styles = [
+        css\`
+            :host {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 1rem;
+            }
+            h4 {
+                margin: 0 0 0.5rem 0;
+                color: var(--mjo-foreground-color);
+            }
+            p {
+                margin: 0;
+                color: var(--mjo-foreground-color-low);
+            }
+        \`,
+    ];
+}
+`
+                    }
+                </CodeblockPre>
+            </Codeblock>
+        </CodeExample>
+        <Typography tag="h3" size="xxl" weight="bold" spacing="md">Spacing variants</Typography>
+        <Typography class="explain" tag="p" spacing="md">
+            Control the internal padding of cards using the <code>space</code> attribute. Options include <code>small</code>, <code>medium</code> (default), and
+            <code>large</code>.
+        </Typography>
+        <CodeExample>
+            <CardSpacing client:visible slot="preview" />
+            <Codeblock showHeader slot="code">
+                <CodeblockPre language="lit" bugTitle="[BUG mjo-card]">
+                    {
+                        `import { LitElement, css, html } from "lit";
+import { customElement } from "lit/decorators.js";
+
+import "mjo-litui/mjo-card";
+
+@customElement("card-spacing")
+export class CardSpacing extends LitElement {
+    render() {
+        return html\`
+            <mjo-card space="small">
+                <h4>Small Spacing</h4>
+                <p>Compact card with minimal padding.</p>
+            </mjo-card>
+            <mjo-card space="medium">
+                <h4>Medium Spacing (Default)</h4>
+                <p>Standard card with default padding.</p>
+            </mjo-card>
+            <mjo-card space="large">
+                <h4>Large Spacing</h4>
+                <p>Spacious card with generous padding.</p>
+            </mjo-card>
+        \`;
+    }
+
+    static styles = [
+        css\`
+            :host {
+                display: flex;
+                flex-direction: column;
+                gap: 1rem;
+            }
+            h4 {
+                margin: 0 0 0.5rem 0;
+                color: var(--mjo-foreground-color);
+            }
+            p {
+                margin: 0;
+                color: var(--mjo-foreground-color-low);
+            }
+        \`,
+    ];
+}
+`
+                    }
+                </CodeblockPre>
+            </Codeblock>
+        </CodeExample>
+        <Typography tag="h2" size="title3" weight="bold" spacing="md">Properties</Typography>
+        <Typography class="explain" tag="p" spacing="md">Properties available on the mjo-card component.</Typography>
+        <Table>
+            <TableHeader>
+                <TableRow>
+                    <TableCellHeader>Property</TableCellHeader>
+                    <TableCellHeader>Type</TableCellHeader>
+                    <TableCellHeader>Default</TableCellHeader>
+                    <TableCellHeader minWidth="200px">Description</TableCellHeader>
+                </TableRow>
+            </TableHeader>
+            <TableBody>
+                <TableRow>
+                    <TableCell><code class="inline">contrast</code></TableCell>
+                    <TableCell><code class="inline">{`"low" | "high" | "normal" | undefined`}</code></TableCell>
+                    <TableCell><code class="inline">{`undefined`}</code></TableCell>
+                    <TableCell>Controls background contrast level relative to the page background.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">radius</code></TableCell>
+                    <TableCell><code class="inline">{`"none" | "small" | "medium" | "large" | undefined`}</code></TableCell>
+                    <TableCell><code class="inline">{`undefined`}</code></TableCell>
+                    <TableCell>Controls border radius applied to the card container.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">variant</code></TableCell>
+                    <TableCell><code class="inline">{`"default" | "modern" | "skew"`}</code></TableCell>
+                    <TableCell><code class="inline">{`"default"`}</code></TableCell>
+                    <TableCell>Controls the visual style variant of the card shape and design.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">space</code></TableCell>
+                    <TableCell><code class="inline">{`"xxsmall" | "xsmall" | "small" | "medium" | "large" | "xlarge" | "xxlarge"`}</code></TableCell>
+                    <TableCell><code class="inline">{`"medium"`}</code></TableCell>
+                    <TableCell>Controls internal padding size.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">theme</code></TableCell>
+                    <TableCell><code class="inline">{`MjoCardTheme`}</code></TableCell>
+                    <TableCell><code class="inline">{`undefined`}</code></TableCell>
+                    <TableCell>Theme object for ThemeMixin customization.</TableCell>
+                </TableRow>
+            </TableBody>
+        </Table>
+        <Typography tag="h2" size="title3" weight="bold" spacing="md">Theming</Typography>
+        <Typography class="explain" tag="p" spacing="md">
+            Customization options for the mjo-card component. If you need more information about theming, please refer to the documentation <Link
+                href="/docs/theming"
+                color="primary">here</Link
+            >.
+        </Typography>
+        <Typography tag="h3" size="xl" weight="bold" spacing="md">CSS Variables</Typography>
+        <Table>
+            <TableHeader>
+                <TableRow>
+                    <TableCellHeader>Variable</TableCellHeader>
+                    <TableCellHeader>Fallback</TableCellHeader>
+                    <TableCellHeader minWidth="200px">Used for</TableCellHeader>
+                </TableRow>
+            </TableHeader>
+            <TableBody>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-card-background-color</code></TableCell>
+                    <TableCell><code class="inline">--mjo-background-color-card</code></TableCell>
+                    <TableCell>Default background color.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-card-background-color-low</code></TableCell>
+                    <TableCell><code class="inline">--mjo-background-color-card-low</code></TableCell>
+                    <TableCell>Low contrast background color.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-card-background-color-high</code></TableCell>
+                    <TableCell><code class="inline">--mjo-background-color-card-high</code></TableCell>
+                    <TableCell>High contrast background color.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-card-padding</code></TableCell>
+                    <TableCell><code class="inline">--mjo-space-medium</code></TableCell>
+                    <TableCell>Internal padding size.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-card-box-shadow</code></TableCell>
+                    <TableCell><code class="inline">--mjo-box-shadow-1</code></TableCell>
+                    <TableCell>Card elevation shadow.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-card-border</code></TableCell>
+                    <TableCell><code class="inline">none</code></TableCell>
+                    <TableCell>Card border styling.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-card-border-color</code></TableCell>
+                    <TableCell><code class="inline">transparent</code></TableCell>
+                    <TableCell>Border color for variants.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-card-radius-small</code></TableCell>
+                    <TableCell><code class="inline">--mjo-radius-small</code></TableCell>
+                    <TableCell>Small border radius.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-card-radius-medium</code></TableCell>
+                    <TableCell><code class="inline">--mjo-radius-medium</code></TableCell>
+                    <TableCell>Medium border radius.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-card-radius-large</code></TableCell>
+                    <TableCell><code class="inline">--mjo-radius-large</code></TableCell>
+                    <TableCell>Large border radius.</TableCell>
+                </TableRow>
+            </TableBody>
+        </Table>
+        <Typography tag="h3" size="xl" weight="bold" spacing="md">CSS Parts</Typography>
+        <Table>
+            <TableHeader>
+                <TableRow>
+                    <TableCellHeader>Part</TableCellHeader>
+                    <TableCellHeader minWidth="200px">Description</TableCellHeader>
+                </TableRow>
+            </TableHeader>
+            <TableBody>
+                <TableRow>
+                    <TableCell><code class="inline">container</code></TableCell>
+                    <TableCell>The main card container element.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">content</code></TableCell>
+                    <TableCell>The internal content container.</TableCell>
+                </TableRow>
+            </TableBody>
+        </Table>
+        <Typography tag="h3" size="xl" weight="bold" spacing="md">Theme interface</Typography>
+        <Typography class="explain" tag="p" spacing="md">
+            Interface for the <code class="inline">mjo-card</code> theme that can be applied through ThemeMixin.
+        </Typography>
+        <Codeblock>
+            <CodeblockPre language="typescript">
+                {
+                    `interface MjoCardTheme {
+    border?: string;
+    borderColor?: string;
+    backgroundColor?: string;
+    backgroundColorLow?: string;
+    backgroundColorHigh?: string;
+    radiusSmall?: string;
+    radiusMedium?: string;
+    radiusLarge?: string;
+    padding?: string;
+    boxShadow?: string;
+}`
+                }
+            </CodeblockPre>
+        </Codeblock>
+        <Typography tag="h2" size="title3" weight="bold" spacing="md">Accessibility</Typography>
+        <Typography class="explain" tag="p" spacing="md">The card component includes comprehensive accessibility features:</Typography>
+        <List listStyle="disc">
+            <ListItem featuredText="Semantic Neutrality">
+                The card component is semantically neutral and doesn't impose specific accessibility requirements
+            </ListItem>
+            <ListItem featuredText="ARIA Enhancement">
+                Consider adding appropriate ARIA attributes when cards contain interactive content:
+                <List listStyle="circle">
+                    <ListItem><code class="inline dense">role="article"</code> for content cards</ListItem>
+                    <ListItem><code class="inline dense">role="region"</code> with <code class="inline dense">aria-label</code> for distinct sections</ListItem>
+                    <ListItem><code class="inline dense">tabindex="0"</code> for focusable cards</ListItem>
+                </List>
+            </ListItem>
+            <ListItem featuredText="Color Contrast"> Ensure sufficient color contrast between card backgrounds and text content </ListItem>
+            <ListItem featuredText="Focus Management"> When cards are interactive, ensure proper focus indicators and keyboard navigation </ListItem>
+        </List>
+        <Typography tag="h2" size="title3" weight="bold" spacing="md">Type Definitions</Typography>
+        <Typography class="explain" tag="p" spacing="md">The card component supports the following type definitions:</Typography>
+        <Codeblock>
+            <CodeblockPre language="typescript">
+                {
+                    `export type MjoCardContrast = "low" | "high" | "normal";
+export type MjoCardRadius = "none" | "small" | "medium" | "large";
+export type MjoCardSpace = "xxsmall" | "xsmall" | "small" | "medium" | "large" | "xlarge" | "xxlarge";
+export type MjoCardVariants = "default" | "modern" | "skew";`
+                }
+            </CodeblockPre>
+        </Codeblock>
+    </article>
+</DocsLayout>
+
+<style>
+    .prose {
+        position: relative;
+    }
+    .explain {
+        color: var(--mjo-foreground-color-low);
+    }
+</style>

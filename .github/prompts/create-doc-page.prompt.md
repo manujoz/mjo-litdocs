@@ -21,3 +21,4 @@ Hazlo paso a paso para no perder contexto:
     - Crea la interface del tema del componente siguiendo exactamente el mismo formato de las tablas que hay en las páginas de documentación existentes.
     - Crea ejemplos de de como personalizar el componente con variables CSS, CSS parts y usando el componente de `mjo-theme`.
 - Crea la sección de accesibilidad del componente siguiendo exactamente el mismo formato de lista que hay en las páginas de documentación existentes.
+- Crea la sección de tipos de definiciones del componente siguiendo exactamente el mismo formato que hay en las páginas de documentación existentes.

@@ -47,6 +47,14 @@ const eventDayClickDetail = `{
   date: Date,
   events: CalendarEventMarker[]
 }`;
+
+const eventMonthSelectedDetail = `{
+  month: number,
+}`;
+
+const eventYearSelectedDetail = `{
+  year: number,
+}`;
 ---
 
 <DocsLayout
@@ -838,10 +846,16 @@ export class CalendarForm extends LitElement {
                     <TableCell>Emitted when mouse leaves a day cell</TableCell>
                 </TableRow>
                 <TableRow>
-                    <TableCell><code class="inline">change</code></TableCell>
-                    <TableCell><code class="inline">Event</code></TableCell>
-                    <TableCell>Mirrors date-selected (single) or range-selected (range) with identical detail fields</TableCell>
-                    <TableCell>Standard change event for form compatibility</TableCell>
+                    <TableCell><code class="inline">mjo-calendar:month-selected</code></TableCell>
+                    <TableCell><code class="inline">MjoCalendarMonthSelectedEvent</code></TableCell>
+                    <TableCell><pre>{eventMonthSelectedDetail}</pre></TableCell>
+                    <TableCell>Emitted when a month is selected</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">mjo-calendar:year-selected</code></TableCell>
+                    <TableCell><code class="inline">MjoCalendarYearSelectedEvent</code></TableCell>
+                    <TableCell><pre>{eventYearSelectedDetail}</pre></TableCell>
+                    <TableCell>Emitted when a year is selected</TableCell>
                 </TableRow>
             </TableBody>
         </Table>
@@ -1833,25 +1847,6 @@ export interface MjoCalendarYearSelectedEvent extends CustomEvent {
 export interface MjoCalendarMonthSelectedEvent extends CustomEvent {
     detail: {
         month: number;
-    };
-}
-
-export interface MjoCalendarNavigateEvent extends CustomEvent {
-    detail: {
-        direction: 1 | -1;
-        side: MjoCalendarHeaderSide;
-    };
-}
-
-export interface MjoCalendarMonthPickerEvent extends CustomEvent {
-    detail: {
-        side: MjoCalendarHeaderSide;
-    };
-}
-
-export interface MjoCalendarYearPickerEvent extends CustomEvent {
-    detail: {
-        side: MjoCalendarHeaderSide;
     };
 }
 
