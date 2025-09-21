@@ -11,7 +11,7 @@ Analiza detenidamente las documentaciones existentes en `src/pages/docs/componen
 Hazlo paso a paso para no perder contexto:
 - Crea la introducción de la página de documentación y la importación.
 - Crea la sección de ejemplos de uso con ejemplos de todas las propiedades y características del componente.
-    - Analiza ejemplos de componentes existentes y crea los ejemplos de uso de componentes lit siguiendo el mismo patrón que en los ejemplos existentes, los ejemplos tienen que ser sencillos y centrados en la propiedad o característica que se está documentando.
+    - Analiza ejemplos de componentes existentes y crea los ejemplos de uso de componentes lit siguiendo el mismo patrón que en los ejemplos existentes en `src/components/examples`, los ejemplos tienen que ser sencillos y centrados en la propiedad o característica que se está documentando.
 - Crea la tabla de propiedades con todas las propiedades del componente siguiendo exactamente el mismo formato de las tablas que hay en las páginas de documentación existentes.
 - Crea la tabla de API con todos los métodos públicos del componente siguiendo exactamente el mismo formato de las tablas que hay en las páginas de documentación existentes.
 - Crea la tabla de eventos con todos los eventos del componente siguiendo exactamente el mismo formato de las tablas que hay en las páginas de documentación existentes.

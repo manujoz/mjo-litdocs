@@ -15,18 +15,18 @@
     "dependencies": {
         "@astrojs/check": "^0.9.4",
         "@astrojs/node": "^9.4.3",
-        "@astrojs/sitemap": "^3.5.0",
+        "@astrojs/sitemap": "^3.6.0",
         "@iconify-json/lucide": "^1.2.62",
         "@lit-labs/ssr": "^3.3.1",
         "@types/js-cookie": "^3.0.6",
         "@webcomponents/template-shadowroot": "^0.2.1",
-        "astro": "^5.13.2",
+        "astro": "^5.13.9",
         "astro-icon": "^1.1.5",
         "js-cookie": "^3.0.5",
         "lit": "^3.3.1",
         "mjo-astro-lit": "^1.0.1",
         "mjo-icons": "^2.0.0",
-        "mjo-litui": "^0.8.1-beta.0",
+        "mjo-litui": "^0.8.1-beta.5",
         "typescript": "^5.9.2"
     },
     "devDependencies": {

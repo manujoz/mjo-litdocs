@@ -1,0 +1,1317 @@
+---
+import Codeblock from "@/components/ui/codeblock/Codeblock.astro";
+import CodeblockPre from "@/components/ui/codeblock/CodeblockPre.astro";
+import CodeExample from "@/components/ui/CodeExample.astro";
+import Link from "@/components/ui/Link.astro";
+import List from "@/components/ui/list/List.astro";
+import ListItem from "@/components/ui/list/ListItem.astro";
+import Table from "@/components/ui/table/Table.astro";
+import TableBody from "@/components/ui/table/TableBody.astro";
+import TableCell from "@/components/ui/table/TableCell.astro";
+import TableCellHeader from "@/components/ui/table/TableCellHeader.astro";
+import TableHeader from "@/components/ui/table/TableHeader.astro";
+import TableRow from "@/components/ui/table/TableRow.astro";
+import Typography from "@/components/ui/Typography.astro";
+import DocsLayout from "@/layouts/DocsLayout.astro";
+
+import { ColorPickerCssCustom } from "@/components/examples/color-picker/color-picker-css-custom";
+import { ColorPickerCssParts } from "@/components/examples/color-picker/color-picker-css-parts";
+import { ColorPickerCustom } from "@/components/examples/color-picker/color-picker-custom";
+import { ColorPickerForm } from "@/components/examples/color-picker/color-picker-form";
+import { ColorPickerFormats } from "@/components/examples/color-picker/color-picker-formats";
+import { ColorPickerRadius } from "@/components/examples/color-picker/color-picker-radius";
+import { ColorPickerSizes } from "@/components/examples/color-picker/color-picker-sizes";
+import { ColorPickerTheme } from "@/components/examples/color-picker/color-picker-theme";
+import { ColorPickerUsage } from "@/components/examples/color-picker/color-picker-usage";
+import { ColorPickerValidation } from "@/components/examples/color-picker/color-picker-validation";
+
+// Event details objects for clean display
+const eventChangeDetail = `{
+  element: MjoColorPicker,
+  value: string,
+  format: MjoColorFormat,
+  originalEvent: Event
+}`;
+
+const eventFormatChangeDetail = `{
+  element: MjoColorPicker,
+  format: MjoColorFormat,
+  previousFormat: MjoColorFormat,
+  value: string
+}`;
+
+const eventFocusDetail = `{
+  element: MjoColorPicker
+}`;
+---
+
+<DocsLayout
+    title="Color Picker"
+    description="The mjo-color-picker component provides visual color selection with validation, accessibility features, and theme customization through multiple size options and styling variants."
+    currentPath="/docs/components/color-picker"
+>
+    <article class="prose">
+        <Typography tag="h1" size="title2" weight="bold">mjo-color-picker</Typography>
+        <Typography class="explain" tag="p" spacing="md">
+            The mjo-color-picker component is a form-integrated color picker providing visual color selection with validation, accessibility features, and theme
+            customization through multiple size options and styling variants. It supports various color formats and includes comprehensive form integration
+            capabilities.
+        </Typography>
+
+        <Typography tag="h2" size="title3" weight="bold" spacing="md">Import</Typography>
+        <Typography class="explain" tag="p" spacing="md">
+            To use the mjo-color-picker component in your project, you need to import it first. You can do this by adding the following import statement to your
+            JavaScript or TypeScript file:
+        </Typography>
+        <Codeblock>
+            <CodeblockPre language="typescript" bugTitle="[BUG mjo-color-picker]">
+                {`import "mjo-litui/mjo-color-picker";`}
+            </CodeblockPre>
+        </Codeblock>
+
+        <Typography tag="h2" size="title3" weight="bold" spacing="md">Usage</Typography>
+        <Typography class="explain" tag="p" spacing="md">Basic usage of the mjo-color-picker component.</Typography>
+        <CodeExample>
+            <ColorPickerUsage client:visible slot="preview" />
+            <Codeblock showHeader slot="code">
+                <CodeblockPre language="lit" bugTitle="[BUG mjo-color-picker]">
+                    {
+                        `import { LitElement, css, html } from "lit";
+import { customElement } from "lit/decorators.js";
+
+import "mjo-litui/mjo-color-picker";
+
+@customElement("color-picker-usage")
+export class ColorPickerUsage extends LitElement {
+    render() {
+        return html\`<mjo-color-picker label="Choose Color" name="color" value="#3b82f6"></mjo-color-picker>\`;
+    }
+
+    static styles = [
+        css\`
+            :host {
+                display: block;
+            }
+        \`,
+    ];
+}
+`
+                    }
+                </CodeblockPre>
+            </Codeblock>
+        </CodeExample>
+
+        <Typography tag="h3" size="xxl" weight="bold" spacing="md">Sizes</Typography>
+        <Typography class="explain" tag="p" spacing="md">
+            The color picker supports different sizes (<code class="inline">small</code>, <code class="inline">medium</code>, <code class="inline">large</code>)
+            and can be styled with <code class="inline">rounded</code> appearance.
+        </Typography>
+        <CodeExample>
+            <ColorPickerSizes client:visible slot="preview" />
+            <Codeblock showHeader slot="code">
+                <CodeblockPre language="lit" bugTitle="[BUG mjo-color-picker]">
+                    {
+                        `import { LitElement, css, html } from "lit";
+import { customElement } from "lit/decorators.js";
+
+import "mjo-litui/mjo-color-picker";
+
+@customElement("color-picker-sizes")
+export class ColorPickerSizes extends LitElement {
+    render() {
+        return html\`
+            <mjo-color-picker label="Small" size="small" value="#ef4444"></mjo-color-picker>
+            <mjo-color-picker label="Medium" size="medium" value="#3b82f6"></mjo-color-picker>
+            <mjo-color-picker label="Large" size="large" value="#10b981"></mjo-color-picker>
+        \`;
+    }
+
+    static styles = [
+        css\`
+            :host {
+                display: flex;
+                flex-direction: column;
+                gap: var(--mjo-space-large);
+            }
+        \`,
+    ];
+}
+`
+                    }
+                </CodeblockPre>
+            </Codeblock>
+        </CodeExample>
+
+        <Typography tag="h3" size="xxl" weight="bold" spacing="md">Rounded</Typography>
+        <Typography class="explain" tag="p" spacing="md">
+            The color picker supports different rounded styles, including <code class="inline">rounded</code> appearance.
+        </Typography>
+        <CodeExample>
+            <ColorPickerRadius client:visible slot="preview" />
+            <Codeblock showHeader slot="code">
+                <CodeblockPre language="lit" bugTitle="[BUG mjo-color-picker]">
+                    {
+                        `import { LitElement, css, html } from "lit";
+import { customElement } from "lit/decorators.js";
+
+@customElement("color-picker-radius")
+export class ColorPickerRadius extends LitElement {
+    render() {
+        return html\`<mjo-color-picker label="Rounded" rounded value="#ef4444"></mjo-color-picker>\`;
+    }
+
+    static styles = [
+        css\`
+            :host {
+                display: block;
+            }
+        \`,
+    ];
+}
+
+`
+                    }
+                </CodeblockPre>
+            </Codeblock>
+        </CodeExample>
+
+        <Typography tag="h3" size="xxl" weight="bold" spacing="md">Color Formats</Typography>
+        <Typography class="explain" tag="p" spacing="md">
+            The color picker supports multiple output formats: <code class="inline">hex</code>, <code class="inline">rgb</code>, <code class="inline">rgba</code
+            >, <code class="inline">hsl</code>, <code class="inline">hsla</code>, and <code class="inline">hwb</code>. Use <code class="inline">showValue</code>
+            to display the current color value.
+        </Typography>
+        <CodeExample>
+            <ColorPickerFormats client:visible slot="preview" />
+            <Codeblock showHeader slot="code">
+                <CodeblockPre language="lit" bugTitle="[BUG mjo-color-picker]">
+                    {
+                        `import type { MjoColorPickerChangeEvent } from "mjo-litui/types/mjo-color-picker";
+
+import { LitElement, css, html } from "lit";
+import { customElement, state } from "lit/decorators.js";
+
+import "mjo-litui/mjo-color-picker";
+
+@customElement("color-picker-formats")
+export class ColorPickerFormats extends LitElement {
+    @state() private color = "#3b82f6";
+
+    render() {
+        return html\`
+            <mjo-color-picker 
+                label="Hex Format" 
+                format="hex" 
+                showValue 
+                value=\${this.color} 
+                @mjo-color-picker:change=\${this.#handleColorChange}>
+            </mjo-color-picker>
+            <mjo-color-picker 
+                label="RGB Format" 
+                format="rgb" 
+                showValue 
+                value=\${this.color} 
+                @mjo-color-picker:change=\${this.#handleColorChange}>
+            </mjo-color-picker>
+            <mjo-color-picker 
+                label="HSL Format" 
+                format="hsl" 
+                showValue 
+                value=\${this.color} 
+                @mjo-color-picker:change=\${this.#handleColorChange}>
+            </mjo-color-picker>
+            <mjo-color-picker 
+                label="HWB Format" 
+                format="hwb" 
+                showValue 
+                value=\${this.color} 
+                @mjo-color-picker:change=\${this.#handleColorChange}>
+            </mjo-color-picker>
+        \`;
+    }
+
+    #handleColorChange(event: MjoColorPickerChangeEvent) {
+        this.color = event.detail.value;
+    }
+
+    static styles = [
+        css\`
+            :host {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr));
+                gap: 1rem;
+            }
+        \`,
+    ];
+}
+`
+                    }
+                </CodeblockPre>
+            </Codeblock>
+        </CodeExample>
+
+        <Typography tag="h3" size="xxl" weight="bold" spacing="md">Validation and States</Typography>
+        <Typography class="explain" tag="p" spacing="md">
+            The color picker supports validation states including <code>required</code>, <code>disabled</code>, <code>error</code>, and <code>success</code> states.
+        </Typography>
+        <CodeExample>
+            <ColorPickerValidation client:visible slot="preview" />
+            <Codeblock showHeader slot="code">
+                <CodeblockPre language="lit" bugTitle="[BUG mjo-color-picker]">
+                    {
+                        `import { LitElement, css, html } from "lit";
+import { customElement } from "lit/decorators.js";
+
+import "mjo-litui/mjo-color-picker";
+
+@customElement("color-picker-validation")
+export class ColorPickerValidation extends LitElement {
+    render() {
+        return html\`
+            <mjo-color-picker 
+                label="Disabled Color Picker" 
+                disabled 
+                value="#94a3b8">
+            </mjo-color-picker>
+            <mjo-color-picker 
+                label="Error State" 
+                error 
+                errormsg="Invalid color selection" 
+                value="#dc2626">
+            </mjo-color-picker>
+            <mjo-color-picker 
+                label="Success State" 
+                success 
+                successmsg="Color saved successfully" 
+                value="#16a34a">
+            </mjo-color-picker>
+        \`;
+    }
+
+    static styles = [
+        css\`
+            :host {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 1rem;
+            }
+        \`,
+    ];
+}
+`
+                    }
+                </CodeblockPre>
+            </Codeblock>
+        </CodeExample>
+
+        <Typography tag="h3" size="xxl" weight="bold" spacing="md">Form Integration</Typography>
+        <Typography class="explain" tag="p" spacing="md">
+            The color picker integrates seamlessly with <code>mjo-form</code> for comprehensive form handling and validation.
+        </Typography>
+        <CodeExample>
+            <ColorPickerForm client:visible slot="preview" />
+            <Codeblock showHeader slot="code">
+                <CodeblockPre language="lit" bugTitle="[BUG mjo-color-picker]">
+                    {
+                        `import type { MjoFormSubmitEvent } from "mjo-litui/types/mjo-form";
+
+import { LitElement, css, html } from "lit";
+import { customElement, state } from "lit/decorators.js";
+import { ifDefined } from "lit/directives/if-defined.js";
+
+import { isLightColor } from "mjo-litui/utils/colors";
+
+import "mjo-litui/mjo-button";
+import "mjo-litui/mjo-color-picker";
+import "mjo-litui/mjo-form";
+
+@customElement("color-picker-form")
+export class ColorPickerForm extends LitElement {
+    @state() private error = false;
+    @state() private success = false;
+    @state() private errorMsg?: string;
+    @state() private successMsg?: string;
+
+    render() {
+        return html\`
+            <mjo-form @submit=\${this.#handleSubmit}>
+                <div class="form-grid">
+                    <mjo-color-picker
+                        label="Brand Color"
+                        name="brandColor"
+                        color="secondary"
+                        value="#6c40d3"
+                        helperText="Choose your brand color"
+                        ?error=\${this.error}
+                        ?success=\${this.success}
+                        errormsg=\${ifDefined(this.errorMsg)}
+                        successmsg=\${ifDefined(this.successMsg)}
+                    >
+                    </mjo-color-picker>
+                </div>
+                <div class="form-actions">
+                    <mjo-button type="submit" color="primary">Save</mjo-button>
+                </div>
+            </mjo-form>
+        \`;
+    }
+
+    #handleSubmit(event: MjoFormSubmitEvent) {
+        const { data, submitButton } = event.detail.response;
+
+        if (submitButton) submitButton.loading = false;
+
+        const brandColor = data.brandColor as string;
+        if (!brandColor) {
+            this.error = true;
+            this.errorMsg = "Please select a color";
+            return;
+        }
+
+        if (!isLightColor({ color: brandColor })) {
+            this.error = true;
+            this.errorMsg = "Please select a light color";
+            return;
+        }
+
+        this.error = false;
+        this.errorMsg = undefined;
+        this.success = true;
+        this.successMsg = "Color saved successfully";
+    }
+
+    static styles = [
+        css\`
+            :host {
+                display: block;
+                width: 100%;
+            }
+            .form-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 1rem;
+                margin-bottom: 1rem;
+            }
+            .form-actions {
+                display: flex;
+                gap: 0.5rem;
+                margin-bottom: 1rem;
+            }
+        \`,
+    ];
+}
+`
+                    }
+                </CodeblockPre>
+            </Codeblock>
+        </CodeExample>
+
+        <Typography tag="h3" size="xxl" weight="bold" spacing="md">Form Integration</Typography>
+        <Typography class="explain" tag="p" spacing="md">
+            The color picker integrates seamlessly with <code>mjo-form</code> for comprehensive form handling and validation.
+        </Typography>
+        <CodeExample>
+            <ColorPickerForm client:visible slot="preview" />
+            <Codeblock showHeader slot="code">
+                <CodeblockPre language="lit" bugTitle="[BUG mjo-color-picker]">
+                    {
+                        `import type { MjoFormSubmitEvent } from "mjo-litui/types/mjo-form";
+
+import { LitElement, css, html } from "lit";
+import { customElement, state } from "lit/decorators.js";
+import { ifDefined } from "lit/directives/if-defined.js";
+
+import { isLightColor } from "mjo-litui/utils/colors";
+
+import "mjo-litui/mjo-button";
+import "mjo-litui/mjo-color-picker";
+import "mjo-litui/mjo-form";
+
+@customElement("color-picker-form")
+export class ColorPickerForm extends LitElement {
+    @state() private error = false;
+    @state() private success = false;
+    @state() private errorMsg?: string;
+    @state() private successMsg?: string;
+
+    render() {
+        return html\`
+            <mjo-form @submit=\${this.#handleSubmit}>
+                <div class="form-grid">
+                    <mjo-color-picker
+                        label="Brand Color"
+                        name="brandColor"
+                        color="secondary"
+                        value="#6c40d3"
+                        helperText="Choose your brand color"
+                        ?error=\${this.error}
+                        ?success=\${this.success}
+                        errormsg=\${ifDefined(this.errorMsg)}
+                        successmsg=\${ifDefined(this.successMsg)}
+                    >
+                    </mjo-color-picker>
+                </div>
+                <div class="form-actions">
+                    <mjo-button type="submit" color="primary">Save</mjo-button>
+                </div>
+            </mjo-form>
+        \`;
+    }
+
+    #handleSubmit(event: MjoFormSubmitEvent) {
+        const { data, submitButton } = event.detail.response;
+
+        if (submitButton) submitButton.loading = false;
+
+        const brandColor = data.brandColor as string;
+        if (!brandColor) {
+            this.error = true;
+            this.errorMsg = "Please select a color";
+            return;
+        }
+
+        if (!isLightColor({ color: brandColor })) {
+            this.error = true;
+            this.errorMsg = "Please select a light color";
+            return;
+        }
+
+        this.error = false;
+        this.errorMsg = undefined;
+        this.success = true;
+        this.successMsg = "Color saved successfully";
+    }
+
+    static styles = [
+        css\`
+            :host {
+                display: block;
+                width: 100%;
+            }
+            .form-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 1rem;
+                margin-bottom: 1rem;
+            }
+            .form-actions {
+                display: flex;
+                gap: 0.5rem;
+                margin-bottom: 1rem;
+            }
+        \`,
+    ];
+}
+`
+                    }
+                </CodeblockPre>
+            </Codeblock>
+        </CodeExample>
+
+        <Typography tag="h3" size="xxl" weight="bold" spacing="md">Custom component</Typography>
+        <Typography class="explain" tag="p" spacing="md">
+            You can create a custom color picker component extending the base <code class="inline">mjo-color-picker</code> element.
+        </Typography>
+        <CodeExample>
+            <ColorPickerCustom client:visible slot="preview" />
+            <Codeblock showHeader slot="code">
+                <CodeblockPre language="lit" bugTitle="[BUG mjo-color-picker]">
+                    {
+                        `import { css, html, type PropertyValues } from "lit";
+import { customElement } from "lit/decorators.js";
+
+import { MjoColorPicker } from "mjo-litui/mjo-color-picker";
+import type { MjoColorPickerInputEvent } from "mjo-litui/types/mjo-color-picker";
+
+@customElement("color-picker-custom")
+export class ColorPickerCustom extends MjoColorPicker {
+    render() {
+        const base = super.render();
+
+        return html\`
+            <div class="base">\${base}</div>
+            <div class="container" @click=\${this.#handleClick}>
+                <div class="color"></div>
+                <div class="content">
+                    <label>Brand color</label>
+                    <div class="value">\${this.value}</div>
+                </div>
+            </div>
+        \`;
+    }
+
+    connectedCallback(): void {
+        super.connectedCallback();
+
+        this.style.setProperty("--default-color", this.value || "#3b82f6");
+
+        this.addEventListener("mjo-color-picker:input", this.#handleInput);
+    }
+
+    disconnectedCallback(): void {
+        super.disconnectedCallback();
+
+        this.removeEventListener("mjo-color-picker:input", this.#handleInput);
+    }
+
+    protected willUpdate(_changedProperties: PropertyValues<this>): void {
+        super.willUpdate(_changedProperties);
+
+        this.value = this.value || "#3b82f6";
+    }
+
+    #handleInput = (event: MjoColorPickerInputEvent) => {
+        this.style.setProperty("--default-color", event.detail.value);
+    };
+
+    #handleClick = () => {
+        this.click();
+    };
+
+    static styles = [
+        css\`
+            :host {
+                position: relative;
+                display: inline-block;
+                --default-color: #3b82f6;
+            }
+            .base {
+                position: absolute;
+                inset: 0;
+                opacity: 1;
+            }
+            .container {
+                position: relative;
+                cursor: pointer;
+                display: inline-flex;
+                background: var(--mjo-background-color-card);
+                gap: 1rem;
+                border-radius: 0 var(--mjo-radius-large) var(--mjo-radius-large) 0;
+                border: 1px solid var(--mjo-border-color);
+                transition: background 0.25s ease;
+            }
+            .container:hover {
+                background: var(--mjo-background-color-card-high);
+            }
+            .color {
+                flex: 0 1 10px;
+                min-width: 10px;
+                background-color: var(--default-color);
+                border-right: 1px solid var(--mjo-border-color);
+            }
+            .content {
+                flex: 1 1 auto;
+                padding: 0.5rem 0;
+                min-width: 150px;
+                display: flex;
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            label {
+                cursor: pointer;
+                color: var(--mjo-foreground-color-low);
+                font-size: 0.875rem;
+            }
+            .value {
+                font-weight: bold;
+                background: linear-gradient(90deg, var(--mjo-primary-color) 5%, var(--mjo-foreground-color));
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+            }
+        \`,
+    ];
+}
+
+declare global {
+    interface HTMLElementTagNameMap {
+        "color-picker-custom": MjoColorPicker;
+    }
+}
+`
+                    }
+                </CodeblockPre>
+            </Codeblock>
+        </CodeExample>
+
+        <Typography tag="h2" size="title3" weight="bold" spacing="md">Properties</Typography>
+        <Typography class="explain" tag="p" spacing="md">Properties available on the mjo-color-picker component.</Typography>
+        <Table>
+            <TableHeader>
+                <TableRow>
+                    <TableCellHeader>Property</TableCellHeader>
+                    <TableCellHeader>Type</TableCellHeader>
+                    <TableCellHeader>Default</TableCellHeader>
+                    <TableCellHeader minWidth="200px">Description</TableCellHeader>
+                </TableRow>
+            </TableHeader>
+            <TableBody>
+                <TableRow>
+                    <TableCell><code class="inline">color</code></TableCell>
+                    <TableCell><code class="inline">{`"primary" | "secondary"`}</code></TableCell>
+                    <TableCell><code class="inline">{`"primary"`}</code></TableCell>
+                    <TableCell>Semantic color scheme applied to the label</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">disabled</code></TableCell>
+                    <TableCell><code class="inline">{`boolean`}</code></TableCell>
+                    <TableCell><code class="inline">{`false`}</code></TableCell>
+                    <TableCell>Disables the color picker and applies disabled styling</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">helperText</code></TableCell>
+                    <TableCell><code class="inline">{`string | undefined`}</code></TableCell>
+                    <TableCell><code class="inline">{`undefined`}</code></TableCell>
+                    <TableCell>Additional descriptive text displayed below the picker</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">label</code></TableCell>
+                    <TableCell><code class="inline">{`string | undefined`}</code></TableCell>
+                    <TableCell><code class="inline">{`undefined`}</code></TableCell>
+                    <TableCell>Text label displayed above the color picker</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">name</code></TableCell>
+                    <TableCell><code class="inline">{`string | undefined`}</code></TableCell>
+                    <TableCell><code class="inline">{`undefined`}</code></TableCell>
+                    <TableCell>Form field name for form submission and validation</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">value</code></TableCell>
+                    <TableCell><code class="inline">{`string`}</code></TableCell>
+                    <TableCell><code class="inline">{`""`}</code></TableCell>
+                    <TableCell>Current color value in hexadecimal format (e.g., "#3b82f6")</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">hideErrors</code></TableCell>
+                    <TableCell><code class="inline">{`boolean`}</code></TableCell>
+                    <TableCell><code class="inline">{`false`}</code></TableCell>
+                    <TableCell>Prevents display of validation error messages</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">rounded</code></TableCell>
+                    <TableCell><code class="inline">{`boolean`}</code></TableCell>
+                    <TableCell><code class="inline">{`false`}</code></TableCell>
+                    <TableCell>Applies circular border radius (50%) to the color picker</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">size</code></TableCell>
+                    <TableCell><code class="inline">{`"small" | "medium" | "large"`}</code></TableCell>
+                    <TableCell><code class="inline">{`"medium"`}</code></TableCell>
+                    <TableCell>Controls the overall size of the color picker</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">format</code></TableCell>
+                    <TableCell><code class="inline">{`"hex" | "rgb" | "rgba" | "hsl" | "hsla" | "hwb"`}</code></TableCell>
+                    <TableCell><code class="inline">{`"hex"`}</code></TableCell>
+                    <TableCell>Output format for color values</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">showValue</code></TableCell>
+                    <TableCell><code class="inline">{`boolean`}</code></TableCell>
+                    <TableCell><code class="inline">{`false`}</code></TableCell>
+                    <TableCell>Displays the current color value below the picker</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">required</code></TableCell>
+                    <TableCell><code class="inline">{`boolean`}</code></TableCell>
+                    <TableCell><code class="inline">{`false`}</code></TableCell>
+                    <TableCell>Makes the field required for form validation</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">error</code></TableCell>
+                    <TableCell><code class="inline">{`boolean`}</code></TableCell>
+                    <TableCell><code class="inline">{`false`}</code></TableCell>
+                    <TableCell>Indicates error state</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">errormsg</code></TableCell>
+                    <TableCell><code class="inline">{`string | undefined`}</code></TableCell>
+                    <TableCell><code class="inline">{`undefined`}</code></TableCell>
+                    <TableCell>Error message to display</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">success</code></TableCell>
+                    <TableCell><code class="inline">{`boolean`}</code></TableCell>
+                    <TableCell><code class="inline">{`false`}</code></TableCell>
+                    <TableCell>Indicates success state</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">successmsg</code></TableCell>
+                    <TableCell><code class="inline">{`string | undefined`}</code></TableCell>
+                    <TableCell><code class="inline">{`undefined`}</code></TableCell>
+                    <TableCell>Success message to display</TableCell>
+                </TableRow>
+            </TableBody>
+        </Table>
+
+        <Typography tag="h2" size="title3" weight="bold" spacing="md">API</Typography>
+        <Typography class="explain" tag="p" spacing="md">Methods available on the mjo-color-picker component.</Typography>
+        <Table>
+            <TableHeader>
+                <TableRow>
+                    <TableCellHeader>Method</TableCellHeader>
+                    <TableCellHeader>Parameters</TableCellHeader>
+                    <TableCellHeader>Returns</TableCellHeader>
+                    <TableCellHeader minWidth="200px">Description</TableCellHeader>
+                </TableRow>
+            </TableHeader>
+            <TableBody>
+                <TableRow>
+                    <TableCell><code class="inline">getValue()</code></TableCell>
+                    <TableCell><code class="inline">-</code></TableCell>
+                    <TableCell><code class="inline">string</code></TableCell>
+                    <TableCell>Returns the current color value</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">setValue(value)</code></TableCell>
+                    <TableCell><code class="inline">value: string</code></TableCell>
+                    <TableCell><code class="inline">void</code></TableCell>
+                    <TableCell>Sets the color value programmatically</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">getFormattedValue(format)</code></TableCell>
+                    <TableCell><code class="inline">format: MjoColorFormat</code></TableCell>
+                    <TableCell><code class="inline">string</code></TableCell>
+                    <TableCell>Returns the color in the specified format</TableCell>
+                </TableRow>
+            </TableBody>
+        </Table>
+
+        <Typography tag="h2" size="title3" weight="bold" spacing="md">Events</Typography>
+        <Typography class="explain" tag="p" spacing="md">The mjo-color-picker has the following events available:</Typography>
+        <Table>
+            <TableHeader>
+                <TableRow>
+                    <TableCellHeader width="200px">Event</TableCellHeader>
+                    <TableCellHeader width="200px">CustomEvent type</TableCellHeader>
+                    <TableCellHeader>Detail</TableCellHeader>
+                    <TableCellHeader minWidth="200px">Notes</TableCellHeader>
+                </TableRow>
+            </TableHeader>
+            <TableBody>
+                <TableRow>
+                    <TableCell><code class="inline">mjo-color-picker:change</code></TableCell>
+                    <TableCell><code class="inline">MjoColorPickerChangeEvent</code></TableCell>
+                    <TableCell><pre>{eventChangeDetail}</pre></TableCell>
+                    <TableCell>Custom event with detailed info</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">mjo-color-picker:input</code></TableCell>
+                    <TableCell><code class="inline">MjoColorPickerInputEvent</code></TableCell>
+                    <TableCell><pre>{eventChangeDetail}</pre></TableCell>
+                    <TableCell>Custom event with detailed info</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">mjo-color-picker:format-change</code></TableCell>
+                    <TableCell><code class="inline">MjoColorPickerFormatChangeEvent</code></TableCell>
+                    <TableCell><pre>{eventFormatChangeDetail}</pre></TableCell>
+                    <TableCell>Custom event for format tracking</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">mjo-color-picker:focus</code></TableCell>
+                    <TableCell><code class="inline">MjoColorPickerFocusEvent</code></TableCell>
+                    <TableCell><pre>{eventFocusDetail}</pre></TableCell>
+                    <TableCell>Custom focus event</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">mjo-color-picker:blur</code></TableCell>
+                    <TableCell><code class="inline">MjoColorPickerBlurEvent</code></TableCell>
+                    <TableCell><pre>{eventFocusDetail}</pre></TableCell>
+                    <TableCell>Custom blur event</TableCell>
+                </TableRow>
+            </TableBody>
+        </Table>
+
+        <Typography tag="h2" size="title3" weight="bold" spacing="md">Theming</Typography>
+        <Typography class="explain" tag="p" spacing="md">
+            Customization options for the mjo-color-picker component. If you need more information about theming, please refer to the documentation <Link
+                href="/docs/theming"
+                color="primary">here</Link
+            >.
+        </Typography>
+
+        <Typography tag="h3" size="xl" weight="bold" spacing="md">CSS Variables</Typography>
+        <Table>
+            <TableHeader>
+                <TableRow>
+                    <TableCellHeader>Variable</TableCellHeader>
+                    <TableCellHeader>Default</TableCellHeader>
+                    <TableCellHeader minWidth="200px">Description</TableCellHeader>
+                </TableRow>
+            </TableHeader>
+            <TableBody>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-color-picker-size-small</code></TableCell>
+                    <TableCell><code class="inline">20px</code></TableCell>
+                    <TableCell>Width and height for small size</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-color-picker-size-medium</code></TableCell>
+                    <TableCell><code class="inline">28px</code></TableCell>
+                    <TableCell>Width and height for medium size</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-color-picker-size-large</code></TableCell>
+                    <TableCell><code class="inline">36px</code></TableCell>
+                    <TableCell>Width and height for large size</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-color-picker-border-style</code></TableCell>
+                    <TableCell><code class="inline">solid</code></TableCell>
+                    <TableCell>Border style</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-color-picker-border-width</code></TableCell>
+                    <TableCell><code class="inline">1px</code></TableCell>
+                    <TableCell>Border width</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-color-picker-border-color</code></TableCell>
+                    <TableCell><code class="inline">#dddddd</code></TableCell>
+                    <TableCell>Border color</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-color-picker-border-color-focus</code></TableCell>
+                    <TableCell><code class="inline">#1aa8ed</code></TableCell>
+                    <TableCell>Focus border color</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-color-picker-border-radius</code></TableCell>
+                    <TableCell><code class="inline">5px</code></TableCell>
+                    <TableCell>Border radius</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-color-picker-box-shadow</code></TableCell>
+                    <TableCell><code class="inline">none</code></TableCell>
+                    <TableCell>Box shadow effect</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-color-picker-box-shadow-focus</code></TableCell>
+                    <TableCell><code class="inline">0 0 0 2px rgba(29, 127, 219, 0.2)</code></TableCell>
+                    <TableCell>Focus box shadow</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-color-picker-transition</code></TableCell>
+                    <TableCell><code class="inline">border-color 0.2s ease, box-shadow 0.2s ease</code></TableCell>
+                    <TableCell>Transition effects</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-color-picker-value-color</code></TableCell>
+                    <TableCell><code class="inline">#1f2937</code></TableCell>
+                    <TableCell>Value display text color</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-color-picker-value-font-size</code></TableCell>
+                    <TableCell><code class="inline">0.75rem</code></TableCell>
+                    <TableCell>Value display font size</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-color-picker-value-font-weight</code></TableCell>
+                    <TableCell><code class="inline">500</code></TableCell>
+                    <TableCell>Value display font weight</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-color-picker-label-color</code></TableCell>
+                    <TableCell><code class="inline">Label text color</code></TableCell>
+                    <TableCell>Label text color</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-color-picker-label-font-size</code></TableCell>
+                    <TableCell><code class="inline">Label font size</code></TableCell>
+                    <TableCell>Label font size</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-color-picker-label-font-weight</code></TableCell>
+                    <TableCell><code class="inline">Label font weight</code></TableCell>
+                    <TableCell>Label font weight</TableCell>
+                </TableRow>
+            </TableBody>
+        </Table>
+
+        <Typography tag="h3" size="xl" weight="bold" spacing="md">CSS Parts</Typography>
+        <Typography class="explain" tag="p" spacing="md">
+            Parts available for styling the mjo-color-picker component using the <code class="inline">::part()</code> CSS selector.
+        </Typography>
+        <Table>
+            <TableHeader>
+                <TableRow>
+                    <TableCellHeader>Part</TableCellHeader>
+                    <TableCellHeader minWidth="200px">Description</TableCellHeader>
+                </TableRow>
+            </TableHeader>
+            <TableBody>
+                <TableRow>
+                    <TableCell><code class="inline">container</code></TableCell>
+                    <TableCell>The main color picker container</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">color-picker</code></TableCell>
+                    <TableCell>The visual color display area</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">value-display</code></TableCell>
+                    <TableCell>The color value text display</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">label-container</code></TableCell>
+                    <TableCell>Label container (via mjoint-input-label)</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">label-truncate-container</code></TableCell>
+                    <TableCell>Label truncate container (via mjoint-input-label)</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">label-truncate-wrapper</code></TableCell>
+                    <TableCell>Label truncate wrapper (via mjoint-input-label)</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">helper-text-container</code></TableCell>
+                    <TableCell>Helper text container (via mjoint-input-helper-text)</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">helper-text-typography</code></TableCell>
+                    <TableCell>Helper text typography (via mjoint-input-helper-text)</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">helper-text-error-message</code></TableCell>
+                    <TableCell>Error message container (via mjoint-input-helper-text)</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">helper-text-success-message</code></TableCell>
+                    <TableCell>Success message container (via mjoint-input-helper-text)</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">helper-text-icon</code></TableCell>
+                    <TableCell>Helper text icon (via mjoint-input-helper-text)</TableCell>
+                </TableRow>
+            </TableBody>
+        </Table>
+
+        <Typography tag="h3" size="xl" weight="bold" spacing="md">Theme interface</Typography>
+        <Typography class="explain" tag="p" spacing="md">
+            Interface for the <code class="inline">mjo-color-picker</code> theme that can be applied to the <code class="inline">MjoTheme</code> component.
+        </Typography>
+        <Codeblock>
+            <CodeblockPre language="typescript">
+                {
+                    `export interface MjoColorPickerTheme {
+    // Size variables
+    sizeSmall?: string;
+    sizeMedium?: string;
+    sizeLarge?: string;
+    
+    // Border and appearance
+    borderStyle?: string;
+    borderWidth?: string;
+    borderColor?: string;
+    borderColorFocus?: string;
+    borderRadius?: string;
+    boxShadow?: string;
+    boxShadowFocus?: string;
+    transition?: string;
+    
+    // Label styling
+    labelColor?: string;
+    labelFontSize?: string;
+    labelFontWeight?: string;
+    
+    // Value display styling
+    valueColor?: string;
+    valueFontSize?: string;
+    valueFontWeight?: string;
+}`
+                }
+            </CodeblockPre>
+        </Codeblock>
+
+        <Typography tag="h3" size="xl" weight="bold" spacing="md">Examples</Typography>
+
+        <Typography tag="h4" size="xl" weight="bold" spacing="md">With CSS variables</Typography>
+        <Typography class="explain" tag="p" spacing="md">Use CSS variables to customize the appearance of the color picker.</Typography>
+        <CodeExample>
+            <ColorPickerCssCustom client:visible slot="preview" />
+            <Codeblock showHeader slot="code">
+                <CodeblockPre language="lit" bugTitle="[BUG mjo-color-picker]">
+                    {
+                        `import type { MjoColorPickerInputEvent } from "mjo-litui/types/mjo-color-picker";
+
+import { LitElement, css, html } from "lit";
+import { customElement } from "lit/decorators.js";
+
+import "mjo-litui/mjo-color-picker";
+
+@customElement("color-picker-css-custom")
+export class ColorPickerCssCustom extends LitElement {
+    render() {
+        return html\`<mjo-color-picker label="Custom Styled" value="#ff6b6b" @mjo-color-picker:input=\${this.#handleInput}></mjo-color-picker>\`;
+    }
+
+    #handleInput = (event: MjoColorPickerInputEvent) => {
+        const color = event.detail.value;
+
+        this.style.setProperty("--mjo-color-picker-border-color", color);
+        this.style.setProperty("--mjo-color-picker-border-color-focus", color);
+        this.style.setProperty("--mjo-color-picker-box-shadow-focus", \`0 0 0 10px color-mix(in srgb, \${color} 20%, transparent)\`);
+    };
+
+    static styles = [
+        css\`
+            :host {
+                display: block;
+                padding: var(--mjo-space-large) 0;
+                --mjo-color-picker-border-radius: 0px;
+                --mjo-color-picker-border-width: 3px;
+                --mjo-color-picker-border-color: #ff6b6b;
+                --mjo-color-picker-border-color-focus: #ff5252;
+                --mjo-color-picker-box-shadow-focus: ;
+                --mjo-color-picker-size-medium: 40px;
+            }
+        \`,
+    ];
+}
+`
+                    }
+                </CodeblockPre>
+            </Codeblock>
+        </CodeExample>
+
+        <Typography tag="h4" size="xl" weight="bold" spacing="md">With theme interface</Typography>
+        <Typography class="explain" tag="p" spacing="md">
+            You can use the <code>MjoThemeConfig</code> for customizing the color picker styles in a more structured way.
+        </Typography>
+        <CodeExample>
+            <ColorPickerTheme client:visible slot="preview" />
+            <Codeblock showHeader slot="code">
+                <CodeblockPre language="lit" bugTitle="[BUG mjo-color-picker]">
+                    {
+                        `import type { MjoColorPickerTheme } from "mjo-litui/types/mjo-theme";
+
+import { LitElement, css, html } from "lit";
+import { customElement } from "lit/decorators.js";
+
+import "mjo-litui/mjo-color-picker";
+import "mjo-litui/mjo-theme";
+
+const colorPickerTheme: MjoColorPickerTheme = {
+    borderRadius: "12px",
+    borderWidth: "2px",
+    borderColor: "var(--mjo-primary-color)",
+    borderColorFocus: "var(--mjo-secondary-color)",
+    boxShadowFocus: "0 0 10px 5px color-mix(in srgb, var(--mjo-primary-color) 30%, transparent)",
+    labelColor: "var(--mjo-primary-color)",
+    labelFontWeight: "600",
+};
+
+@customElement("color-picker-theme")
+export class ColorPickerTheme extends LitElement {
+    render() {
+        return html\`<mjo-color-picker label="Themed Small" value="#3b82f6" .theme=\${colorPickerTheme}></mjo-color-picker>\`;
+    }
+
+    static styles = [
+        css\`
+            :host {
+                display: block;
+                padding: var(--mjo-space-large) 0;
+            }
+        \`,
+    ];
+}
+`
+                    }
+                </CodeblockPre>
+            </Codeblock>
+        </CodeExample>
+
+        <Typography tag="h4" size="xl" weight="bold" spacing="md">With CSS Parts</Typography>
+        <Typography class="explain" tag="p" spacing="md">
+            Use CSS Parts to customize specific parts of the color picker component for more granular styling control.
+        </Typography>
+        <CodeExample>
+            <ColorPickerCssParts client:visible slot="preview" />
+            <Codeblock showHeader slot="code">
+                <CodeblockPre language="lit" bugTitle="[BUG mjo-color-picker]">
+                    {
+                        `import { LitElement, css, html } from "lit";
+import { customElement } from "lit/decorators.js";
+
+import "mjo-litui/mjo-color-picker";
+
+@customElement("color-picker-css-parts")
+export class ColorPickerCssParts extends LitElement {
+    render() {
+        return html\`
+            <div class="container">
+                <mjo-color-picker 
+                    label="Custom Parts Styling" 
+                    value="#e74c3c" 
+                    helperText="Styled using CSS Parts"
+                    showValue>
+                </mjo-color-picker>
+                
+                <mjo-color-picker 
+                    label="Advanced Parts Example" 
+                    value="#2ecc71" 
+                    helperText="Multiple parts customized"
+                    showValue
+                    class="advanced-parts">
+                </mjo-color-picker>
+            </div>
+        \`;
+    }
+
+    static styles = [
+        css\`
+            :host {
+                display: block;
+                width: 100%;
+            }
+            .container {
+                display: flex;
+                flex-direction: column;
+                gap: 2rem;
+            }
+            
+            /* Basic parts styling */
+            mjo-color-picker::part(color-picker) {
+                border: 3px solid #e74c3c;
+                border-radius: 50%;
+                box-shadow: 0 0 20px rgba(231, 76, 60, 0.3);
+                transition: all 0.3s ease;
+            }
+            
+            mjo-color-picker::part(color-picker):hover {
+                transform: scale(1.1);
+                box-shadow: 0 0 30px rgba(231, 76, 60, 0.5);
+            }
+            
+            mjo-color-picker::part(value-display) {
+                font-family: monospace;
+                font-weight: bold;
+                background: linear-gradient(45deg, #e74c3c, #c0392b);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+            }
+            
+            /* Advanced parts styling */
+            .advanced-parts::part(container) {
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                padding: 1rem;
+                border-radius: 12px;
+                box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+            }
+            
+            .advanced-parts::part(color-picker) {
+                border: 2px solid white;
+                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            }
+            
+            .advanced-parts::part(value-display) {
+                color: white;
+                font-weight: 600;
+                text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+            }
+            
+            .advanced-parts::part(label-container) {
+                color: white;
+                font-weight: 600;
+                text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+            }
+            
+            .advanced-parts::part(helper-text-typography) {
+                color: rgba(255, 255, 255, 0.9);
+                font-style: italic;
+            }
+        \`,
+    ];
+}
+`
+                    }
+                </CodeblockPre>
+            </Codeblock>
+        </CodeExample>
+
+        <Typography tag="h2" size="title3" weight="bold" spacing="md">Accessibility</Typography>
+        <Typography class="explain" tag="p" spacing="md">The mjo-color-picker component includes comprehensive accessibility features:</Typography>
+        <List listStyle="disc">
+            <ListItem featuredText="ARIA Support">
+                Complete ARIA implementation with <code class="inline dense">aria-label</code>, <code class="inline dense">aria-invalid</code>, and <code
+                    class="inline dense">aria-describedby</code
+                > attributes for screen reader compatibility
+            </ListItem>
+            <ListItem featuredText="Keyboard Navigation"> Full keyboard support with appropriate focus management and keyboard event handling </ListItem>
+            <ListItem featuredText="Screen Reader Support"> Dynamic announcements for color changes using live regions and descriptive labels </ListItem>
+            <ListItem featuredText="Focus Management">
+                Visible focus indicators with customizable styling that meet accessibility contrast requirements
+            </ListItem>
+            <ListItem featuredText="Form Integration"> Automatic form validation state communication to assistive technologies </ListItem>
+            <ListItem featuredText="High Contrast Support"> Enhanced borders and focus indicators in high contrast mode </ListItem>
+            <ListItem featuredText="Reduced Motion">
+                Respects <code class="inline dense">prefers-reduced-motion</code> user preference by adjusting animations
+            </ListItem>
+            <ListItem featuredText="Color Independence">
+                Does not rely solely on color to convey information, includes text labels and state indicators
+            </ListItem>
+        </List>
+
+        <Typography tag="h2" size="title3" weight="bold" spacing="md">Type Definitions</Typography>
+        <Typography class="explain" tag="p" spacing="md">The mjo-color-picker component supports the following type definitions:</Typography>
+        <Codeblock>
+            <CodeblockPre language="typescript">
+                {
+                    `export type MjoColorFormat = "hex" | "hexalpha" | "rgb" | "rgba" | "hsl" | "hsla" | "hwb" | "oklch" | "lab" | "lch" | "oklab";
+
+export interface MjoColorPickerChangeEvent extends CustomEvent {
+    detail: {
+        element: MjoColorPicker;
+        value: string;
+        format: MjoColorFormat;
+        originalEvent: Event;
+    };
+}
+
+export interface MjoColorPickerInputEvent extends CustomEvent {
+    detail: {
+        element: MjoColorPicker;
+        value: string;
+        format: MjoColorFormat;
+        originalEvent: Event;
+    };
+}
+
+export interface MjoColorPickerFormatChangeEvent extends CustomEvent {
+    detail: {
+        element: MjoColorPicker;
+        format: MjoColorFormat;
+        previousFormat: MjoColorFormat;
+        value: string;
+    };
+}
+
+export interface MjoColorPickerFocusEvent extends CustomEvent {
+    detail: {
+        element: MjoColorPicker;
+    };
+}
+
+export interface MjoColorPickerBlurEvent extends CustomEvent {
+    detail: {
+        element: MjoColorPicker;
+    };
+}`
+                }
+            </CodeblockPre>
+        </Codeblock>
+
+        <style>
+            .prose {
+                position: relative;
+            }
+            .explain {
+                color: var(--mjo-foreground-color-low);
+            }
+        </style>
+    </article>
+</DocsLayout>

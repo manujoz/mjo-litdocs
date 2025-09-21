@@ -54,7 +54,7 @@ const mjoThemeCookie = (Astro.cookies.get("mjo-theme")?.value as "light" | "dark
         <meta name="twitter:image" content={ogImage} />
         <meta name="twitter:creator" content="@mjolitui" />
         <Fragment set:html={MjoThemeSSRGenerator({ themeMode: mjoThemeCookie, userConfig: themeConfig })} />
-        <Font cssVariable="--font-montserrat" />
+        <Font cssVariable="--font-inter" />
 
         <title>{title}</title>
 

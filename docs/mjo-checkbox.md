@@ -823,39 +823,20 @@ The component provides extensive customization through CSS variables with fallba
 | `--mjo-checkbox-indeterminate-border-color`     | `--mjo-checkbox-indeterminate-color`           | Indeterminate border color                 |
 | `--mjo-checkbox-indeterminate-background-color` | `transparent`                                  | Background color when indeterminate        |
 | `--mjo-checkbox-indeterminate-icon-color`       | `--mjo-checkbox-indeterminate-color`           | Color of the minus icon when indeterminate |
-
-### Typography
-
-| Variable                            | Fallback                     | Used For                |
-| ----------------------------------- | ---------------------------- | ----------------------- |
-| `--mjo-checkbox-label-color`        | `inherit`                    | Label text color        |
-| `--mjo-checkbox-label-font-size`    | `inherit`                    | Label font size         |
-| `--mjo-checkbox-label-font-weight`  | `inherit`                    | Label font weight       |
-| `--mjo-checkbox-helper-color`       | `--mjo-foreground-color-low` | Helper text color       |
-| `--mjo-checkbox-helper-font-size`   | `0.8em`                      | Helper text font size   |
-| `--mjo-checkbox-helper-font-weight` | `normal`                     | Helper text font weight |
-
-### Focus and Accessibility
-
-| Variable                             | Fallback                  | Used For               |
-| ------------------------------------ | ------------------------- | ---------------------- |
-| `--mjo-checkbox-focus-color`         | `rgba(59, 130, 246, 0.1)` | Focus box shadow color |
-| `--mjo-checkbox-focus-outline-color` | `--mjo-primary-color`     | Focus outline color    |
-
-### Disabled State
-
-| Variable                          | Fallback | Used For              |
-| --------------------------------- | -------- | --------------------- |
-| `--mjo-checkbox-disabled-opacity` | `0.5`    | Opacity when disabled |
-
-### Error States
-
-| Variable                                | Fallback                       | Used For                        |
-| --------------------------------------- | ------------------------------ | ------------------------------- |
-| `--mjo-checkbox-error-border-color`     | `--mjo-color-error`            | Border color in error state     |
-| `--mjo-checkbox-error-background-color` | `--mjo-color-error`            | Background color in error state |
-| `--mjo-checkbox-error-icon-color`       | `--mjo-color-error-foreground` | Icon color in error state       |
-| `--mjo-checkbox-error-label-color`      | `--mjo-color-error`            | Label color in error state      |
+| `--mjo-checkbox-border-radius`                  | `--mjo-radius-small`                           | Radius of the checkbox                     |
+| `--mjo-checkbox-label-color`                    | `inherit`                                      | Label text color                           |
+| `--mjo-checkbox-label-font-size`                | `inherit`                                      | Label font size                            |
+| `--mjo-checkbox-label-font-weight`              | `inherit`                                      | Label font weight                          |
+| `--mjo-checkbox-helper-color`                   | `--mjo-foreground-color-low`                   | Helper text color                          |
+| `--mjo-checkbox-helper-font-size`               | `0.8em`                                        | Helper text font size                      |
+| `--mjo-checkbox-helper-font-weight`             | `normal`                                       | Helper text font weight                    |
+| `--mjo-checkbox-focus-color`                    | `rgba(59, 130, 246, 0.1)`                      | Focus box shadow color                     |
+| `--mjo-checkbox-focus-outline-color`            | `--mjo-primary-color`                          | Focus outline color                        |
+| `--mjo-checkbox-disabled-opacity`               | `0.5`                                          | Opacity when disabled                      |
+| `--mjo-checkbox-error-border-color`             | `--mjo-color-error`                            | Border color in error state                |
+| `--mjo-checkbox-error-background-color`         | `--mjo-color-error`                            | Background color in error state            |
+| `--mjo-checkbox-error-icon-color`               | `--mjo-color-error-foreground`                 | Icon color in error state                  |
+| `--mjo-checkbox-error-label-color`              | `--mjo-color-error`                            | Label color in error state                 |
 
 ### Spacing
 
@@ -1035,48 +1016,6 @@ export class ExampleCheckboxAdvancedForm extends LitElement {
 ></mjo-checkbox>
 ```
 
-## Types definitions
-
-```ts
-import { MjoCheckbox } from "../mjo-checkbox";
-
-export type MjoCheckboxColor = "primary" | "secondary";
-
-export interface MjoCheckboxChangeEvent extends CustomEvent {
-    detail: {
-        element: MjoCheckbox;
-        checked: boolean;
-        indeterminate: boolean;
-        value: string;
-        name: string;
-        previousState: {
-            checked: boolean;
-            indeterminate: boolean;
-        };
-    };
-}
-
-export interface MjoCheckboxIndeterminateChangeEvent extends CustomEvent {
-    detail: {
-        element: MjoCheckbox;
-        indeterminate: boolean;
-        checked: boolean;
-    };
-}
-
-export interface MjoCheckboxFocusEvent extends CustomEvent {
-    detail: {
-        element: MjoCheckbox;
-    };
-}
-
-export interface MjoCheckboxBlurEvent extends CustomEvent {
-    detail: {
-        element: MjoCheckbox;
-    };
-}
-```
-
 ## Performance Considerations
 
 -   The component uses efficient event delegation for click handling
@@ -1127,3 +1066,7 @@ export interface MjoCheckboxBlurEvent extends CustomEvent {
 -   **High contrast support**: Enhanced visibility for accessibility compliance
 
 The component handles all standard checkbox behaviors while providing enhanced functionality for modern web applications, including parent-child relationships for hierarchical selections and comprehensive form validation capabilities.
+
+```
+
+```

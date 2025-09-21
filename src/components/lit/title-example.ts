@@ -18,9 +18,9 @@ export class TitleExample extends LitElement {
             h5 {
                 margin: 0 0 12px 0;
                 padding: 0;
-                color: var(--mjo-foreground-color);
-                font-size: 0.75rem;
-                font-weight: 600;
+                color: var(--mjo-foreground-color-low);
+                font-size: 14px;
+                font-weight: 500;
             }
         `,
     ];

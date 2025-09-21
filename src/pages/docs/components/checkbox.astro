@@ -18,10 +18,12 @@ import DocsLayout from "@/layouts/DocsLayout.astro";
 import { CheckboxBasic } from "@/components/examples/checkbox/checkbox-basic";
 import { CheckboxColors } from "@/components/examples/checkbox/checkbox-colors";
 import { CheckboxCssParts } from "@/components/examples/checkbox/checkbox-cssparts";
+import { CheckboxCustom } from "@/components/examples/checkbox/checkbox-custom";
 import { CheckboxDisabled } from "@/components/examples/checkbox/checkbox-disabled";
 import { CheckboxGroups } from "@/components/examples/checkbox/checkbox-groups";
 import { CheckboxHelperText } from "@/components/examples/checkbox/checkbox-helper-text";
 import { CheckboxIndeterminate } from "@/components/examples/checkbox/checkbox-indeterminate";
+import { CheckboxInterface } from "@/components/examples/checkbox/checkbox-interface";
 import { CheckboxSizes } from "@/components/examples/checkbox/checkbox-sizes";
 import { CheckboxTheme } from "@/components/examples/checkbox/checkbox-theme";
 
@@ -386,7 +388,7 @@ export class CheckboxHelperText extends LitElement {
         <Typography tag="h3" size="xxl" weight="bold" spacing="md">Checkbox Groups</Typography>
         <Typography class="explain" tag="p" spacing="md">Multiple checkboxes can be grouped together for related options.</Typography>
         <CodeExample>
-            <CheckboxGroups client:only slot="preview" />
+            <CheckboxGroups client:visible slot="preview" />
             <Codeblock showHeader slot="code">
                 <CodeblockPre language="lit" bugTitle="[BUG mjo-checkbox]">
                     {
@@ -457,6 +459,82 @@ export class CheckboxGroups extends LitElement {
             }
             mjo-button {
                 margin-top: var(--mjo-space-small);
+            }
+        \`,
+    ];
+}
+`
+                    }
+                </CodeblockPre>
+            </Codeblock>
+        </CodeExample>
+        <Typography tag="h3" size="xxl" weight="bold" spacing="md">Custom checkbox</Typography>
+        <Typography class="explain" tag="p" spacing="md">You can create a custom checkbox by extending the base checkbox component.</Typography>
+        <CodeExample>
+            <CheckboxCustom client:visible slot="preview" />
+            <Codeblock showHeader slot="code">
+                <CodeblockPre language="lit" bugTitle="[BUG mjo-checkbox]">
+                    {
+                        `import { css, html } from "lit";
+import { customElement } from "lit/decorators.js";
+
+import { MjoCheckbox } from "mjo-litui/mjo-checkbox";
+
+import "mjo-litui/mjo-avatar";
+import "mjo-litui/mjo-card";
+import "mjo-litui/mjo-typography";
+
+@customElement("checkbox-custom")
+export class CheckboxCustom extends MjoCheckbox {
+    render() {
+        return html\`
+            <mjo-card space="medium" radius="large" ?data-checked=\${this.checked} @click=\${this.click}>
+                <div class="user">
+                    <div class="avatar">
+                        <mjo-avatar src="https://i.pravatar.cc/150?img=33" name="John Doe" radius="medium"></mjo-avatar>
+                    </div>
+                    <div class="content">
+                        <mjo-typography tag="h4" size="base" weight="medium">John Doe</mjo-typography>
+                        <mjo-typography tag="p" size="body2" weight="light">Software engineering</mjo-typography>
+                    </div>
+                </div>
+            </mjo-card>
+        \`;
+    }
+
+    static styles = [
+        css\`
+            :host {
+                display: inline-block;
+            }
+            mjo-card {
+                cursor: pointer;
+            }
+            mjo-card::part(container) {
+                transition: background-color 0.2s ease-in-out;
+            }
+            mjo-card::part(container):hover {
+                background-color: var(--mjo-background-color-card-high);
+            }
+            mjo-card[data-checked]::part(container) {
+                background-color: color-mix(in srgb, var(--mjo-primary-color) 15%, var(--mjo-background-color-card));
+                color: var(--mjo-primary-color);
+            }
+            .user {
+                display: flex;
+                align-items: center;
+                gap: var(--mjo-space-medium);
+            }
+            .avatar {
+                flex: 0 1 auto;
+            }
+            .content {
+                flex: 1 1 0;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                transition: color 0.2s ease-in-out;
+                user-select: none;
             }
         \`,
     ];
@@ -730,74 +808,119 @@ export class CheckboxGroups extends LitElement {
             </TableHeader>
             <TableBody>
                 <TableRow>
-                    <TableCell><code class="inline">--mjo-checkbox-size</code></TableCell>
-                    <TableCell><code class="inline">20px</code></TableCell>
-                    <TableCell>Size of the checkbox square.</TableCell>
+                    <TableCell><code class="inline">--mjo-checkbox-border-color</code></TableCell>
+                    <TableCell><code class="inline">--mjo-foreground-color-low</code></TableCell>
+                    <TableCell>Unchecked border color.</TableCell>
                 </TableRow>
                 <TableRow>
-                    <TableCell><code class="inline">--mjo-checkbox-size-small</code></TableCell>
-                    <TableCell><code class="inline">16px</code></TableCell>
-                    <TableCell>Size for small variant.</TableCell>
+                    <TableCell><code class="inline">--mjo-checkbox-checked-color</code></TableCell>
+                    <TableCell><code class="inline">--mjo-primary-color</code></TableCell>
+                    <TableCell>Checked background and icon color.</TableCell>
                 </TableRow>
                 <TableRow>
-                    <TableCell><code class="inline">--mjo-checkbox-size-large</code></TableCell>
-                    <TableCell><code class="inline">24px</code></TableCell>
-                    <TableCell>Size for large variant.</TableCell>
+                    <TableCell><code class="inline">--mjo-checkbox-checked-border-color</code></TableCell>
+                    <TableCell><code class="inline">--mjo-checkbox-checked-color</code></TableCell>
+                    <TableCell>Checked border color.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-checkbox-checked-icon-color</code></TableCell>
+                    <TableCell><code class="inline">--mjo-primary-foreground-color</code></TableCell>
+                    <TableCell>Color of the check icon when checked.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-checkbox-indeterminate-color</code></TableCell>
+                    <TableCell><code class="inline">--mjo-checkbox-checked-color</code></TableCell>
+                    <TableCell>Indeterminate icon color.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-checkbox-indeterminate-border-color</code></TableCell>
+                    <TableCell><code class="inline">--mjo-checkbox-indeterminate-color</code></TableCell>
+                    <TableCell>Indeterminate border color.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-checkbox-indeterminate-background-color</code></TableCell>
+                    <TableCell><code class="inline">transparent</code></TableCell>
+                    <TableCell>Background color when indeterminate.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-checkbox-indeterminate-icon-color</code></TableCell>
+                    <TableCell><code class="inline">--mjo-checkbox-indeterminate-color</code></TableCell>
+                    <TableCell>Color of the minus icon when indeterminate.</TableCell>
                 </TableRow>
                 <TableRow>
                     <TableCell><code class="inline">--mjo-checkbox-border-radius</code></TableCell>
                     <TableCell><code class="inline">--mjo-radius-small</code></TableCell>
-                    <TableCell>Border radius of the checkbox.</TableCell>
+                    <TableCell>Radius of the checkbox.</TableCell>
                 </TableRow>
                 <TableRow>
-                    <TableCell><code class="inline">--mjo-checkbox-border-color</code></TableCell>
-                    <TableCell><code class="inline">--mjo-border-color</code></TableCell>
-                    <TableCell>Border color in unchecked state.</TableCell>
+                    <TableCell><code class="inline">--mjo-checkbox-label-color</code></TableCell>
+                    <TableCell><code class="inline">inherit</code></TableCell>
+                    <TableCell>Label text color.</TableCell>
                 </TableRow>
                 <TableRow>
-                    <TableCell><code class="inline">--mjo-checkbox-border-color-hover</code></TableCell>
-                    <TableCell><code class="inline">--mjo-border-color-hover</code></TableCell>
-                    <TableCell>Border color on hover.</TableCell>
+                    <TableCell><code class="inline">--mjo-checkbox-label-font-size</code></TableCell>
+                    <TableCell><code class="inline">inherit</code></TableCell>
+                    <TableCell>Label font size.</TableCell>
                 </TableRow>
                 <TableRow>
-                    <TableCell><code class="inline">--mjo-checkbox-background-color</code></TableCell>
-                    <TableCell><code class="inline">transparent</code></TableCell>
-                    <TableCell>Background color in unchecked state.</TableCell>
+                    <TableCell><code class="inline">--mjo-checkbox-label-font-weight</code></TableCell>
+                    <TableCell><code class="inline">inherit</code></TableCell>
+                    <TableCell>Label font weight.</TableCell>
                 </TableRow>
                 <TableRow>
-                    <TableCell><code class="inline">--mjo-checkbox-background-color-checked</code></TableCell>
-                    <TableCell><code class="inline">--mjo-primary-color</code></TableCell>
-                    <TableCell>Background color when checked (primary).</TableCell>
+                    <TableCell><code class="inline">--mjo-checkbox-helper-color</code></TableCell>
+                    <TableCell><code class="inline">--mjo-foreground-color-low</code></TableCell>
+                    <TableCell>Helper text color.</TableCell>
                 </TableRow>
                 <TableRow>
-                    <TableCell><code class="inline">--mjo-checkbox-background-color-checked-secondary</code></TableCell>
-                    <TableCell><code class="inline">--mjo-secondary-color</code></TableCell>
-                    <TableCell>Background color when checked (secondary).</TableCell>
+                    <TableCell><code class="inline">--mjo-checkbox-helper-font-size</code></TableCell>
+                    <TableCell><code class="inline">0.8em</code></TableCell>
+                    <TableCell>Helper text font size.</TableCell>
                 </TableRow>
                 <TableRow>
-                    <TableCell><code class="inline">--mjo-checkbox-icon-color</code></TableCell>
-                    <TableCell><code class="inline">white</code></TableCell>
-                    <TableCell>Color of the check/indeterminate icon.</TableCell>
-                </TableRow>
-                <TableRow>
-                    <TableCell><code class="inline">--mjo-checkbox-icon-size</code></TableCell>
-                    <TableCell><code class="inline">12px</code></TableCell>
-                    <TableCell>Size of the check/indeterminate icon.</TableCell>
-                </TableRow>
-                <TableRow>
-                    <TableCell><code class="inline">--mjo-checkbox-label-gap</code></TableCell>
-                    <TableCell><code class="inline">--mjo-space-small</code></TableCell>
-                    <TableCell>Gap between checkbox and label.</TableCell>
+                    <TableCell><code class="inline">--mjo-checkbox-helper-font-weight</code></TableCell>
+                    <TableCell><code class="inline">normal</code></TableCell>
+                    <TableCell>Helper text font weight.</TableCell>
                 </TableRow>
                 <TableRow>
                     <TableCell><code class="inline">--mjo-checkbox-focus-color</code></TableCell>
+                    <TableCell><code class="inline">rgba(59, 130, 246, 0.1)</code></TableCell>
+                    <TableCell>Focus box shadow color.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-checkbox-focus-outline-color</code></TableCell>
                     <TableCell><code class="inline">--mjo-primary-color</code></TableCell>
-                    <TableCell>Focus ring color.</TableCell>
+                    <TableCell>Focus outline color.</TableCell>
                 </TableRow>
                 <TableRow>
                     <TableCell><code class="inline">--mjo-checkbox-disabled-opacity</code></TableCell>
                     <TableCell><code class="inline">0.5</code></TableCell>
                     <TableCell>Opacity when disabled.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-checkbox-error-border-color</code></TableCell>
+                    <TableCell><code class="inline">--mjo-color-error</code></TableCell>
+                    <TableCell>Border color in error state.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-checkbox-error-background-color</code></TableCell>
+                    <TableCell><code class="inline">--mjo-color-error</code></TableCell>
+                    <TableCell>Background color in error state.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-checkbox-error-icon-color</code></TableCell>
+                    <TableCell><code class="inline">--mjo-color-error-foreground</code></TableCell>
+                    <TableCell>Icon color in error state.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-checkbox-error-label-color</code></TableCell>
+                    <TableCell><code class="inline">--mjo-color-error</code></TableCell>
+                    <TableCell>Label color in error state.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-space-small</code></TableCell>
+                    <TableCell><code class="inline">5px</code></TableCell>
+                    <TableCell>Gap between checkbox and label.</TableCell>
                 </TableRow>
             </TableBody>
         </Table>
@@ -874,20 +997,28 @@ export class CheckboxGroups extends LitElement {
             <CodeblockPre language="typescript">
                 {
                     `export interface MjoCheckboxTheme {
-    size?: string;
-    sizeSmall?: string;
-    sizeLarge?: string;
-    borderRadius?: string;
     borderColor?: string;
-    borderColorHover?: string;
-    backgroundColor?: string;
-    backgroundColorChecked?: string;
-    backgroundColorCheckedSecondary?: string;
-    iconColor?: string;
-    iconSize?: string;
-    labelGap?: string;
-    focusColor?: string;
+    borderRadius?: string;
+    checkedColor?: string;
+    checkedBorderColor?: string;
+    checkedIconColor?: string;
     disabledOpacity?: string;
+    errorBackgroundColor?: string;
+    errorBorderColor?: string;
+    errorIconColor?: string;
+    errorLabelColor?: string;
+    focusColor?: string;
+    focusOutlineColor?: string;
+    helperColor?: string;
+    helperFontSize?: string;
+    helperFontWeight?: string;
+    indeterminateBackgroundColor?: string;
+    indeterminateBorderColor?: string;
+    indeterminateColor?: string;
+    indeterminateIconColor?: string;
+    labelColor?: string;
+    labelFontSize?: string;
+    labelFontWeight?: string;
 }
 `
                 }
@@ -910,45 +1041,36 @@ import "mjo-litui/mjo-checkbox";
 export class CheckboxTheme extends LitElement {
     render() {
         return html\`
-            <div style="display: flex; flex-direction: column; gap: 16px;">
-                <mjo-checkbox label="Custom primary checkbox" checked class="custom-primary"></mjo-checkbox>
-                <mjo-checkbox label="Custom secondary checkbox" checked class="custom-secondary"></mjo-checkbox>
-                <mjo-checkbox label="Custom size checkbox" checked class="custom-size"></mjo-checkbox>
-            </div>
+            <mjo-checkbox class="custom-theme-1" label="Purple Theme" checked></mjo-checkbox>
+            <mjo-checkbox class="custom-theme-2" label="Orange Theme" checked></mjo-checkbox>
+            <mjo-checkbox class="custom-theme-3" label="Green Gradient Theme" checked></mjo-checkbox>
         \`;
     }
 
     static styles = [
         css\`
             :host {
-                display: block;
+                display: flex;
+                flex-direction: column;
+                gap: var(--mjo-space-medium);
             }
 
-            .custom-primary {
-                --mjo-checkbox-background-color-checked: #ff6b6b;
-                --mjo-checkbox-border-color: #ff6b6b;
-                --mjo-checkbox-border-radius: 8px;
-                --mjo-checkbox-focus-color: #ff6b6b;
+            .custom-theme-1 {
+                --mjo-checkbox-checked-color: #8b5cf6;
             }
-
-            .custom-secondary {
-                --mjo-checkbox-background-color-checked: linear-gradient(45deg, #667eea 0%, #764ba2 100%);
-                --mjo-checkbox-border-color: #667eea;
+            .custom-theme-2 {
+                --mjo-checkbox-checked-color: #f97316;
+            }
+            .custom-theme-3 {
+                --mjo-checkbox-checked-color: linear-gradient(135deg, #10b981, #059669);
+                --mjo-checkbox-border-color: #10b981;
+                --mjo-checkbox-checked-border-color: #10b981;
                 --mjo-checkbox-border-radius: 50%;
-                --mjo-checkbox-focus-color: #667eea;
-            }
-
-            .custom-size {
-                --mjo-checkbox-size: 32px;
-                --mjo-checkbox-icon-size: 20px;
-                --mjo-checkbox-border-radius: 4px;
-                --mjo-checkbox-background-color-checked: #4ecdc4;
-                --mjo-checkbox-border-color: #4ecdc4;
             }
         \`,
     ];
 }
-\``
+`
                     }
                 </CodeblockPre>
             </Codeblock>
@@ -1011,6 +1133,47 @@ export class CheckboxCssparts extends LitElement {
             mjo-checkbox::part(helper-text-typography) {
                 color: rgba(255, 255, 255, 0.8);
                 font-size: 12px;
+            }
+        \`,
+    ];
+}
+`
+                    }
+                </CodeblockPre>
+            </Codeblock>
+        </CodeExample>
+        <Typography tag="h4" size="xl" weight="bold" spacing="md">With theme interface</Typography>
+        <Typography class="explain" tag="p" spacing="md">
+            You can use the theme interface for customizing the checkbox styles in a more structured way.
+        </Typography>
+        <CodeExample>
+            <CheckboxInterface client:visible slot="preview" />
+            <Codeblock showHeader slot="code">
+                <CodeblockPre language="lit" bugTitle="[BUG mjo-checkbox]">
+                    {
+                        `import type { MjoCheckboxTheme } from "mjo-litui/types/mjo-theme";
+
+import { LitElement, css, html } from "lit";
+import { customElement } from "lit/decorators.js";
+
+@customElement("checkbox-interface")
+export class CheckboxInterface extends LitElement {
+    theme: MjoCheckboxTheme = {
+        borderColor: "#10b981",
+        checkedBorderColor: "#10b981",
+        checkedColor: "linear-gradient(135deg, #10b981, #059669)",
+        borderRadius: "10px",
+    };
+
+    render() {
+        return html\`<mjo-checkbox class="custom-theme-3" .theme=\${this.theme} label="Green Gradient Theme" checked></mjo-checkbox>\`;
+    }
+
+    static styles = [
+        css\`
+            :host {
+                display: inline-block;
+                padding: var(--mjo-space-large) 0;
             }
         \`,
     ];
@@ -1091,23 +1254,6 @@ export interface MjoCheckboxBlurEvent extends CustomEvent {
     detail: {
         element: MjoCheckbox;
     };
-}
-
-export interface MjoCheckboxTheme {
-    size?: string;
-    sizeSmall?: string;
-    sizeLarge?: string;
-    borderRadius?: string;
-    borderColor?: string;
-    borderColorHover?: string;
-    backgroundColor?: string;
-    backgroundColorChecked?: string;
-    backgroundColorCheckedSecondary?: string;
-    iconColor?: string;
-    iconSize?: string;
-    labelGap?: string;
-    focusColor?: string;
-    disabledOpacity?: string;
 }
 `
                 }

@@ -44,6 +44,7 @@ body {
     background-color: var(--mjo-background-color);
     color: var(--mjo-foreground-color);
     font-family: var(--font-montserrat);
+    font-family: var(--font-inter);
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
