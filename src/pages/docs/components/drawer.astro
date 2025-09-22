@@ -1,0 +1,960 @@
+---
+import Codeblock from "@/components/ui/codeblock/Codeblock.astro";
+import CodeblockPre from "@/components/ui/codeblock/CodeblockPre.astro";
+import CodeExample from "@/components/ui/CodeExample.astro";
+import List from "@/components/ui/list/List.astro";
+import ListItem from "@/components/ui/list/ListItem.astro";
+import Table from "@/components/ui/table/Table.astro";
+import TableBody from "@/components/ui/table/TableBody.astro";
+import TableCell from "@/components/ui/table/TableCell.astro";
+import TableCellHeader from "@/components/ui/table/TableCellHeader.astro";
+import TableHeader from "@/components/ui/table/TableHeader.astro";
+import TableRow from "@/components/ui/table/TableRow.astro";
+import Typography from "@/components/ui/Typography.astro";
+import DocsLayout from "@/layouts/DocsLayout.astro";
+
+import { DrawerAccessibility } from "@/components/examples/drawer/drawer-accessibility";
+import { DrawerApp } from "@/components/examples/drawer/drawer-app";
+import { DrawerBlocked } from "@/components/examples/drawer/drawer-blocked";
+import { DrawerContent } from "@/components/examples/drawer/drawer-content";
+import { DrawerCssParts } from "@/components/examples/drawer/drawer-css-parts";
+import { DrawerCustomStyling } from "@/components/examples/drawer/drawer-custom-styling";
+import { DrawerPositions } from "@/components/examples/drawer/drawer-positions";
+import { DrawerSizes } from "@/components/examples/drawer/drawer-sizes";
+import { DrawerTheme } from "@/components/examples/drawer/drawer-theme";
+import { DrawerUsage } from "@/components/examples/drawer/drawer-usage";
+
+// Event details object for clean display
+const eventOpenDetail = `{
+  // No parameters - called when drawer opens
+}`;
+
+const eventCloseDetail = `{
+  // No parameters - called when drawer closes
+}`;
+---
+
+<DocsLayout
+    title="Drawer"
+    description="A fully accessible drawer component that slides in from any side of the screen. Learn how to use the drawer component in your project."
+    currentPath="/docs/components/drawer"
+>
+    <DrawerApp>
+        <article class="prose">
+            <Typography tag="h1" size="title2" weight="bold">mjo-drawer</Typography>
+            <Typography class="explain" tag="p" spacing="md">
+                A fully accessible drawer component that slides in from any side of the screen. The drawer provides focus management, escape key handling, and
+                click-outside-to-close functionality while maintaining proper aria attributes.
+            </Typography>
+
+            <Typography tag="h2" size="title3" weight="bold" spacing="md">Import</Typography>
+            <Typography class="explain" tag="p" spacing="md">
+                To use the mjo-drawer component in your project, you need to import it first. You can do this by adding the following import statement to your
+                JavaScript or TypeScript file:
+            </Typography>
+            <Codeblock>
+                <CodeblockPre language="lit" bugTitle="[BUG mjo-drawer]">
+                    {`import "mjo-litui/mjo-drawer";`}
+                </CodeblockPre>
+            </Codeblock>
+
+            <Typography tag="h2" size="title3" weight="bold" spacing="md">Usage</Typography>
+            <Typography class="explain" tag="p" spacing="md">
+                The mjo-drawer component acts as a controller that creates and manages drawer instances. You don't need to add any drawer elements to your
+                template - the component dynamically creates them when needed.
+            </Typography>
+            <CodeExample>
+                <DrawerUsage client:visible slot="preview" />
+                <Codeblock showHeader slot="code">
+                    <CodeblockPre language="lit" bugTitle="[BUG mjo-drawer]">
+                        {
+                            `import { LitElement, css, html } from "lit";
+import { customElement, query } from "lit/decorators.js";
+
+import "mjo-litui/mjo-button";
+import "mjo-litui/mjo-drawer";
+
+@customElement("drawer-usage")
+export class DrawerUsage extends LitElement {
+    @query("mjo-drawer") drawer!: any;
+
+    private openBasicDrawer() {
+        this.drawer.controller.show({
+            title: "Basic Drawer",
+            content: html\`
+                <p>This is a basic drawer with simple content.</p>
+                <p>You can add any HTML content here.</p>
+            \`,
+        });
+    }
+
+    render() {
+        return html\`
+            <mjo-drawer></mjo-drawer>
+            <mjo-button @click=\${this.openBasicDrawer}>Open Basic Drawer</mjo-button>
+        \`;
+    }
+
+    static styles = css\`
+        :host {
+            display: block;
+        }
+    \`;
+}
+`
+                        }
+                    </CodeblockPre>
+                </Codeblock>
+            </CodeExample>
+
+            <Typography tag="h3" size="xxl" weight="bold" spacing="md">Drawer Positions</Typography>
+            <Typography class="explain" tag="p" spacing="md"> Drawers can slide in from any side of the screen: top, right, bottom, or left. </Typography>
+            <CodeExample>
+                <DrawerPositions client:visible slot="preview" />
+                <Codeblock showHeader slot="code">
+                    <CodeblockPre language="lit" bugTitle="[BUG mjo-drawer]">
+                        {
+                            `import { LitElement, css, html } from "lit";
+import { customElement, query } from "lit/decorators.js";
+
+import "mjo-litui/mjo-button";
+import "mjo-litui/mjo-drawer";
+
+@customElement("drawer-positions")
+export class DrawerPositions extends LitElement {
+    @query("mjo-drawer") drawer!: any;
+
+    private openDrawer(position: "top" | "right" | "bottom" | "left") {
+        this.drawer.controller.show({
+            title: \`\${position.charAt(0).toUpperCase() + position.slice(1)} Drawer\`,
+            position,
+            content: html\`
+                <p>This drawer slides in from the \${position}.</p>
+                <p>Try the different positions to see the animation.</p>
+            \`,
+        });
+    }
+
+    render() {
+        return html\`
+            <mjo-drawer></mjo-drawer>
+            <div class="button-group">
+                <mjo-button @click=\${() => this.openDrawer("top")}>Top</mjo-button>
+                <mjo-button @click=\${() => this.openDrawer("right")}>Right</mjo-button>
+                <mjo-button @click=\${() => this.openDrawer("bottom")}>Bottom</mjo-button>
+                <mjo-button @click=\${() => this.openDrawer("left")}>Left</mjo-button>
+            </div>
+        \`;
+    }
+
+    static styles = css\`
+        :host {
+            display: block;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+    \`;
+}
+`
+                        }
+                    </CodeblockPre>
+                </Codeblock>
+            </CodeExample>
+
+            <Typography tag="h3" size="xxl" weight="bold" spacing="md">Custom Sizes</Typography>
+            <Typography class="explain" tag="p" spacing="md">
+                You can customize the width (for left/right drawers) or height (for top/bottom drawers) using CSS units.
+            </Typography>
+            <CodeExample>
+                <DrawerSizes client:visible slot="preview" />
+                <Codeblock showHeader slot="code">
+                    <CodeblockPre language="lit" bugTitle="[BUG mjo-drawer]">
+                        {
+                            `import { LitElement, css, html } from "lit";
+import { customElement, query } from "lit/decorators.js";
+
+import "mjo-litui/mjo-button";
+import "mjo-litui/mjo-drawer";
+
+@customElement("drawer-sizes")
+export class DrawerSizes extends LitElement {
+    @query("mjo-drawer") drawer!: any;
+
+    private openWideDrawer() {
+        this.drawer.controller.show({
+            title: "Wide Drawer",
+            position: "right",
+            width: "600px",
+            content: html\`
+                <p>This drawer has a custom width of 600px.</p>
+                <p>You can set any CSS unit: px, %, rem, vw, etc.</p>
+            \`,
+        });
+    }
+
+    private openTallDrawer() {
+        this.drawer.controller.show({
+            title: "Tall Drawer",
+            position: "bottom",
+            height: "400px",
+            content: html\`
+                <p>This drawer has a custom height of 400px.</p>
+                <p>Perfect for forms or detailed content.</p>
+            \`,
+        });
+    }
+
+    render() {
+        return html\`
+            <mjo-drawer></mjo-drawer>
+            <div class="button-group">
+                <mjo-button @click=\${this.openWideDrawer}>Wide Drawer (600px)</mjo-button>
+                <mjo-button @click=\${this.openTallDrawer}>Tall Drawer (400px)</mjo-button>
+            </div>
+        \`;
+    }
+
+    static styles = css\`
+        :host {
+            display: block;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+    \`;
+}
+`
+                        }
+                    </CodeblockPre>
+                </Codeblock>
+            </CodeExample>
+
+            <Typography tag="h3" size="xxl" weight="bold" spacing="md">Blocked Drawer</Typography>
+            <Typography class="explain" tag="p" spacing="md">
+                When blocked is set to true, the drawer cannot be closed by clicking outside or using the close button.
+            </Typography>
+            <CodeExample>
+                <DrawerBlocked client:visible slot="preview" />
+                <Codeblock showHeader slot="code">
+                    <CodeblockPre language="lit" bugTitle="[BUG mjo-drawer]">
+                        {
+                            `import { LitElement, css, html } from "lit";
+import { customElement, query } from "lit/decorators.js";
+
+import "mjo-litui/mjo-button";
+import "mjo-litui/mjo-drawer";
+
+@customElement("drawer-blocked")
+export class DrawerBlocked extends LitElement {
+    @query("mjo-drawer") drawer!: any;
+
+    private openBlockedDrawer() {
+        this.drawer.controller.show({
+            title: "Blocked Drawer",
+            blocked: true,
+            content: html\`
+                <p>This drawer is blocked and cannot be closed by:</p>
+                <ul>
+                    <li>Clicking outside the drawer</li>
+                    <li>Using the X close button</li>
+                    <li>Pressing the Escape key</li>
+                </ul>
+                <p>You must use the close button below:</p>
+                <mjo-button @click=\${this.closeDrawer}>Close Drawer</mjo-button>
+            \`,
+        });
+    }
+
+    private closeDrawer() {
+        this.drawer.controller.close();
+    }
+
+    render() {
+        return html\`
+            <mjo-drawer></mjo-drawer>
+            <mjo-button @click=\${this.openBlockedDrawer}>Open Blocked Drawer</mjo-button>
+        \`;
+    }
+
+    static styles = css\`
+        :host {
+            display: block;
+        }
+    \`;
+}
+`
+                        }
+                    </CodeblockPre>
+                </Codeblock>
+            </CodeExample>
+
+            <Typography tag="h3" size="xxl" weight="bold" spacing="md">Interactive Content</Typography>
+            <Typography class="explain" tag="p" spacing="md">
+                Drawers can contain interactive elements and reactive content that updates during the drawer's lifecycle.
+            </Typography>
+            <CodeExample>
+                <DrawerContent client:visible slot="preview" />
+                <Codeblock showHeader slot="code">
+                    <CodeblockPre language="lit" bugTitle="[BUG mjo-drawer]">
+                        {
+                            `import { LitElement, css, html } from "lit";
+import { customElement, query, state } from "lit/decorators.js";
+
+import "mjo-litui/mjo-button";
+import "mjo-litui/mjo-drawer";
+
+@customElement("drawer-content")
+export class DrawerContent extends LitElement {
+    @query("mjo-drawer") drawer!: any;
+    @state() counter = 0;
+
+    private openInteractiveDrawer() {
+        this.drawer.controller.show({
+            title: "Interactive Drawer",
+            width: "500px",
+            content: html\`
+                <div>
+                    <p>This drawer contains interactive content:</p>
+                    <p>Counter: <strong>\${this.counter}</strong></p>
+                    <div class="button-group">
+                        <mjo-button size="sm" @click=\${this.increment}>+1</mjo-button>
+                        <mjo-button size="sm" @click=\${this.decrement}>-1</mjo-button>
+                        <mjo-button size="sm" @click=\${this.reset}>Reset</mjo-button>
+                    </div>
+                </div>
+            \`,
+            onOpen: () => console.log("Drawer opened!"),
+            onClose: () => console.log("Drawer closed!"),
+        });
+    }
+
+    private increment() {
+        this.counter++;
+    }
+
+    private decrement() {
+        this.counter--;
+    }
+
+    private reset() {
+        this.counter = 0;
+    }
+
+    render() {
+        return html\`
+            <mjo-drawer></mjo-drawer>
+            <mjo-button @click=\${this.openInteractiveDrawer}>Open Interactive Drawer</mjo-button>
+        \`;
+    }
+
+    static styles = css\`
+        :host {
+            display: block;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+    \`;
+}
+`
+                        }
+                    </CodeblockPre>
+                </Codeblock>
+            </CodeExample>
+
+            <Typography tag="h2" size="title3" weight="bold" spacing="md">Properties</Typography>
+            <Typography class="explain" tag="p" spacing="md">Properties available on the mjo-drawer component.</Typography>
+            <Table>
+                <TableHeader>
+                    <TableRow>
+                        <TableCellHeader>Property</TableCellHeader>
+                        <TableCellHeader>Type</TableCellHeader>
+                        <TableCellHeader>Default</TableCellHeader>
+                        <TableCellHeader minWidth="200px">Description</TableCellHeader>
+                    </TableRow>
+                </TableHeader>
+                <TableBody>
+                    <TableRow>
+                        <TableCell><code class="inline">idDrawer</code></TableCell>
+                        <TableCell><code class="inline">{`string | undefined`}</code></TableCell>
+                        <TableCell><code class="inline">{`undefined`}</code></TableCell>
+                        <TableCell>ID assigned to the drawer container for CSS targeting</TableCell>
+                    </TableRow>
+                    <TableRow>
+                        <TableCell><code class="inline">ariaLabelledby</code></TableCell>
+                        <TableCell><code class="inline">{`string | undefined`}</code></TableCell>
+                        <TableCell><code class="inline">{`undefined`}</code></TableCell>
+                        <TableCell>References the ID of element that labels the drawer</TableCell>
+                    </TableRow>
+                    <TableRow>
+                        <TableCell><code class="inline">ariaDescribedby</code></TableCell>
+                        <TableCell><code class="inline">{`string | undefined`}</code></TableCell>
+                        <TableCell><code class="inline">{`undefined`}</code></TableCell>
+                        <TableCell>References the ID of element that describes the drawer</TableCell>
+                    </TableRow>
+                    <TableRow>
+                        <TableCell><code class="inline">label</code></TableCell>
+                        <TableCell><code class="inline">{`string | undefined`}</code></TableCell>
+                        <TableCell><code class="inline">{`undefined`}</code></TableCell>
+                        <TableCell>Accessible label for the drawer when no labelledby is available</TableCell>
+                    </TableRow>
+                    <TableRow>
+                        <TableCell><code class="inline">trapFocus</code></TableCell>
+                        <TableCell><code class="inline">{`boolean`}</code></TableCell>
+                        <TableCell><code class="inline">{`true`}</code></TableCell>
+                        <TableCell>Whether to trap focus within the drawer when open</TableCell>
+                    </TableRow>
+                    <TableRow>
+                        <TableCell><code class="inline">restoreFocus</code></TableCell>
+                        <TableCell><code class="inline">{`boolean`}</code></TableCell>
+                        <TableCell><code class="inline">{`true`}</code></TableCell>
+                        <TableCell>Whether to restore focus to trigger element when closed</TableCell>
+                    </TableRow>
+                    <TableRow>
+                        <TableCell><code class="inline">closeOnEscape</code></TableCell>
+                        <TableCell><code class="inline">{`boolean`}</code></TableCell>
+                        <TableCell><code class="inline">{`true`}</code></TableCell>
+                        <TableCell>Whether pressing Escape key closes the drawer</TableCell>
+                    </TableRow>
+                    <TableRow>
+                        <TableCell><code class="inline">initialFocus</code></TableCell>
+                        <TableCell><code class="inline">{`string | undefined`}</code></TableCell>
+                        <TableCell><code class="inline">{`undefined`}</code></TableCell>
+                        <TableCell>CSS selector for element to focus when drawer opens</TableCell>
+                    </TableRow>
+                </TableBody>
+            </Table>
+
+            <Typography tag="h2" size="title3" weight="bold" spacing="md">API</Typography>
+            <Typography class="explain" tag="p" spacing="md">Methods available on the mjo-drawer controller.</Typography>
+            <Table>
+                <TableHeader>
+                    <TableRow>
+                        <TableCellHeader>Method</TableCellHeader>
+                        <TableCellHeader>Parameters</TableCellHeader>
+                        <TableCellHeader>Returns</TableCellHeader>
+                        <TableCellHeader minWidth="200px">Description</TableCellHeader>
+                    </TableRow>
+                </TableHeader>
+                <TableBody>
+                    <TableRow>
+                        <TableCell><code class="inline">show(params)</code></TableCell>
+                        <TableCell><code class="inline">DrawerShowParams</code></TableCell>
+                        <TableCell><code class="inline">void</code></TableCell>
+                        <TableCell>Opens the drawer with specified configuration</TableCell>
+                    </TableRow>
+                    <TableRow>
+                        <TableCell><code class="inline">close()</code></TableCell>
+                        <TableCell><code class="inline">-</code></TableCell>
+                        <TableCell><code class="inline">void</code></TableCell>
+                        <TableCell>Closes the currently open drawer</TableCell>
+                    </TableRow>
+                </TableBody>
+            </Table>
+
+            <Typography tag="h3" size="xxl" weight="bold" spacing="md">DrawerShowParams Interface</Typography>
+            <Table>
+                <TableHeader>
+                    <TableRow>
+                        <TableCellHeader>Property</TableCellHeader>
+                        <TableCellHeader>Type</TableCellHeader>
+                        <TableCellHeader>Default</TableCellHeader>
+                        <TableCellHeader minWidth="200px">Description</TableCellHeader>
+                    </TableRow>
+                </TableHeader>
+                <TableBody>
+                    <TableRow>
+                        <TableCell><code class="inline">content</code></TableCell>
+                        <TableCell><code class="inline">{`string | TemplateResult<1>`}</code></TableCell>
+                        <TableCell><code class="inline">Required</code></TableCell>
+                        <TableCell>Content to display inside the drawer</TableCell>
+                    </TableRow>
+                    <TableRow>
+                        <TableCell><code class="inline">title</code></TableCell>
+                        <TableCell><code class="inline">{`string | undefined`}</code></TableCell>
+                        <TableCell><code class="inline">{`undefined`}</code></TableCell>
+                        <TableCell>Optional title displayed in the drawer header</TableCell>
+                    </TableRow>
+                    <TableRow>
+                        <TableCell><code class="inline">position</code></TableCell>
+                        <TableCell><code class="inline">{`"top" | "right" | "bottom" | "left"`}</code></TableCell>
+                        <TableCell><code class="inline">{`"right"`}</code></TableCell>
+                        <TableCell>Side of the screen from which drawer slides</TableCell>
+                    </TableRow>
+                    <TableRow>
+                        <TableCell><code class="inline">width</code></TableCell>
+                        <TableCell><code class="inline">{`string | number | undefined`}</code></TableCell>
+                        <TableCell><code class="inline">{`undefined`}</code></TableCell>
+                        <TableCell>Custom width for left/right drawers</TableCell>
+                    </TableRow>
+                    <TableRow>
+                        <TableCell><code class="inline">height</code></TableCell>
+                        <TableCell><code class="inline">{`string | number | undefined`}</code></TableCell>
+                        <TableCell><code class="inline">{`undefined`}</code></TableCell>
+                        <TableCell>Custom height for top/bottom drawers</TableCell>
+                    </TableRow>
+                    <TableRow>
+                        <TableCell><code class="inline">blocked</code></TableCell>
+                        <TableCell><code class="inline">{`boolean | undefined`}</code></TableCell>
+                        <TableCell><code class="inline">{`false`}</code></TableCell>
+                        <TableCell>Prevents closing by clicking outside or X button</TableCell>
+                    </TableRow>
+                    <TableRow>
+                        <TableCell><code class="inline">animationDuration</code></TableCell>
+                        <TableCell><code class="inline">{`number | undefined`}</code></TableCell>
+                        <TableCell><code class="inline">{`200`}</code></TableCell>
+                        <TableCell>Animation duration in milliseconds</TableCell>
+                    </TableRow>
+                    <TableRow>
+                        <TableCell><code class="inline">onOpen</code></TableCell>
+                        <TableCell><code class="inline">{`(() => void) | undefined`}</code></TableCell>
+                        <TableCell><code class="inline">{`undefined`}</code></TableCell>
+                        <TableCell>Callback executed when drawer finishes opening</TableCell>
+                    </TableRow>
+                    <TableRow>
+                        <TableCell><code class="inline">onClose</code></TableCell>
+                        <TableCell><code class="inline">{`(() => void) | undefined`}</code></TableCell>
+                        <TableCell><code class="inline">{`undefined`}</code></TableCell>
+                        <TableCell>Callback executed when drawer finishes closing</TableCell>
+                    </TableRow>
+                </TableBody>
+            </Table>
+
+            <Typography tag="h2" size="title3" weight="bold" spacing="md">Events</Typography>
+            <Typography class="explain" tag="p" spacing="md">
+                The mjo-drawer component uses callback functions for lifecycle management rather than custom events, as the drawer container is created
+                dynamically in the document body outside the component tree.
+            </Typography>
+            <Table>
+                <TableHeader>
+                    <TableRow>
+                        <TableCellHeader width="190px">Event</TableCellHeader>
+                        <TableCellHeader width="190px">Type</TableCellHeader>
+                        <TableCellHeader>Parameters</TableCellHeader>
+                        <TableCellHeader minWidth="200px">Description</TableCellHeader>
+                    </TableRow>
+                </TableHeader>
+                <TableBody>
+                    <TableRow>
+                        <TableCell><code class="inline">onOpen</code></TableCell>
+                        <TableCell><code class="inline">Callback Function</code></TableCell>
+                        <TableCell><pre>{eventOpenDetail}</pre></TableCell>
+                        <TableCell>Called after the opening animation completes and focus trap is activated</TableCell>
+                    </TableRow>
+                    <TableRow>
+                        <TableCell><code class="inline">onClose</code></TableCell>
+                        <TableCell><code class="inline">Callback Function</code></TableCell>
+                        <TableCell><pre>{eventCloseDetail}</pre></TableCell>
+                        <TableCell>Called after the closing animation completes and the drawer is removed from DOM</TableCell>
+                    </TableRow>
+                </TableBody>
+            </Table>
+
+            <Typography tag="h2" size="title3" weight="bold" spacing="md">Theming</Typography>
+            <Typography class="explain" tag="p" spacing="md">
+                The mjo-drawer component supports extensive theming through CSS variables, CSS parts, and the theme interface.
+            </Typography>
+
+            <Typography tag="h3" size="xxl" weight="bold" spacing="md">CSS Variables</Typography>
+            <CodeExample>
+                <DrawerCustomStyling client:visible slot="preview" />
+                <Codeblock showHeader slot="code">
+                    <CodeblockPre language="lit" bugTitle="[BUG mjo-drawer]">
+                        {
+                            `import { LitElement, css, html } from "lit";
+import { customElement, query } from "lit/decorators.js";
+
+import "mjo-litui/mjo-button";
+import "mjo-litui/mjo-drawer";
+
+@customElement("drawer-custom-styling")
+export class DrawerCustomStyling extends LitElement {
+    @query("mjo-drawer") drawer!: any;
+
+    private openStyledDrawer() {
+        this.drawer.controller.show({
+            title: "Custom Styled Drawer",
+            content: html\`
+                <p>This drawer has custom styling applied via CSS variables.</p>
+                <p>Check the CSS to see the custom properties in use.</p>
+            \`,
+        });
+    }
+
+    render() {
+        return html\`
+            <mjo-drawer></mjo-drawer>
+            <mjo-button @click=\${this.openStyledDrawer}>Open Styled Drawer</mjo-button>
+        \`;
+    }
+
+    static styles = css\`
+        :host {
+            display: block;
+        }
+
+        mjo-drawer {
+            --mjo-drawer-backdrop-color: rgba(255, 0, 0, 0.3);
+            --mjo-drawer-background: #f0f8ff;
+            --mjo-drawer-border-radius: 20px;
+            --mjo-drawer-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+    \`;
+}
+`
+                        }
+                    </CodeblockPre>
+                </Codeblock>
+            </CodeExample>
+
+            <Typography class="explain" tag="p" spacing="md">Available CSS variables for customization:</Typography>
+            <Table>
+                <TableHeader>
+                    <TableRow>
+                        <TableCellHeader>Variable</TableCellHeader>
+                        <TableCellHeader>Default Value</TableCellHeader>
+                        <TableCellHeader minWidth="200px">Description</TableCellHeader>
+                    </TableRow>
+                </TableHeader>
+                <TableBody>
+                    <TableRow>
+                        <TableCell><code class="inline">--mjo-drawer-backdrop-color</code></TableCell>
+                        <TableCell><code class="inline">rgba(0, 0, 0, 0.5)</code></TableCell>
+                        <TableCell>Background color of the backdrop overlay</TableCell>
+                    </TableRow>
+                    <TableRow>
+                        <TableCell><code class="inline">--mjo-drawer-background</code></TableCell>
+                        <TableCell><code class="inline">var(--mjo-background)</code></TableCell>
+                        <TableCell>Background color of the drawer panel</TableCell>
+                    </TableRow>
+                    <TableRow>
+                        <TableCell><code class="inline">--mjo-drawer-border-radius</code></TableCell>
+                        <TableCell><code class="inline">var(--mjo-radius-md)</code></TableCell>
+                        <TableCell>Border radius of the drawer panel</TableCell>
+                    </TableRow>
+                    <TableRow>
+                        <TableCell><code class="inline">--mjo-drawer-shadow</code></TableCell>
+                        <TableCell><code class="inline">var(--mjo-shadow-lg)</code></TableCell>
+                        <TableCell>Box shadow of the drawer panel</TableCell>
+                    </TableRow>
+                    <TableRow>
+                        <TableCell><code class="inline">--mjo-drawer-z-index</code></TableCell>
+                        <TableCell><code class="inline">1000</code></TableCell>
+                        <TableCell>Z-index value for the drawer container</TableCell>
+                    </TableRow>
+                </TableBody>
+            </Table>
+
+            <Typography tag="h3" size="xxl" weight="bold" spacing="md">CSS Parts</Typography>
+            <CodeExample>
+                <DrawerCssParts client:visible slot="preview" />
+                <Codeblock showHeader slot="code">
+                    <CodeblockPre language="lit" bugTitle="[BUG mjo-drawer]">
+                        {
+                            `import { LitElement, css, html } from "lit";
+import { customElement, query } from "lit/decorators.js";
+
+import "mjo-litui/mjo-button";
+import "mjo-litui/mjo-drawer";
+
+@customElement("drawer-css-parts")
+export class DrawerCssParts extends LitElement {
+    @query("mjo-drawer") drawer!: any;
+
+    private openPartsDrawer() {
+        this.drawer.controller.show({
+            title: "CSS Parts Styled Drawer",
+            content: html\`
+                <p>This drawer uses CSS parts for precise styling.</p>
+                <p>Each part can be styled independently.</p>
+            \`,
+        });
+    }
+
+    render() {
+        return html\`
+            <mjo-drawer></mjo-drawer>
+            <mjo-button @click=\${this.openPartsDrawer}>Open CSS Parts Drawer</mjo-button>
+        \`;
+    }
+
+    static styles = css\`
+        :host {
+            display: block;
+        }
+
+        mjo-drawer::part(backdrop) {
+            background: linear-gradient(45deg, rgba(255, 0, 150, 0.3), rgba(0, 255, 255, 0.3));
+        }
+
+        mjo-drawer::part(panel) {
+            border: 3px solid #ff6b35;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        mjo-drawer::part(header) {
+            background: rgba(0, 0, 0, 0.2);
+            border-bottom: 2px solid #ff6b35;
+        }
+
+        mjo-drawer::part(title) {
+            color: #fff;
+            font-weight: bold;
+        }
+
+        mjo-drawer::part(close-button) {
+            background: #ff6b35;
+            color: white;
+            border-radius: 50%;
+        }
+    \`;
+}
+`
+                        }
+                    </CodeblockPre>
+                </Codeblock>
+            </CodeExample>
+
+            <Typography class="explain" tag="p" spacing="md">Available CSS parts for targeted styling:</Typography>
+            <Table>
+                <TableHeader>
+                    <TableRow>
+                        <TableCellHeader>Part</TableCellHeader>
+                        <TableCellHeader minWidth="200px">Description</TableCellHeader>
+                    </TableRow>
+                </TableHeader>
+                <TableBody>
+                    <TableRow>
+                        <TableCell><code class="inline">backdrop</code></TableCell>
+                        <TableCell>The backdrop overlay that covers the entire screen</TableCell>
+                    </TableRow>
+                    <TableRow>
+                        <TableCell><code class="inline">panel</code></TableCell>
+                        <TableCell>The main drawer panel that contains the content</TableCell>
+                    </TableRow>
+                    <TableRow>
+                        <TableCell><code class="inline">header</code></TableCell>
+                        <TableCell>The header area containing the title and close button</TableCell>
+                    </TableRow>
+                    <TableRow>
+                        <TableCell><code class="inline">title</code></TableCell>
+                        <TableCell>The title text element in the header</TableCell>
+                    </TableRow>
+                    <TableRow>
+                        <TableCell><code class="inline">close-button</code></TableCell>
+                        <TableCell>The close button in the header</TableCell>
+                    </TableRow>
+                    <TableRow>
+                        <TableCell><code class="inline">content</code></TableCell>
+                        <TableCell>The main content area of the drawer</TableCell>
+                    </TableRow>
+                </TableBody>
+            </Table>
+
+            <Typography tag="h3" size="xxl" weight="bold" spacing="md">Theme Interface</Typography>
+            <CodeExample>
+                <DrawerTheme client:visible slot="preview" />
+                <Codeblock showHeader slot="code">
+                    <CodeblockPre language="lit" bugTitle="[BUG mjo-drawer]">
+                        {
+                            `import { LitElement, css, html } from "lit";
+import { customElement, query } from "lit/decorators.js";
+
+import "mjo-litui/mjo-button";
+import "mjo-litui/mjo-drawer";
+
+@customElement("drawer-theme")
+export class DrawerTheme extends LitElement {
+    @query("mjo-drawer") drawer!: any;
+
+    private openThemedDrawer() {
+        this.drawer.controller.show({
+            title: "Themed Drawer",
+            content: html\`
+                <p>This drawer uses the mjo-theme interface.</p>
+                <p>It adapts to the global theme configuration.</p>
+            \`,
+        });
+    }
+
+    render() {
+        return html\`
+            <mjo-drawer theme="dark"></mjo-drawer>
+            <mjo-button @click=\${this.openThemedDrawer}>Open Themed Drawer</mjo-button>
+        \`;
+    }
+
+    static styles = css\`
+        :host {
+            display: block;
+        }
+    \`;
+}
+`
+                        }
+                    </CodeblockPre>
+                </Codeblock>
+            </CodeExample>
+
+            <Typography tag="h2" size="title3" weight="bold" spacing="md">Accessibility</Typography>
+            <CodeExample>
+                <DrawerAccessibility client:visible slot="preview" />
+                <Codeblock showHeader slot="code">
+                    <CodeblockPre language="lit" bugTitle="[BUG mjo-drawer]">
+                        {
+                            `import { LitElement, css, html } from "lit";
+import { customElement, query } from "lit/decorators.js";
+
+import "mjo-litui/mjo-button";
+import "mjo-litui/mjo-drawer";
+
+@customElement("drawer-accessibility")
+export class DrawerAccessibility extends LitElement {
+    @query("mjo-drawer") drawer!: any;
+
+    private openAccessibleDrawer() {
+        this.drawer.controller.show({
+            title: "Accessible Drawer",
+            content: html\`
+                <div>
+                    <p id="drawer-description">This drawer demonstrates accessibility features:</p>
+                    <ul>
+                        <li>Focus is trapped within the drawer</li>
+                        <li>Tab navigation works properly</li>
+                        <li>Screen readers announce the content</li>
+                        <li>Escape key closes the drawer</li>
+                    </ul>
+                    <label for="test-input">Test Input:</label>
+                    <input id="test-input" type="text" placeholder="Try tabbing around">
+                    <mjo-button>Focusable Button</mjo-button>
+                </div>
+            \`,
+        });
+    }
+
+    render() {
+        return html\`
+            <mjo-drawer 
+                ariaDescribedby="drawer-description"
+                label="Accessibility demo drawer"
+                initialFocus="#test-input">
+            </mjo-drawer>
+            <mjo-button @click=\${this.openAccessibleDrawer}>Open Accessible Drawer</mjo-button>
+        \`;
+    }
+
+    static styles = css\`
+        :host {
+            display: block;
+        }
+
+        input {
+            display: block;
+            margin: 0.5rem 0;
+            padding: 0.5rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+    \`;
+}
+`
+                        }
+                    </CodeblockPre>
+                </Codeblock>
+            </CodeExample>
+
+            <Typography class="explain" tag="p" spacing="md">The mjo-drawer component provides several accessibility features:</Typography>
+            <List>
+                <ListItem
+                    ><strong>Focus Management</strong>: Automatically traps focus within the drawer when open and restores focus to the trigger element when
+                    closed</ListItem
+                >
+                <ListItem><strong>Keyboard Navigation</strong>: Supports Escape key to close the drawer (configurable via closeOnEscape property)</ListItem>
+                <ListItem
+                    ><strong>ARIA Attributes</strong>: Proper role, aria-labelledby, aria-describedby, and aria-hidden attributes are automatically applied</ListItem
+                >
+                <ListItem><strong>Initial Focus</strong>: Configurable initial focus target using the initialFocus property with CSS selectors</ListItem>
+                <ListItem><strong>Screen Reader Support</strong>: Announces drawer state changes to assistive technologies</ListItem>
+                <ListItem><strong>Color Contrast</strong>: Ensures proper contrast ratios in both light and dark themes</ListItem>
+                <ListItem
+                    ><strong>Reduced Motion</strong>: Respects user's motion preferences by disabling animations when prefers-reduced-motion is set</ListItem
+                >
+            </List>
+
+            <Typography tag="h2" size="title3" weight="bold" spacing="md">Type Definitions</Typography>
+            <Typography class="explain" tag="p" spacing="md"> TypeScript interfaces and types for the mjo-drawer component. </Typography>
+
+            <Typography tag="h3" size="xxl" weight="bold" spacing="md">Interfaces</Typography>
+
+            <Codeblock>
+                <CodeblockPre language="typescript" bugTitle="[BUG mjo-drawer]">
+                    {
+                        `interface DrawerShowParams {
+  content: string | TemplateResult<1>;
+  title?: string;
+  position?: "top" | "right" | "bottom" | "left";
+  width?: string | number;
+  height?: string | number;
+  blocked?: boolean;
+  animationDuration?: number;
+  onOpen?: () => void;
+  onClose?: () => void;
+}
+
+interface MjoDrawer extends LitElement {
+  idDrawer?: string;
+  ariaLabelledby?: string;
+  ariaDescribedby?: string;
+  label?: string;
+  trapFocus: boolean;
+  restoreFocus: boolean;
+  closeOnEscape: boolean;
+  initialFocus?: string;
+  
+  controller: {
+    show(params: DrawerShowParams): void;
+    close(): void;
+  };
+}`
+                    }
+                </CodeblockPre>
+            </Codeblock>
+
+            <Typography tag="h3" size="xxl" weight="bold" spacing="md">Types</Typography>
+
+            <Codeblock>
+                <CodeblockPre language="typescript" bugTitle="[BUG mjo-drawer]">
+                    {
+                        `type DrawerPosition = "top" | "right" | "bottom" | "left";
+
+type DrawerContent = string | TemplateResult<1>;
+
+type DrawerCallback = () => void;
+
+type DrawerSize = string | number;`
+                    }
+                </CodeblockPre>
+            </Codeblock>
+        </article>
+    </DrawerApp>
+</DocsLayout>
+
+<style>
+    .prose {
+        position: relative;
+    }
+    .explain {
+        color: var(--mjo-foreground-color-low);
+    }
+</style>

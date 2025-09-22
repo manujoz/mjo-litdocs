@@ -22,6 +22,9 @@ import { DatePickerRange } from "@/components/examples/date-picker/date-picker-r
 import { DatePickerSizes } from "@/components/examples/date-picker/date-picker-sizes";
 import { DatePickerUsage } from "@/components/examples/date-picker/date-picker-usage";
 import { DatePickerVariants } from "@/components/examples/date-picker/date-picker-variants";
+import Link from "@/components/ui/Link.astro";
+import List from "@/components/ui/list/List.astro";
+import ListItem from "@/components/ui/list/ListItem.astro";
 import Logger from "@/components/ui/logger/Logger.astro";
 
 // Event details objects for clean display
@@ -530,7 +533,6 @@ export class DatePickerFormIntegration extends LitElement {
                     <TableCellHeader>Property</TableCellHeader>
                     <TableCellHeader>Type</TableCellHeader>
                     <TableCellHeader>Default</TableCellHeader>
-                    <TableCellHeader>Reflects</TableCellHeader>
                     <TableCellHeader minWidth="200px">Description</TableCellHeader>
                 </TableRow>
             </TableHeader>
@@ -539,140 +541,120 @@ export class DatePickerFormIntegration extends LitElement {
                     <TableCell><code class="inline">name</code></TableCell>
                     <TableCell><code class="inline">{`string | undefined`}</code></TableCell>
                     <TableCell><code class="inline">{`undefined`}</code></TableCell>
-                    <TableCell><code class="inline">{`no`}</code></TableCell>
                     <TableCell>Form field name (enables inclusion in mjo-form data)</TableCell>
                 </TableRow>
                 <TableRow>
                     <TableCell><code class="inline">value</code></TableCell>
                     <TableCell><code class="inline">{`string`}</code></TableCell>
                     <TableCell><code class="inline">{`""`}</code></TableCell>
-                    <TableCell><code class="inline">{`no`}</code></TableCell>
                     <TableCell>Current value (single: YYYY-MM-DD; range: start/end)</TableCell>
                 </TableRow>
                 <TableRow>
-                    <TableCell><code class="inline">range</code></TableCell>
+                    <TableCell><code class="inline">isRange</code></TableCell>
                     <TableCell><code class="inline">{`boolean`}</code></TableCell>
                     <TableCell><code class="inline">{`false`}</code></TableCell>
-                    <TableCell><code class="inline">{`yes`}</code></TableCell>
                     <TableCell>Enables range mode (isRange property)</TableCell>
                 </TableRow>
                 <TableRow>
                     <TableCell><code class="inline">locale</code></TableCell>
-                    <TableCell><code class="inline">{`string`}</code></TableCell>
-                    <TableCell><code class="inline">{`"en"`}</code></TableCell>
-                    <TableCell><code class="inline">{`no`}</code></TableCell>
+                    <TableCell><code class="inline">{`SupportedLocale`}</code></TableCell>
+                    <TableCell><code class="inline">{`"auto"`}</code></TableCell>
                     <TableCell>Locale passed to calendar & Intl formatting</TableCell>
                 </TableRow>
                 <TableRow>
-                    <TableCell><code class="inline">min-date</code></TableCell>
+                    <TableCell><code class="inline">minDate</code></TableCell>
                     <TableCell><code class="inline">{`string | undefined`}</code></TableCell>
                     <TableCell><code class="inline">{`undefined`}</code></TableCell>
-                    <TableCell><code class="inline">{`no`}</code></TableCell>
                     <TableCell>Minimum selectable date (ISO format)</TableCell>
                 </TableRow>
                 <TableRow>
-                    <TableCell><code class="inline">max-date</code></TableCell>
+                    <TableCell><code class="inline">maxDate</code></TableCell>
                     <TableCell><code class="inline">{`string | undefined`}</code></TableCell>
                     <TableCell><code class="inline">{`undefined`}</code></TableCell>
-                    <TableCell><code class="inline">{`no`}</code></TableCell>
                     <TableCell>Maximum selectable date (ISO format)</TableCell>
                 </TableRow>
                 <TableRow>
-                    <TableCell><code class="inline">disabled-dates</code></TableCell>
+                    <TableCell><code class="inline">disabledDates</code></TableCell>
                     <TableCell><code class="inline">{`string[] | undefined`}</code></TableCell>
                     <TableCell><code class="inline">{`undefined`}</code></TableCell>
-                    <TableCell><code class="inline">{`no`}</code></TableCell>
                     <TableCell>Array of disabled dates in ISO format</TableCell>
                 </TableRow>
                 <TableRow>
                     <TableCell><code class="inline">label</code></TableCell>
                     <TableCell><code class="inline">{`string | undefined`}</code></TableCell>
                     <TableCell><code class="inline">{`undefined`}</code></TableCell>
-                    <TableCell><code class="inline">{`no`}</code></TableCell>
                     <TableCell>Floating label of inner textfield</TableCell>
                 </TableRow>
                 <TableRow>
                     <TableCell><code class="inline">placeholder</code></TableCell>
                     <TableCell><code class="inline">{`string | undefined`}</code></TableCell>
                     <TableCell><code class="inline">{`undefined`}</code></TableCell>
-                    <TableCell><code class="inline">{`no`}</code></TableCell>
                     <TableCell>Placeholder text (shown when empty)</TableCell>
                 </TableRow>
                 <TableRow>
                     <TableCell><code class="inline">disabled</code></TableCell>
                     <TableCell><code class="inline">{`boolean`}</code></TableCell>
                     <TableCell><code class="inline">{`false`}</code></TableCell>
-                    <TableCell><code class="inline">{`yes`}</code></TableCell>
                     <TableCell>Disables user interaction</TableCell>
                 </TableRow>
                 <TableRow>
                     <TableCell><code class="inline">size</code></TableCell>
                     <TableCell><code class="inline">{`"small" | "medium" | "large"`}</code></TableCell>
                     <TableCell><code class="inline">{`"medium"`}</code></TableCell>
-                    <TableCell><code class="inline">{`no`}</code></TableCell>
                     <TableCell>Size token forwarded to textfield</TableCell>
                 </TableRow>
                 <TableRow>
                     <TableCell><code class="inline">color</code></TableCell>
                     <TableCell><code class="inline">{`"primary" | "secondary"`}</code></TableCell>
                     <TableCell><code class="inline">{`"primary"`}</code></TableCell>
-                    <TableCell><code class="inline">{`no`}</code></TableCell>
                     <TableCell>Color token forwarded to textfield</TableCell>
                 </TableRow>
                 <TableRow>
                     <TableCell><code class="inline">clearabled</code></TableCell>
                     <TableCell><code class="inline">{`boolean`}</code></TableCell>
                     <TableCell><code class="inline">{`false`}</code></TableCell>
-                    <TableCell><code class="inline">{`no`}</code></TableCell>
                     <TableCell>Shows a Clear button in dropdown when value present</TableCell>
                 </TableRow>
                 <TableRow>
-                    <TableCell><code class="inline">close-on-select</code></TableCell>
-                    <TableCell><code class="inline">{`boolean`}</code></TableCell>
-                    <TableCell><code class="inline">{`true`}</code></TableCell>
-                    <TableCell><code class="inline">{`no`}</code></TableCell>
-                    <TableCell>Closes dropdown after selection (single or after range completion)</TableCell>
+                    <TableCell><code class="inline">displayMode</code></TableCell>
+                    <TableCell><code class="inline">{`"iso" | "numeric" | "localized"`}</code></TableCell>
+                    <TableCell><code class="inline">{`"numeric"`}</code></TableCell>
+                    <TableCell>Display format: ISO raw value, numeric or locale-formatted text</TableCell>
                 </TableRow>
                 <TableRow>
-                    <TableCell><code class="inline">required</code></TableCell>
-                    <TableCell><code class="inline">{`boolean`}</code></TableCell>
-                    <TableCell><code class="inline">{`false`}</code></TableCell>
-                    <TableCell><code class="inline">{`yes`}</code></TableCell>
-                    <TableCell>Marks as required for form validation</TableCell>
+                    <TableCell><code class="inline">textfieldTheme</code></TableCell>
+                    <TableCell><code class="inline">{`MjoTextfieldTheme`}</code></TableCell>
+                    <TableCell><code class="inline">{`undefined`}</code></TableCell>
+                    <TableCell>Theme object for the text field</TableCell>
                 </TableRow>
                 <TableRow>
-                    <TableCell><code class="inline">display-mode</code></TableCell>
-                    <TableCell><code class="inline">{`"iso" | "localized"`}</code></TableCell>
-                    <TableCell><code class="inline">{`"iso"`}</code></TableCell>
-                    <TableCell><code class="inline">{`no`}</code></TableCell>
-                    <TableCell>Display format: ISO raw value or locale-formatted text</TableCell>
+                    <TableCell><code class="inline">calendarTheme</code></TableCell>
+                    <TableCell><code class="inline">{`MjoCalendarTheme`}</code></TableCell>
+                    <TableCell><code class="inline">{`undefined`}</code></TableCell>
+                    <TableCell>Theme object for the calendar</TableCell>
                 </TableRow>
                 <TableRow>
                     <TableCell><code class="inline">aria-describedby</code></TableCell>
                     <TableCell><code class="inline">{`string`}</code></TableCell>
                     <TableCell><code class="inline">{`""`}</code></TableCell>
-                    <TableCell><code class="inline">{`no`}</code></TableCell>
                     <TableCell>Links to external elements describing the picker</TableCell>
                 </TableRow>
                 <TableRow>
                     <TableCell><code class="inline">aria-live</code></TableCell>
                     <TableCell><code class="inline">{`string`}</code></TableCell>
                     <TableCell><code class="inline">{`"polite"`}</code></TableCell>
-                    <TableCell><code class="inline">{`no`}</code></TableCell>
                     <TableCell>Live region politeness level for screen reader announcements</TableCell>
                 </TableRow>
                 <TableRow>
                     <TableCell><code class="inline">aria-label</code></TableCell>
                     <TableCell><code class="inline">{`string | null`}</code></TableCell>
                     <TableCell><code class="inline">{`null`}</code></TableCell>
-                    <TableCell><code class="inline">{`no`}</code></TableCell>
                     <TableCell>Accessible label for the date picker</TableCell>
                 </TableRow>
                 <TableRow>
-                    <TableCell><code class="inline">disabled-announce-selections</code></TableCell>
+                    <TableCell><code class="inline">disabledAnnounceSelections</code></TableCell>
                     <TableCell><code class="inline">{`boolean`}</code></TableCell>
                     <TableCell><code class="inline">{`false`}</code></TableCell>
-                    <TableCell><code class="inline">{`no`}</code></TableCell>
                     <TableCell>Disables automatic screen reader announcements for date selections</TableCell>
                 </TableRow>
             </TableBody>
@@ -692,11 +674,6 @@ export class DatePickerFormIntegration extends LitElement {
                     <TableCell><code class="inline">required</code></TableCell>
                     <TableCell><code class="inline">{`boolean`}</code></TableCell>
                     <TableCell>Field is required</TableCell>
-                </TableRow>
-                <TableRow>
-                    <TableCell><code class="inline">isdate</code></TableCell>
-                    <TableCell><code class="inline">{`"aaaa-mm-dd" | "dd-mm-aaaa" | "mm-dd-aaaa"`}</code></TableCell>
-                    <TableCell>Date format validation</TableCell>
                 </TableRow>
                 <TableRow>
                     <TableCell><code class="inline">dateprevious</code></TableCell>
@@ -728,38 +705,44 @@ export class DatePickerFormIntegration extends LitElement {
             </TableHeader>
             <TableBody>
                 <TableRow>
+                    <TableCell><code class="inline">click()</code></TableCell>
+                    <TableCell><code class="inline">-</code></TableCell>
+                    <TableCell><code class="inline">void</code></TableCell>
+                    <TableCell>Click the internal textfield</TableCell>
+                </TableRow>
+                <TableRow>
                     <TableCell><code class="inline">focus()</code></TableCell>
-                    <TableCell><code class="inline">none</code></TableCell>
+                    <TableCell><code class="inline">-</code></TableCell>
                     <TableCell><code class="inline">void</code></TableCell>
                     <TableCell>Focuses the internal textfield</TableCell>
                 </TableRow>
                 <TableRow>
                     <TableCell><code class="inline">clear()</code></TableCell>
-                    <TableCell><code class="inline">none</code></TableCell>
+                    <TableCell><code class="inline">-</code></TableCell>
                     <TableCell><code class="inline">void</code></TableCell>
                     <TableCell>Clears value and emits change events</TableCell>
                 </TableRow>
                 <TableRow>
-                    <TableCell><code class="inline">openPicker()</code></TableCell>
-                    <TableCell><code class="inline">none</code></TableCell>
+                    <TableCell><code class="inline">open()</code></TableCell>
+                    <TableCell><code class="inline">-</code></TableCell>
                     <TableCell><code class="inline">void</code></TableCell>
                     <TableCell>Programmatically opens the dropdown</TableCell>
                 </TableRow>
                 <TableRow>
-                    <TableCell><code class="inline">closePicker()</code></TableCell>
-                    <TableCell><code class="inline">none</code></TableCell>
+                    <TableCell><code class="inline">close()</code></TableCell>
+                    <TableCell><code class="inline">-</code></TableCell>
                     <TableCell><code class="inline">void</code></TableCell>
                     <TableCell>Programmatically closes the dropdown</TableCell>
                 </TableRow>
                 <TableRow>
                     <TableCell><code class="inline">getValue()</code></TableCell>
-                    <TableCell><code class="inline">none</code></TableCell>
+                    <TableCell><code class="inline">-</code></TableCell>
                     <TableCell><code class="inline">string</code></TableCell>
                     <TableCell>Returns current raw value</TableCell>
                 </TableRow>
                 <TableRow>
-                    <TableCell><code class="inline">setValue(v)</code></TableCell>
-                    <TableCell><code class="inline">string</code></TableCell>
+                    <TableCell><code class="inline">setValue(value)</code></TableCell>
+                    <TableCell><code class="inline">value: string</code></TableCell>
                     <TableCell><code class="inline">void</code></TableCell>
                     <TableCell>Sets value (triggers internal state update)</TableCell>
                 </TableRow>
@@ -770,271 +753,79 @@ export class DatePickerFormIntegration extends LitElement {
         <Table>
             <TableHeader>
                 <TableRow>
-                    <TableCellHeader>Event</TableCellHeader>
-                    <TableCellHeader>Bubbles</TableCellHeader>
-                    <TableCellHeader>Composed</TableCellHeader>
-                    <TableCellHeader>Cancelable</TableCellHeader>
-                    <TableCellHeader minWidth="200px">Description</TableCellHeader>
+                    <TableCellHeader width="190px">Event</TableCellHeader>
+                    <TableCellHeader width="190px">CustomEvent type</TableCellHeader>
+                    <TableCellHeader>Detail</TableCellHeader>
+                    <TableCellHeader minWidth="200px">Notes</TableCellHeader>
                 </TableRow>
             </TableHeader>
             <TableBody>
                 <TableRow>
                     <TableCell><code class="inline">mjo-date-picker:change</code></TableCell>
-                    <TableCell><code class="inline">true</code></TableCell>
-                    <TableCell><code class="inline">true</code></TableCell>
-                    <TableCell><code class="inline">false</code></TableCell>
-                    <TableCell>Fired when value changes. Contains selected date(s) and input value</TableCell>
-                </TableRow>
-                <TableRow>
-                    <TableCell><code class="inline">change</code></TableCell>
-                    <TableCell><code class="inline">true</code></TableCell>
-                    <TableCell><code class="inline">false</code></TableCell>
-                    <TableCell><code class="inline">false</code></TableCell>
-                    <TableCell>Standard form element change event for form integration</TableCell>
+                    <TableCell><code class="inline">MjoDatePickerChangeEvent</code></TableCell>
+                    <TableCell><pre>{eventChangeDetail}</pre></TableCell>
+                    <TableCell>Emitted when the date picker value changes.</TableCell>
                 </TableRow>
             </TableBody>
         </Table>
         <Typography tag="h2" size="title3" weight="bold" spacing="md">Theming</Typography>
-        <Typography class="explain" tag="p" spacing="md">The mjo-date-picker component can be styled using CSS custom properties and CSS parts.</Typography>
-        <Typography tag="h3" size="xl" weight="bold" spacing="md">CSS Variables</Typography>
-        <Typography class="explain" tag="p" spacing="md">Customize the component appearance with these CSS variables:</Typography>
-        <Table>
-            <TableHeader>
-                <TableRow>
-                    <TableCellHeader>Variable</TableCellHeader>
-                    <TableCellHeader>Default</TableCellHeader>
-                    <TableCellHeader minWidth="200px">Description</TableCellHeader>
-                </TableRow>
-            </TableHeader>
-            <TableBody>
-                <TableRow>
-                    <TableCell><code class="inline">--mjo-date-picker-border-color</code></TableCell>
-                    <TableCell><code class="inline">var(--mjo-colors-border)</code></TableCell>
-                    <TableCell>Border color of the input field</TableCell>
-                </TableRow>
-                <TableRow>
-                    <TableCell><code class="inline">--mjo-date-picker-bg-color</code></TableCell>
-                    <TableCell><code class="inline">var(--mjo-colors-bg-surface)</code></TableCell>
-                    <TableCell>Background color of the input field</TableCell>
-                </TableRow>
-                <TableRow>
-                    <TableCell><code class="inline">--mjo-date-picker-text-color</code></TableCell>
-                    <TableCell><code class="inline">var(--mjo-colors-text-primary)</code></TableCell>
-                    <TableCell>Text color of the input field</TableCell>
-                </TableRow>
-                <TableRow>
-                    <TableCell><code class="inline">--mjo-date-picker-dropdown-bg</code></TableCell>
-                    <TableCell><code class="inline">var(--mjo-colors-bg-surface)</code></TableCell>
-                    <TableCell>Background color of the dropdown calendar</TableCell>
-                </TableRow>
-                <TableRow>
-                    <TableCell><code class="inline">--mjo-date-picker-dropdown-border</code></TableCell>
-                    <TableCell><code class="inline">var(--mjo-colors-border)</code></TableCell>
-                    <TableCell>Border color of the dropdown calendar</TableCell>
-                </TableRow>
-                <TableRow>
-                    <TableCell><code class="inline">--mjo-date-picker-selected-bg</code></TableCell>
-                    <TableCell><code class="inline">var(--mjo-colors-primary)</code></TableCell>
-                    <TableCell>Background color of selected dates</TableCell>
-                </TableRow>
-                <TableRow>
-                    <TableCell><code class="inline">--mjo-date-picker-selected-color</code></TableCell>
-                    <TableCell><code class="inline">var(--mjo-colors-primary-foreground)</code></TableCell>
-                    <TableCell>Text color of selected dates</TableCell>
-                </TableRow>
-                <TableRow>
-                    <TableCell><code class="inline">--mjo-date-picker-hover-bg</code></TableCell>
-                    <TableCell><code class="inline">var(--mjo-colors-hover)</code></TableCell>
-                    <TableCell>Background color on date hover</TableCell>
-                </TableRow>
-                <TableRow>
-                    <TableCell><code class="inline">--mjo-date-picker-disabled-color</code></TableCell>
-                    <TableCell><code class="inline">var(--mjo-colors-text-muted)</code></TableCell>
-                    <TableCell>Text color of disabled dates</TableCell>
-                </TableRow>
-                <TableRow>
-                    <TableCell><code class="inline">--mjo-date-picker-border-radius</code></TableCell>
-                    <TableCell><code class="inline">var(--mjo-radius-md)</code></TableCell>
-                    <TableCell>Border radius of the component</TableCell>
-                </TableRow>
-                <TableRow>
-                    <TableCell><code class="inline">--mjo-date-picker-shadow</code></TableCell>
-                    <TableCell><code class="inline">var(--mjo-shadow-sm)</code></TableCell>
-                    <TableCell>Shadow of the dropdown calendar</TableCell>
-                </TableRow>
-            </TableBody>
-        </Table>
-        <Typography tag="h3" size="xl" weight="bold" spacing="md">CSS Parts</Typography>
-        <Typography class="explain" tag="p" spacing="md">Style component parts using ::part() selector:</Typography>
-        <Table>
-            <TableHeader>
-                <TableRow>
-                    <TableCellHeader>Part</TableCellHeader>
-                    <TableCellHeader minWidth="200px">Description</TableCellHeader>
-                </TableRow>
-            </TableHeader>
-            <TableBody>
-                <TableRow>
-                    <TableCell><code class="inline">input</code></TableCell>
-                    <TableCell>The main input field element</TableCell>
-                </TableRow>
-                <TableRow>
-                    <TableCell><code class="inline">dropdown</code></TableCell>
-                    <TableCell>The dropdown container that holds the calendar</TableCell>
-                </TableRow>
-                <TableRow>
-                    <TableCell><code class="inline">calendar</code></TableCell>
-                    <TableCell>The calendar grid container</TableCell>
-                </TableRow>
-                <TableRow>
-                    <TableCell><code class="inline">header</code></TableCell>
-                    <TableCell>The calendar header with navigation</TableCell>
-                </TableRow>
-                <TableRow>
-                    <TableCell><code class="inline">nav-button</code></TableCell>
-                    <TableCell>Previous/next navigation buttons</TableCell>
-                </TableRow>
-                <TableRow>
-                    <TableCell><code class="inline">month-year</code></TableCell>
-                    <TableCell>Month and year display in header</TableCell>
-                </TableRow>
-                <TableRow>
-                    <TableCell><code class="inline">weekdays</code></TableCell>
-                    <TableCell>Row containing weekday headers</TableCell>
-                </TableRow>
-                <TableRow>
-                    <TableCell><code class="inline">weekday</code></TableCell>
-                    <TableCell>Individual weekday header cell</TableCell>
-                </TableRow>
-                <TableRow>
-                    <TableCell><code class="inline">dates</code></TableCell>
-                    <TableCell>Container for date cells</TableCell>
-                </TableRow>
-                <TableRow>
-                    <TableCell><code class="inline">date</code></TableCell>
-                    <TableCell>Individual date cell</TableCell>
-                </TableRow>
-                <TableRow>
-                    <TableCell><code class="inline">clear-button</code></TableCell>
-                    <TableCell>Clear button when clearabled is enabled</TableCell>
-                </TableRow>
-            </TableBody>
-        </Table>
-        <Typography tag="h3" size="xl" weight="bold" spacing="md">Theme Interface</Typography>
-        <Typography class="explain" tag="p" spacing="md">When using the theming system, the component accepts these theme tokens:</Typography>
-        <Table>
-            <TableHeader>
-                <TableRow>
-                    <TableCellHeader>Token</TableCellHeader>
-                    <TableCellHeader>Type</TableCellHeader>
-                    <TableCellHeader minWidth="200px">Description</TableCellHeader>
-                </TableRow>
-            </TableHeader>
-            <TableBody>
-                <TableRow>
-                    <TableCell><code class="inline">size</code></TableCell>
-                    <TableCell><code class="inline">"sm" | "md" | "lg"</code></TableCell>
-                    <TableCell>Component size variant</TableCell>
-                </TableRow>
-                <TableRow>
-                    <TableCell><code class="inline">color</code></TableCell>
-                    <TableCell><code class="inline">"default" | "primary" | "secondary" | "success" | "warning" | "danger"</code></TableCell>
-                    <TableCell>Color scheme variant</TableCell>
-                </TableRow>
-                <TableRow>
-                    <TableCell><code class="inline">radius</code></TableCell>
-                    <TableCell><code class="inline">"none" | "sm" | "md" | "lg" | "full"</code></TableCell>
-                    <TableCell>Border radius variant</TableCell>
-                </TableRow>
-                <TableRow>
-                    <TableCell><code class="inline">shadow</code></TableCell>
-                    <TableCell><code class="inline">"none" | "sm" | "md" | "lg"</code></TableCell>
-                    <TableCell>Shadow depth variant</TableCell>
-                </TableRow>
-            </TableBody>
-        </Table>
+        <Typography class="explain" tag="p" spacing="md"
+            >The <code class="inline">mjo-date-picker</code> component can be styled using <Link href="/docs/components/calendar" color="primary"
+                >mjo-calendar</Link
+            > and <Link href="/docs/components/textfield" color="primary">mjo-textfield</Link> CSS custom properties and CSS parts.</Typography
+        >
         <Typography tag="h2" size="title3" weight="bold" spacing="md">Accessibility</Typography>
         <Typography class="explain" tag="p" spacing="md">The mjo-date-picker component implements comprehensive accessibility features:</Typography>
-        <ul class="accessibility-list">
-            <li><strong>Keyboard Navigation:</strong> Full keyboard support with arrow keys, Enter, Escape, Tab, and Page Up/Down for calendar navigation</li>
-            <li><strong>Screen Reader Support:</strong> Proper ARIA labels, live regions, and announcements for date selections and navigation</li>
-            <li>
-                <strong>ARIA Attributes:</strong> Uses <code>aria-label</code>, <code>aria-describedby</code>, <code>aria-live</code>, and <code>role</code> attributes
-                for enhanced accessibility
-            </li>
-            <li><strong>Focus Management:</strong> Proper focus handling and visual focus indicators throughout the component</li>
-            <li><strong>Date Announcements:</strong> Configurable announcements for selected dates and navigation changes</li>
-            <li><strong>High Contrast Support:</strong> Respects system high contrast settings and provides clear visual distinctions</li>
-            <li><strong>Form Integration:</strong> Works seamlessly with form labels, validation, and error messaging</li>
-            <li><strong>Localization:</strong> Supports localized date formats and calendar navigation for international users</li>
-        </ul>
+        <List listStyle="disc">
+            <ListItem featuredText="Keyboard Navigation"
+                >Full keyboard support with arrow keys, Enter, Escape, Tab, and Page Up/Down for calendar navigation</ListItem
+            >
+            <ListItem featuredText="Screen Reader Support">Proper ARIA labels, live regions, and announcements for date selections and navigation</ListItem>
+            <ListItem featuredText="Aria Attributes"
+                >Uses <code class="inline">aria-label</code>, <code class="inline">aria-describedby</code>, <code class="inline">aria-live</code>, and <code
+                    class="inline">role</code
+                > attributes for enhanced accessibility</ListItem
+            >
+            <ListItem featuredText="Focus Management">Proper focus handling and visual focus indicators throughout the component</ListItem>
+            <ListItem featuredText="Date Announcements">Configurable announcements for selected dates and navigation changes</ListItem>
+            <ListItem featuredText="High Contrast Support">Respects system high contrast settings and provides clear visual distinctions</ListItem>
+            <ListItem featuredText="Form Integration">Works seamlessly with form labels, validation, and error messaging</ListItem>
+            <ListItem featuredText="Localization">Supports localized date formats and calendar navigation for international users</ListItem>
+        </List>
         <Typography tag="h2" size="title3" weight="bold" spacing="md">Type Definitions</Typography>
         <Typography class="explain" tag="p" spacing="md">TypeScript interface and type definitions for the mjo-date-picker component:</Typography>
-        <CodeExample>
-            <Codeblock showHeader slot="code">
-                <CodeblockPre language="typescript" bugTitle="Type Definitions">
-                    {
-                        `interface MjoDatePickerElement extends LitElement {
-  // Core Properties
-  name: string;
-  value: string;
-  range: boolean;
-  locale: string;
-  
-  // Date Constraints
-  minDate: string;
-  maxDate: string;
-  disabledDates: string[];
-  
-  // Display
-  label: string;
-  placeholder: string;
-  disabled: boolean;
-  size: "sm" | "md" | "lg";
-  color: "default" | "primary" | "secondary" | "success" | "warning" | "danger";
-  
-  // Features
-  clearabled: boolean;
-  closeOnSelect: boolean;
-  displayMode: "iso" | "localized";
-  
-  // Form Integration
-  required: boolean;
-  
-  // Accessibility
-  ariaDescribedby: string;
-  ariaLive: string;
-  ariaLabel: string | null;
-  disabledAnnounceSelections: boolean;
-  
-  // Validation Properties (from FormMixin)
-  isdate: "aaaa-mm-dd" | "dd-mm-aaaa" | "mm-dd-aaaa";
-  dateprevious: boolean;
-  minage: number;
-  maxage: number;
-  
-  // Methods
-  focus(): void;
-  clear(): void;
-  openPicker(): void;
-  closePicker(): void;
-  getValue(): string;
-  setValue(value: string): void;
-}
+        <Codeblock>
+            <CodeblockPre language="typescript" bugTitle="Type Definitions">
+                {
+                    `type MjoDatePickerDisplayMode = "iso" | "localized" | "numeric";
+type MjoDatePickerAriaLive = "polite" | "assertive" | "off";
 
-// Event Detail Types
-interface DatePickerChangeDetail {
-  selectedDates: string[];
-  inputValue: string;
-  range: boolean;
-}
+type MjoTextfieldSize = "small" | "medium" | "large";
+type MjoTextfieldVariant = "default" | "ghost" | "flat";
+type MjoTextfieldColor = "primary" | "secondary";
 
-interface DatePickerChangeEvent extends CustomEvent<DatePickerChangeDetail> {
-  type: "mjo-date-picker:change";
-}`
-                    }
-                </CodeblockPre>
-            </Codeblock>
-        </CodeExample>
+interface DatePickerChangeEvent extends CustomEvent {
+    detail: {
+        value?: string;
+        date?: Date;
+        startDate?: Date;
+        endDate?: Date;
+        startDateValue?: string;
+        endDateValue?: string;
+    };
+}
+`
+                }
+            </CodeblockPre>
+        </Codeblock>
     </article>
 </DocsLayout>
+
+<style>
+    .prose {
+        position: relative;
+    }
+    .explain {
+        color: var(--mjo-foreground-color-low);
+    }
+</style>
