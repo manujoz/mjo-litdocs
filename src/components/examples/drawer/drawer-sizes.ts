@@ -1,13 +1,27 @@
+import type { MjoDrawer } from "mjo-litui/mjo-drawer";
+
 import { LitElement, css, html } from "lit";
 import { customElement, query } from "lit/decorators.js";
+
 import "mjo-litui/mjo-button";
 import "mjo-litui/mjo-drawer";
 
 @customElement("drawer-sizes")
 export class DrawerSizes extends LitElement {
-    @query("mjo-drawer") drawer!: any;
+    @query("mjo-drawer") drawer!: MjoDrawer;
 
-    private openSmallDrawer() {
+    render() {
+        return html`
+            <mjo-drawer></mjo-drawer>
+            <div class="buttons">
+                <mjo-button @click=${this.#openSmallDrawer}>Small (300px)</mjo-button>
+                <mjo-button @click=${this.#openLargeDrawer}>Large (800px)</mjo-button>
+                <mjo-button @click=${this.#openTallDrawer}>Tall (400px)</mjo-button>
+            </div>
+        `;
+    }
+
+    #openSmallDrawer() {
         this.drawer.controller.show({
             title: "Small Drawer",
             width: 300,
@@ -15,7 +29,7 @@ export class DrawerSizes extends LitElement {
         });
     }
 
-    private openLargeDrawer() {
+    #openLargeDrawer() {
         this.drawer.controller.show({
             title: "Large Drawer",
             width: 800,
@@ -23,7 +37,7 @@ export class DrawerSizes extends LitElement {
         });
     }
 
-    private openTallDrawer() {
+    #openTallDrawer() {
         this.drawer.controller.show({
             title: "Tall Drawer",
             position: "bottom",
@@ -32,20 +46,12 @@ export class DrawerSizes extends LitElement {
         });
     }
 
-    render() {
-        return html`
-            <mjo-drawer></mjo-drawer>
-            <div class="buttons">
-                <mjo-button @click=${this.openSmallDrawer}>Small (300px)</mjo-button>
-                <mjo-button @click=${this.openLargeDrawer}>Large (800px)</mjo-button>
-                <mjo-button @click=${this.openTallDrawer}>Tall (400px)</mjo-button>
-            </div>
-        `;
-    }
-
     static styles = css`
         :host {
             display: block;
+        }
+        mjo-drawer {
+            z-index: 20;
         }
         .buttons {
             display: flex;

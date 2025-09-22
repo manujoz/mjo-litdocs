@@ -10,32 +10,23 @@ import "mjo-litui/mjo-drawer";
 export class DrawerUsage extends LitElement {
     @query("mjo-drawer") drawer!: MjoDrawer;
 
-    test = "Hello";
-
-    private openBasicDrawer() {
-        this.drawer.controller.show({
-            title: "Basic Drawer",
-            onClose() {
-                console.log("Drawer closed!");
-            },
-            content: html`
-                <div style="padding: var(--mjo-space-small);">
-                    <div>This is a basic drawer with simple content.</div>
-                    <div @click=${this.#handleClick}>You can add any HTML content here.</div>
-                </div>
-            `,
-        });
-    }
-
-    #handleClick = () => {
-        console.log("Drawer content clicked!", this.test);
-    };
-
     render() {
         return html`
             <mjo-drawer></mjo-drawer>
-            <mjo-button @click=${this.openBasicDrawer}>Open Basic Drawer</mjo-button>
+            <mjo-button @click=${this.#openBasicDrawer}>Open Basic Drawer</mjo-button>
         `;
+    }
+
+    #openBasicDrawer() {
+        this.drawer.controller.show({
+            title: "Basic Drawer",
+            content: html`
+                <div style="padding: var(--mjo-space-small);">
+                    <div>This is a basic drawer with simple content.</div>
+                    <div>You can add any HTML content here.</div>
+                </div>
+            `,
+        });
     }
 
     static styles = css`

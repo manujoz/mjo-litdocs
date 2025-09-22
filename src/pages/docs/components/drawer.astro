@@ -68,7 +68,9 @@ const eventCloseDetail = `{
                 <Codeblock showHeader slot="code">
                     <CodeblockPre language="lit" bugTitle="[BUG mjo-drawer]">
                         {
-                            `import { LitElement, css, html } from "lit";
+                            `import type { MjoDrawer } from "mjo-litui/mjo-drawer";
+
+import { LitElement, css, html } from "lit";
 import { customElement, query } from "lit/decorators.js";
 
 import "mjo-litui/mjo-button";
@@ -76,28 +78,33 @@ import "mjo-litui/mjo-drawer";
 
 @customElement("drawer-usage")
 export class DrawerUsage extends LitElement {
-    @query("mjo-drawer") drawer!: any;
-
-    private openBasicDrawer() {
-        this.drawer.controller.show({
-            title: "Basic Drawer",
-            content: html\`
-                <p>This is a basic drawer with simple content.</p>
-                <p>You can add any HTML content here.</p>
-            \`,
-        });
-    }
+    @query("mjo-drawer") drawer!: MjoDrawer;
 
     render() {
         return html\`
             <mjo-drawer></mjo-drawer>
-            <mjo-button @click=\${this.openBasicDrawer}>Open Basic Drawer</mjo-button>
+            <mjo-button @click=\${this.#openBasicDrawer}>Open Basic Drawer</mjo-button>
         \`;
+    }
+
+    #openBasicDrawer() {
+        this.drawer.controller.show({
+            title: "Basic Drawer",
+            content: html\`
+                <div style="padding: var(--mjo-space-small);">
+                    <div>This is a basic drawer with simple content.</div>
+                    <div>You can add any HTML content here.</div>
+                </div>
+            \`,
+        });
     }
 
     static styles = css\`
         :host {
             display: block;
+        }
+        mjo-drawer {
+            z-index: 20;
         }
     \`;
 }
@@ -114,7 +121,9 @@ export class DrawerUsage extends LitElement {
                 <Codeblock showHeader slot="code">
                     <CodeblockPre language="lit" bugTitle="[BUG mjo-drawer]">
                         {
-                            `import { LitElement, css, html } from "lit";
+                            `import type { MjoDrawer } from "mjo-litui/mjo-drawer";
+
+import { LitElement, css, html } from "lit";
 import { customElement, query } from "lit/decorators.js";
 
 import "mjo-litui/mjo-button";
@@ -122,39 +131,38 @@ import "mjo-litui/mjo-drawer";
 
 @customElement("drawer-positions")
 export class DrawerPositions extends LitElement {
-    @query("mjo-drawer") drawer!: any;
-
-    private openDrawer(position: "top" | "right" | "bottom" | "left") {
-        this.drawer.controller.show({
-            title: \`\${position.charAt(0).toUpperCase() + position.slice(1)} Drawer\`,
-            position,
-            content: html\`
-                <p>This drawer slides in from the \${position}.</p>
-                <p>Try the different positions to see the animation.</p>
-            \`,
-        });
-    }
+    @query("mjo-drawer") drawer!: MjoDrawer;
 
     render() {
         return html\`
             <mjo-drawer></mjo-drawer>
-            <div class="button-group">
-                <mjo-button @click=\${() => this.openDrawer("top")}>Top</mjo-button>
-                <mjo-button @click=\${() => this.openDrawer("right")}>Right</mjo-button>
-                <mjo-button @click=\${() => this.openDrawer("bottom")}>Bottom</mjo-button>
-                <mjo-button @click=\${() => this.openDrawer("left")}>Left</mjo-button>
+            <div class="buttons">
+                <mjo-button @click=\${() => this.#openDrawer("top")}>Top</mjo-button>
+                <mjo-button @click=\${() => this.#openDrawer("right")}>Right</mjo-button>
+                <mjo-button @click=\${() => this.#openDrawer("bottom")}>Bottom</mjo-button>
+                <mjo-button @click=\${() => this.#openDrawer("left")}>Left</mjo-button>
             </div>
         \`;
+    }
+
+    #openDrawer(position: "top" | "right" | "bottom" | "left") {
+        this.drawer.controller.show({
+            title: \`\${position.charAt(0).toUpperCase() + position.slice(1)} Drawer\`,
+            position,
+            content: html\`<p style="padding: 0 var(--mjo-space-small);">This drawer slides from the \${position}.</p>\`,
+        });
     }
 
     static styles = css\`
         :host {
             display: block;
         }
-
-        .button-group {
+        mjo-drawer {
+            z-index: 20;
+        }
+        .buttons {
             display: flex;
-            gap: 1rem;
+            gap: 0.5rem;
             flex-wrap: wrap;
         }
     \`;
@@ -174,7 +182,9 @@ export class DrawerPositions extends LitElement {
                 <Codeblock showHeader slot="code">
                     <CodeblockPre language="lit" bugTitle="[BUG mjo-drawer]">
                         {
-                            `import { LitElement, css, html } from "lit";
+                            `import type { MjoDrawer } from "mjo-litui/mjo-drawer";
+
+import { LitElement, css, html } from "lit";
 import { customElement, query } from "lit/decorators.js";
 
 import "mjo-litui/mjo-button";
@@ -182,50 +192,54 @@ import "mjo-litui/mjo-drawer";
 
 @customElement("drawer-sizes")
 export class DrawerSizes extends LitElement {
-    @query("mjo-drawer") drawer!: any;
-
-    private openWideDrawer() {
-        this.drawer.controller.show({
-            title: "Wide Drawer",
-            position: "right",
-            width: "600px",
-            content: html\`
-                <p>This drawer has a custom width of 600px.</p>
-                <p>You can set any CSS unit: px, %, rem, vw, etc.</p>
-            \`,
-        });
-    }
-
-    private openTallDrawer() {
-        this.drawer.controller.show({
-            title: "Tall Drawer",
-            position: "bottom",
-            height: "400px",
-            content: html\`
-                <p>This drawer has a custom height of 400px.</p>
-                <p>Perfect for forms or detailed content.</p>
-            \`,
-        });
-    }
+    @query("mjo-drawer") drawer!: MjoDrawer;
 
     render() {
         return html\`
             <mjo-drawer></mjo-drawer>
-            <div class="button-group">
-                <mjo-button @click=\${this.openWideDrawer}>Wide Drawer (600px)</mjo-button>
-                <mjo-button @click=\${this.openTallDrawer}>Tall Drawer (400px)</mjo-button>
+            <div class="buttons">
+                <mjo-button @click=\${this.#openSmallDrawer}>Small (300px)</mjo-button>
+                <mjo-button @click=\${this.#openLargeDrawer}>Large (800px)</mjo-button>
+                <mjo-button @click=\${this.#openTallDrawer}>Tall (400px)</mjo-button>
             </div>
         \`;
+    }
+
+    #openSmallDrawer() {
+        this.drawer.controller.show({
+            title: "Small Drawer",
+            width: 300,
+            content: html\`<p>This is a small drawer (300px wide).</p>\`,
+        });
+    }
+
+    #openLargeDrawer() {
+        this.drawer.controller.show({
+            title: "Large Drawer",
+            width: 800,
+            content: html\`<p>This is a large drawer (800px wide).</p>\`,
+        });
+    }
+
+    #openTallDrawer() {
+        this.drawer.controller.show({
+            title: "Tall Drawer",
+            position: "bottom",
+            height: 400,
+            content: html\`<p>This is a tall drawer from bottom (400px high).</p>\`,
+        });
     }
 
     static styles = css\`
         :host {
             display: block;
         }
-
-        .button-group {
+        mjo-drawer {
+            z-index: 20;
+        }
+        .buttons {
             display: flex;
-            gap: 1rem;
+            gap: 0.5rem;
             flex-wrap: wrap;
         }
     \`;
