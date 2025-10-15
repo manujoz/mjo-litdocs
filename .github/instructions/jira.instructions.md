@@ -23,6 +23,27 @@ description: "Concise guide for Jira MCP usage - all specs, minimal examples"
 ### 1. Create Issue
 Use `mcp_jira_jira_create_issue` with: `project_key: "MJOLIT"`, `summary`, `issue_type` (Task/Story/Bug/Epic/Feature/Subtask), `assignee: user_email`, `description` (Markdown)
 
+**Example**:
+```javascript
+mcp_jira_jira_create_issue({
+  project_key: "MJOLIT",
+  summary: "Fix login bug",
+  issue_type: "Task",
+  assignee: "manu.overa@gmail.com",
+  description: "There is a bug in the login flow that needs to be fixed.",
+  additional_fields: {
+    "priority": {
+      "name": "High"
+    },
+    "labels": [
+      "WEB"
+    ]
+  }
+});
+```
+
+**CRITICAL**: Never use components field, use labels only.
+
 ### 2. Create Subtask
 **CRITICAL**: `issue_type: "Subtask"` (capital S), `additional_fields: { parent: "MJOLIT-XX" }` as STRING not object
 

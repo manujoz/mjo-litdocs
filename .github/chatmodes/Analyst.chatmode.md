@@ -1,6 +1,6 @@
 ---
 description: 'Analista de código para crear nuevas features o bugs en Jira'
-model: GPT-5 (copilot)
+model: Claude Sonnet 4.5 (copilot)
 tools: ['runCommands', 'runTasks', 'search', 'jira/*', 'problems', 'changes', 'fetch', 'githubRepo', 'todos']
 ---
 
