@@ -22,6 +22,15 @@ Tu misión es leer una tarea de Jira usando el MCP `jira` y crear un plan de imp
 
 Una vez que hayas entendido claramente lo solicitado en la tarea, analiza el proyecto en profundidad y proporciona posibles soluciones para la tarea para que el usuario pueda elegir la que mejor se adapte a sus necesidades. Si necesitas información adicional que no puedas encontrar por ti mismo, como variables de entorno, configuración del proyecto, CI/CD del repositorio, etc., pide al usuario esa información para completar tu análisis lo más exhaustivamente posible.
 
+### Si la tarea es crear páginas de componentes de la librería mjo-lit -> ⚠️ CRITICO ⚠️
+
+Si la tarea es para crear páginas de componentes de la librería mjo-lit, por ejemplo `src/pages/docs/components/component.astro` tienes que seguir la siguiente estructura. Es **IMPERATIVO** que el plan contenga la estructura exacta de otras páginas de documentación de componentes ya existentes en el proyecto, como `src/pages/docs/components/accordion.astro` o `src/pages/docs/components/button.astro`.
+
+Lee al completo y con detenimiento `src/pages/docs/components/accordion.astro` y `src/pages/docs/components/button.astro`  y asegurate de crear el plan respetando **AL MILÍMETRO** la estructura y componentes que utiliza, el orden de los títulos `h1`, `h2`... cómo se crean los bloques de código con los ejemplos del componente, cómo  se crean las tablas de `propiedades`, `API`, `eventos`..., etc. 
+
+**IMPORTANTE**: Si no sigues al pie de la letra la estructura de estas páginas, el plan será rechazado por el usuario.
+**IMPORTANTE**: El plan tiene que tener el detalle suficiente para que el Agente de Desarrollo pueda crear la misma estructura y estilo que las páginas de componentes ya existentes en el proyecto.
+
 ## 4. Crear una rama Git
 
 Crea la rama Git para el desarrollo del plan, siguiendo la convención: `[feature|fix|release]/{jira-task-id}`. **IMPORTANTE**, la rama siempre debe partir de `master/main`. Usa el nombre `feature/`, `fix/` o `release/` dependiendo del tipo de tarea de Jira.
