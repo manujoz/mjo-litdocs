@@ -12,55 +12,61 @@ interface Props {
 const { items } = Astro.props;
 ---
 
-<nav aria-label="Breadcrumb" class="breadcrumb-nav">
-    <ol class="breadcrumb-list">
-        {
-            items.map((item, index) => (
-                <li class="breadcrumb-item">
-                    {item.href && !item.isCurrentPage ? (
-                        <a href={item.href} class="breadcrumb-link">
-                            {item.label}
-                        </a>
-                    ) : (
-                        <span class="breadcrumb-current" aria-current={item.isCurrentPage ? "page" : undefined}>
-                            {item.label}
-                        </span>
-                    )}
-                    {index < items.length - 1 && (
-                        <span class="breadcrumb-separator" aria-hidden="true">
-                            /
-                        </span>
-                    )}
-                </li>
-            ))
-        }
-    </ol>
-</nav>
+{
+    items.length > 0 && (
+        <nav aria-label="Breadcrumb" class="breadcrumb-nav">
+            <ol class="breadcrumb-list">
+                {items.map((item, index) => (
+                    <li class="breadcrumb-item">
+                        {item.href && !item.isCurrentPage ? (
+                            <a href={item.href} class="breadcrumb-link">
+                                {item.label}
+                            </a>
+                        ) : (
+                            <span class="breadcrumb-current" aria-current={item.isCurrentPage ? "page" : undefined}>
+                                {item.label}
+                            </span>
+                        )}
+                        {index < items.length - 1 && (
+                            <span class="breadcrumb-separator" aria-hidden="true">
+                                /
+                            </span>
+                        )}
+                    </li>
+                ))}
+            </ol>
+        </nav>
+    )
+}
 
 <style>
-    @reference "../../styles/global.css";
-
     .breadcrumb-nav {
-        @apply mb-6;
+        position: relative;
+        margin-bottom: 24px;
     }
-
     .breadcrumb-list {
-        @apply flex items-center gap-2 text-sm;
+        position: relative;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 0.875rem;
     }
-
     .breadcrumb-item {
-        @apply flex items-center gap-2;
+        display: flex;
+        align-items: center;
+        gap: 8px;
     }
-
     .breadcrumb-link {
-        @apply text-muted-foreground hover:text-foreground transition-colors no-underline;
+        position: relative;
+        color: var(--mjo-foreground-color-low);
+        transition: color 0.2s ease-in-out;
+        text-decoration-line: none;
     }
-
     .breadcrumb-current {
-        @apply text-foreground font-medium;
+        color: var(--mjo-foreground-color);
+        font-weight: 500;
     }
-
     .breadcrumb-separator {
-        @apply text-muted-foreground;
+        color: var(--mjo-muted-foreground-color-low);
     }
 </style>

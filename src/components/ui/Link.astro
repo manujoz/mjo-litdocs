@@ -1,0 +1,33 @@
+---
+export interface Props {
+    href: string;
+    color?: "primary" | "secondary" | "default";
+    target?: string;
+    rel?: string;
+    class?: string;
+    [key: string]: any;
+}
+
+const { href, target = "_self", rel, color = "default", class: className, ...rest } = Astro.props;
+---
+
+<a href={href} class:list={["link", `link-${color}`, className]} target={target} rel={rel} {...rest}>
+    <slot />
+</a>
+
+<style>
+    .link {
+        text-decoration-line: none;
+        color: currentColor;
+        transition: color 0.2s ease;
+    }
+    .link:hover {
+        text-decoration-line: underline;
+    }
+    .link-primary {
+        color: var(--mjo-primary-color);
+    }
+    .link-secondary {
+        color: var(--mjo-secondary-color);
+    }
+</style>

@@ -11,8 +11,11 @@
       "@/utils/*": ["./src/utils/*"],
       "@/styles/*": ["./src/styles/*"],
       "@/icons/*": ["./src/assets/icons/*"],
-      "@/assets/*": ["./src/assets/*"]
+      "@/assets/*": ["./src/assets/*"],
+      "@/types/*": ["./src/types/*"],
+      "@/scripts/*": ["./src/scripts/*"]
     },
+    "types": ["vitest/globals"],
     "strict": true,
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,

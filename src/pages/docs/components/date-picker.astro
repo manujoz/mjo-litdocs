@@ -1,0 +1,831 @@
+---
+import Codeblock from "@/components/ui/codeblock/Codeblock.astro";
+import CodeblockPre from "@/components/ui/codeblock/CodeblockPre.astro";
+import CodeExample from "@/components/ui/CodeExample.astro";
+import Table from "@/components/ui/table/Table.astro";
+import TableBody from "@/components/ui/table/TableBody.astro";
+import TableCell from "@/components/ui/table/TableCell.astro";
+import TableCellHeader from "@/components/ui/table/TableCellHeader.astro";
+import TableHeader from "@/components/ui/table/TableHeader.astro";
+import TableRow from "@/components/ui/table/TableRow.astro";
+import Typography from "@/components/ui/Typography.astro";
+import DocsLayout from "@/layouts/DocsLayout.astro";
+
+import { DatePickerClearabled } from "@/components/examples/date-picker/date-picker-clearabled";
+import { DatePickerColors } from "@/components/examples/date-picker/date-picker-colors";
+import { DatePickerConstraints } from "@/components/examples/date-picker/date-picker-constraints";
+import { DatePickerDisabled } from "@/components/examples/date-picker/date-picker-disabled";
+import { DatePickerDisplayModes } from "@/components/examples/date-picker/date-picker-display-modes";
+import { DatePickerFormIntegration } from "@/components/examples/date-picker/date-picker-form-integration";
+import { DatePickerLocalization } from "@/components/examples/date-picker/date-picker-localization";
+import { DatePickerRange } from "@/components/examples/date-picker/date-picker-range";
+import { DatePickerSizes } from "@/components/examples/date-picker/date-picker-sizes";
+import { DatePickerUsage } from "@/components/examples/date-picker/date-picker-usage";
+import { DatePickerVariants } from "@/components/examples/date-picker/date-picker-variants";
+import Link from "@/components/ui/Link.astro";
+import List from "@/components/ui/list/List.astro";
+import ListItem from "@/components/ui/list/ListItem.astro";
+import Logger from "@/components/ui/logger/Logger.astro";
+
+// Event details objects for clean display
+const eventChangeDetail = `{
+  value: string,
+  date?: Date,
+  startDate?: Date,
+  endDate?: Date,
+  startDateValue?: string,
+  endDateValue?: string
+}`;
+---
+
+<DocsLayout
+    title="Date Picker"
+    description="The date picker component provides an interactive date selection interface with support for single dates and date ranges. Learn how to use the date picker component in your project."
+    currentPath="/docs/components/date-picker"
+>
+    <article class="prose">
+        <Typography tag="h1" size="title2" weight="bold">mjo-date-picker</Typography>
+        <Typography class="explain" tag="p" spacing="md">
+            The mjo-date-picker component provides an interactive date selection interface composed from mjo-textfield, mjo-dropdown (portal), and mjo-calendar.
+            It offers an accessible, themed, non-typing date picking experience with optional range mode, clear button, localization, comprehensive form
+            integration, validation support, and localized display formatting.
+        </Typography>
+        <Typography tag="h2" size="title3" weight="bold" spacing="md">Import</Typography>
+        <Typography class="explain" tag="p" spacing="md">
+            To use the mjo-date-picker component in your project, you need to import it first. You can do this by adding the following import statement to your
+            JavaScript or TypeScript file:
+        </Typography>
+        <Codeblock>
+            <CodeblockPre language="typescript" bugTitle="[BUG mjo-date-picker]">
+                {`import "mjo-litui/mjo-date-picker";`}
+            </CodeblockPre>
+        </Codeblock>
+        <Typography tag="h2" size="title3" weight="bold" spacing="md">Usage</Typography>
+        <Typography class="explain" tag="p" spacing="md">Basic usage of the mjo-date-picker component.</Typography>
+        <CodeExample>
+            <DatePickerUsage client:visible slot="preview" />
+            <Codeblock showHeader slot="code">
+                <CodeblockPre language="lit" bugTitle="[BUG mjo-date-picker]">
+                    {
+                        `import { LitElement, css, html } from "lit";
+import { customElement } from "lit/decorators.js";
+
+import "mjo-litui/mjo-date-picker";
+
+@customElement("date-picker-usage")
+export class DatePickerUsage extends LitElement {
+    render() {
+        return html\`<mjo-date-picker label="Select Date" placeholder="Choose a date"></mjo-date-picker>\`;
+    }
+
+    static styles = [
+        css\`
+            :host {
+                display: block;
+            }
+        \`,
+    ];
+}
+`
+                    }
+                </CodeblockPre>
+            </Codeblock>
+        </CodeExample>
+
+        <Typography tag="h3" size="xxl" weight="bold" spacing="md">Range selection</Typography>
+        <Typography class="explain" tag="p" spacing="md">
+            You can enable range mode by setting the <code class="inline">range</code> attribute. This allows users to select a start and end date.
+        </Typography>
+        <CodeExample>
+            <DatePickerRange client:visible slot="preview" />
+            <Codeblock showHeader slot="code">
+                <CodeblockPre language="lit" bugTitle="[BUG mjo-date-picker]">
+                    {
+                        `import { LitElement, css, html } from "lit";
+import { customElement } from "lit/decorators.js";
+
+import "mjo-litui/mjo-date-picker";
+
+@customElement("date-picker-range")
+export class DatePickerRange extends LitElement {
+    render() {
+        return html\`<mjo-date-picker isRange label="Select Date Range" placeholder="Choose start and end dates"></mjo-date-picker>\`;
+    }
+
+    static styles = [
+        css\`
+            :host {
+                display: block;
+            }
+        \`,
+    ];
+}
+`
+                    }
+                </CodeblockPre>
+            </Codeblock>
+        </CodeExample>
+
+        <Typography tag="h3" size="xxl" weight="bold" spacing="md">Sizes</Typography>
+        <Typography class="explain" tag="p" spacing="md">
+            The date picker component supports different sizes: <code class="inline">small</code>, <code class="inline">medium</code>, and <code class="inline"
+                >large</code
+            >.
+        </Typography>
+        <CodeExample>
+            <DatePickerSizes client:visible slot="preview" />
+            <Codeblock showHeader slot="code">
+                <CodeblockPre language="lit" bugTitle="[BUG mjo-date-picker]">
+                    {
+                        `import { LitElement, css, html } from "lit";
+import { customElement } from "lit/decorators.js";
+
+import "mjo-litui/mjo-date-picker";
+
+@customElement("date-picker-sizes")
+export class DatePickerSizes extends LitElement {
+    render() {
+        return html\`
+            <mjo-date-picker size="small" label="Small" placeholder="Small size"></mjo-date-picker>
+            <mjo-date-picker size="medium" label="Medium" placeholder="Medium size"></mjo-date-picker>
+            <mjo-date-picker size="large" label="Large" placeholder="Large size"></mjo-date-picker>
+        \`;
+    }
+
+    static styles = [
+        css\`
+            :host {
+                display: flex;
+                flex-direction: column;
+                gap: var(--mjo-space-large);
+            }
+        \`,
+    ];
+}
+`
+                    }
+                </CodeblockPre>
+            </Codeblock>
+        </CodeExample>
+
+        <Typography tag="h3" size="xxl" weight="bold" spacing="md">Variants</Typography>
+        <Typography class="explain" tag="p" spacing="md">
+            The date picker component supports different variants: <code class="inline">outlined</code>, <code class="inline">filled</code>, and <code
+                class="inline">standard</code
+            >.
+        </Typography>
+        <CodeExample>
+            <DatePickerVariants client:visible slot="preview" />
+            <Codeblock showHeader slot="code">
+                <CodeblockPre language="lit" bugTitle="[BUG mjo-date-picker]">
+                    {
+                        `import { LitElement, css, html } from "lit";
+import { customElement } from "lit/decorators.js";
+
+@customElement("date-picker-variants")
+export class DatePickerVariants extends LitElement {
+    render() {
+        return html\`
+            <mjo-date-picker variant="default" label="Default" placeholder="Default variant"></mjo-date-picker>
+            <mjo-date-picker variant="flat" label="Flat" placeholder="Flat variant"></mjo-date-picker>
+            <mjo-date-picker variant="ghost" label="Ghost" placeholder="Ghost variant"></mjo-date-picker>
+        \`;
+    }
+
+    static styles = [
+        css\`
+            :host {
+                display: flex;
+                flex-direction: column;
+                gap: var(--mjo-space-large);
+            }
+        \`,
+    ];
+}
+`
+                    }
+                </CodeblockPre>
+            </Codeblock>
+        </CodeExample>
+
+        <Typography tag="h3" size="xxl" weight="bold" spacing="md">Colors</Typography>
+        <Typography class="explain" tag="p" spacing="md">
+            The date picker component supports different color variants: <code class="incode">primary</code> and <code class="inline">secondary</code>.
+        </Typography>
+        <CodeExample>
+            <DatePickerColors client:visible slot="preview" />
+            <Codeblock showHeader slot="code">
+                <CodeblockPre language="lit" bugTitle="[BUG mjo-date-picker]">
+                    {
+                        `import { LitElement, css, html } from "lit";
+import { customElement } from "lit/decorators.js";
+
+import "mjo-litui/mjo-date-picker";
+
+@customElement("date-picker-colors")
+export class DatePickerColors extends LitElement {
+    render() {
+        return html\`
+            <mjo-date-picker color="primary" label="Primary" placeholder="Primary color"></mjo-date-picker>
+            <mjo-date-picker color="secondary" label="Secondary" placeholder="Secondary color"></mjo-date-picker>
+        \`;
+    }
+
+    static styles = [
+        css\`
+            :host {
+                display: flex;
+                flex-direction: column;
+                gap: var(--mjo-space-large);
+            }
+        \`,
+    ];
+}
+`
+                    }
+                </CodeblockPre>
+            </Codeblock>
+        </CodeExample>
+
+        <Typography tag="h3" size="xxl" weight="bold" spacing="md">Localization</Typography>
+        <Typography class="explain" tag="p" spacing="md"> The date picker supports different locales for calendar display and date formatting. </Typography>
+        <CodeExample>
+            <DatePickerLocalization client:visible slot="preview" />
+            <Codeblock showHeader slot="code">
+                <CodeblockPre language="lit" bugTitle="[BUG mjo-date-picker]">
+                    {
+                        `import { LitElement, css, html } from "lit";
+import { customElement } from "lit/decorators.js";
+
+import "mjo-litui/mjo-date-picker";
+
+@customElement("date-picker-localization")
+export class DatePickerLocalization extends LitElement {
+    render() {
+        return html\`
+            <mjo-date-picker locale="en" label="English (US)" placeholder="Select date" value="2025-03-15"> </mjo-date-picker>
+            <mjo-date-picker locale="es" label="Spanish" placeholder="Seleccionar fecha" value="2025-03-15"> </mjo-date-picker>
+            <mjo-date-picker locale="fr" label="French" placeholder="Sélectionner une date" value="2025-03-15"> </mjo-date-picker>
+        \`;
+    }
+
+    static styles = [
+        css\`
+            :host {
+                display: flex;
+                flex-direction: column;
+                gap: var(--mjo-space-large);
+            }
+        \`,
+    ];
+}
+`
+                    }
+                </CodeblockPre>
+            </Codeblock>
+        </CodeExample>
+
+        <Typography tag="h3" size="xxl" weight="bold" spacing="md">Display modes</Typography>
+        <Typography class="explain" tag="p" spacing="md">
+            You can control how dates are displayed using the <code class="inline">displayMode</code> property. Choose between <code class="inline"
+                >numeric</code
+            >, <code class="inline">iso</code> (raw format) and <code class="inline">localized</code> (formatted for locale).
+        </Typography>
+        <CodeExample>
+            <DatePickerDisplayModes client:visible slot="preview" />
+            <Codeblock showHeader slot="code">
+                <CodeblockPre language="lit" bugTitle="[BUG mjo-date-picker]">
+                    {
+                        `import { LitElement, css, html } from "lit";
+import { customElement } from "lit/decorators.js";
+
+import "mjo-litui/mjo-date-picker";
+
+@customElement("date-picker-display-modes")
+export class DatePickerDisplayModes extends LitElement {
+    render() {
+        return html\`
+            <mjo-date-picker displayMode="numeric" label="Numeric Mode" value="2025-03-15" placeholder="Numeric format"> </mjo-date-picker>
+            <mjo-date-picker displayMode="iso" label="ISO Mode" value="2025-03-15" placeholder="ISO format"> </mjo-date-picker>
+            <mjo-date-picker displayMode="localized" label="Localized Mode" value="2025-03-15" placeholder="Localized format"> </mjo-date-picker>
+        \`;
+    }
+
+    static styles = [
+        css\`
+            :host {
+                display: flex;
+                flex-direction: column;
+                gap: var(--mjo-space-large);
+            }
+        \`,
+    ];
+}
+`
+                    }
+                </CodeblockPre>
+            </Codeblock>
+        </CodeExample>
+
+        <Typography tag="h3" size="xxl" weight="bold" spacing="md">Date constraints</Typography>
+        <Typography class="explain" tag="p" spacing="md">
+            You can limit selectable dates using <code class="inline">minDate</code>, <code class="inline">maxDate</code>, and <code class="inline"
+                >disabledDates</code
+            > properties.
+        </Typography>
+        <CodeExample>
+            <DatePickerConstraints client:visible slot="preview" />
+            <Codeblock showHeader slot="code">
+                <CodeblockPre language="lit" bugTitle="[BUG mjo-date-picker]">
+                    {
+                        `import { LitElement, css, html } from "lit";
+import { customElement } from "lit/decorators.js";
+
+import "mjo-litui/mjo-date-picker";
+
+const year = new Date().getFullYear();
+const month = (new Date().getMonth() + 1).toString().padStart(2, "0");
+
+@customElement("date-picker-constraints")
+export class DatePickerConstraints extends LitElement {
+    render() {
+        return html\`
+            <mjo-date-picker 
+                label="Limited Range" 
+                minDate=\${\`\${year}-01-01\`} 
+                maxDate=\${\`\${year}-12-31\`} 
+                placeholder=\${\`Only \${year} dates\`}
+            ></mjo-date-picker>
+            <mjo-date-picker
+                label="Dates Disabled"
+                placeholder=\${\`Disabled 10, 11, 12 of this month\`}
+                .disabledDates=\${[\`\${year}-\${month}-10\`, \`\${year}-\${month}-11\`, \`\${year}-\${month}-12\`]}
+            ></mjo-date-picker>
+        \`;
+    }
+
+    static styles = [
+        css\`
+            :host {
+                display: flex;
+                flex-direction: column;
+                gap: var(--mjo-space-large);
+            }
+        \`,
+    ];
+}
+`
+                    }
+                </CodeblockPre>
+            </Codeblock>
+        </CodeExample>
+
+        <Typography tag="h3" size="xxl" weight="bold" spacing="md">Clear button</Typography>
+        <Typography class="explain" tag="p" spacing="md">
+            Enable the clear button functionality using the <code class="inline">clearabled</code> attribute.
+        </Typography>
+        <CodeExample>
+            <DatePickerClearabled client:visible slot="preview" />
+            <Codeblock showHeader slot="code">
+                <CodeblockPre language="lit" bugTitle="[BUG mjo-date-picker]">
+                    {
+                        `import { LitElement, css, html } from "lit";
+import { customElement } from "lit/decorators.js";
+
+import "mjo-litui/mjo-date-picker";
+
+const year = new Date().getFullYear();
+const month = (new Date().getMonth() + 1).toString().padStart(2, "0");
+
+@customElement("date-picker-clearabled")
+export class DatePickerClearabled extends LitElement {
+    render() {
+        return html\`<mjo-date-picker 
+            clearabled 
+            label="With Clear Button" 
+            value=\${\`\${year}-\${month}-15\`} 
+            placeholder="Has clear button"
+        ></mjo-date-picker>\`;
+    }
+
+    static styles = [
+        css\`
+            :host {
+                display: block;
+            }
+        \`,
+    ];
+}
+
+`
+                    }
+                </CodeblockPre>
+            </Codeblock>
+        </CodeExample>
+
+        <Typography tag="h3" size="xxl" weight="bold" spacing="md">Disabled state</Typography>
+        <Typography class="explain" tag="p" spacing="md">
+            You can disable the date picker using the <code class="inline">disabled</code> attribute.
+        </Typography>
+        <CodeExample>
+            <DatePickerDisabled client:visible slot="preview" />
+            <Codeblock showHeader slot="code">
+                <CodeblockPre language="lit" bugTitle="[BUG mjo-date-picker]">
+                    {
+                        `import { LitElement, css, html } from "lit";
+import { customElement } from "lit/decorators.js";
+
+import "mjo-litui/mjo-date-picker";
+
+@customElement("date-picker-disabled")
+export class DatePickerDisabled extends LitElement {
+    render() {
+        return html\`<mjo-date-picker disabled label="Disabled" placeholder="Cannot interact"></mjo-date-picker>\`;
+    }
+
+    static styles = [
+        css\`
+            :host {
+                display: block;
+            }
+        \`,
+    ];
+}
+
+`
+                    }
+                </CodeblockPre>
+            </Codeblock>
+        </CodeExample>
+
+        <Typography tag="h3" size="xxl" weight="bold" spacing="md">Form integration</Typography>
+        <Typography class="explain" tag="p" spacing="md">
+            The date picker component integrates seamlessly with <code class="inline">mjo-form</code> and supports validation.
+        </Typography>
+        <CodeExample>
+            <DatePickerFormIntegration client:visible slot="preview" />
+            <Codeblock showHeader slot="code">
+                <CodeblockPre language="lit" bugTitle="[BUG mjo-date-picker]">
+                    {
+                        `import type { MjoFormSubmitEvent } from "mjo-litui/types/mjo-form";
+                        
+import { LitElement, css, html } from "lit";
+import { customElement } from "lit/decorators.js";
+
+import { printLog } from "@/lib/logger";
+
+import "mjo-litui/mjo-button";
+import "mjo-litui/mjo-date-picker";
+import "mjo-litui/mjo-form";
+
+@customElement("date-picker-form-integration")
+export class DatePickerFormIntegration extends LitElement {
+    render() {
+        return html\`
+            <mjo-form @submit=\${this.#handleSubmit}>
+                <div class="container">
+                    <mjo-date-picker name="eventDate" label="Event Date" placeholder="Select event date" required fullwidth></mjo-date-picker>
+                    <mjo-date-picker name="eventPeriod" label="Event Period" placeholder="Select event period" isRange required fullwidth></mjo-date-picker>
+                    <mjo-button type="submit" color="primary" class="submit-btn" fullwidth>Submit Form</mjo-button>
+                </div>
+            </mjo-form>
+        \`;
+    }
+
+    #handleSubmit = (event: MjoFormSubmitEvent) => {
+        const button = event.detail.response.submitButton;
+
+        if (button) button.loading = false;
+
+        printLog({
+            id: "form-submit",
+            message: JSON.stringify(event.detail.response.data),
+            event,
+        });
+    };
+
+    static styles = [
+        css\`
+            :host {
+                display: block;
+            }
+            .container {
+                display: flex;
+                flex-direction: column;
+                max-width: 300px;
+                gap: var(--mjo-space-medium);
+            }
+        \`,
+    ];
+}
+`
+                    }
+                </CodeblockPre>
+            </Codeblock>
+        </CodeExample>
+        <Logger id="form-submit" initialMessage="Submit form for see logs" />
+
+        <Typography tag="h2" size="title3" weight="bold" spacing="md">Properties</Typography>
+        <Typography class="explain" tag="p" spacing="md">Properties available on the mjo-date-picker component.</Typography>
+        <Table>
+            <TableHeader>
+                <TableRow>
+                    <TableCellHeader>Property</TableCellHeader>
+                    <TableCellHeader>Type</TableCellHeader>
+                    <TableCellHeader>Default</TableCellHeader>
+                    <TableCellHeader minWidth="200px">Description</TableCellHeader>
+                </TableRow>
+            </TableHeader>
+            <TableBody>
+                <TableRow>
+                    <TableCell><code class="inline">name</code></TableCell>
+                    <TableCell><code class="inline">{`string | undefined`}</code></TableCell>
+                    <TableCell><code class="inline">{`undefined`}</code></TableCell>
+                    <TableCell>Form field name (enables inclusion in mjo-form data)</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">value</code></TableCell>
+                    <TableCell><code class="inline">{`string`}</code></TableCell>
+                    <TableCell><code class="inline">{`""`}</code></TableCell>
+                    <TableCell>Current value (single: YYYY-MM-DD; range: start/end)</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">isRange</code></TableCell>
+                    <TableCell><code class="inline">{`boolean`}</code></TableCell>
+                    <TableCell><code class="inline">{`false`}</code></TableCell>
+                    <TableCell>Enables range mode (isRange property)</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">locale</code></TableCell>
+                    <TableCell><code class="inline">{`SupportedLocale`}</code></TableCell>
+                    <TableCell><code class="inline">{`"auto"`}</code></TableCell>
+                    <TableCell>Locale passed to calendar & Intl formatting</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">minDate</code></TableCell>
+                    <TableCell><code class="inline">{`string | undefined`}</code></TableCell>
+                    <TableCell><code class="inline">{`undefined`}</code></TableCell>
+                    <TableCell>Minimum selectable date (ISO format)</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">maxDate</code></TableCell>
+                    <TableCell><code class="inline">{`string | undefined`}</code></TableCell>
+                    <TableCell><code class="inline">{`undefined`}</code></TableCell>
+                    <TableCell>Maximum selectable date (ISO format)</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">disabledDates</code></TableCell>
+                    <TableCell><code class="inline">{`string[] | undefined`}</code></TableCell>
+                    <TableCell><code class="inline">{`undefined`}</code></TableCell>
+                    <TableCell>Array of disabled dates in ISO format</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">label</code></TableCell>
+                    <TableCell><code class="inline">{`string | undefined`}</code></TableCell>
+                    <TableCell><code class="inline">{`undefined`}</code></TableCell>
+                    <TableCell>Floating label of inner textfield</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">placeholder</code></TableCell>
+                    <TableCell><code class="inline">{`string | undefined`}</code></TableCell>
+                    <TableCell><code class="inline">{`undefined`}</code></TableCell>
+                    <TableCell>Placeholder text (shown when empty)</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">disabled</code></TableCell>
+                    <TableCell><code class="inline">{`boolean`}</code></TableCell>
+                    <TableCell><code class="inline">{`false`}</code></TableCell>
+                    <TableCell>Disables user interaction</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">size</code></TableCell>
+                    <TableCell><code class="inline">{`"small" | "medium" | "large"`}</code></TableCell>
+                    <TableCell><code class="inline">{`"medium"`}</code></TableCell>
+                    <TableCell>Size token forwarded to textfield</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">color</code></TableCell>
+                    <TableCell><code class="inline">{`"primary" | "secondary"`}</code></TableCell>
+                    <TableCell><code class="inline">{`"primary"`}</code></TableCell>
+                    <TableCell>Color token forwarded to textfield</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">clearabled</code></TableCell>
+                    <TableCell><code class="inline">{`boolean`}</code></TableCell>
+                    <TableCell><code class="inline">{`false`}</code></TableCell>
+                    <TableCell>Shows a Clear button in dropdown when value present</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">displayMode</code></TableCell>
+                    <TableCell><code class="inline">{`"iso" | "numeric" | "localized"`}</code></TableCell>
+                    <TableCell><code class="inline">{`"numeric"`}</code></TableCell>
+                    <TableCell>Display format: ISO raw value, numeric or locale-formatted text</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">textfieldTheme</code></TableCell>
+                    <TableCell><code class="inline">{`MjoTextfieldTheme`}</code></TableCell>
+                    <TableCell><code class="inline">{`undefined`}</code></TableCell>
+                    <TableCell>Theme object for the text field</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">calendarTheme</code></TableCell>
+                    <TableCell><code class="inline">{`MjoCalendarTheme`}</code></TableCell>
+                    <TableCell><code class="inline">{`undefined`}</code></TableCell>
+                    <TableCell>Theme object for the calendar</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">aria-describedby</code></TableCell>
+                    <TableCell><code class="inline">{`string`}</code></TableCell>
+                    <TableCell><code class="inline">{`""`}</code></TableCell>
+                    <TableCell>Links to external elements describing the picker</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">aria-live</code></TableCell>
+                    <TableCell><code class="inline">{`string`}</code></TableCell>
+                    <TableCell><code class="inline">{`"polite"`}</code></TableCell>
+                    <TableCell>Live region politeness level for screen reader announcements</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">aria-label</code></TableCell>
+                    <TableCell><code class="inline">{`string | null`}</code></TableCell>
+                    <TableCell><code class="inline">{`null`}</code></TableCell>
+                    <TableCell>Accessible label for the date picker</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">disabledAnnounceSelections</code></TableCell>
+                    <TableCell><code class="inline">{`boolean`}</code></TableCell>
+                    <TableCell><code class="inline">{`false`}</code></TableCell>
+                    <TableCell>Disables automatic screen reader announcements for date selections</TableCell>
+                </TableRow>
+            </TableBody>
+        </Table>
+        <Typography tag="h3" size="xl" weight="bold" spacing="md">Validation Properties</Typography>
+        <Typography class="explain" tag="p" spacing="md">Inherits all validation properties from FormMixin:</Typography>
+        <Table>
+            <TableHeader>
+                <TableRow>
+                    <TableCellHeader>Property</TableCellHeader>
+                    <TableCellHeader>Type</TableCellHeader>
+                    <TableCellHeader minWidth="200px">Description</TableCellHeader>
+                </TableRow>
+            </TableHeader>
+            <TableBody>
+                <TableRow>
+                    <TableCell><code class="inline">required</code></TableCell>
+                    <TableCell><code class="inline">{`boolean`}</code></TableCell>
+                    <TableCell>Field is required</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">dateprevious</code></TableCell>
+                    <TableCell><code class="inline">{`boolean`}</code></TableCell>
+                    <TableCell>Date must be before today</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">minage</code></TableCell>
+                    <TableCell><code class="inline">{`number`}</code></TableCell>
+                    <TableCell>Minimum age in years</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">maxage</code></TableCell>
+                    <TableCell><code class="inline">{`number`}</code></TableCell>
+                    <TableCell>Maximum age in years</TableCell>
+                </TableRow>
+            </TableBody>
+        </Table>
+        <Typography tag="h2" size="title3" weight="bold" spacing="md">API</Typography>
+        <Typography class="explain" tag="p" spacing="md">Methods available on the mjo-date-picker component.</Typography>
+        <Table>
+            <TableHeader>
+                <TableRow>
+                    <TableCellHeader>Method</TableCellHeader>
+                    <TableCellHeader>Parameters</TableCellHeader>
+                    <TableCellHeader>Returns</TableCellHeader>
+                    <TableCellHeader minWidth="200px">Description</TableCellHeader>
+                </TableRow>
+            </TableHeader>
+            <TableBody>
+                <TableRow>
+                    <TableCell><code class="inline">click()</code></TableCell>
+                    <TableCell><code class="inline">-</code></TableCell>
+                    <TableCell><code class="inline">void</code></TableCell>
+                    <TableCell>Click the internal textfield</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">focus()</code></TableCell>
+                    <TableCell><code class="inline">-</code></TableCell>
+                    <TableCell><code class="inline">void</code></TableCell>
+                    <TableCell>Focuses the internal textfield</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">clear()</code></TableCell>
+                    <TableCell><code class="inline">-</code></TableCell>
+                    <TableCell><code class="inline">void</code></TableCell>
+                    <TableCell>Clears value and emits change events</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">open()</code></TableCell>
+                    <TableCell><code class="inline">-</code></TableCell>
+                    <TableCell><code class="inline">void</code></TableCell>
+                    <TableCell>Programmatically opens the dropdown</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">close()</code></TableCell>
+                    <TableCell><code class="inline">-</code></TableCell>
+                    <TableCell><code class="inline">void</code></TableCell>
+                    <TableCell>Programmatically closes the dropdown</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">getValue()</code></TableCell>
+                    <TableCell><code class="inline">-</code></TableCell>
+                    <TableCell><code class="inline">string</code></TableCell>
+                    <TableCell>Returns current raw value</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">setValue(value)</code></TableCell>
+                    <TableCell><code class="inline">value: string</code></TableCell>
+                    <TableCell><code class="inline">void</code></TableCell>
+                    <TableCell>Sets value (triggers internal state update)</TableCell>
+                </TableRow>
+            </TableBody>
+        </Table>
+        <Typography tag="h2" size="title3" weight="bold" spacing="md">Events</Typography>
+        <Typography class="explain" tag="p" spacing="md">Events emitted by the mjo-date-picker component.</Typography>
+        <Table>
+            <TableHeader>
+                <TableRow>
+                    <TableCellHeader width="190px">Event</TableCellHeader>
+                    <TableCellHeader width="190px">CustomEvent type</TableCellHeader>
+                    <TableCellHeader>Detail</TableCellHeader>
+                    <TableCellHeader minWidth="200px">Notes</TableCellHeader>
+                </TableRow>
+            </TableHeader>
+            <TableBody>
+                <TableRow>
+                    <TableCell><code class="inline">mjo-date-picker:change</code></TableCell>
+                    <TableCell><code class="inline">MjoDatePickerChangeEvent</code></TableCell>
+                    <TableCell><pre>{eventChangeDetail}</pre></TableCell>
+                    <TableCell>Emitted when the date picker value changes.</TableCell>
+                </TableRow>
+            </TableBody>
+        </Table>
+        <Typography tag="h2" size="title3" weight="bold" spacing="md">Theming</Typography>
+        <Typography class="explain" tag="p" spacing="md"
+            >The <code class="inline">mjo-date-picker</code> component can be styled using <Link href="/docs/components/calendar" color="primary"
+                >mjo-calendar</Link
+            > and <Link href="/docs/components/textfield" color="primary">mjo-textfield</Link> CSS custom properties and CSS parts.</Typography
+        >
+        <Typography tag="h2" size="title3" weight="bold" spacing="md">Accessibility</Typography>
+        <Typography class="explain" tag="p" spacing="md">The mjo-date-picker component implements comprehensive accessibility features:</Typography>
+        <List listStyle="disc">
+            <ListItem featuredText="Keyboard Navigation"
+                >Full keyboard support with arrow keys, Enter, Escape, Tab, and Page Up/Down for calendar navigation</ListItem
+            >
+            <ListItem featuredText="Screen Reader Support">Proper ARIA labels, live regions, and announcements for date selections and navigation</ListItem>
+            <ListItem featuredText="Aria Attributes"
+                >Uses <code class="inline">aria-label</code>, <code class="inline">aria-describedby</code>, <code class="inline">aria-live</code>, and <code
+                    class="inline">role</code
+                > attributes for enhanced accessibility</ListItem
+            >
+            <ListItem featuredText="Focus Management">Proper focus handling and visual focus indicators throughout the component</ListItem>
+            <ListItem featuredText="Date Announcements">Configurable announcements for selected dates and navigation changes</ListItem>
+            <ListItem featuredText="High Contrast Support">Respects system high contrast settings and provides clear visual distinctions</ListItem>
+            <ListItem featuredText="Form Integration">Works seamlessly with form labels, validation, and error messaging</ListItem>
+            <ListItem featuredText="Localization">Supports localized date formats and calendar navigation for international users</ListItem>
+        </List>
+        <Typography tag="h2" size="title3" weight="bold" spacing="md">Type Definitions</Typography>
+        <Typography class="explain" tag="p" spacing="md">TypeScript interface and type definitions for the mjo-date-picker component:</Typography>
+        <Codeblock>
+            <CodeblockPre language="typescript" bugTitle="Type Definitions">
+                {
+                    `type MjoDatePickerDisplayMode = "iso" | "localized" | "numeric";
+type MjoDatePickerAriaLive = "polite" | "assertive" | "off";
+
+type MjoTextfieldSize = "small" | "medium" | "large";
+type MjoTextfieldVariant = "default" | "ghost" | "flat";
+type MjoTextfieldColor = "primary" | "secondary";
+
+interface DatePickerChangeEvent extends CustomEvent {
+    detail: {
+        value?: string;
+        date?: Date;
+        startDate?: Date;
+        endDate?: Date;
+        startDateValue?: string;
+        endDateValue?: string;
+    };
+}
+`
+                }
+            </CodeblockPre>
+        </Codeblock>
+    </article>
+</DocsLayout>
+
+<style>
+    .prose {
+        position: relative;
+    }
+    .explain {
+        color: var(--mjo-foreground-color-low);
+    }
+</style>

@@ -1,0 +1,70 @@
+---
+import type { NavigationSection } from "@/types/navigation";
+import Badge from "../Badge.astro";
+import Typography from "../Typography.astro";
+
+export interface Props {
+    navigationSection: NavigationSection;
+    currentPath?: string;
+}
+
+const { navigationSection, currentPath } = Astro.props;
+---
+
+<div class="sidebar-section">
+    <Typography tag="h3" size="sm" weight="bold">{navigationSection.title.toUpperCase()}</Typography>
+    <ul class="sidebar-nav">
+        {
+            navigationSection.items.map((item) => (
+                <li class="sidebar-nav-item">
+                    <a href={item.href} class={`sidebar-nav-link ${currentPath === item.href ? "sidebar-nav-link-active" : ""}`}>
+                        <Typography tag="span" size="sm">
+                            {item.name}
+                        </Typography>
+                        {item.name === "Autocomplete" && <Badge>New</Badge>}
+                        {item.name === "Testing" && <Badge variant="secondary">Beta</Badge>}
+                    </a>
+                </li>
+            ))
+        }
+    </ul>
+</div>
+
+<style>
+    .sidebar-section {
+        position: relative;
+        padding: 0 10px;
+    }
+    .sidebar-nav {
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+        margin: 0;
+        padding: 0 0 0 1.5rem;
+        list-style: none;
+    }
+    .sidebar-nav-item {
+        display: block;
+    }
+    .sidebar-nav-link {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        border-radius: 0.5rem;
+        padding-right: 0.75rem;
+        padding-top: 0.25rem;
+        padding-bottom: 0.25rem;
+        font-weight: 500;
+        color: var(--mjo-foreground-color-low);
+        transition: all 0.2s ease-in-out;
+        text-decoration: none;
+    }
+    .sidebar-nav-link:hover {
+        background-color: var(--color-accent);
+        color: var(--color-accent-foreground);
+    }
+    .sidebar-nav-link-active {
+        background-color: var(--color-accent);
+        color: var(--color-accent-foreground);
+    }
+</style>

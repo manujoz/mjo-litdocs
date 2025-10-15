@@ -3,182 +3,123 @@ export interface Props {
     currentPath?: string;
 }
 
-const { currentPath = "" } = Astro.props;
+import type { NavigationSections } from "@/types/navigation";
+import Version from "../ui/Version.astro";
+import SidebarNav from "../ui/sidebar/SidebarNav.astro";
 
-// Navigation structure for documentation
-const navigation = [
-    {
-        title: "Getting Started",
-        items: [
-            { name: "Introduction", href: "/docs" },
-            { name: "Installation", href: "/docs/installation" },
-            { name: "Quick Start", href: "/docs/quick-start" },
-            { name: "Configuration", href: "/docs/configuration" },
-        ],
-    },
-    {
-        title: "Components",
-        items: [
-            { name: "Overview", href: "/docs/components" },
-            { name: "Autocomplete", href: "/docs/components/autocomplete" },
-            { name: "Button", href: "/docs/components/button" },
-            { name: "Card", href: "/docs/components/card" },
-            { name: "Input", href: "/docs/components/input" },
-            { name: "Modal", href: "/docs/components/modal" },
-            { name: "Navigation", href: "/docs/components/navigation" },
-            { name: "Table", href: "/docs/components/table" },
-        ],
-    },
-    {
-        title: "Theming",
-        items: [
-            { name: "Overview", href: "/docs/themes" },
-            { name: "Colors", href: "/docs/themes/colors" },
-            { name: "Typography", href: "/docs/themes/typography" },
-            { name: "Dark Mode", href: "/docs/themes/dark-mode" },
-            { name: "Customization", href: "/docs/themes/customization" },
-        ],
-    },
-    {
-        title: "Examples",
-        items: [
-            { name: "Basic Usage", href: "/docs/examples" },
-            { name: "Forms", href: "/docs/examples/forms" },
-            { name: "Data Display", href: "/docs/examples/data-display" },
-            { name: "Layouts", href: "/docs/examples/layouts" },
-            { name: "Integrations", href: "/docs/examples/integrations" },
-        ],
-    },
-    {
-        title: "Advanced",
-        items: [
-            { name: "Accessibility", href: "/docs/accessibility" },
-            { name: "Performance", href: "/docs/performance" },
-            { name: "Testing", href: "/docs/testing" },
-            { name: "Migration", href: "/docs/migration" },
-        ],
-    },
-];
+export interface Props {
+    currentPath?: string;
+    navigationSections: NavigationSections;
+}
+
+const { currentPath = "", navigationSections } = Astro.props;
 ---
 
 <aside class="sidebar">
-    <nav class="space-y-6">
-        {
-            navigation.map((section) => (
-                <div class="sidebar-section">
-                    <h3 class="sidebar-section-title">{section.title}</h3>
-                    <ul class="sidebar-nav">
-                        {section.items.map((item) => (
-                            <li class="sidebar-nav-item">
-                                <a
-                                    href={item.href}
-                                    class={`sidebar-nav-link ${
-                                        currentPath === item.href || (item.href !== "/docs" && currentPath.startsWith(item.href))
-                                            ? "sidebar-nav-link-active"
-                                            : ""
-                                    }`}
-                                >
-                                    <span>{item.name}</span>
-                                    {/* Badge for new/beta items */}
-                                    {item.name === "Autocomplete" && <span class="badge badge-default text-[10px] px-1.5 py-0.5">New</span>}
-                                    {item.name === "Testing" && <span class="badge badge-secondary text-[10px] px-1.5 py-0.5">Beta</span>}
-                                </a>
-                            </li>
-                        ))}
-                    </ul>
-                </div>
-            ))
-        }
+    <nav class="sidebar-nav-container">
+        <SidebarNav navigationSections={navigationSections} currentPath={currentPath} />
     </nav>
-
-    <!-- Version Info -->
-    <div class="mt-8 pt-6 border-t border-border">
-        <div class="px-3">
-            <div class="flex items-center justify-between text-xs text-muted-foreground">
+    <div class="sidebar-version">
+        <div class="sidebar-version-content">
+            <div class="sidebar-version-info">
                 <span>Version</span>
-                <span class="font-mono">v1.0.0</span>
+                <span class="sidebar-version-number"><Version /></span>
             </div>
-            <div class="mt-2">
-                <a
-                    href="https://github.com/username/mjo-litui/releases"
-                    class="text-xs text-muted-foreground hover:text-foreground transition-colors"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    View releases →
-                </a>
+            <div class="sidebar-version-link">
+                <a href="https://github.com/username/mjo-litui/releases" class="sidebar-link" target="_blank" rel="noopener noreferrer"> View releases → </a>
             </div>
         </div>
     </div>
-
-    <!-- Quick Actions -->
-    <div class="mt-4">
-        <div class="px-3 space-y-2">
-            <a
-                href="https://github.com/username/mjo-litui/issues/new"
-                class="block text-xs text-muted-foreground hover:text-foreground transition-colors"
-                target="_blank"
-                rel="noopener noreferrer"
-            >
-                Report an issue
-            </a>
-            <a href="/docs/contributing" class="block text-xs text-muted-foreground hover:text-foreground transition-colors"> Contribute </a>
+    <div class="sidebar-actions">
+        <div class="sidebar-actions-content">
+            <a href="https://github.com/username/mjo-litui/issues/new" class="sidebar-link" target="_blank" rel="noopener noreferrer"> Report an issue </a>
+            <a href="/docs/contributing" class="sidebar-link"> Contribute </a>
         </div>
     </div>
 </aside>
+
 <style>
-    @reference "../../styles/global.css";
-
     .sidebar {
-        @apply sticky top-20 h-[calc(100vh-5rem)] overflow-y-auto pb-10;
+        position: sticky;
+        top: 64px;
+        height: calc(100vh - 64px);
+        overflow-y: auto;
+        padding-top: 2.5rem;
+        padding-bottom: 2.5rem;
+        box-sizing: border-box;
+        scrollbar-width: thin;
+        scrollbar-color: var(--scrollbar-thumb-color) transparent;
+        display: none;
     }
 
-    .sidebar-section {
-        @apply mb-6;
+    .sidebar::-webkit-scrollbar {
+        width: 6px;
     }
 
-    .sidebar-section-title {
-        @apply mb-3 px-3 text-xs font-semibold uppercase tracking-wide text-muted-foreground;
+    .sidebar::-webkit-scrollbar-track {
+        background: transparent;
     }
 
-    .sidebar-nav {
-        @apply flex flex-col gap-1;
+    .sidebar::-webkit-scrollbar-thumb {
+        background: var(--scrollbar-thumb-color);
+        border-radius: 8px;
+        transition: background 0.2s ease;
     }
 
-    .sidebar-nav-item {
-        @apply block;
+    .sidebar::-webkit-scrollbar-thumb:hover {
+        background: var(--scrollbar-thumb-hover-color);
+    }
+    .sidebar-nav-container {
+        display: flex;
+        flex-direction: column;
+        gap: 20pxrem;
+    }
+    .sidebar-version {
+        margin-top: 2rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid var(--mjo-border-color);
+    }
+    .sidebar-version-content {
+        padding-left: 0.75rem;
+        padding-right: 0.75rem;
+    }
+    .sidebar-version-info {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 0.75rem;
+        color: var(--mjo-foreground-color-low);
+    }
+    .sidebar-version-number {
+        font-family: ui-monospace, SFMono-Regular, "SF Mono", Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    }
+    .sidebar-version-link {
+        margin-top: 0.5rem;
+    }
+    .sidebar-actions {
+        margin-top: 1rem;
+    }
+    .sidebar-actions-content {
+        padding-left: 0.75rem;
+        padding-right: 0.75rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    .sidebar-link {
+        display: block;
+        font-size: 0.75rem;
+        color: var(--mjo-foreground-color-low);
+        transition: color 0.15s ease-in-out;
+        text-decoration: none;
+    }
+    .sidebar-link:hover {
+        color: var(--mjo-foreground-color);
     }
 
-    .sidebar-nav-link {
-        @apply flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-muted-foreground transition-all duration-200 no-underline hover:bg-accent hover:text-accent-foreground;
-    }
-
-    .sidebar-nav-link-active {
-        @apply bg-accent text-accent-foreground;
-    }
-
-    .sidebar-nav-icon {
-        @apply w-4 h-4 shrink-0;
-    }
-
-    /* Table of Contents */
-    .toc {
-        @apply sticky top-20 h-[calc(100vh-5rem)] overflow-y-auto;
-    }
-
-    .toc-title {
-        @apply mb-4 text-sm font-semibold text-foreground;
-    }
-
-    .toc-nav {
-        @apply flex flex-col gap-2;
-    }
-
-    .toc-link {
-        @apply block py-1 text-xs text-muted-foreground transition-colors duration-200 no-underline hover:text-foreground;
-    }
-
-    .toc-link-active {
-        @apply text-primary border-l-2 border-primary pl-2;
+    @media (min-width: 1024px) {
+        .sidebar {
+            display: block;
+        }
     }
 </style>

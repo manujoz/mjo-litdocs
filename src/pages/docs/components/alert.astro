@@ -1,0 +1,1010 @@
+---
+import { AlertClosable } from "@/components/examples/alert/alert-closable";
+import { AlertCssparts } from "@/components/examples/alert/alert-cssparts";
+import { AlertCustomicon } from "@/components/examples/alert/alert-customicon";
+import { AlertDetails } from "@/components/examples/alert/alert-details";
+import { AlertEffects } from "@/components/examples/alert/alert-effects";
+import { AlertExtendedExample } from "@/components/examples/alert/alert-extended-example";
+import { AlertNoicon } from "@/components/examples/alert/alert-noicon";
+import { AlertSizes } from "@/components/examples/alert/alert-sizes";
+import { AlertUsage } from "@/components/examples/alert/alert-usage";
+import { AlertVariants } from "@/components/examples/alert/alert-variants";
+import Codeblock from "@/components/ui/codeblock/Codeblock.astro";
+import CodeblockPre from "@/components/ui/codeblock/CodeblockPre.astro";
+import CodeExample from "@/components/ui/CodeExample.astro";
+import Link from "@/components/ui/Link.astro";
+import List from "@/components/ui/list/List.astro";
+import ListItem from "@/components/ui/list/ListItem.astro";
+import Table from "@/components/ui/table/Table.astro";
+import TableBody from "@/components/ui/table/TableBody.astro";
+import TableCell from "@/components/ui/table/TableCell.astro";
+import TableCellHeader from "@/components/ui/table/TableCellHeader.astro";
+import TableHeader from "@/components/ui/table/TableHeader.astro";
+import TableRow from "@/components/ui/table/TableRow.astro";
+import Typography from "@/components/ui/Typography.astro";
+import DocsLayout from "@/layouts/DocsLayout.astro";
+
+const eventToggleDetail = `{
+  element: MjoAlert;
+}`;
+---
+
+<DocsLayout
+    title="Alert"
+    description="The alert component is a container that displays important messages to the user. Learn how to use the alert component in your project."
+    currentPath="/docs/components/alert"
+>
+    <article class="prose">
+        <Typography tag="h1" size="title2" weight="bold">mjo-alert</Typography>
+        <Typography class="explain" tag="p" spacing="md">
+            The mjo-alert component is a container that displays important messages to the user. It is useful for drawing attention to specific information or
+            actions that require the user's consideration.
+        </Typography>
+        <Typography tag="h2" size="title3" weight="bold" spacing="md">Import</Typography>
+        <Typography class="explain" tag="p" spacing="md">
+            To use the mjo-alert component in your project, you need to import it first. You can do this by adding the following import statement to your
+            JavaScript or TypeScript file:
+        </Typography>
+        <Codeblock>
+            <CodeblockPre language="typescript" bugTitle="[BUG mjo-alert]">
+                {`import "mjo-litui/mjo-alert";`}
+            </CodeblockPre>
+        </Codeblock>
+        <Typography tag="h2" size="title3" weight="bold" spacing="md">Usage</Typography>
+        <Typography class="explain" tag="p" spacing="md">Basic usage of the mjo-alert component.</Typography>
+        <CodeExample>
+            <AlertUsage client:visible slot="preview" />
+            <Codeblock showHeader slot="code">
+                <CodeblockPre language="lit" bugTitle="[BUG mjo-alert]">
+                    {
+                        `import { LitElement, css, html } from "lit";
+import { customElement } from "lit/decorators.js";
+
+import "mjo-litui/mjo-alert";
+
+@customElement("alert-usage")
+export class AlertUsage extends LitElement {
+    render() {
+        return html\`
+            <mjo-alert type="default" message="This is a default alert"></mjo-alert>
+            <mjo-alert type="primary" message="This is a primary alert"></mjo-alert>
+            <mjo-alert type="secondary" message="This is a secondary alert"></mjo-alert>
+            <mjo-alert type="info" message="This is a info alert"></mjo-alert>
+            <mjo-alert type="success" message="This is a success alert"></mjo-alert>
+            <mjo-alert type="warning" message="This is a warning alert"></mjo-alert>
+            <mjo-alert type="error" message="This is a error alert"></mjo-alert>
+        \`;
+    }
+
+    static styles = [
+        css\`
+            :host {
+                display: block;
+                display: flex;
+                flex-direction: column;
+                gap: 1rem;
+            }
+        \`,
+    ];
+}
+`
+                    }
+                </CodeblockPre>
+            </Codeblock>
+        </CodeExample>
+        <Typography tag="h3" size="xxl" weight="bold" spacing="md">With details</Typography>
+        <Typography class="explain" tag="p" spacing="md">The alert component support details content for additional context.</Typography>
+        <CodeExample>
+            <AlertDetails client:visible slot="preview" />
+            <Codeblock showHeader slot="code">
+                <CodeblockPre language="lit" bugTitle="[BUG mjo-alert]">
+                    {
+                        `import { LitElement, css, html } from "lit";
+import { customElement } from "lit/decorators.js";
+
+import "mjo-litui/mjo-alert";
+
+const test = "test";
+
+@customElement("alert-details")
+export class AlertDetails extends LitElement {
+    render() {
+        return html\`
+            <mjo-alert 
+                type="info" 
+                message="This is an info alert \${test}" 
+                details="Additional information details string"
+            ></mjo-alert>
+            <mjo-alert
+                type="info"
+                message="This is an info alert"
+                .details=\${html\`
+                    Additional information with HTML template or other component:
+                    <ul>
+                        <li>Detail 1</li>
+                        <li>Detail 2</li>
+                        <li>Detail 3</li>
+                    </ul>
+                \`}
+            ></mjo-alert>
+        \`;
+    }
+
+    static styles = [
+        css\`
+            :host {
+                display: block;
+                display: flex;
+                flex-direction: column;
+                gap: 1rem;
+            }
+        \`,
+    ];
+}
+`
+                    }
+                </CodeblockPre>
+            </Codeblock>
+        </CodeExample>
+        <Typography tag="h3" size="xxl" weight="bold" spacing="md">Variants</Typography>
+        <Typography class="explain" tag="p" spacing="md">You can use different variants of the alert component.</Typography>
+        <CodeExample>
+            <AlertVariants client:visible slot="preview" />
+            <Codeblock showHeader slot="code">
+                <CodeblockPre language="lit" bugTitle="[BUG mjo-alert]">
+                    {
+                        `import { LitElement, css, html } from "lit";
+import { customElement } from "lit/decorators.js";
+
+import "mjo-litui/mjo-alert";
+
+@customElement("alert-variants")
+export class AlertVariants extends LitElement {
+    render() {
+        return html\`
+            <mjo-alert type="success" variant="solid" message="This is solid variant"></mjo-alert>
+            <mjo-alert type="success" variant="flat" message="This is flat variant"></mjo-alert>
+        \`;
+    }
+
+    static styles = [
+        css\`
+            :host {
+                display: block;
+                display: flex;
+                flex-direction: column;
+                gap: 1rem;
+            }
+        \`,
+    ];
+}
+`
+                    }
+                </CodeblockPre>
+            </Codeblock>
+        </CodeExample>
+        <Typography tag="h3" size="xxl" weight="bold" spacing="md">Sizes</Typography>
+        <Typography class="explain" tag="p" spacing="md">You can use different sizes of the alert component.</Typography>
+        <CodeExample>
+            <AlertSizes client:visible slot="preview" />
+            <Codeblock showHeader slot="code">
+                <CodeblockPre language="lit" bugTitle="[BUG mjo-alert]">
+                    {
+                        `import { LitElement, css, html } from "lit";
+import { customElement } from "lit/decorators.js";
+
+import "mjo-litui/mjo-alert";
+
+@customElement("alert-sizes")
+export class AlertSizes extends LitElement {
+    render() {
+        return html\`
+            <mjo-alert type="warning" size="small" message="This is a small size warning alert"></mjo-alert>
+            <mjo-alert type="warning" size="medium" message="This is a medium size warning alert"></mjo-alert>
+            <mjo-alert type="warning" size="large" message="This is a large size warning alert"></mjo-alert>
+        \`;
+    }
+
+    static styles = [
+        css\`
+            :host {
+                display: block;
+                display: flex;
+                flex-direction: column;
+                gap: 1rem;
+            }
+        \`,
+    ];
+}
+`
+                    }
+                </CodeblockPre>
+            </Codeblock>
+        </CodeExample>
+        <Typography tag="h3" size="xxl" weight="bold" spacing="md">Custom Icon</Typography>
+        <Typography class="explain" tag="p" spacing="md">You can customize the icon of the alert component.</Typography>
+        <CodeExample>
+            <AlertCustomicon client:visible slot="preview" />
+            <Codeblock showHeader slot="code">
+                <CodeblockPre language="lit" bugTitle="[BUG mjo-alert]">
+                    {
+                        `import { LitElement, css, html } from "lit";
+import { customElement } from "lit/decorators.js";
+
+import { AiOutlineAlert, AiOutlineCheck, AiOutlineInfo, AiOutlineWarning } from "mjo-icons/ai";
+
+import "mjo-litui/mjo-alert";
+
+@customElement("alert-noicon")
+export class AlertNoicon extends LitElement {
+    render() {
+        return html\`
+            <mjo-alert type="info" variant="flat" icon=\${AiOutlineInfo} message="This is an info alert with custom icon"></mjo-alert>
+            <mjo-alert type="success" variant="flat" icon=\${AiOutlineCheck} message="This is a success alert with custom icon"></mjo-alert>
+            <mjo-alert type="warning" variant="flat" icon=\${AiOutlineWarning} message="This is a warning alert with custom icon"></mjo-alert>
+            <mjo-alert type="error" variant="flat" icon=\${AiOutlineAlert} message="This is an error alert with custom icon"></mjo-alert>
+        \`;
+    }
+
+    static styles = [
+        css\`
+            :host {
+                display: block;
+                display: flex;
+                flex-direction: column;
+                gap: 1rem;
+            }
+        \`,
+    ];
+}
+`
+                    }
+                </CodeblockPre>
+            </Codeblock>
+        </CodeExample>
+        <Typography tag="h3" size="xxl" weight="bold" spacing="md">Hide Icon</Typography>
+        <Typography class="explain" tag="p" spacing="md">You can hide the icon of the alert component.</Typography>
+        <CodeExample>
+            <AlertNoicon client:visible slot="preview" />
+            <Codeblock showHeader slot="code">
+                <CodeblockPre language="lit" bugTitle="[BUG mjo-alert]">
+                    {
+                        `import { LitElement, css, html } from "lit";
+import { customElement } from "lit/decorators.js";
+
+import "mjo-litui/mjo-alert";
+
+@customElement("alert-noicon")
+export class AlertNoicon extends LitElement {
+    render() {
+        return html\`
+            <mjo-alert type="info" message="This is an info alert" variant="flat" hideIcon></mjo-alert>
+            <mjo-alert type="warning" message="This is a warning alert" variant="flat" hideIcon></mjo-alert>
+            <mjo-alert type="success" message="This is a success alert" variant="flat" hideIcon></mjo-alert>
+            <mjo-alert type="error" message="This is an error alert" variant="flat" hideIcon></mjo-alert>
+        \`;
+    }
+
+    static styles = [
+        css\`
+            :host {
+                display: block;
+            }
+        \`,
+    ];
+}
+`
+                    }
+                </CodeblockPre>
+            </Codeblock>
+        </CodeExample>
+        <Typography tag="h3" size="xxl" weight="bold" spacing="md">Closable</Typography>
+        <Typography class="explain" tag="p" spacing="md">The alert component can be closed by the user.</Typography>
+        <CodeExample>
+            <AlertClosable client:visible slot="preview" />
+            <Codeblock showHeader slot="code">
+                <CodeblockPre language="lit" bugTitle="[BUG mjo-alert]">
+                    {
+                        `import type { MjoAlertClosedEvent } from "mjo-litui/types/mjo-alert";
+
+import { LitElement, css, html } from "lit";
+import { customElement } from "lit/decorators.js";
+
+import "mjo-litui/mjo-alert";
+
+@customElement("alert-closable")
+export class AlertClosable extends LitElement {
+    render() {
+        return html\`<mjo-alert 
+            type="info" 
+            variant="flat" 
+            message="This is an info alert" 
+            closable @mjo-alert:closed=\${this.#handleClosed}
+        ></mjo-alert>\`;
+    }
+
+    #handleClosed(event: MjoAlertClosedEvent) {
+        setTimeout(() => {
+            event.detail.element.show();
+        }, 2000);
+    }
+
+    static styles = [
+        css\`
+            :host {
+                display: block;
+            }
+        \`,
+    ];
+}
+`
+                    }
+                </CodeblockPre>
+            </Codeblock>
+        </CodeExample>
+        <Typography tag="h3" size="xxl" weight="bold" spacing="md">Effects</Typography>
+        <Typography class="explain" tag="p" spacing="md">The alert component have various effects for close or show animations.</Typography>
+        <CodeExample>
+            <AlertEffects client:visible slot="preview" />
+            <Codeblock showHeader slot="code">
+                <CodeblockPre language="lit" bugTitle="[BUG mjo-alert]">
+                    {
+                        `import type { MjoAlertClosedEvent } from "mjo-litui/types/mjo-alert";
+
+import { LitElement, css, html } from "lit";
+import { customElement } from "lit/decorators.js";
+
+import "mjo-litui/mjo-alert";
+
+@customElement("alert-effects")
+export class AlertEffects extends LitElement {
+    render() {
+        return html\`
+            <mjo-alert
+                type="info"
+                message="This is an info alert without animation"
+                variant="flat"
+                animation="none"
+                closable
+                @mjo-alert:closed=\${this.#handleClosed}
+            ></mjo-alert>
+            <mjo-alert
+                type="warning"
+                message="This is a warning alert with fade animation"
+                variant="flat"
+                animation="fade"
+                closable
+                @mjo-alert:closed=\${this.#handleClosed}
+            ></mjo-alert>
+            <mjo-alert
+                type="success"
+                message="This is a success alert with scale animation"
+                variant="flat"
+                animation="scale"
+                closable
+                @mjo-alert:closed=\${this.#handleClosed}
+            ></mjo-alert>
+            <mjo-alert
+                type="error"
+                message="This is an error alert with slide animation"
+                variant="flat"
+                animation="slide"
+                closable
+                @mjo-alert:closed=\${this.#handleClosed}
+            ></mjo-alert>
+        \`;
+    }
+
+    #handleClosed(event: MjoAlertClosedEvent) {
+        setTimeout(() => {
+            event.detail.element.show();
+        }, 2000);
+    }
+
+    static styles = [
+        css\`
+            :host {
+                display: block;
+                display: flex;
+                flex-direction: column;
+                gap: 1rem;
+            }
+        \`,
+    ];
+}
+`
+                    }
+                </CodeblockPre>
+            </Codeblock>
+        </CodeExample>
+        <Typography tag="h2" size="title3" weight="bold" spacing="md">Properties</Typography>
+        <Typography class="explain" tag="p" spacing="md">Properties available on the mjo-alert component.</Typography>
+        <Table>
+            <TableHeader>
+                <TableRow>
+                    <TableCellHeader>Property</TableCellHeader>
+                    <TableCellHeader>Type</TableCellHeader>
+                    <TableCellHeader>Default</TableCellHeader>
+                    <TableCellHeader minWidth="200px">Description</TableCellHeader>
+                </TableRow>
+            </TableHeader>
+            <TableBody>
+                <TableRow>
+                    <TableCell><code class="inline">type</code></TableCell>
+                    <TableCell>
+                        <code class="inline wrap">{`default|primary|secondary|success`}</code>
+                        <code class="inline wrap">{`info|warning|error`}</code>
+                    </TableCell>
+                    <TableCell><code class="inline">default</code></TableCell>
+                    <TableCell>Type of the alert.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">size</code></TableCell>
+                    <TableCell><code class="inline">{`small|medium|large`}</code></TableCell>
+                    <TableCell><code class="inline">{`medium`}</code></TableCell>
+                    <TableCell>Size of the alert.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">rounded</code></TableCell>
+                    <TableCell><code class="inline">{`none|small|medium|large|full`}</code></TableCell>
+                    <TableCell><code class="inline">{`medium`}</code></TableCell>
+                    <TableCell>Border radius of the alert.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">icon</code></TableCell>
+                    <TableCell><code class="inline">{`string`}</code></TableCell>
+                    <TableCell><code class="inline">{`""`}</code></TableCell>
+                    <TableCell>Icon to display in the alert (must be SVG).</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">message</code></TableCell>
+                    <TableCell><code class="inline">{`string`}</code></TableCell>
+                    <TableCell><code class="inline">{`""`}</code></TableCell>
+                    <TableCell>Message content of the alert.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">detail</code></TableCell>
+                    <TableCell><code class="inline">{`string|TemplateResult<1>`}</code></TableCell>
+                    <TableCell><code class="inline">{`""`}</code></TableCell>
+                    <TableCell>Detailed message content of the alert.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">closable</code></TableCell>
+                    <TableCell><code class="inline">{`boolean`}</code></TableCell>
+                    <TableCell><code class="inline">{`false`}</code></TableCell>
+                    <TableCell>Indicates if the alert can be closed by the user.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">hideIcon</code></TableCell>
+                    <TableCell><code class="inline">{`boolean`}</code></TableCell>
+                    <TableCell><code class="inline">{`false`}</code></TableCell>
+                    <TableCell>If true alert icon is hidden.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">animation</code></TableCell>
+                    <TableCell><code class="inline">{`fade|slide|scale|none`}</code></TableCell>
+                    <TableCell><code class="inline">{`fade`}</code></TableCell>
+                    <TableCell>Animation type when the alert is shown or hidden.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">animationDuration</code></TableCell>
+                    <TableCell><code class="inline">{`number`}</code></TableCell>
+                    <TableCell><code class="inline">{`250`}</code></TableCell>
+                    <TableCell>Duration of the animation in milliseconds.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">autoClose</code></TableCell>
+                    <TableCell><code class="inline">{`boolean`}</code></TableCell>
+                    <TableCell><code class="inline">{`false`}</code></TableCell>
+                    <TableCell>If true alert will automatically close after a timeout.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">autoCloseDelay</code></TableCell>
+                    <TableCell><code class="inline">{`number`}</code></TableCell>
+                    <TableCell><code class="inline">{`5000`}</code></TableCell>
+                    <TableCell>Time in milliseconds before the alert automatically closes.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">focusOnShow</code></TableCell>
+                    <TableCell><code class="inline">{`boolean`}</code></TableCell>
+                    <TableCell><code class="inline">{`false`}</code></TableCell>
+                    <TableCell>If true alert will be focused when shown.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">persistent</code></TableCell>
+                    <TableCell><code class="inline">{`boolean`}</code></TableCell>
+                    <TableCell><code class="inline">{`false`}</code></TableCell>
+                    <TableCell>The alert can't be closed by the user.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">theme</code></TableCell>
+                    <TableCell><code class="inline">{`MjoAlertTheme`}</code></TableCell>
+                    <TableCell><code class="inline">{`undefined`}</code></TableCell>
+                    <TableCell>Theme object for ThemeMixin customization</TableCell>
+                </TableRow>
+            </TableBody>
+        </Table>
+        <Typography tag="h2" size="title3" weight="bold" spacing="md">API</Typography>
+        <Typography class="explain" tag="p" spacing="md">Methods available on the mjo-alert component.</Typography>
+        <Table>
+            <TableHeader>
+                <TableRow>
+                    <TableCellHeader>Method</TableCellHeader>
+                    <TableCellHeader>Parameters</TableCellHeader>
+                    <TableCellHeader>Returns</TableCellHeader>
+                    <TableCellHeader minWidth="200px">Description</TableCellHeader>
+                </TableRow>
+            </TableHeader>
+            <TableBody>
+                <TableRow>
+                    <TableCell><code class="inline">show()</code></TableCell>
+                    <TableCell><code class="inline">-</code></TableCell>
+                    <TableCell><code class="inline">void</code></TableCell>
+                    <TableCell>Show the alert component.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">hide()</code></TableCell>
+                    <TableCell><code class="inline">-</code></TableCell>
+                    <TableCell><code class="inline">void</code></TableCell>
+                    <TableCell>Close the alert component.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">focus()</code></TableCell>
+                    <TableCell><code class="inline">-</code></TableCell>
+                    <TableCell><code class="inline">void</code></TableCell>
+                    <TableCell>Focus the alert component (Close button if available).</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">announce()</code></TableCell>
+                    <TableCell><code class="inline">-</code></TableCell>
+                    <TableCell><code class="inline">void</code></TableCell>
+                    <TableCell>Force screen readers to re-announce the alert content.</TableCell>
+                </TableRow>
+            </TableBody>
+        </Table>
+        <Typography tag="h2" size="title3" weight="bold" spacing="md">Events</Typography>
+        <Typography class="explain" tag="p" spacing="md">The mjo-alert has the following events available:</Typography>
+        <Table>
+            <TableHeader>
+                <TableRow>
+                    <TableCellHeader width="190px">Event</TableCellHeader>
+                    <TableCellHeader width="190px">CustomEvent type</TableCellHeader>
+                    <TableCellHeader>Detail</TableCellHeader>
+                    <TableCellHeader minWidth="200px">Notes</TableCellHeader>
+                </TableRow>
+            </TableHeader>
+            <TableBody>
+                <TableRow>
+                    <TableCell><code class="inline">mjo-alert:will-show</code></TableCell>
+                    <TableCell><code class="inline">MjoAlertWillShowEvent</code></TableCell>
+                    <TableCell><pre>{eventToggleDetail}</pre></TableCell>
+                    <TableCell>Emitted when the alert is about to be shown.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">mjo-alert:opened</code></TableCell>
+                    <TableCell><code class="inline">MjoAlertOpenedEvent</code></TableCell>
+                    <TableCell><pre>{eventToggleDetail}</pre></TableCell>
+                    <TableCell>Emitted when the alert is opened.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">mjo-alert:will-close</code></TableCell>
+                    <TableCell><code class="inline">MjoAlertWillCloseEvent</code></TableCell>
+                    <TableCell><pre>{eventToggleDetail}</pre></TableCell>
+                    <TableCell>Emitted when the alert is about to be closed.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">mjo-alert:closed</code></TableCell>
+                    <TableCell><code class="inline">MjoAlertClosedEvent</code></TableCell>
+                    <TableCell><pre>{eventToggleDetail}</pre></TableCell>
+                    <TableCell>Emitted when the alert is closed.</TableCell>
+                </TableRow>
+            </TableBody>
+        </Table>
+        <Typography tag="h2" size="title3" weight="bold" spacing="md">Theming</Typography>
+        <Typography class="explain" tag="p" spacing="md">
+            Customization options for the mjo-alert component. If you need more information about theming, please refer to the documentation <Link
+                href="/docs/theming"
+                color="primary">here</Link
+            >.
+        </Typography>
+        <Typography tag="h3" size="xl" weight="bold" spacing="md">CSS Variables</Typography>
+        <Table>
+            <TableHeader>
+                <TableRow>
+                    <TableCellHeader>Variable</TableCellHeader>
+                    <TableCellHeader>Fallback</TableCellHeader>
+                    <TableCellHeader minWidth="200px">Used for</TableCellHeader>
+                </TableRow>
+            </TableHeader>
+            <TableBody>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-alert-border-width</code></TableCell>
+                    <TableCell><code class="inline">3px</code></TableCell>
+                    <TableCell>Border width for the alert component in solid variant.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-alert-message-font-weight</code></TableCell>
+                    <TableCell><code class="inline">600</code></TableCell>
+                    <TableCell>Font weight for the alert message text.</TableCell>
+                </TableRow>
+            </TableBody>
+        </Table>
+        <Typography tag="h3" size="xl" weight="bold" spacing="md">CSS Parts</Typography>
+        <Table>
+            <TableHeader>
+                <TableRow>
+                    <TableCellHeader>Part</TableCellHeader>
+                    <TableCellHeader minWidth="200px">Description</TableCellHeader>
+                </TableRow>
+            </TableHeader>
+            <TableBody>
+                <TableRow>
+                    <TableCell><code class="inline">container</code></TableCell>
+                    <TableCell>The main alert container.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">message-container</code></TableCell>
+                    <TableCell>The container for the message, icon and close button.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">icon-container</code></TableCell>
+                    <TableCell>The container for the alert icon.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">icon</code></TableCell>
+                    <TableCell>The icon element (via exportparts from mjo-icon).</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">message</code></TableCell>
+                    <TableCell>The message content area.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">detail</code></TableCell>
+                    <TableCell>The detail content area.</TableCell>
+                </TableRow>
+            </TableBody>
+        </Table>
+
+        <Typography tag="h3" size="xl" weight="bold" spacing="md">Theme interface</Typography>
+        <Typography class="explain" tag="p" spacing="md">
+            Interface for the <code class="inline">mjo-alert</code> theme that can be applied to the <code class="inline">MjoTheme</code> component or <code
+                class="inline">MjoThemeSSRGenerator</code
+            >.
+        </Typography>
+        <Codeblock>
+            <CodeblockPre language="lit">
+                {
+                    `export interface MjoAlertTheme {
+    borderWidth?: string;
+    messageFontWeight?: string;
+}
+`
+                }
+            </CodeblockPre>
+        </Codeblock>
+        <Typography tag="h3" size="xl" weight="bold" spacing="md">Examples</Typography>
+        <Typography tag="h4" size="xl" weight="bold" spacing="md">With CSS Parts</Typography>
+        <Typography class="explain" tag="p" spacing="md"> Use CSS parts to customize the appearance of the alert. </Typography>
+        <CodeExample>
+            <AlertCssparts client:visible slot="preview" />
+            <Codeblock showHeader slot="code">
+                <CodeblockPre language="lit" bugTitle="[BUG mjo-alert]">
+                    {
+                        `import { LitElement, css, html } from "lit";
+import { customElement } from "lit/decorators.js";
+
+import { AiFillAlipaySquare, AiOutlineCloud } from "mjo-icons/ai";
+
+import "mjo-litui/mjo-alert";
+
+@customElement("alert-cssparts")
+export class AlertCssparts extends LitElement {
+    render() {
+        return html\`
+            <mjo-alert type="info" variant="flat" icon=\${AiFillAlipaySquare} message="This is an info alert with custom css parts"></mjo-alert>
+            <mjo-alert type="success" variant="flat" icon=\${AiOutlineCloud} message="This is an success alert with custom css parts"></mjo-alert>
+        \`;
+    }
+
+    static styles = [
+        css\`
+            :host {
+                display: block;
+                display: flex;
+                flex-direction: column;
+                gap: 1rem;
+            }
+            mjo-alert::part(container) {
+                border-radius: 50px;
+            }
+            mjo-alert::part(icon) {
+                color: white;
+            }
+            mjo-alert::part(message) {
+                color: white;
+                font-weight: normal;
+            }
+            mjo-alert[type="info"]::part(container) {
+                border-left: 4px solid var(--mjo-color-info);
+                background-color: color-mix(in srgb, var(--mjo-color-info) 30%, transparent);
+            }
+            mjo-alert[type="info"]::part(icon-container) {
+                background-color: var(--mjo-color-info);
+            }
+            mjo-alert[type="success"]::part(container) {
+                border-left: 4px solid var(--mjo-color-success);
+                background-color: color-mix(in srgb, var(--mjo-color-success) 30%, transparent);
+            }
+            mjo-alert[type="success"]::part(icon-container) {
+                background-color: var(--mjo-color-success);
+            }
+        \`,
+    ];
+}
+`
+                    }
+                </CodeblockPre>
+            </Codeblock>
+        </CodeExample>
+        <Typography tag="h4" size="xl" weight="bold" spacing="md">Custom component</Typography>
+        <Typography class="explain" tag="p" spacing="md">You can create your own custom component extending the base alert component.</Typography>
+        <Codeblock>
+            <CodeblockPre language="lit">
+                {
+                    `import { css, html, nothing } from "lit";
+import { customElement, property } from "lit/decorators.js";
+
+import { MjoAlert } from "mjo-litui/mjo-alert";
+
+import { AiOutlineAlert, AiOutlineCheck, AiOutlineClose, AiOutlineInfo, AiOutlineWarning } from "mjo-icons/ai";
+
+@customElement("alert-extended")
+export class AlertExtended extends MjoAlert {
+    @property({ type: String }) type: "info" | "success" | "warning" | "error" = "info";
+
+    animation: MjoAlert["animation"] = "scale";
+
+    render() {
+        return html\`
+            <div class="container" data-type=\${this.type}>
+                <div part="icon-container" class="icon-container">
+                    <mjo-icon class="icon" src=\${this.computedIcon} exportparts="icon"></mjo-icon>
+                </div>
+                <div class="message" part="message">
+                    <slot></slot>
+                </div>
+                \${this.closable
+                    ? html\`
+                          <button part="close-button" class="close-button" @click=\${this.#handleClose} aria-label="Close">
+                              <mjo-icon src=\${AiOutlineClose} exportparts="icon: close-icon"></mjo-icon>
+                          </button>
+                      \`
+                    : nothing}
+            </div>
+        \`;
+    }
+
+    get computedIcon() {
+        switch (this.type) {
+            case "error":
+                return AiOutlineAlert;
+            case "warning":
+                return AiOutlineWarning;
+            case "success":
+                return AiOutlineCheck;
+            default:
+                return AiOutlineInfo;
+        }
+    }
+
+    #handleClose = () => {
+        this.hide();
+    };
+
+    static styles = [
+        css\`
+            :host {
+                display: block;
+            }
+            .container {
+                position: relative;
+                display: flex;
+                padding: 1rem;
+                align-items: center;
+                gap: var(--mjo-space-medium);
+                background-color: var(--mjo-background-color-card);
+                border-radius: 0 var(--mjo-radius-large) var(--mjo-radius-large) 0;
+                border-left: 6px solid var(--mjo-color-info);
+            }
+            .icon-container {
+                display: flex;
+                align-items: center;
+                background-color: var(--mjo-color-info);
+                border-radius: var(--mjo-radius-medium);
+            }
+            .icon {
+                width: 28px;
+                aspect-ratio: 1;
+                font-size: 24px;
+                display: grid;
+                place-items: center;
+            }
+            .message {
+                position: relative;
+                flex: 1 1 0;
+            }
+            button {
+                width: 28px;
+                aspect-ratio: 1;
+                border: none;
+                background-color: transparent;
+                color: var(--mjo-foreground-color);
+                cursor: pointer;
+                display: grid;
+                place-items: center;
+                padding: 0;
+                font-size: 1.25rem;
+                transition: background-color 0.3s ease-in-out;
+                border-radius: var(--mjo-radius-medium);
+            }
+            button:hover {
+                background-color: color-mix(in srgb, var(--mjo-color-info) 20%, transparent);
+            }
+            [data-type="success"] {
+                border-left-color: var(--mjo-color-success);
+            }
+            [data-type="success"] .icon-container {
+                background-color: var(--mjo-color-success);
+            }
+            [data-type="success"] button:hover {
+                background-color: color-mix(in srgb, var(--mjo-color-success) 20%, transparent);
+            }
+            [data-type="error"] {
+                border-left-color: var(--mjo-color-error);
+            }
+            [data-type="error"] .icon-container {
+                background-color: var(--mjo-color-error);
+            }
+            [data-type="error"] button:hover {
+                background-color: color-mix(in srgb, var(--mjo-color-error) 20%, transparent);
+            }
+            [data-type="warning"] {
+                border-left-color: var(--mjo-color-warning);
+            }
+            [data-type="warning"] .icon-container {
+                background-color: var(--mjo-color-warning);
+            }
+            [data-type="warning"] button:hover {
+                background-color: color-mix(in srgb, var(--mjo-color-warning) 20%, transparent);
+            }
+        \`,
+    ];
+}
+
+declare global {
+    interface HTMLElementTagNameMap {
+        "alert-extended": AlertExtended;
+    }
+}
+
+`
+                }
+            </CodeblockPre>
+        </Codeblock>
+        <Typography class="explain" tag="p" spacing="md">Now you can use your customized alert component.</Typography>
+        <CodeExample>
+            <AlertExtendedExample client:visible slot="preview" />
+            <Codeblock showHeader slot="code">
+                <CodeblockPre language="lit" bugTitle="[BUG mjo-alert]">
+                    {
+                        `import type { MjoAlertClosedEvent } from "mjo-litui/types/mjo-alert";
+
+import { LitElement, css, html } from "lit";
+import { customElement } from "lit/decorators.js";
+
+import "./alert-extended";
+
+@customElement("alert-extended-example")
+export class AlertExtendedExample extends LitElement {
+    render() {
+        return html\`
+            <alert-extended closable @mjo-alert:closed=\${this.#handleAlertClosed}>This is a slotted message</alert-extended>
+            <alert-extended type="success" closable @mjo-alert:closed=\${this.#handleAlertClosed}>This is a slotted message</alert-extended>
+            <alert-extended type="warning" closable @mjo-alert:closed=\${this.#handleAlertClosed}>This is a slotted message</alert-extended>
+            <alert-extended type="error" closable @mjo-alert:closed=\${this.#handleAlertClosed}>This is a slotted message</alert-extended>
+        \`;
+    }
+
+    #handleAlertClosed = (event: MjoAlertClosedEvent) => {
+        setTimeout(() => {
+            event.detail.element.show();
+        }, 2000);
+    };
+
+    static styles = [
+        css\`
+            :host {
+                display: block;
+                display: flex;
+                flex-direction: column;
+                gap: 1rem;
+            }
+        \`,
+    ];
+}
+`
+                    }
+                </CodeblockPre>
+            </Codeblock>
+        </CodeExample>
+        <Typography tag="h2" size="title3" weight="bold" spacing="md">Accessibility</Typography>
+        <Typography class="explain" tag="p" spacing="md"> The alert component includes comprehensive accessibility features: </Typography>
+        <List listStyle="disc">
+            <ListItem featuredText="ARIA Live Regions">
+                Configurable <code class="inline dense">aria-live</code> behavior (polite, assertive, off) for screen reader announcements
+            </ListItem>
+            <ListItem featuredText="Focus Management"> Optional automatic focus on show with <code class="inline dense">focusOnShow</code> property </ListItem>
+            <ListItem featuredText="Keyboard Navigation"> Full keyboard support for dismissible alerts (Enter/Space to close when focused) </ListItem>
+            <ListItem featuredText="Screen Reader Support"> Proper semantic HTML structure with descriptive messages and role attribution </ListItem>
+            <ListItem featuredText="State Communication"> Alert state changes and dismissal events are properly announced to assistive technologies </ListItem>
+            <ListItem featuredText="Reduced Motion">
+                Respects <code class="inline dense">prefers-reduced-motion</code> user preference by disabling animations
+            </ListItem>
+        </List>
+        <Typography tag="h3" size="xl" weight="bold" spacing="md">Accessibility Best Practices</Typography>
+        <List listStyle="disc">
+            <ListItem>Use <code class="inline dense">ariaLive="assertive"</code> for critical error messages that require immediate attention</ListItem>
+            <ListItem
+                >Use <code class="inline dense">ariaLive="polite"</code> for informational messages that can wait for user's current activity to complete</ListItem
+            >
+            <ListItem>Set <code class="inline dense">focusOnShow="true"</code> for alerts that require immediate user action</ListItem>
+            <ListItem>Ensure alert messages are clear and actionable</ListItem>
+            <ListItem>Test with screen readers to verify proper announcement behavior</ListItem>
+            <ListItem>Use appropriate alert types to convey semantic meaning (success, warning, error, info)</ListItem>
+        </List>
+        <Typography tag="h2" size="title3" weight="bold" spacing="md">Type Definitions</Typography>
+        <Typography class="explain" tag="p" spacing="md"> The alert component supports the following type definitions: </Typography>
+        <Codeblock>
+            <CodeblockPre language="typescript">
+                {
+                    `export type MjoAlertSizes = "small" | "medium" | "large";
+export type MjoAlertRounded = "none" | "small" | "medium" | "large";
+export type MjoAlertTypes = "default" | "primary" | "secondary" | "success" | "info" | "warning" | "error";
+export type MjoAlertAnimations = "fade" | "slide" | "scale" | "none";
+export type MjoAlertAriaLive = "polite" | "assertive" | "off";
+
+export interface MjoAlertWillShowEvent extends CustomEvent {
+    detail: {
+        element: MjoAlert;
+    };
+}
+export interface MjoAlertWillCloseEvent extends CustomEvent {
+    detail: {
+        element: MjoAlert;
+    };
+}
+export interface MjoAlertClosedEvent extends CustomEvent {
+    detail: {
+        element: MjoAlert;
+    };
+}
+export interface MjoAlertOpenedEvent extends CustomEvent {
+    detail: {
+        element: MjoAlert;
+    };
+}
+`
+                }
+            </CodeblockPre>
+        </Codeblock>
+    </article>
+</DocsLayout>
+
+<style>
+    .prose {
+        position: relative;
+    }
+    .explain {
+        color: var(--mjo-foreground-color-low);
+    }
+</style>

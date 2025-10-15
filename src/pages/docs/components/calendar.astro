@@ -1,0 +1,1888 @@
+---
+import Codeblock from "@/components/ui/codeblock/Codeblock.astro";
+import CodeblockPre from "@/components/ui/codeblock/CodeblockPre.astro";
+import CodeExample from "@/components/ui/CodeExample.astro";
+import Link from "@/components/ui/Link.astro";
+import List from "@/components/ui/list/List.astro";
+import ListItem from "@/components/ui/list/ListItem.astro";
+import Table from "@/components/ui/table/Table.astro";
+import TableBody from "@/components/ui/table/TableBody.astro";
+import TableCell from "@/components/ui/table/TableCell.astro";
+import TableCellHeader from "@/components/ui/table/TableCellHeader.astro";
+import TableHeader from "@/components/ui/table/TableHeader.astro";
+import TableRow from "@/components/ui/table/TableRow.astro";
+import Typography from "@/components/ui/Typography.astro";
+import DocsLayout from "@/layouts/DocsLayout.astro";
+
+// Import calendar examples
+import { CalendarColors } from "@/components/examples/calendar/calendar-colors";
+import { CalendarConstraints } from "@/components/examples/calendar/calendar-constraints";
+import { CalendarCssparts } from "@/components/examples/calendar/calendar-cssparts";
+import { CalendarCustom } from "@/components/examples/calendar/calendar-custom";
+import { CalendarDual } from "@/components/examples/calendar/calendar-dual";
+import { CalendarForm } from "@/components/examples/calendar/calendar-form";
+import { CalendarLocales } from "@/components/examples/calendar/calendar-locales";
+import { CalendarMarkers } from "@/components/examples/calendar/calendar-markers";
+import { CalendarRange } from "@/components/examples/calendar/calendar-range";
+import { CalendarSizes } from "@/components/examples/calendar/calendar-sizes";
+import { CalendarTheme } from "@/components/examples/calendar/calendar-theme";
+import { CalendarUsage } from "@/components/examples/calendar/calendar-usage";
+import Logger from "@/components/ui/logger/Logger.astro";
+
+// Event details objects for clean display
+const eventDateSelectedDetail = `{
+  date?: Date,
+  value?: string
+}`;
+
+const eventRangeSelectedDetail = `{
+  startDate?: Date,
+  endDate?: Date,
+  startDateValue?: string,
+  endDateValue?: string
+}`;
+
+const eventDayClickDetail = `{
+  day: number,
+  date: Date,
+  events: CalendarEventMarker[]
+}`;
+
+const eventMonthSelectedDetail = `{
+  month: number,
+}`;
+
+const eventYearSelectedDetail = `{
+  year: number,
+}`;
+---
+
+<DocsLayout
+    title="Calendar"
+    description="A comprehensive calendar component for date selection that supports both single date and date range selection modes. Learn how to use the calendar component in your project."
+    currentPath="/docs/components/calendar"
+>
+    <article class="prose">
+        <Typography tag="h1" size="title2" weight="bold">mjo-calendar</Typography>
+        <Typography class="explain" tag="p" spacing="md">
+            A comprehensive calendar component for date selection that supports both single date and date range selection modes. Features intuitive navigation
+            controls, adaptive dual-calendar rendering in range mode, internationalization support for 15 languages, full accessibility implementation with
+            keyboard navigation and screen reader support, event markers, form integration, extensive theming capabilities through ThemeMixin, and a powerful
+            programmatic API.
+        </Typography>
+
+        <Typography tag="h2" size="title3" weight="bold" spacing="md">Import</Typography>
+        <Typography class="explain" tag="p" spacing="md">
+            To use the mjo-calendar component in your project, you need to import it first. You can do this by adding the following import statement to your
+            JavaScript or TypeScript file:
+        </Typography>
+        <Codeblock>
+            <CodeblockPre language="typescript" bugTitle="[BUG mjo-calendar]">
+                {`import "mjo-litui/mjo-calendar";`}
+            </CodeblockPre>
+        </Codeblock>
+
+        <Typography tag="h2" size="title3" weight="bold" spacing="md">Usage</Typography>
+        <Typography class="explain" tag="p" spacing="md">Basic usage of the mjo-calendar component for single date selection.</Typography>
+        <CodeExample space="md">
+            <CalendarUsage client:visible slot="preview" />
+            <Codeblock showHeader slot="code">
+                <CodeblockPre language="lit" bugTitle="[BUG mjo-calendar]">
+                    {
+                        `import { MjoCalendarDateSelectedEvent } from "mjo-litui/types/mjo-calendar";
+
+import { LitElement, css, html } from "lit";
+import { customElement } from "lit/decorators.js";
+
+import { printLog } from "@/lib/logger";
+
+import "mjo-litui/mjo-calendar";
+
+@customElement("calendar-usage")
+export class CalendarUsage extends LitElement {
+    render() {
+        return html\`<mjo-calendar @mjo-calendar:date-selected=\${this.#handleDateSelected}></mjo-calendar>\`;
+    }
+
+    #handleDateSelected(event: MjoCalendarDateSelectedEvent) {
+        printLog({
+            id: "calendar-usage",
+            message: event.detail.value,
+            event,
+        });
+    }
+
+    static styles = [
+        css\`
+            :host {
+                display: block;
+            }
+        \`,
+    ];
+}
+`
+                    }
+                </CodeblockPre>
+            </Codeblock>
+        </CodeExample>
+        <Logger id="calendar-usage" initialMessage="Select date to see event logs" />
+
+        <Typography tag="h3" size="xxl" weight="bold" spacing="md">Date Range Selection</Typography>
+        <Typography class="explain" tag="p" spacing="md">
+            The calendar supports range selection mode for selecting start and end dates with adaptive dual-calendar layout by default.
+        </Typography>
+        <CodeExample space="md">
+            <CalendarRange client:visible slot="preview" />
+            <Codeblock showHeader slot="code">
+                <CodeblockPre language="lit" bugTitle="[BUG mjo-calendar]">
+                    {
+                        `import { MjoCalendarRangeSelectedEvent } from "mjo-litui/types/mjo-calendar";
+
+import { LitElement, css, html } from "lit";
+import { customElement } from "lit/decorators.js";
+
+import { printLog } from "@/lib/logger";
+import "mjo-litui/mjo-calendar";
+
+@customElement("calendar-range")
+export class CalendarRange extends LitElement {
+    render() {
+        return html\`
+            <div>
+                <mjo-calendar mode="range" @mjo-calendar:range-selected=\${this.#handleDateSelected} allowCompact></mjo-calendar>
+            </div>
+        \`;
+    }
+
+    #handleDateSelected(event: MjoCalendarRangeSelectedEvent) {
+        printLog({
+            id: "calendar-range",
+            message: event.detail.startDateValue + " to " + event.detail.endDateValue,
+            event,
+        });
+    }
+
+    static styles = [
+        css\`
+            :host {
+                display: block;
+            }
+        \`,
+    ];
+}
+`
+                    }
+                </CodeblockPre>
+            </Codeblock>
+        </CodeExample>
+        <Logger id="calendar-range" initialMessage="Select range date to see event logs" />
+        <Typography tag="h4" size="xl" weight="bold" spacing="md">Dual calendars</Typography>
+        <Typography class="explain" tag="p" spacing="md">
+            You can force range calendars if you want to show one or two calendars with <code class="inline">rangeCalendars</code>.
+        </Typography>
+        <CodeExample>
+            <CalendarDual client:visible slot="preview" />
+            <Codeblock showHeader slot="code">
+                <CodeblockPre language="lit" bugTitle="[BUG mjo-calendar]">
+                    {
+                        `import { LitElement, css, html } from "lit";
+import { customElement } from "lit/decorators.js";
+
+import "mjo-litui/mjo-calendar";
+import "../../lit/title-example";
+
+@customElement("calendar-dual")
+export class CalendarDual extends LitElement {
+    render() {
+        return html\`
+            <div>
+                <title-example>Force Single Calendar</title-example>
+                <mjo-calendar mode="range" rangeCalendars="1"></mjo-calendar>
+            </div>
+            <div>
+                <title-example>Force Dual Calendar</title-example>
+                <mjo-calendar mode="range" rangeCalendars="2"></mjo-calendar>
+            </div>
+        \`;
+    }
+
+    static styles = [
+        css\`
+            :host {
+                display: flex;
+                flex-direction: column;
+                gap: 1rem;
+                width: 100%;
+            }
+        \`,
+    ];
+}
+`
+                    }
+                </CodeblockPre>
+            </Codeblock>
+        </CodeExample>
+
+        <Typography tag="h3" size="xxl" weight="bold" spacing="md">Sizes</Typography>
+        <Typography class="explain" tag="p" spacing="md">The calendar supports different sizes (small, medium, large).</Typography>
+        <CodeExample>
+            <CalendarSizes client:visible slot="preview" />
+            <Codeblock showHeader slot="code">
+                <CodeblockPre language="lit" bugTitle="[BUG mjo-calendar]">
+                    {
+                        `import { LitElement, css, html } from "lit";
+import { customElement } from "lit/decorators.js";
+
+import "mjo-litui/mjo-calendar";
+import "../../lit/title-example";
+
+@customElement("calendar-sizes")
+export class CalendarSizes extends LitElement {
+    render() {
+        return html\`
+            <div>
+                <title-example>Small</title-example>
+                <mjo-calendar size="small" mode="single" allowCompact></mjo-calendar>
+            </div>
+            <div>
+                <title-example>Medium (Default)</title-example>
+                <mjo-calendar size="medium" mode="single" allowCompact></mjo-calendar>
+            </div>
+            <div>
+                <title-example>Large</title-example>
+                <mjo-calendar size="large" mode="single" allowCompact></mjo-calendar>
+            </div>
+        \`;
+    }
+
+    static styles = [
+        css\`
+            :host {
+                display: flex;
+                flex-direction: column;
+                gap: 2rem;
+                align-items: flex-start;
+            }
+        \`,
+    ];
+}
+`
+                    }
+                </CodeblockPre>
+            </Codeblock>
+        </CodeExample>
+
+        <Typography tag="h3" size="xxl" weight="bold" spacing="md">Colors</Typography>
+        <Typography class="explain" tag="p" spacing="md">Choose between primary and secondary color themes.</Typography>
+        <CodeExample>
+            <CalendarColors client:visible slot="preview" />
+            <Codeblock showHeader slot="code">
+                <CodeblockPre language="lit" bugTitle="[BUG mjo-calendar]">
+                    {
+                        `import { LitElement, css, html } from "lit";
+import { customElement } from "lit/decorators.js";
+
+import "mjo-litui/mjo-calendar";
+
+@customElement("calendar-colors")
+export class CalendarColors extends LitElement {
+    render() {
+        return html\`
+            <div class="colors-container">
+                <div class="color-item">
+                    <h4>Primary</h4>
+                    <mjo-calendar color="primary" mode="single"></mjo-calendar>
+                </div>
+                <div class="color-item">
+                    <h4>Secondary</h4>
+                    <mjo-calendar color="secondary" mode="single"></mjo-calendar>
+                </div>
+            </div>
+        \`;
+    }
+
+    static styles = [
+        css\`
+            :host {
+                display: block;
+            }
+            .colors-container {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                gap: 24px;
+            }
+            .color-item h4 {
+                margin: 0 0 12px 0;
+                color: var(--mjo-foreground-color);
+                font-size: 1rem;
+                font-weight: 600;
+            }
+        \`,
+    ];
+}
+`
+                    }
+                </CodeblockPre>
+            </Codeblock>
+        </CodeExample>
+
+        <Typography tag="h3" size="xxl" weight="bold" spacing="md">Date Constraints</Typography>
+        <Typography class="explain" tag="p" spacing="md">Restrict selectable dates using min/max dates and disabled date arrays.</Typography>
+        <List>
+            <ListItem featuredText="Min date">January 1.</ListItem>
+            <ListItem featuredText="Max date">December 31.</ListItem>
+            <ListItem featuredText="Disabled dates">Valentine's Day, Independence Day, Christmas.</ListItem>
+        </List>
+        <CodeExample>
+            <CalendarConstraints client:visible slot="preview" />
+            <Codeblock showHeader slot="code">
+                <CodeblockPre language="lit" bugTitle="[BUG mjo-calendar]">
+                    {
+                        `import { LitElement, css, html } from "lit";
+import { customElement } from "lit/decorators.js";
+
+import "mjo-litui/mjo-calendar";
+
+@customElement("calendar-constraints")
+export class CalendarConstraints extends LitElement {
+    #year = new Date().getFullYear();
+    #disabledDates = [\`\${this.#year}-02-14\`, \`\${this.#year}-07-04\`, \`\${this.#year}-12-25\`];
+
+    render() {
+        return html\`
+            <mjo-calendar allowCompact minDate="\${this.#year}-01-01" maxDate="\${this.#year}-12-31" .disabledDates=\${this.#disabledDates}> </mjo-calendar>
+        \`;
+    }
+
+    static styles = [
+        css\`
+            :host {
+                display: block;
+            }
+        \`,
+    ];
+}
+`
+                    }
+                </CodeblockPre>
+            </Codeblock>
+        </CodeExample>
+
+        <Typography tag="h3" size="xxl" weight="bold" spacing="md">Event markers</Typography>
+        <Typography class="explain" tag="p" spacing="md">
+            You can add event markers to specific dates using the <code class="inline">eventMarkers</code> property. Event markers are visual indicators only and
+            do not affect date selection.
+        </Typography>
+        <CodeExample space="md">
+            <CalendarMarkers client:visible slot="preview" />
+            <Codeblock showHeader slot="code">
+                <CodeblockPre language="lit" bugTitle="[BUG mjo-calendar]">
+                    {
+                        `import type { MjoCalendarDateClickEvent, MjoCalendarMarker } from "mjo-litui/types/mjo-calendar";
+
+import { LitElement, css, html } from "lit";
+import { customElement } from "lit/decorators.js";
+
+import { printLog } from "@/lib/logger";
+
+import "mjo-litui/mjo-calendar";
+
+const year = new Date().getFullYear();
+const month = (new Date().getMonth() + 1).toString().padStart(2, "0");
+
+@customElement("calendar-markers")
+export class CalendarMarkers extends LitElement {
+    #eventMarkers: MjoCalendarMarker[] = [
+        {
+            date: \`\${year}-\${month}-05\`,
+            backgroundColor: "var(--mjo-color-purple)",
+            foregroundColor: "white",
+            time: "10:55",
+            tooltip: "Meeting with John Doe",
+        },
+        {
+            date: \`\${year}-\${month}-12\`,
+            backgroundColor: "var(--mjo-color-red)",
+            foregroundColor: "white",
+            time: "13:30",
+            tooltip: "Launch with Marie Larson",
+        },
+        {
+            date: \`\${year}-\${month}-12\`,
+            backgroundColor: "var(--mjo-color-red)",
+            foregroundColor: "white",
+            time: "18:00",
+            tooltip: "Meeting with Carla Smith",
+        },
+        {
+            date: \`\${year}-\${month}-24\`,
+            backgroundColor: "var(--mjo-color-cyan)",
+            foregroundColor: "black",
+            time: "22:00",
+            tooltip: "Dinner with family",
+        },
+    ];
+
+    render() {
+        return html\`<mjo-calendar allowCompact .eventMarkers=\${this.#eventMarkers} @mjo-calendar:day-click=\${this.#handleDayClick}></mjo-calendar>\`;
+    }
+
+    #handleDayClick(event: MjoCalendarDateClickEvent) {
+        const { events, formattedDate } = event.detail;
+
+        printLog({
+            id: "calendar-markers",
+            message: events.length > 0 ? \`\${JSON.stringify(events)}\` : "No events for " + formattedDate,
+            event,
+        });
+    }
+
+    static styles = [
+        css\`
+            :host {
+                display: block;
+            }
+        \`,
+    ];
+}
+`
+                    }
+                </CodeblockPre>
+            </Codeblock>
+        </CodeExample>
+        <Logger id="calendar-markers" initialMessage="Select date with markers to see event logs" />
+
+        <Typography tag="h3" size="xxl" weight="bold" spacing="md">Internationalization</Typography>
+        <Typography class="explain" tag="p" spacing="md">
+            The component supports 15 different locales with localized month names, weekdays and first day of week preferences.
+        </Typography>
+        <CodeExample>
+            <CalendarLocales client:visible slot="preview" />
+            <Codeblock showHeader slot="code">
+                <CodeblockPre language="lit" bugTitle="[BUG mjo-calendar]">
+                    {
+                        `import { LitElement, css, html } from "lit";
+import { customElement } from "lit/decorators.js";
+
+import "mjo-litui/mjo-calendar";
+import "../../lit/title-example";
+
+@customElement("calendar-locales")
+export class CalendarLocales extends LitElement {
+    render() {
+        return html\`
+            <div>
+                <title-example>English (US)</title-example>
+                <mjo-calendar locale="en" allowCompact firstDayOfWeek="sunday"></mjo-calendar>
+            </div>
+            <div>
+                <title-example>Español</title-example>
+                <mjo-calendar locale="es" allowCompact firstDayOfWeek="monday"></mjo-calendar>
+            </div>
+            <div>
+                <title-example>Français</title-example>
+                <mjo-calendar locale="fr" allowCompact firstDayOfWeek="monday"></mjo-calendar>
+            </div>
+            <div>
+                <title-example>日本語</title-example>
+                <mjo-calendar locale="ja" allowCompact firstDayOfWeek="sunday"></mjo-calendar>
+            </div>
+        \`;
+    }
+
+    static styles = [
+        css\`
+            :host {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
+                gap: 24px;
+            }
+        \`,
+    ];
+}
+`
+                    }
+                </CodeblockPre>
+            </Codeblock>
+        </CodeExample>
+
+        <Typography tag="h3" size="xxl" weight="bold" spacing="md">Form Integration</Typography>
+        <Typography class="explain" tag="p" spacing="md">The calendar integrates seamlessly with mjo-form for data collection and validation.</Typography>
+        <CodeExample space="md">
+            <CalendarForm client:visible slot="preview" />
+            <Codeblock showHeader slot="code">
+                <CodeblockPre language="lit" bugTitle="[BUG mjo-calendar]">
+                    {
+                        `import type { MjoFormSubmitEvent } from "mjo-litui/types/mjo-form";
+
+import { LitElement, css, html } from "lit";
+import { customElement } from "lit/decorators.js";
+
+import { printLog } from "@/lib/logger";
+
+import "mjo-litui/mjo-button";
+import "mjo-litui/mjo-calendar";
+import "mjo-litui/mjo-form";
+
+@customElement("calendar-form")
+export class CalendarForm extends LitElement {
+    render() {
+        return html\`
+            <mjo-form @submit=\${this.#handleSubmit}>
+                <mjo-calendar name="eventDate" mode="single" minDate="2025-01-01"></mjo-calendar>
+                <mjo-button type="submit" fullwidth>Submit Dates</mjo-button>
+            </mjo-form>
+        \`;
+    }
+
+    #handleSubmit = (event: MjoFormSubmitEvent) => {
+        const eventDate = event.detail.response.data.eventDate;
+        printLog({
+            id: "calendar-form",
+            message: \`Event Date: \${eventDate || "not selected"}\`,
+            event,
+        });
+
+        setTimeout(() => {
+            const button = event.detail.response.submitButton;
+            if (button) {
+                button.loading = false;
+            }
+        }, 1000);
+    };
+
+    static styles = [
+        css\`
+            :host {
+                display: block;
+            }
+            label {
+                display: block;
+                margin-bottom: var(--mjo-space-small);
+                font-weight: 600;
+                color: var(--mjo-foreground-color);
+            }
+            mjo-button {
+                margin-top: var(--mjo-space-medium);
+            }
+        \`,
+    ];
+}
+`
+                    }
+                </CodeblockPre>
+            </Codeblock>
+        </CodeExample>
+        <Logger id="calendar-form" initialMessage="Submit form to see event logs" />
+
+        <Typography tag="h2" size="title3" weight="bold" spacing="md">Properties</Typography>
+        <Typography class="explain" tag="p" spacing="md">Properties available on the mjo-calendar component.</Typography>
+        <Table>
+            <TableHeader>
+                <TableRow>
+                    <TableCellHeader>Property</TableCellHeader>
+                    <TableCellHeader>Type</TableCellHeader>
+                    <TableCellHeader>Default</TableCellHeader>
+                    <TableCellHeader minWidth="200px">Description</TableCellHeader>
+                </TableRow>
+            </TableHeader>
+            <TableBody>
+                <TableRow>
+                    <TableCell><code class="inline">mode</code></TableCell>
+                    <TableCell><code class="inline">{`"single" | "range"`}</code></TableCell>
+                    <TableCell><code class="inline">{`"single"`}</code></TableCell>
+                    <TableCell>Calendar selection mode</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">name</code></TableCell>
+                    <TableCell><code class="inline">{`string | undefined`}</code></TableCell>
+                    <TableCell><code class="inline">{`undefined`}</code></TableCell>
+                    <TableCell>Form field name for integration with mjo-form</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">value</code></TableCell>
+                    <TableCell><code class="inline">{`string | undefined`}</code></TableCell>
+                    <TableCell><code class="inline">{`undefined`}</code></TableCell>
+                    <TableCell>Selected date in YYYY-MM-DD format (single mode)</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">startDate</code></TableCell>
+                    <TableCell><code class="inline">{`string | undefined`}</code></TableCell>
+                    <TableCell><code class="inline">{`undefined`}</code></TableCell>
+                    <TableCell>Start date for range selection in YYYY-MM-DD format</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">endDate</code></TableCell>
+                    <TableCell><code class="inline">{`string | undefined`}</code></TableCell>
+                    <TableCell><code class="inline">{`undefined`}</code></TableCell>
+                    <TableCell>End date for range selection in YYYY-MM-DD format</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">locale</code></TableCell>
+                    <TableCell><code class="inline">{`SupportedLocale`}</code></TableCell>
+                    <TableCell><code class="inline">{`"en"`}</code></TableCell>
+                    <TableCell>Language locale for months/days translation</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">minDate</code></TableCell>
+                    <TableCell><code class="inline">{`string | undefined`}</code></TableCell>
+                    <TableCell><code class="inline">{`undefined`}</code></TableCell>
+                    <TableCell>Minimum selectable date in YYYY-MM-DD format</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">maxDate</code></TableCell>
+                    <TableCell><code class="inline">{`string | undefined`}</code></TableCell>
+                    <TableCell><code class="inline">{`undefined`}</code></TableCell>
+                    <TableCell>Maximum selectable date in YYYY-MM-DD format</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">disabled</code></TableCell>
+                    <TableCell><code class="inline">{`boolean`}</code></TableCell>
+                    <TableCell><code class="inline">{`false`}</code></TableCell>
+                    <TableCell>Disables calendar interaction</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">size</code></TableCell>
+                    <TableCell><code class="inline">{`"small" | "medium" | "large"`}</code></TableCell>
+                    <TableCell><code class="inline">{`"medium"`}</code></TableCell>
+                    <TableCell>Calendar size</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">allowCompact</code></TableCell>
+                    <TableCell><code class="inline">{`boolean`}</code></TableCell>
+                    <TableCell><code class="inline">{`false`}</code></TableCell>
+                    <TableCell>Allow the compact calendar when the parent container is narrower than the calendar.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">color</code></TableCell>
+                    <TableCell><code class="inline">{`"primary" | "secondary"`}</code></TableCell>
+                    <TableCell><code class="inline">{`"primary"`}</code></TableCell>
+                    <TableCell>Color theme</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">disabledDates</code></TableCell>
+                    <TableCell><code class="inline">{`string[] | undefined`}</code></TableCell>
+                    <TableCell><code class="inline">{`undefined`}</code></TableCell>
+                    <TableCell>Array of disabled dates in YYYY-MM-DD format</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">hideToday</code></TableCell>
+                    <TableCell><code class="inline">{`boolean`}</code></TableCell>
+                    <TableCell><code class="inline">{`false`}</code></TableCell>
+                    <TableCell>Hide today's highlighted date highlighting</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">firstDayOfWeek</code></TableCell>
+                    <TableCell><code class="inline">{`"sunday" | "monday"`}</code></TableCell>
+                    <TableCell><code class="inline">{`"monday"`}</code></TableCell>
+                    <TableCell>First day of the week</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">rangeCalendars</code></TableCell>
+                    <TableCell><code class="inline">{`"1" | "2" | "auto"`}</code></TableCell>
+                    <TableCell><code class="inline">{`"auto"`}</code></TableCell>
+                    <TableCell>Range mode calendar layout strategy</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">eventMarkers</code></TableCell>
+                    <TableCell><code class="inline">{`MjoCalendarEventMarker[]`}</code></TableCell>
+                    <TableCell><code class="inline">{`undefined`}</code></TableCell>
+                    <TableCell>Event markers for specific dates (visual only)</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">disableKeyboardNavigation</code></TableCell>
+                    <TableCell><code class="inline">{`boolean`}</code></TableCell>
+                    <TableCell><code class="inline">{`false`}</code></TableCell>
+                    <TableCell>Disable keyboard navigation</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">disableAnnounceSelections</code></TableCell>
+                    <TableCell><code class="inline">{`boolean`}</code></TableCell>
+                    <TableCell><code class="inline">{`false`}</code></TableCell>
+                    <TableCell>Disable selection announcements</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">theme</code></TableCell>
+                    <TableCell><code class="inline">{`MjoCalendarTheme`}</code></TableCell>
+                    <TableCell><code class="inline">{`undefined`}</code></TableCell>
+                    <TableCell>Theme object for ThemeMixin customization</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">ariaLabel</code></TableCell>
+                    <TableCell><code class="inline">{`string | null`}</code></TableCell>
+                    <TableCell><code class="inline">{`null`}</code></TableCell>
+                    <TableCell>Accessible label for the calendar</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">ariaLabelledby</code></TableCell>
+                    <TableCell><code class="inline">{`string | null`}</code></TableCell>
+                    <TableCell><code class="inline">{`null`}</code></TableCell>
+                    <TableCell>ID of element that labels the calendar</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">ariaDescribedby</code></TableCell>
+                    <TableCell><code class="inline">{`string | null`}</code></TableCell>
+                    <TableCell><code class="inline">{`null`}</code></TableCell>
+                    <TableCell>ID of element that describes the calendar</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">ariaLive</code></TableCell>
+                    <TableCell><code class="inline">{`"polite" | "assertive" | "off"`}</code></TableCell>
+                    <TableCell><code class="inline">{`"polite"`}</code></TableCell>
+                    <TableCell>Live region politeness for announcements</TableCell>
+                </TableRow>
+            </TableBody>
+        </Table>
+
+        <Typography tag="h2" size="title3" weight="bold" spacing="md">API</Typography>
+        <Typography class="explain" tag="p" spacing="md">Methods available on the mjo-calendar component for programmatic control.</Typography>
+        <Table>
+            <TableHeader>
+                <TableRow>
+                    <TableCellHeader>Method</TableCellHeader>
+                    <TableCellHeader>Parameters</TableCellHeader>
+                    <TableCellHeader>Returns</TableCellHeader>
+                    <TableCellHeader minWidth="200px">Description</TableCellHeader>
+                </TableRow>
+            </TableHeader>
+            <TableBody>
+                <TableRow>
+                    <TableCell><code class="inline">getDisplayedMonths()</code></TableCell>
+                    <TableCell><code class="inline">-</code></TableCell>
+                    <TableCell><code class="inline">{`{month: number, year: number}[]`}</code></TableCell>
+                    <TableCell>Returns a shallow copy (length 1 or 2) of the months currently rendered.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">setDisplayedMonths(months, enforceAdj?)</code></TableCell>
+                    <TableCell><code class="inline">{`months: {month: number, year: number}[], enforceAdj?: boolean`}</code></TableCell>
+                    <TableCell><code class="inline">void</code></TableCell>
+                    <TableCell>Sets one or two months. If two and enforceAdj is true (default), second is coerced to be next month.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">setMonth(side, month)</code></TableCell>
+                    <TableCell><code class="inline">{`side: "single" | "left" | "right", month: number`}</code></TableCell>
+                    <TableCell><code class="inline">void</code></TableCell>
+                    <TableCell>Sets the month (0–11) for the given side, preserving adjacency in range mode.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">goToDate(options)</code></TableCell>
+                    <TableCell><code class="inline">{`{date: string | Date, side?: "single" | "left" | "right"}`}</code></TableCell>
+                    <TableCell><code class="inline">void</code></TableCell>
+                    <TableCell>Navigate to the specific date for the given side.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">goToMonth(options)</code></TableCell>
+                    <TableCell><code class="inline">{`{month: number, year?: number, side?: "single" | "left" | "right"}`}</code></TableCell>
+                    <TableCell><code class="inline">void</code></TableCell>
+                    <TableCell>Navigate to the month for the given side.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">goToYear(options)</code></TableCell>
+                    <TableCell><code class="inline">{`{year: number, side?: "single" | "left" | "right"}`}</code></TableCell>
+                    <TableCell><code class="inline">void</code></TableCell>
+                    <TableCell>Navigate to the year for the given side.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">selectDate(date)</code></TableCell>
+                    <TableCell><code class="inline">date: Date</code></TableCell>
+                    <TableCell><code class="inline">void</code></TableCell>
+                    <TableCell>Programmatically select a date (mirrors user click behavior with validation)</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">resetSelection()</code></TableCell>
+                    <TableCell><code class="inline">-</code></TableCell>
+                    <TableCell><code class="inline">void</code></TableCell>
+                    <TableCell>Clear any current selection (single or range) without changing displayed months</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">reset()</code></TableCell>
+                    <TableCell><code class="inline">-</code></TableCell>
+                    <TableCell><code class="inline">void</code></TableCell>
+                    <TableCell>Full reset: clear selection, reset to today's month, close any open pickers</TableCell>
+                </TableRow>
+            </TableBody>
+        </Table>
+
+        <Typography tag="h2" size="title3" weight="bold" spacing="md">Events</Typography>
+        <Typography class="explain" tag="p" spacing="md">The mjo-calendar has the following events available:</Typography>
+        <Table>
+            <TableHeader>
+                <TableRow>
+                    <TableCellHeader width="190px">Event</TableCellHeader>
+                    <TableCellHeader width="190px">CustomEvent type</TableCellHeader>
+                    <TableCellHeader>Detail</TableCellHeader>
+                    <TableCellHeader minWidth="200px">Notes</TableCellHeader>
+                </TableRow>
+            </TableHeader>
+            <TableBody>
+                <TableRow>
+                    <TableCell><code class="inline">mjo-calendar:date-selected</code></TableCell>
+                    <TableCell><code class="inline">MjoCalendarDateSelectedEvent</code></TableCell>
+                    <TableCell><pre>{eventDateSelectedDetail}</pre></TableCell>
+                    <TableCell>Emitted when a date is selected (single mode)</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">mjo-calendar:range-selected</code></TableCell>
+                    <TableCell><code class="inline">MjoCalendarRangeSelectedEvent</code></TableCell>
+                    <TableCell><pre>{eventRangeSelectedDetail}</pre></TableCell>
+                    <TableCell>Emitted when date range is fully selected (both ends)</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">mjo-calendar:day-click</code></TableCell>
+                    <TableCell><code class="inline">MjoCalendarDayClickEvent</code></TableCell>
+                    <TableCell><pre>{eventDayClickDetail}</pre></TableCell>
+                    <TableCell>Emitted when a day cell is clicked</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">mjo-calendar:day-hover</code></TableCell>
+                    <TableCell><code class="inline">MjoCalendarDayHoverEvent</code></TableCell>
+                    <TableCell><pre>{eventDayClickDetail}</pre></TableCell>
+                    <TableCell>Emitted when a day cell is hovered</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">mjo-calendar:day-leave</code></TableCell>
+                    <TableCell><code class="inline">MjoCalendarDayLeaveEvent</code></TableCell>
+                    <TableCell><pre>{eventDayClickDetail}</pre></TableCell>
+                    <TableCell>Emitted when mouse leaves a day cell</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">mjo-calendar:month-selected</code></TableCell>
+                    <TableCell><code class="inline">MjoCalendarMonthSelectedEvent</code></TableCell>
+                    <TableCell><pre>{eventMonthSelectedDetail}</pre></TableCell>
+                    <TableCell>Emitted when a month is selected</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">mjo-calendar:year-selected</code></TableCell>
+                    <TableCell><code class="inline">MjoCalendarYearSelectedEvent</code></TableCell>
+                    <TableCell><pre>{eventYearSelectedDetail}</pre></TableCell>
+                    <TableCell>Emitted when a year is selected</TableCell>
+                </TableRow>
+            </TableBody>
+        </Table>
+
+        <Typography tag="h2" size="title3" weight="bold" spacing="md">Theming</Typography>
+        <Typography class="explain" tag="p" spacing="md">
+            Customization options for the mjo-calendar component. If you need more information about theming, please refer to the documentation <Link
+                href="/docs/theming"
+                color="primary">here</Link
+            >.
+        </Typography>
+
+        <Typography tag="h3" size="xl" weight="bold" spacing="md">CSS Variables</Typography>
+
+        <Typography tag="h4" size="lg" weight="bold" spacing="sm">Container Structure</Typography>
+        <Table>
+            <TableHeader>
+                <TableRow>
+                    <TableCellHeader>Variable</TableCellHeader>
+                    <TableCellHeader>Fallback</TableCellHeader>
+                    <TableCellHeader minWidth="200px">Purpose</TableCellHeader>
+                </TableRow>
+            </TableHeader>
+            <TableBody>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-calendar-font-family</code></TableCell>
+                    <TableCell><code class="inline">--mjo-font-family</code></TableCell>
+                    <TableCell>Calendar font family</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-calendar-background</code></TableCell>
+                    <TableCell><code class="inline">--mjo-background-color</code></TableCell>
+                    <TableCell>Calendar background</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-calendar-foreground-color</code></TableCell>
+                    <TableCell><code class="inline">--mjo-foreground-color</code></TableCell>
+                    <TableCell>Calendar foreground</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-calendar-foreground-color-low</code></TableCell>
+                    <TableCell><code class="inline">--mjo-foreground-color-low</code></TableCell>
+                    <TableCell>Calendar foreground color for low emphasis</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-calendar-border</code></TableCell>
+                    <TableCell><code class="inline">1px solid --mjo-border-color</code></TableCell>
+                    <TableCell>Calendar border</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-calendar-border-radius</code></TableCell>
+                    <TableCell><code class="inline">--mjo-radius-medium</code></TableCell>
+                    <TableCell>Calendar border radius</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-calendar-shadow</code></TableCell>
+                    <TableCell><code class="inline">0 2px 8px rgba(0,0,0,0.1)</code></TableCell>
+                    <TableCell>Calendar shadow</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-calendar-padding</code></TableCell>
+                    <TableCell><code class="inline">14px</code></TableCell>
+                    <TableCell>Calendar internal padding</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-calendar-padding-compact</code></TableCell>
+                    <TableCell><code class="inline">6px</code></TableCell>
+                    <TableCell>Calendar internal padding when compact</TableCell>
+                </TableRow>
+            </TableBody>
+        </Table>
+
+        <Typography tag="h4" size="lg" weight="bold" spacing="sm">Week Headers</Typography>
+        <Table>
+            <TableHeader>
+                <TableRow>
+                    <TableCellHeader>Variable</TableCellHeader>
+                    <TableCellHeader>Fallback</TableCellHeader>
+                    <TableCellHeader minWidth="200px">Purpose</TableCellHeader>
+                </TableRow>
+            </TableHeader>
+            <TableBody>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-calendar-week-day-color</code></TableCell>
+                    <TableCell><code class="inline">--mjo-foreground-color-low</code></TableCell>
+                    <TableCell>Week day headers text color</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-calendar-week-day-font-weight</code></TableCell>
+                    <TableCell><code class="inline">600</code></TableCell>
+                    <TableCell>Week day headers font weight</TableCell>
+                </TableRow>
+            </TableBody>
+        </Table>
+
+        <Typography tag="h4" size="lg" weight="bold" spacing="sm">Day Cells</Typography>
+        <Table>
+            <TableHeader>
+                <TableRow>
+                    <TableCellHeader>Variable</TableCellHeader>
+                    <TableCellHeader>Fallback</TableCellHeader>
+                    <TableCellHeader minWidth="200px">Purpose</TableCellHeader>
+                </TableRow>
+            </TableHeader>
+            <TableBody>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-calendar-day-border-radius</code></TableCell>
+                    <TableCell><code class="inline">4px</code></TableCell>
+                    <TableCell>Individual day border radius</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-calendar-day-hover-background</code></TableCell>
+                    <TableCell><code class="inline">--mjo-background-color-high</code></TableCell>
+                    <TableCell>Day hover background</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-calendar-focus-outline</code></TableCell>
+                    <TableCell><code class="inline">--mjo-primary-color</code></TableCell>
+                    <TableCell>Focused day outline color</TableCell>
+                </TableRow>
+            </TableBody>
+        </Table>
+
+        <Typography tag="h4" size="lg" weight="bold" spacing="sm">Date States</Typography>
+        <Table>
+            <TableHeader>
+                <TableRow>
+                    <TableCellHeader>Variable</TableCellHeader>
+                    <TableCellHeader>Fallback</TableCellHeader>
+                    <TableCellHeader minWidth="200px">Purpose</TableCellHeader>
+                </TableRow>
+            </TableHeader>
+            <TableBody>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-calendar-today-background</code></TableCell>
+                    <TableCell><code class="inline">--mjo-primary-color-alpha2</code></TableCell>
+                    <TableCell>Today's date background</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-calendar-today-color</code></TableCell>
+                    <TableCell><code class="inline">--mjo-primary-color</code></TableCell>
+                    <TableCell>Today's date text color</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-calendar-selected-background</code></TableCell>
+                    <TableCell><code class="inline">--mjo-primary-color</code></TableCell>
+                    <TableCell>Selected date background</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-calendar-selected-color</code></TableCell>
+                    <TableCell><code class="inline">white</code></TableCell>
+                    <TableCell>Selected date text color</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-calendar-range-endpoint-background</code></TableCell>
+                    <TableCell><code class="inline">--mjo-primary-color</code></TableCell>
+                    <TableCell>Range start/end background</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-calendar-range-endpoint-color</code></TableCell>
+                    <TableCell><code class="inline">white</code></TableCell>
+                    <TableCell>Range start/end text color</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-calendar-range-background</code></TableCell>
+                    <TableCell><code class="inline">--mjo-primary-color-alpha1</code></TableCell>
+                    <TableCell>Range middle dates background</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-calendar-range-color</code></TableCell>
+                    <TableCell><code class="inline">--mjo-primary-color</code></TableCell>
+                    <TableCell>Range middle dates text color</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-calendar-disabled-color</code></TableCell>
+                    <TableCell><code class="inline">--mjo-disabled-foreground-color</code></TableCell>
+                    <TableCell>Disabled dates text color</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-calendar-disabled-background</code></TableCell>
+                    <TableCell><code class="inline">transparent</code></TableCell>
+                    <TableCell>Disabled dates background</TableCell>
+                </TableRow>
+            </TableBody>
+        </Table>
+
+        <Typography tag="h4" size="lg" weight="bold" spacing="sm">Event Markers</Typography>
+        <Table>
+            <TableHeader>
+                <TableRow>
+                    <TableCellHeader>Variable</TableCellHeader>
+                    <TableCellHeader>Fallback</TableCellHeader>
+                    <TableCellHeader minWidth="200px">Purpose</TableCellHeader>
+                </TableRow>
+            </TableHeader>
+            <TableBody>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-calendar-event-offset</code></TableCell>
+                    <TableCell><code class="inline">2px</code></TableCell>
+                    <TableCell>Event indicator offset from bottom-right</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-calendar-event-background-color</code></TableCell>
+                    <TableCell><code class="inline">#ff6b6b</code></TableCell>
+                    <TableCell>Event indicator background color</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-calendar-event-foreground-color</code></TableCell>
+                    <TableCell><code class="inline">white</code></TableCell>
+                    <TableCell>Event indicator text color</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-calendar-event-single-size</code></TableCell>
+                    <TableCell><code class="inline">6px</code></TableCell>
+                    <TableCell>Single event indicator size</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-calendar-event-multiple-size</code></TableCell>
+                    <TableCell><code class="inline">12px</code></TableCell>
+                    <TableCell>Multiple events indicator size</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-calendar-event-font-size</code></TableCell>
+                    <TableCell><code class="inline">8px</code></TableCell>
+                    <TableCell>Event indicator font size</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-calendar-event-font-weight</code></TableCell>
+                    <TableCell><code class="inline">bold</code></TableCell>
+                    <TableCell>Event indicator font weight</TableCell>
+                </TableRow>
+            </TableBody>
+        </Table>
+
+        <Typography tag="h4" size="lg" weight="bold" spacing="sm">Month/Year Pickers</Typography>
+        <Table>
+            <TableHeader>
+                <TableRow>
+                    <TableCellHeader>Variable</TableCellHeader>
+                    <TableCellHeader>Fallback</TableCellHeader>
+                    <TableCellHeader minWidth="200px">Purpose</TableCellHeader>
+                </TableRow>
+            </TableHeader>
+            <TableBody>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-calendar-picker-background</code></TableCell>
+                    <TableCell><code class="inline">--mjo-background-color</code></TableCell>
+                    <TableCell>Picker overlay background</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-calendar-picker-radius</code></TableCell>
+                    <TableCell><code class="inline">--mjo-radius-medium</code></TableCell>
+                    <TableCell>Picker border radius</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-calendar-picker-button-background</code></TableCell>
+                    <TableCell><code class="inline">transparent</code></TableCell>
+                    <TableCell>Picker button background</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-calendar-picker-button-border</code></TableCell>
+                    <TableCell><code class="inline">1px solid --mjo-border-color</code></TableCell>
+                    <TableCell>Picker button border</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-calendar-picker-button-radius</code></TableCell>
+                    <TableCell><code class="inline">--mjo-radius-medium</code></TableCell>
+                    <TableCell>Picker button border radius</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-calendar-picker-button-color</code></TableCell>
+                    <TableCell><code class="inline">--mjo-foreground-color-low</code></TableCell>
+                    <TableCell>Picker button text color</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-calendar-picker-button-hover-background</code></TableCell>
+                    <TableCell><code class="inline">--mjo-primary-color-alpha2</code></TableCell>
+                    <TableCell>Picker button hover background</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-calendar-picker-button-hover-border</code></TableCell>
+                    <TableCell><code class="inline">--mjo-primary-color</code></TableCell>
+                    <TableCell>Picker button hover border</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-calendar-picker-button-focus-outline</code></TableCell>
+                    <TableCell><code class="inline">--mjo-primary-color</code></TableCell>
+                    <TableCell>Picker button focus outline</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-calendar-picker-button-selected-background</code></TableCell>
+                    <TableCell><code class="inline">--mjo-primary-color</code></TableCell>
+                    <TableCell>Picker button selected background</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-calendar-picker-button-selected-border</code></TableCell>
+                    <TableCell><code class="inline">--mjo-primary-color</code></TableCell>
+                    <TableCell>Picker button selected border</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-calendar-picker-button-selected-color</code></TableCell>
+                    <TableCell><code class="inline">--mjo-primary-foreground-color</code></TableCell>
+                    <TableCell>Picker button selected text color</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-calendar-nav-background</code></TableCell>
+                    <TableCell><code class="inline">transparent</code></TableCell>
+                    <TableCell>Year picker navigation button background</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-calendar-nav-border</code></TableCell>
+                    <TableCell><code class="inline">1px solid --mjo-border-color</code></TableCell>
+                    <TableCell>Year picker navigation button border</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-calendar-nav-radius</code></TableCell>
+                    <TableCell><code class="inline">--mjo-radius-medium</code></TableCell>
+                    <TableCell>Year picker navigation button border radius</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-calendar-nav-color</code></TableCell>
+                    <TableCell><code class="inline">--mjo-foreground-color</code></TableCell>
+                    <TableCell>Year picker navigation button text color</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-calendar-nav-hover-background</code></TableCell>
+                    <TableCell><code class="inline">--mjo-primary-color-alpha2</code></TableCell>
+                    <TableCell>Year picker navigation button hover background</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-calendar-nav-hover-border</code></TableCell>
+                    <TableCell><code class="inline">--mjo-primary-color</code></TableCell>
+                    <TableCell>Year picker navigation button hover border</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-calendar-nav-focus-outline</code></TableCell>
+                    <TableCell><code class="inline">--mjo-primary-color</code></TableCell>
+                    <TableCell>Year picker navigation button focus outline</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-calendar-decade-label-color</code></TableCell>
+                    <TableCell><code class="inline">--mjo-foreground-color</code></TableCell>
+                    <TableCell>Year picker decade label text color</TableCell>
+                </TableRow>
+            </TableBody>
+        </Table>
+
+        <Typography tag="h4" size="lg" weight="bold" spacing="sm">Navigation Controls</Typography>
+        <Table>
+            <TableHeader>
+                <TableRow>
+                    <TableCellHeader>Variable</TableCellHeader>
+                    <TableCellHeader>Fallback</TableCellHeader>
+                    <TableCellHeader minWidth="200px">Purpose</TableCellHeader>
+                </TableRow>
+            </TableHeader>
+            <TableBody>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-calendar-nav-button-border</code></TableCell>
+                    <TableCell><code class="inline">1px solid --mjo-primary-color</code></TableCell>
+                    <TableCell>Header navigation button border</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-calendar-nav-button-color</code></TableCell>
+                    <TableCell><code class="inline">--mjo-primary-color</code></TableCell>
+                    <TableCell>Header navigation button text color</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-calendar-selector-button-color</code></TableCell>
+                    <TableCell><code class="inline">--mjo-foreground-color</code></TableCell>
+                    <TableCell>Month/year selector button text color</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-calendar-selector-button-highlight-color</code></TableCell>
+                    <TableCell><code class="inline">--mjo-background-color-high</code></TableCell>
+                    <TableCell>Selector button hover background color</TableCell>
+                </TableRow>
+            </TableBody>
+        </Table>
+    </article>
+
+    <Typography tag="h3" size="xl" weight="bold" spacing="md">CSS Parts</Typography>
+
+    <Typography tag="h4" size="lg" weight="bold" spacing="sm">Main Structure</Typography>
+    <Table>
+        <TableHeader>
+            <TableRow>
+                <TableCellHeader>Part</TableCellHeader>
+                <TableCellHeader minWidth="200px">Description</TableCellHeader>
+            </TableRow>
+        </TableHeader>
+        <TableBody>
+            <TableRow>
+                <TableCell><code class="inline">calendar</code></TableCell>
+                <TableCell>Main calendar container</TableCell>
+            </TableRow>
+            <TableRow>
+                <TableCell><code class="inline">header</code></TableCell>
+                <TableCell>Calendar header with navigation</TableCell>
+            </TableRow>
+        </TableBody>
+    </Table>
+
+    <Typography tag="h4" size="lg" weight="bold" spacing="sm">Navigation Controls</Typography>
+    <Table>
+        <TableHeader>
+            <TableRow>
+                <TableCellHeader>Part</TableCellHeader>
+                <TableCellHeader minWidth="200px">Description</TableCellHeader>
+            </TableRow>
+        </TableHeader>
+        <TableBody>
+            <TableRow>
+                <TableCell><code class="inline">navigation</code></TableCell>
+                <TableCell>Navigation buttons container</TableCell>
+            </TableRow>
+            <TableRow>
+                <TableCell><code class="inline">nav-button</code></TableCell>
+                <TableCell>Previous/next navigation buttons</TableCell>
+            </TableRow>
+            <TableRow>
+                <TableCell><code class="inline">selectors-container</code></TableCell>
+                <TableCell>Month and year selector buttons container</TableCell>
+            </TableRow>
+            <TableRow>
+                <TableCell><code class="inline">selector-button</code></TableCell>
+                <TableCell>Month and year selector buttons</TableCell>
+            </TableRow>
+        </TableBody>
+    </Table>
+
+    <Typography tag="h4" size="lg" weight="bold" spacing="sm">Calendar Grid</Typography>
+    <Table>
+        <TableHeader>
+            <TableRow>
+                <TableCellHeader>Part</TableCellHeader>
+                <TableCellHeader minWidth="200px">Description</TableCellHeader>
+            </TableRow>
+        </TableHeader>
+        <TableBody>
+            <TableRow>
+                <TableCell><code class="inline">calendar-grid</code></TableCell>
+                <TableCell>The calendar grid container</TableCell>
+            </TableRow>
+            <TableRow>
+                <TableCell><code class="inline">week-days-container</code></TableCell>
+                <TableCell>Container for weekday headers</TableCell>
+            </TableRow>
+            <TableRow>
+                <TableCell><code class="inline">week-day</code></TableCell>
+                <TableCell>Individual weekday header</TableCell>
+            </TableRow>
+            <TableRow>
+                <TableCell><code class="inline">days-container</code></TableCell>
+                <TableCell>Container for calendar days</TableCell>
+            </TableRow>
+        </TableBody>
+    </Table>
+
+    <Typography tag="h4" size="lg" weight="bold" spacing="sm">Day Cells</Typography>
+    <Table>
+        <TableHeader>
+            <TableRow>
+                <TableCellHeader>Part</TableCellHeader>
+                <TableCellHeader minWidth="200px">Description</TableCellHeader>
+            </TableRow>
+        </TableHeader>
+        <TableBody>
+            <TableRow>
+                <TableCell><code class="inline">day</code></TableCell>
+                <TableCell>Individual day cell</TableCell>
+            </TableRow>
+            <TableRow>
+                <TableCell><code class="inline">day-selected</code></TableCell>
+                <TableCell>Selected day(s) - automatically applied</TableCell>
+            </TableRow>
+            <TableRow>
+                <TableCell><code class="inline">day-today</code></TableCell>
+                <TableCell>Today's date - automatically applied</TableCell>
+            </TableRow>
+        </TableBody>
+    </Table>
+
+    <Typography tag="h4" size="lg" weight="bold" spacing="sm">Event Indicators</Typography>
+    <Table>
+        <TableHeader>
+            <TableRow>
+                <TableCellHeader>Part</TableCellHeader>
+                <TableCellHeader minWidth="200px">Description</TableCellHeader>
+            </TableRow>
+        </TableHeader>
+        <TableBody>
+            <TableRow>
+                <TableCell><code class="inline">event-indicator</code></TableCell>
+                <TableCell>Event indicator elements</TableCell>
+            </TableRow>
+            <TableRow>
+                <TableCell><code class="inline">event-indicator-single</code></TableCell>
+                <TableCell>Single event indicator</TableCell>
+            </TableRow>
+            <TableRow>
+                <TableCell><code class="inline">event-indicator-multiple</code></TableCell>
+                <TableCell>Multiple events indicator</TableCell>
+            </TableRow>
+        </TableBody>
+    </Table>
+
+    <Typography tag="h4" size="lg" weight="bold" spacing="sm">Month Picker</Typography>
+    <Table>
+        <TableHeader>
+            <TableRow>
+                <TableCellHeader>Part</TableCellHeader>
+                <TableCellHeader minWidth="200px">Description</TableCellHeader>
+            </TableRow>
+        </TableHeader>
+        <TableBody>
+            <TableRow>
+                <TableCell><code class="inline">month-picker-container</code></TableCell>
+                <TableCell>Month picker overlay container</TableCell>
+            </TableRow>
+            <TableRow>
+                <TableCell><code class="inline">month-picker-grid</code></TableCell>
+                <TableCell>Month picker grid</TableCell>
+            </TableRow>
+            <TableRow>
+                <TableCell><code class="inline">month-picker-button</code></TableCell>
+                <TableCell>Individual month selection button</TableCell>
+            </TableRow>
+        </TableBody>
+    </Table>
+
+    <Typography tag="h4" size="lg" weight="bold" spacing="sm">Year Picker</Typography>
+    <Table>
+        <TableHeader>
+            <TableRow>
+                <TableCellHeader>Part</TableCellHeader>
+                <TableCellHeader minWidth="200px">Description</TableCellHeader>
+            </TableRow>
+        </TableHeader>
+        <TableBody>
+            <TableRow>
+                <TableCell><code class="inline">year-picker-container</code></TableCell>
+                <TableCell>Year picker overlay container</TableCell>
+            </TableRow>
+            <TableRow>
+                <TableCell><code class="inline">year-picker-navigation</code></TableCell>
+                <TableCell>Year picker navigation container</TableCell>
+            </TableRow>
+            <TableRow>
+                <TableCell><code class="inline">year-picker-nav-button</code></TableCell>
+                <TableCell>Year picker previous/next decade buttons</TableCell>
+            </TableRow>
+            <TableRow>
+                <TableCell><code class="inline">year-picker-decade-label</code></TableCell>
+                <TableCell>Decade range label in year picker</TableCell>
+            </TableRow>
+            <TableRow>
+                <TableCell><code class="inline">year-picker-grid</code></TableCell>
+                <TableCell>Year picker grid</TableCell>
+            </TableRow>
+            <TableRow>
+                <TableCell><code class="inline">year-picker-button</code></TableCell>
+                <TableCell>Individual year selection button</TableCell>
+            </TableRow>
+        </TableBody>
+    </Table>
+
+    <Typography tag="h3" size="xl" weight="bold" spacing="md">Theme interface</Typography>
+    <Typography class="explain" tag="p" spacing="md">
+        Interface for the <code class="inline">mjo-calendar</code> theme that can be applied to the <code class="inline">MjoTheme</code> component or <code
+            class="inline">MjoThemeSSRGenerator</code
+        >.
+    </Typography>
+    <Codeblock>
+        <CodeblockPre language="typescript">
+            {
+                `interface MjoCalendarTheme {
+    fontFamily?: string;
+    background?: string;
+    foregroundColor?: string;
+    foregroundColorLow?: string;
+    border?: string;
+    borderRadius?: string;
+    shadow?: string;
+    padding?: string;
+    paddingCompact?: string;
+    weekDayColor?: string;
+    weekDayFontWeight?: string;
+    dayBorderRadius?: string;
+    dayHoverBackground?: string;
+    focusOutline?: string;
+    todayBackground?: string;
+    todayColor?: string;
+    selectedBackground?: string;
+    selectedColor?: string;
+    rangeEndpointBackground?: string;
+    rangeEndpointColor?: string;
+    rangeBackground?: string;
+    rangeColor?: string;
+    disabledColor?: string;
+    disabledBackground?: string;
+    todayBackgroundSecondary?: string;
+    todayColorSecondary?: string;
+    selectedBackgroundSecondary?: string;
+    selectedColorSecondary?: string;
+    rangeBackgroundSecondary?: string;
+    rangeColorSecondary?: string;
+    pickerBackground?: string;
+    pickerRadius?: string;
+    pickerButtonBackground?: string;
+    pickerButtonBorder?: string;
+    pickerButtonRadius?: string;
+    pickerButtonColor?: string;
+    pickerButtonHoverBackground?: string;
+    pickerButtonHoverBorder?: string;
+    pickerButtonFocusOutline?: string;
+    pickerButtonSelectedBackground?: string;
+    pickerButtonSelectedBorder?: string;
+    pickerButtonSelectedColor?: string;
+    navBackground?: string;
+    navBorder?: string;
+    navRadius?: string;
+    navColor?: string;
+    navHoverBackground?: string;
+    navHoverBorder?: string;
+    navFocusOutline?: string;
+    decadeLabelColor?: string;
+    navButtonBorder?: string;
+    navButtonColor?: string;
+    selectorButtonHighlightColor?: string;
+    eventOffset?: string;
+    eventBackgroundColor?: string;
+    eventForegroundColor?: string;
+    eventSingleSize?: string;
+    eventMultipleSize?: string;
+    eventFontSize?: string;
+    eventFontWeight?: string;
+}
+`
+            }
+        </CodeblockPre>
+    </Codeblock>
+
+    <Typography tag="h3" size="xl" weight="bold" spacing="md">Examples</Typography>
+    <Typography tag="h4" size="xl" weight="bold" spacing="md">With CSS variables</Typography>
+    <Typography class="explain" tag="p" spacing="md"> Use CSS variables to customize the appearance of the calendar. </Typography>
+    <CodeExample>
+        <CalendarCustom client:visible slot="preview" />
+        <Codeblock showHeader slot="code">
+            <CodeblockPre language="lit" bugTitle="[BUG mjo-calendar]">
+                {
+                    `import { LitElement, css, html } from "lit";
+import { customElement } from "lit/decorators.js";
+
+import "mjo-litui/mjo-calendar";
+
+@customElement("calendar-custom")
+export class CalendarCustom extends LitElement {
+    render() {
+        return html\`<mjo-calendar mode="single"></mjo-calendar>\`;
+    }
+
+    static styles = [
+        css\`
+            :host {
+                display: block;
+                --mjo-calendar-foreground-color: #ffffff;
+                --mjo-calendar-foreground-color-low: #d4e6cf;
+                --mjo-calendar-background: linear-gradient(135deg, #41db7c 0%, #07835a 100%);
+                --mjo-calendar-border-radius: 16px;
+                --mjo-calendar-shadow: 0 10px 20px rgba(20, 20, 20, 0.8);
+                --mjo-calendar-week-day-color: var(--mjo-calendar-foreground-color);
+                --mjo-calendar-week-day-font-weight: 600;
+                --mjo-calendar-day-color: var(--mjo-calendar-foreground-color);
+                --mjo-calendar-day-hover-background: rgba(255, 255, 255, 0.2);
+                --mjo-calendar-today-background: var(--mjo-calendar-day-hover-background);
+                --mjo-calendar-today-color: var(--mjo-calendar-foreground-color);
+                --mjo-calendar-selected-background: #ffba08;
+                --mjo-calendar-selected-color: #000000;
+                --mjo-calendar-nav-button-color: var(--mjo-calendar-foreground-color);
+                --mjo-calendar-nav-button-border: none;
+                --mjo-calendar-selector-button-highlight-color: var(--mjo-calendar-day-hover-background);
+                --mjo-calendar-picker-background: var(--mjo-calendar-background);
+                --mjo-calendar-picker-radius: var(--mjo-calendar-border-radius);
+                --mjo-calendar-picker-button-color: var(--mjo-calendar-nav-button-color);
+                --mjo-calendar-picker-button-selected-background: var(--mjo-calendar-selected-background);
+                --mjo-calendar-picker-button-selected-color: var(--mjo-calendar-selected-color);
+                --mjo-calendar-picker-button-border: var(--mjo-calendar-nav-button-border);
+                --mjo-calendar-picker-button-hover-background: var(--mjo-calendar-day-hover-background);
+                --mjo-calendar-picker-button-hover-border: var(--mjo-calendar-nav-button-border);
+                --mjo-calendar-nav-border: var(--mjo-calendar-nav-button-border);
+                --mjo-calendar-nav-hover-background: var(--mjo-calendar-day-hover-background);
+                --mjo-calendar-nav-hover-border: var(--mjo-calendar-nav-button-border);
+            }
+        \`,
+    ];
+}
+
+`
+                }
+            </CodeblockPre>
+        </Codeblock>
+    </CodeExample>
+
+    <Typography tag="h4" size="xl" weight="bold" spacing="md">With theme interface</Typography>
+    <Typography class="explain" tag="p" spacing="md">
+        You can use the theme interface for customizing the calendar styles in a more structured way.
+    </Typography>
+    <CodeExample>
+        <CalendarTheme client:only slot="preview" />
+        <Codeblock showHeader slot="code">
+            <CodeblockPre language="lit" bugTitle="[BUG mjo-calendar]">
+                {
+                    `import type { MjoCalendarTheme } from "mjo-litui/types/mjo-theme";
+
+import { LitElement, css, html } from "lit";
+import { customElement } from "lit/decorators.js";
+
+import "mjo-litui/mjo-calendar";
+
+@customElement("calendar-theme")
+export class CalendarTheme extends LitElement {
+    private calendarTheme: MjoCalendarTheme = {
+        background: "var(--custom-calendar-background)",
+        border: "1px solid var(--custom-calendar-highlight)",
+        borderRadius: "16px",
+        shadow: "0 25px 50px -12px rgba(0, 0, 0, 0.4)",
+        padding: "20px",
+        weekDayColor: "var(--custom-calendar-color-low)",
+        weekDayFontWeight: "400",
+        dayBorderRadius: "8px",
+        dayHoverBackground: "var(--custom-calendar-highlight)",
+        focusOutline: "var(--custom-calendar-selected-background)",
+        todayBackground: "var(--custom-calendar-today-color)",
+        todayColor: "var(--custom-calendar-color)",
+        selectedBackground: "var(--custom-calendar-selected-background)",
+        selectedColor: "var(--custom-calendar-color)",
+        selectorButtonHighlightColor: "var(--custom-calendar-highlight)",
+        navButtonColor: "var(--custom-calendar-color)",
+        navButtonBorder: "none",
+        navHoverBackground: "var(--custom-calendar-highlight)",
+        navHoverBorder: "none",
+        pickerBackground: "var(--custom-calendar-background)",
+        pickerRadius: "16px",
+        pickerButtonColor: "var(--custom-calendar-color)",
+        pickerButtonSelectedBackground: "var(--custom-calendar-selected-background)",
+        pickerButtonSelectedColor: "var(--custom-calendar-color)",
+        pickerButtonBorder: "none",
+        pickerButtonHoverBackground: "var(--custom-calendar-highlight)",
+        pickerButtonHoverBorder: "none",
+    };
+
+    render() {
+        return html\`<mjo-calendar mode="single" .theme=\${this.calendarTheme}> </mjo-calendar>\`;
+    }
+
+    static styles = [
+        css\`
+            :host {
+                display: block;
+                --custom-calendar-color: #ffffff;
+                --custom-calendar-color-low: #9ca3af;
+                --custom-calendar-background: #1f2937;
+                --custom-calendar-highlight: #374151;
+                --custom-calendar-today-color: #1e40af;
+                --custom-calendar-selected-background: #8b5cf6;
+            }
+        \`,
+    ];
+}
+`
+                }
+            </CodeblockPre>
+        </Codeblock>
+    </CodeExample>
+
+    <Typography tag="h4" size="xl" weight="bold" spacing="md">With CSS parts</Typography>
+    <Typography class="explain" tag="p" spacing="md">
+        With CSS parts you have greater control over customizing the styles of the internal elements of the calendar.
+    </Typography>
+    <CodeExample>
+        <CalendarCssparts client:visible slot="preview" />
+        <Codeblock showHeader slot="code">
+            <CodeblockPre language="lit" bugTitle="[BUG mjo-calendar]">
+                {
+                    `import { LitElement, css, html } from "lit";
+import { customElement } from "lit/decorators.js";
+
+import "mjo-litui/mjo-calendar";
+
+@customElement("calendar-cssparts")
+export class CalendarCssparts extends LitElement {
+    render() {
+        return html\`<mjo-calendar></mjo-calendar>\`;
+    }
+
+    static styles = [
+        css\`
+            :host {
+                display: block;
+                --custom-lighthight-color: rgba(255, 255, 255, 0.3);
+                --custom-accent-color: #6b46c1;
+                --custom-accent-foreground-color: white;
+            }
+            mjo-calendar::part(calendar),
+            mjo-calendar::part(year-picker-container) {
+                background: linear-gradient(135deg, #fab1db 0%, #cfd8fe 50%, #fecfef 100%);
+                border-radius: 20px;
+                box-shadow: 0 15px 35px rgba(255, 154, 158, 0.2);
+                padding: 24px;
+            }
+            mjo-calendar::part(month-picker-container),
+            mjo-calendar::part(year-picker-container) {
+                border-radius: 20px;
+                background: linear-gradient(135deg, #fab1db 0%, #cfd8fe 50%, #fecfef 100%);
+            }
+            mjo-calendar::part(month-picker-button),
+            mjo-calendar::part(year-picker-button),
+            mjo-calendar::part(year-picker-nav-button) {
+                font-size: 0.75rem;
+                color: var(--custom-accent-color);
+                border: none;
+            }
+            mjo-calendar::part(header) {
+                margin-bottom: 0px;
+            }
+            mjo-calendar::part(nav-button),
+            mjo-calendar::part(selector-button) {
+                color: var(--custom-accent-color);
+                border-radius: 12px;
+                font-weight: 600;
+                border: none;
+                transition: all 0.2s ease;
+            }
+            mjo-calendar::part(nav-button):hover,
+            mjo-calendar::part(selector-button):hover,
+            mjo-calendar::part(month-picker-button):hover,
+            mjo-calendar::part(year-picker-button):hover,
+            mjo-calendar::part(year-picker-nav-button):hover {
+                background: var(--custom-lighthight-color);
+            }
+            mjo-calendar::part(week-day) {
+                color: color-mix(in srgb, var(--custom-accent-color) 70%, transparent);
+                font-weight: 600;
+                font-size: 0.75rem;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+            }
+            mjo-calendar::part(day) {
+                color: var(--custom-accent-color);
+                font-weight: 500;
+                border-radius: 10px;
+                transition: all 0.15s ease;
+            }
+            mjo-calendar::part(day):hover {
+                background: var(--custom-lighthight-color);
+                transform: scale(1.07);
+            }
+            mjo-calendar::part(day-today) {
+                border: 1px solid #d090d8;
+                font-weight: 700;
+            }
+            mjo-calendar::part(day-selected),
+            mjo-calendar::part(month-picker-button-selected),
+            mjo-calendar::part(year-picker-button-selected) {
+                background: var(--custom-accent-color);
+                color: var(--custom-accent-foreground-color);
+                font-weight: 700;
+                box-shadow: 0 4px 12px var(--custom-lighthight-color);
+            }
+            mjo-calendar::part(day-today):hover,
+            mjo-calendar::part(day-selected):hover,
+            mjo-calendar::part(month-picker-button-selected):hover,
+            mjo-calendar::part(year-picker-button-selected):hover {
+                background: var(--custom-accent-color);
+                color: var(--custom-accent-foreground-color);
+            }
+            mjo-calendar::part(year-picker-decade-label) {
+                color: var(--custom-accent-color);
+                font-weight: 600;
+                font-size: 0.875rem;
+            }
+        \`,
+    ];
+}
+`
+                }
+            </CodeblockPre>
+        </Codeblock>
+    </CodeExample>
+
+    <Typography tag="h2" size="title3" weight="bold" spacing="md">Accessibility</Typography>
+    <Typography class="explain" tag="p" spacing="md"> The calendar component includes comprehensive accessibility features: </Typography>
+    <List listStyle="disc">
+        <ListItem featuredText="ARIA Structure"
+            >Complete ARIA implementation with <code class="inline dense">role="application"</code>, <code class="inline dense">role="grid"</code> on date grid,
+            <code class="inline dense">role="gridcell"</code> on date cells, and proper labeling relationships</ListItem
+        >
+        <ListItem featuredText="Keyboard Navigation">
+            Full keyboard support
+            <List listStyle="circle">
+                <ListItem featuredText="Arrow Keys">Navigate between dates (Left/Right for days, Up/Down for weeks)</ListItem>
+                <ListItem featuredText="Page Up/Page Down">Navigate by month (Ctrl+Page Up/Down for year navigation)</ListItem>
+                <ListItem featuredText="Home/End">Move to start/end of current week</ListItem>
+                <ListItem featuredText="Enter/Space">Select focused date</ListItem>
+                <ListItem featuredText="Escape">Close month/year pickers or clear focus</ListItem>
+                <ListItem featuredText="Tab">Navigate between interactive elements</ListItem>
+                <ListItem featuredText="T">Jump to today's date (quick shortcut)</ListItem>
+            </List>
+        </ListItem>
+        <ListItem featuredText="Focus Management"> Visible focus indicators with customizable styling and proper focus trapping in pickers </ListItem>
+        <ListItem featuredText="Screen Reader Support">
+            Automatic unique IDs, proper labeling relationships, and live region announcements for selection changes and navigation
+        </ListItem>
+        <ListItem featuredText="State Communication">
+            All state changes are properly announced with <code class="inline dense">aria-selected</code>, <code class="inline dense">aria-current</code>, <code
+                class="inline dense">aria-disabled</code
+            > attributes
+        </ListItem>
+        <ListItem featuredText="Form Integration"> Native form support with validation capabilities and proper labeling for screen readers </ListItem>
+        <ListItem featuredText="Reduced Motion">
+            Respects <code class="inline dense">prefers-reduced-motion</code> user preference by disabling animations
+        </ListItem>
+        <ListItem featuredText="Internationalization Support">
+            Proper localization for 15 languages with culturally appropriate first day of week settings
+        </ListItem>
+        <ListItem featuredText="Configurable Announcements"> Control over selection announcements and live region politeness levels </ListItem>
+    </List>
+    <Typography tag="h3" size="xl" weight="bold" spacing="md">Accessibility Best Practices</Typography>
+    <List listStyle="disc">
+        <ListItem
+            >Use <code class="inline dense">aria-label</code> or <code class="inline dense">aria-labelledby</code> to provide descriptive labels for the calendar
+            component.</ListItem
+        >
+        <ListItem
+            >Implement <code class="inline dense">aria-describedby</code> to reference help text that explains date constraints or selection requirements.</ListItem
+        >
+        <ListItem>Ensure sufficient color contrast for all calendar elements, especially selected and today states.</ListItem>
+        <ListItem>Provide clear error messages and validation feedback when date constraints are violated.</ListItem>
+        <ListItem>Test with keyboard-only navigation to ensure all functionality is accessible without a mouse.</ListItem>
+        <ListItem>Verify screen reader compatibility by testing with popular screen readers like NVDA, JAWS, or VoiceOver.</ListItem>
+    </List>
+
+    <Typography tag="h2" size="title3" weight="bold" spacing="md">Types definitions</Typography>
+    <Typography class="explain" tag="p" spacing="md">The calendar component supports the following type definitions:</Typography>
+    <Codeblock>
+        <CodeblockPre language="typescript">
+            {
+                `export type MjoCalendarMode = "single" | "range" | "multiple";
+export type MjoCalendarSize = "small" | "medium" | "large";
+export type MjoCalendarColor = "primary" | "secondary";
+export type MjoCalendarRangeCalendars = "1" | "2" | "auto";
+export type MjoCalendarFirstDayOfWeek = "sunday" | "monday";
+export type SupportedLocale = "en" | "es" | "fr" | "pt" | "it" | "de" | "nl" | "bg" | "sr" | "ru" | "zh" | "ja" | "ko" | "tr" | "pl";
+
+export interface MjoCalendarMarker<T = unknown> {
+    date: string;
+    time?: string;
+    backgroundColor?: string;
+    foregroundColor?: string;
+    tooltip?: string;
+    data?: T;
+}
+
+export type MjoCalendarHeaderSide = "single" | "left" | "right";
+
+export interface MjoCalendarDateSelectedEvent extends CustomEvent {
+    detail: {
+        date?: Date;
+        value?: string;
+    };
+}
+
+export interface MjoCalendarRangeSelectedEvent extends CustomEvent {
+    detail: {
+        startDate?: Date;
+        endDate?: Date;
+        startDateValue?: string;
+        endDateValue?: string;
+    };
+}
+
+export interface MjoCalendarYearSelectedEvent extends CustomEvent {
+    detail: {
+        year: number;
+    };
+}
+
+export interface MjoCalendarMonthSelectedEvent extends CustomEvent {
+    detail: {
+        month: number;
+    };
+}
+
+export interface MjoCalendarDayClickEvent extends CustomEvent {
+    detail: {
+        day: number;
+        date: Date;
+        events: MjoCalendarMarker[];
+    };
+}
+
+export interface MjoCalendarDayHoverEvent extends CustomEvent {
+    detail: {
+        day: number;
+        date: Date;
+        events: MjoCalendarMarker[];
+    };
+}
+
+export interface MjoCalendarDayLeaveEvent extends CustomEvent {
+    detail: {
+        day: number;
+        date: Date;
+        events: MjoCalendarMarker[];
+    };
+}`
+            }
+        </CodeblockPre>
+    </Codeblock>
+</DocsLayout>
+
+<style>
+    .prose {
+        position: relative;
+    }
+    .explain {
+        color: var(--mjo-foreground-color-low);
+    }
+</style>

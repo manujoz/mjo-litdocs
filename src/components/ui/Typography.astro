@@ -1,0 +1,113 @@
+---
+export interface Props {
+    size?: "xxs" | "xs" | "sm" | "md" | "lg" | "xl" | "xxl" | "title3" | "title2" | "title1";
+    weight?: "light" | "normal" | "bold";
+    color?: "primary" | "secondary" | "accent" | "default";
+    tag?: "p" | "span" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
+    spacing?: "none" | "sm" | "md" | "lg";
+    class?: string;
+}
+
+const { size = "md", weight = "normal", color = "default", tag = "span", spacing = "none", class: className } = Astro.props;
+
+const Element = tag;
+---
+
+<Element class:list={["container", "text-" + color, "font-" + weight, "text-" + size, `spacing-${spacing}`, className]} {...Astro.props}>
+    <slot />
+</Element>
+
+<style>
+    .container {
+        line-height: 1.5em;
+        margin: 0;
+        padding: 0;
+    }
+    .text-primary {
+        color: var(--mjo-primary-color);
+    }
+    .text-secondary {
+        color: var(--mjo-secondary-color);
+    }
+    .text-accent {
+        color: var(--mjo-secondary-color);
+    }
+    .font-light {
+        font-weight: 300;
+    }
+    .font-normal {
+        font-weight: 400;
+    }
+    .font-bold {
+        font-weight: 700;
+    }
+    .text-xxs {
+        font-size: var(--mjo-font-size-xxsmall);
+    }
+    .text-xs {
+        font-size: var(--mjo-font-size-xsmall);
+    }
+    .text-sm {
+        font-size: var(--mjo-font-size-small);
+    }
+    .text-lg {
+        font-size: var(--mjo-font-size-large);
+    }
+    .text-xl {
+        font-size: var(--mjo-font-size-xlarge);
+    }
+    .text-xxl {
+        font-size: var(--mjo-font-size-xxlarge);
+        line-height: 1em;
+    }
+    .text-title1 {
+        font-size: var(--mjo-font-size-title1);
+        line-height: 1em;
+    }
+    .text-title2 {
+        font-size: var(--mjo-font-size-title2);
+        line-height: 1em;
+    }
+    .text-title3 {
+        font-size: var(--mjo-font-size-title3);
+        line-height: 1em;
+    }
+    .spacing-sm {
+        margin: 0.8em 0;
+    }
+    .spacing-md {
+        margin: 1em 0;
+    }
+    .spacing-lg {
+        margin: 1.5em 0;
+    }
+    .text-title1.spacing-sm,
+    .text-title2.spacing-sm,
+    .text-title3.spacing-sm,
+    .text-xxl.spacing-sm {
+        margin: 0.8em 0 0.2em;
+    }
+    .text-title1.spacing-md,
+    .text-title2.spacing-md,
+    .text-title3.spacing-md,
+    .text-xxl.spacing-md {
+        margin: 1em 0 0.2em;
+    }
+    .text-title1.spacing-lg,
+    .text-title2.spacing-lg,
+    .text-title3.spacing-lg,
+    .text-xxl.spacing-lg {
+        margin: 1.5em 0 0.2em;
+    }
+    .text-title1.spacing-sm:first-child,
+    .text-title2.spacing-sm:first-child,
+    .text-title3.spacing-sm:first-child,
+    .text-title1.spacing-md:first-child,
+    .text-title2.spacing-md:first-child,
+    .text-title3.spacing-md:first-child,
+    .text-title1.spacing-lg:first-child,
+    .text-title2.spacing-lg:first-child,
+    .text-title3.spacing-lg:first-child {
+        margin-top: 0;
+    }
+</style>

@@ -1,0 +1,900 @@
+---
+import Codeblock from "@/components/ui/codeblock/Codeblock.astro";
+import CodeblockPre from "@/components/ui/codeblock/CodeblockPre.astro";
+import CodeExample from "@/components/ui/CodeExample.astro";
+import Link from "@/components/ui/Link.astro";
+import List from "@/components/ui/list/List.astro";
+import ListItem from "@/components/ui/list/ListItem.astro";
+import Logger from "@/components/ui/logger/Logger.astro";
+import Table from "@/components/ui/table/Table.astro";
+import TableBody from "@/components/ui/table/TableBody.astro";
+import TableCell from "@/components/ui/table/TableCell.astro";
+import TableCellHeader from "@/components/ui/table/TableCellHeader.astro";
+import TableHeader from "@/components/ui/table/TableHeader.astro";
+import TableRow from "@/components/ui/table/TableRow.astro";
+import Typography from "@/components/ui/Typography.astro";
+import DocsLayout from "@/layouts/DocsLayout.astro";
+
+// Import chip examples
+import { ChipCssParts } from "@/components/examples/chip/chip-css-parts";
+import { ChipCustomVariables } from "@/components/examples/chip/chip-custom-variables";
+import { ChipDefault } from "@/components/examples/chip/chip-default";
+import { ChipIcons } from "@/components/examples/chip/chip-icons";
+import { ChipInteractive } from "@/components/examples/chip/chip-interactive";
+import { ChipRadius } from "@/components/examples/chip/chip-radius";
+import { ChipSizes } from "@/components/examples/chip/chip-sizes";
+import { ChipThemed } from "@/components/examples/chip/chip-themed";
+import { ChipUsage } from "@/components/examples/chip/chip-usage";
+import { ChipVariants } from "@/components/examples/chip/chip-variants";
+
+// Event details objects for clean display
+const eventClickDetail = `{
+  value: string
+}`;
+
+const eventCloseDetail = `{
+  value: string
+}`;
+---
+
+<DocsLayout
+    title="Chip"
+    description="The chip component is a compact element used to represent an input, attribute, or action. Learn how to use the chip component in your project."
+    currentPath="/docs/components/chip"
+>
+    <article class="prose">
+        <Typography tag="h1" size="title2" weight="bold">mjo-chip</Typography>
+        <Typography class="explain" tag="p" spacing="md">
+            The mjo-chip component is a flexible, theme-aware chip component for displaying compact information with multiple variants, colors, sizes, and
+            interactive capabilities including clickable and closable functionality with full accessibility support.
+        </Typography>
+        <Typography tag="h2" size="title3" weight="bold" spacing="md">Import</Typography>
+        <Typography class="explain" tag="p" spacing="md">
+            To use the mjo-chip component in your project, you need to import it first. You can do this by adding the following import statement to your
+            JavaScript or TypeScript file:
+        </Typography>
+        <Codeblock>
+            <CodeblockPre language="typescript" bugTitle="[BUG mjo-chip]">
+                {`import "mjo-litui/mjo-chip";`}
+            </CodeblockPre>
+        </Codeblock>
+        <Typography tag="h2" size="title3" weight="bold" spacing="md">Usage</Typography>
+        <Typography class="explain" tag="p" spacing="md">Basic usage of the mjo-chip component with different colors and variants.</Typography>
+        <CodeExample>
+            <ChipUsage client:visible slot="preview" />
+            <Codeblock showHeader slot="code">
+                <CodeblockPre language="lit" bugTitle="[BUG mjo-chip]">
+                    {
+                        `import { LitElement, css, html } from "lit";
+import { customElement } from "lit/decorators.js";
+
+import "mjo-litui/mjo-chip";
+
+@customElement("chip-usage")
+export class ChipUsage extends LitElement {
+    render() {
+        return html\`
+            <mjo-chip label="Default Chip"></mjo-chip>
+            <mjo-chip label="Primary" color="primary"></mjo-chip>
+            <mjo-chip label="Secondary" color="secondary"></mjo-chip>
+            <mjo-chip label="Success" color="success"></mjo-chip>
+            <mjo-chip label="Warning" color="warning"></mjo-chip>
+            <mjo-chip label="Info" color="info"></mjo-chip>
+            <mjo-chip label="Error" color="error"></mjo-chip>
+        \`;
+    }
+
+    static styles = [
+        css\`
+            :host {
+                display: flex;
+                gap: 0.5rem;
+                flex-wrap: wrap;
+            }
+        \`,
+    ];
+}
+`
+                    }
+                </CodeblockPre>
+            </Codeblock>
+        </CodeExample>
+        <Typography tag="h3" size="xxl" weight="bold" spacing="md">Interactive features</Typography>
+        <Typography class="explain" tag="p" spacing="md">
+            The chip component supports both clickable and closable functionality. You can enable these features using the <code class="inline">clickable</code>
+            and <code class="inline">closable</code> properties.
+        </Typography>
+    </article>
+    <CodeExample space="md">
+        <ChipInteractive client:visible slot="preview" />
+        <Codeblock showHeader slot="code">
+            <CodeblockPre language="lit" bugTitle="[BUG mjo-chip]">
+                {
+                    `import { LitElement, css, html } from "lit";
+import { customElement } from "lit/decorators.js";
+import type { MjoChipClickEvent, MjoChipCloseEvent } from "mjo-litui/types/mjo-chip";
+
+import { printLog } from "@/lib/logger";
+
+import "mjo-litui/mjo-chip";
+
+@customElement("chip-interactive")
+export class ChipInteractive extends LitElement {
+    render() {
+        return html\`
+            <mjo-chip label="Clickable" color="primary" value="clickable" clickable @mjo-chip:click=\${this.#handleClick}></mjo-chip>
+            <mjo-chip label="Closable" color="secondary" value="closable" closable @mjo-chip:close=\${this.#handleClose}></mjo-chip>
+        \`;
+    }
+
+    #handleClick = (event: MjoChipClickEvent) => {
+        printLog({
+            id: "chip-interactive",
+            message: "Chip clicked with value: " + event.detail.value,
+            event,
+        });
+    };
+
+    #handleClose = (event: MjoChipCloseEvent) => {
+        printLog({
+            id: "chip-interactive",
+            message: "Chip closed with value: " + event.detail.value,
+            event,
+        });
+
+        setTimeout(() => {
+            const chip = document.createElement("mjo-chip");
+            chip.label = "Closable";
+            chip.color = "secondary";
+            chip.value = "closable";
+            chip.closable = true;
+            chip.addEventListener("mjo-chip:close", this.#handleClose);
+            this.renderRoot.appendChild(chip);
+        }, 1500);
+    };
+
+    static styles = [
+        css\`
+            :host {
+                display: flex;
+                padding: var(--mjo-space-large) 0;
+                gap: var(--mjo-space-medium);
+            }
+        \`,
+    ];
+}
+`
+                }
+            </CodeblockPre>
+        </Codeblock>
+    </CodeExample>
+    <Logger id="chip-interactive" initialMessage="Click or close chip for see logs" />
+    <Typography tag="h3" size="xxl" weight="bold" spacing="md">Variants</Typography>
+    <Typography class="explain" tag="p" spacing="md">
+        The chip component supports multiple variants to suit various design needs. You can choose from <code class="inline">solid</code>, <code class="inline"
+            >bordered</code
+        >, <code class="inline">light</code>, <code class="inline">flat</code>, <code class="inline">faded</code>, <code class="inline">shadow</code>, and <code
+            class="inline">dot</code
+        >.
+    </Typography>
+    <CodeExample>
+        <ChipVariants client:visible slot="preview" />
+        <Codeblock showHeader slot="code">
+            <CodeblockPre language="lit" bugTitle="[BUG mjo-chip]">
+                {
+                    `import { LitElement, css, html } from "lit";
+import { customElement } from "lit/decorators.js";
+
+import "mjo-litui/mjo-chip";
+
+@customElement("chip-variants")
+export class ChipVariants extends LitElement {
+    render() {
+        return html\`
+            <mjo-chip label="Solid" color="primary" variant="solid"></mjo-chip>
+            <mjo-chip label="Bordered" color="primary" variant="bordered"></mjo-chip>
+            <mjo-chip label="Flat" color="primary" variant="flat"></mjo-chip>
+            <mjo-chip label="Faded" color="primary" variant="faded"></mjo-chip>
+            <mjo-chip label="Light" color="primary" variant="light"></mjo-chip>
+            <mjo-chip label="Shadow" color="primary" variant="shadow"></mjo-chip>
+            <mjo-chip label="Dot" color="primary" variant="dot"></mjo-chip>
+        \`;
+    }
+
+    static styles = [
+        css\`
+            :host {
+                display: flex;
+                flex-flow: row wrap;
+                gap: var(--mjo-space-medium);
+            }
+        \`,
+    ];
+}
+`
+                }
+            </CodeblockPre>
+        </Codeblock>
+    </CodeExample>
+    <Typography tag="h3" size="xxl" weight="bold" spacing="md">Sizes</Typography>
+    <Typography class="explain" tag="p" spacing="md">
+        The chip component supports different sizes (<code class="inline">small</code>, <code class="inline">medium</code> and <code class="inline">large</code
+        >).
+    </Typography>
+    <CodeExample>
+        <ChipSizes client:visible slot="preview" />
+        <Codeblock showHeader slot="code">
+            <CodeblockPre language="lit" bugTitle="[BUG mjo-chip]">
+                {
+                    `import { LitElement, css, html } from "lit";
+import { customElement } from "lit/decorators.js";
+
+import "mjo-litui/mjo-chip";
+
+@customElement("chip-sizes")
+export class ChipSizes extends LitElement {
+    render() {
+        return html\`
+            <mjo-chip label="Small chip" size="small" color="primary"></mjo-chip>
+            <mjo-chip label="Medium chip" size="medium" color="primary"></mjo-chip>
+            <mjo-chip label="Large chip" size="large" color="primary"></mjo-chip>
+        \`;
+    }
+
+    static styles = [
+        css\`
+            :host {
+                display: flex;
+                flex-flow: row wrap;
+                gap: var(--mjo-space-large);
+                align-items: center;
+            }
+        \`,
+    ];
+}
+`
+                }
+            </CodeblockPre>
+        </Codeblock>
+    </CodeExample>
+    <Typography tag="h3" size="xxl" weight="bold" spacing="md">Radius</Typography>
+    <Typography class="explain" tag="p" spacing="md">
+        The chip component supports different radius (<code class="inline">none</code>, <code class="inline">small</code>, <code class="inline">medium</code>, <code
+            class="inline">large</code
+        > and <code class="inline">full</code>).
+    </Typography>
+    <CodeExample>
+        <ChipRadius client:visible slot="preview" />
+        <Codeblock showHeader slot="code">
+            <CodeblockPre language="lit" bugTitle="[BUG mjo-chip]">
+                {
+                    `import { LitElement, css, html } from "lit";
+import { customElement } from "lit/decorators.js";
+
+@customElement("chip-radius")
+export class ChipRadius extends LitElement {
+    render() {
+        return html\`
+            <mjo-chip label="Without radius" radius="none" color="primary"></mjo-chip>
+            <mjo-chip label="Small chip" radius="small" color="primary"></mjo-chip>
+            <mjo-chip label="Medium chip" radius="medium" color="primary"></mjo-chip>
+            <mjo-chip label="Large chip" radius="large" color="primary"></mjo-chip>
+            <mjo-chip label="Full chip" radius="full" color="primary"></mjo-chip>
+        \`;
+    }
+
+    static styles = [
+        css\`
+            :host {
+                display: flex;
+                flex-flow: row wrap;
+                gap: var(--mjo-space-large);
+                align-items: center;
+            }
+        \`,
+    ];
+}
+
+declare global {
+    interface HTMLElementTagNameMap {
+        "chip-radius": ChipRadius;
+    }
+}
+`
+                }
+            </CodeblockPre>
+        </Codeblock>
+    </CodeExample>
+    <Typography tag="h3" size="xxl" weight="bold" spacing="md">With icons</Typography>
+    <Typography class="explain" tag="p" spacing="md">
+        The chip component supports both start and end icons using the <code>startIcon</code> and <code>endIcon</code> properties.
+    </Typography>
+    <CodeExample>
+        <ChipIcons client:visible slot="preview" />
+        <Codeblock showHeader slot="code">
+            <CodeblockPre language="lit" bugTitle="[BUG mjo-chip]">
+                {
+                    `import { LitElement, css, html } from "lit";
+import { customElement } from "lit/decorators.js";
+
+import { AiOutlineDownload, AiOutlineSetting, AiOutlineUser } from "mjo-icons/ai";
+
+import "mjo-litui/mjo-chip";
+
+@customElement("chip-icons")
+export class ChipIcons extends LitElement {
+    render() {
+        return html\`
+            <mjo-chip label="User" color="primary" startIcon=\${AiOutlineUser}></mjo-chip>
+            <mjo-chip label="Download" color="success" endIcon=\${AiOutlineDownload}></mjo-chip>
+            <mjo-chip label="Settings" color="warning" startIcon=\${AiOutlineSetting}></mjo-chip>
+        \`;
+    }
+
+    static styles = [
+        css\`
+            :host {
+                display: flex;
+                flex-flow: row wrap;
+                padding: var(--mjo-space-large) 0;
+                gap: var(--mjo-space-large);
+                align-items: center;
+            }
+        \`,
+    ];
+}
+`
+                }
+            </CodeblockPre>
+        </Codeblock>
+    </CodeExample>
+
+    <Typography tag="h3" size="xxl" weight="bold" spacing="md">Disabled</Typography>
+    <Typography class="explain" tag="p" spacing="md">
+        The chip component can be disabled using the <code class="inline">disabled</code> property, which prevents interaction and applies disabled styling.
+    </Typography>
+    <CodeExample space="md">
+        <ChipDefault client:visible slot="preview" />
+        <Codeblock showHeader slot="code">
+            <CodeblockPre language="lit" bugTitle="[BUG mjo-chip]">
+                {
+                    `import { LitElement, css, html } from "lit";
+import { customElement } from "lit/decorators.js";
+
+import { AiOutlineDownload, AiOutlineSetting, AiOutlineUser } from "mjo-icons/ai";
+
+import "mjo-litui/mjo-chip";
+
+@customElement("chip-icons")
+export class ChipIcons extends LitElement {
+    render() {
+        return html\`
+            <mjo-chip label="User" color="primary" startIcon=\${AiOutlineUser}></mjo-chip>
+            <mjo-chip label="Download" color="success" endIcon=\${AiOutlineDownload}></mjo-chip>
+            <mjo-chip label="Settings" color="warning" startIcon=\${AiOutlineSetting}></mjo-chip>
+        \`;
+    }
+
+    static styles = [
+        css\`
+            :host {
+                display: flex;
+                flex-flow: row wrap;
+                padding: var(--mjo-space-large) 0;
+                gap: var(--mjo-space-large);
+                align-items: center;
+            }
+        \`,
+    ];
+}
+`
+                }
+            </CodeblockPre>
+        </Codeblock>
+    </CodeExample>
+    <Logger id="chip-default" initialMessage="Click chip for see logs" />
+
+    <Typography tag="h2" size="title3" weight="bold" spacing="md">Properties</Typography>
+    <Typography class="explain" tag="p" spacing="md">Properties available on the mjo-chip component.</Typography>
+    <Table>
+        <TableHeader>
+            <TableRow>
+                <TableCellHeader>Property</TableCellHeader>
+                <TableCellHeader>Type</TableCellHeader>
+                <TableCellHeader>Default</TableCellHeader>
+                <TableCellHeader>Reflects</TableCellHeader>
+                <TableCellHeader minWidth="200px">Description</TableCellHeader>
+            </TableRow>
+        </TableHeader>
+        <TableBody>
+            <TableRow>
+                <TableCell><code class="inline">label</code></TableCell>
+                <TableCell><code class="inline">string</code></TableCell>
+                <TableCell><code class="inline">""</code></TableCell>
+                <TableCell><code class="inline">no</code></TableCell>
+                <TableCell>Text content displayed in the chip</TableCell>
+            </TableRow>
+            <TableRow>
+                <TableCell><code class="inline">color</code></TableCell>
+                <TableCell><code class="inline">primary | secondary | default | success | warning | info | error</code></TableCell>
+                <TableCell><code class="inline">default</code></TableCell>
+                <TableCell><code class="inline">no</code></TableCell>
+                <TableCell>Semantic color scheme applied to the chip</TableCell>
+            </TableRow>
+            <TableRow>
+                <TableCell><code class="inline">variant</code></TableCell>
+                <TableCell><code class="inline">solid | bordered | light | flat | faded | shadow | dot</code></TableCell>
+                <TableCell><code class="inline">solid</code></TableCell>
+                <TableCell><code class="inline">no</code></TableCell>
+                <TableCell>Visual styling variant that affects appearance and background</TableCell>
+            </TableRow>
+            <TableRow>
+                <TableCell><code class="inline">size</code></TableCell>
+                <TableCell><code class="inline">small | medium | large</code></TableCell>
+                <TableCell><code class="inline">medium</code></TableCell>
+                <TableCell><code class="inline">no</code></TableCell>
+                <TableCell>Controls the overall size including font size and padding</TableCell>
+            </TableRow>
+            <TableRow>
+                <TableCell><code class="inline">radius</code></TableCell>
+                <TableCell><code class="inline">small | medium | large | full | none</code></TableCell>
+                <TableCell><code class="inline">full</code></TableCell>
+                <TableCell><code class="inline">no</code></TableCell>
+                <TableCell>Border radius applied to the chip (full creates pill shape)</TableCell>
+            </TableRow>
+            <TableRow>
+                <TableCell><code class="inline">startIcon</code></TableCell>
+                <TableCell><code class="inline">string | undefined</code></TableCell>
+                <TableCell><code class="inline">undefined</code></TableCell>
+                <TableCell><code class="inline">no</code></TableCell>
+                <TableCell>Icon displayed at the beginning of the chip content</TableCell>
+            </TableRow>
+            <TableRow>
+                <TableCell><code class="inline">endIcon</code></TableCell>
+                <TableCell><code class="inline">string | undefined</code></TableCell>
+                <TableCell><code class="inline">undefined</code></TableCell>
+                <TableCell><code class="inline">no</code></TableCell>
+                <TableCell>Icon displayed at the end of the chip content</TableCell>
+            </TableRow>
+            <TableRow>
+                <TableCell><code class="inline">clickable</code></TableCell>
+                <TableCell><code class="inline">boolean</code></TableCell>
+                <TableCell><code class="inline">false</code></TableCell>
+                <TableCell><code class="inline">no</code></TableCell>
+                <TableCell>Makes the chip clickable and dispatches mjo-chip:click events</TableCell>
+            </TableRow>
+            <TableRow>
+                <TableCell><code class="inline">closable</code></TableCell>
+                <TableCell><code class="inline">boolean</code></TableCell>
+                <TableCell><code class="inline">false</code></TableCell>
+                <TableCell><code class="inline">no</code></TableCell>
+                <TableCell>Adds a close button that emits mjo-chip:close event when clicked</TableCell>
+            </TableRow>
+            <TableRow>
+                <TableCell><code class="inline">disabled</code></TableCell>
+                <TableCell><code class="inline">boolean</code></TableCell>
+                <TableCell><code class="inline">false</code></TableCell>
+                <TableCell><code class="inline">no</code></TableCell>
+                <TableCell>Disables interaction and applies disabled styling</TableCell>
+            </TableRow>
+            <TableRow>
+                <TableCell><code class="inline">value</code></TableCell>
+                <TableCell><code class="inline">string | undefined</code></TableCell>
+                <TableCell><code class="inline">undefined</code></TableCell>
+                <TableCell><code class="inline">no</code></TableCell>
+                <TableCell>Optional value passed in event details (falls back to label)</TableCell>
+            </TableRow>
+            <TableRow>
+                <TableCell><code class="inline">ariaDescribedby</code></TableCell>
+                <TableCell><code class="inline">string | undefined</code></TableCell>
+                <TableCell><code class="inline">undefined</code></TableCell>
+                <TableCell><code class="inline">no</code></TableCell>
+                <TableCell>References additional descriptive content for screen readers</TableCell>
+            </TableRow>
+            <TableRow>
+                <TableCell><code class="inline">ariaLabel</code></TableCell>
+                <TableCell><code class="inline">string | null</code></TableCell>
+                <TableCell><code class="inline">null</code></TableCell>
+                <TableCell><code class="inline">yes</code></TableCell>
+                <TableCell>Custom accessible label for screen readers (overrides computed label)</TableCell>
+            </TableRow>
+            <TableRow>
+                <TableCell><code class="inline">theme</code></TableCell>
+                <TableCell><code class="inline">MjoChipTheme</code></TableCell>
+                <TableCell><code class="inline">undefined</code></TableCell>
+                <TableCell><code class="inline">no</code></TableCell>
+                <TableCell>Theme object for ThemeMixin customization</TableCell>
+            </TableRow>
+        </TableBody>
+    </Table>
+    <Typography tag="h2" size="title3" weight="bold" spacing="md">Events</Typography>
+    <Typography class="explain" tag="p" spacing="md">The mjo-chip component has the following events available:</Typography>
+    <Table>
+        <TableHeader>
+            <TableRow>
+                <TableCellHeader width="190px">Event</TableCellHeader>
+                <TableCellHeader width="190px">CustomEvent type</TableCellHeader>
+                <TableCellHeader>Detail</TableCellHeader>
+                <TableCellHeader minWidth="200px">Notes</TableCellHeader>
+            </TableRow>
+        </TableHeader>
+        <TableBody>
+            <TableRow>
+                <TableCell><code class="inline">mjo-chip:click</code></TableCell>
+                <TableCell><code class="inline">MjoChipClickEvent</code></TableCell>
+                <TableCell><pre>{eventClickDetail}</pre></TableCell>
+                <TableCell>Emitted when chip main area is clicked (when clickable). Contains value prop or label prop as fallback.</TableCell>
+            </TableRow>
+            <TableRow>
+                <TableCell><code class="inline">mjo-chip:close</code></TableCell>
+                <TableCell><code class="inline">MjoChipCloseEvent</code></TableCell>
+                <TableCell><pre>{eventCloseDetail}</pre></TableCell>
+                <TableCell>Emitted when close button is clicked (closable chips only). Contains value prop or label prop as fallback.</TableCell>
+            </TableRow>
+        </TableBody>
+    </Table>
+    <Typography tag="h2" size="title3" weight="bold" spacing="md">Theming</Typography>
+    <Typography class="explain" tag="p" spacing="md">
+        Customization options for the mjo-chip component. If you need more information about theming, please refer to the documentation <Link
+            href="/docs/theming"
+            color="primary">here</Link
+        >.
+    </Typography>
+    <Typography tag="h3" size="xl" weight="bold" spacing="md">CSS Variables</Typography>
+    <Table>
+        <TableHeader>
+            <TableRow>
+                <TableCellHeader>Variable</TableCellHeader>
+                <TableCellHeader>Fallback</TableCellHeader>
+                <TableCellHeader minWidth="200px">Used for</TableCellHeader>
+            </TableRow>
+        </TableHeader>
+        <TableBody>
+            <TableRow>
+                <TableCell><code class="inline">--mjo-chip-background-color</code></TableCell>
+                <TableCell><code class="inline">-</code></TableCell>
+                <TableCell>Background color of the chip</TableCell>
+            </TableRow>
+            <TableRow>
+                <TableCell><code class="inline">--mjo-chip-border-color</code></TableCell>
+                <TableCell><code class="inline">-</code></TableCell>
+                <TableCell>Border color of the chip</TableCell>
+            </TableRow>
+            <TableRow>
+                <TableCell><code class="inline">--mjo-chip-font-size-small-size</code></TableCell>
+                <TableCell><code class="inline">0.75em</code></TableCell>
+                <TableCell>Small chip font size</TableCell>
+            </TableRow>
+            <TableRow>
+                <TableCell><code class="inline">--mjo-chip-font-size-medium-size</code></TableCell>
+                <TableCell><code class="inline">0.9em</code></TableCell>
+                <TableCell>Medium chip font size (default)</TableCell>
+            </TableRow>
+            <TableRow>
+                <TableCell><code class="inline">--mjo-chip-font-size-large-size</code></TableCell>
+                <TableCell><code class="inline">1.1em</code></TableCell>
+                <TableCell>Large chip font size</TableCell>
+            </TableRow>
+            <TableRow>
+                <TableCell><code class="inline">--mjo-chip-line-height-small-size</code></TableCell>
+                <TableCell><code class="inline">0.75em</code></TableCell>
+                <TableCell>Small chip line height</TableCell>
+            </TableRow>
+            <TableRow>
+                <TableCell><code class="inline">--mjo-chip-line-height-medium-size</code></TableCell>
+                <TableCell><code class="inline">1em</code></TableCell>
+                <TableCell>Medium chip line height</TableCell>
+            </TableRow>
+            <TableRow>
+                <TableCell><code class="inline">--mjo-chip-line-height-large-size</code></TableCell>
+                <TableCell><code class="inline">1.2em</code></TableCell>
+                <TableCell>Large chip line height</TableCell>
+            </TableRow>
+            <TableRow>
+                <TableCell><code class="inline">--mjo-chip-padding</code></TableCell>
+                <TableCell><code class="inline">0 0.75em</code></TableCell>
+                <TableCell>Internal padding</TableCell>
+            </TableRow>
+            <TableRow>
+                <TableCell><code class="inline">--mjo-chip-gap</code></TableCell>
+                <TableCell><code class="inline">0.4em</code></TableCell>
+                <TableCell>Gap between chip elements</TableCell>
+            </TableRow>
+            <TableRow>
+                <TableCell><code class="inline">--mjo-chip-border-width-size-small</code></TableCell>
+                <TableCell><code class="inline">1px</code></TableCell>
+                <TableCell>Small chip border width</TableCell>
+            </TableRow>
+            <TableRow>
+                <TableCell><code class="inline">--mjo-chip-border-width-size-medium</code></TableCell>
+                <TableCell><code class="inline">2px</code></TableCell>
+                <TableCell>Medium chip border width</TableCell>
+            </TableRow>
+            <TableRow>
+                <TableCell><code class="inline">--mjo-chip-border-width-size-large</code></TableCell>
+                <TableCell><code class="inline">3px</code></TableCell>
+                <TableCell>Large chip border width</TableCell>
+            </TableRow>
+        </TableBody>
+    </Table>
+    <Typography tag="h3" size="xl" weight="bold" spacing="md">CSS Parts</Typography>
+    <Table>
+        <TableHeader>
+            <TableRow>
+                <TableCellHeader>Part</TableCellHeader>
+                <TableCellHeader minWidth="200px">Description</TableCellHeader>
+            </TableRow>
+        </TableHeader>
+        <TableBody>
+            <TableRow>
+                <TableCell><code class="inline">container</code></TableCell>
+                <TableCell>The main chip container element</TableCell>
+            </TableRow>
+            <TableRow>
+                <TableCell><code class="inline">label</code></TableCell>
+                <TableCell>The text label element (via exportparts from mjo-typography)</TableCell>
+            </TableRow>
+            <TableRow>
+                <TableCell><code class="inline">start-icon</code></TableCell>
+                <TableCell>The start icon element (via exportparts from mjo-icon)</TableCell>
+            </TableRow>
+            <TableRow>
+                <TableCell><code class="inline">end-icon</code></TableCell>
+                <TableCell>The end icon element (via exportparts from mjo-icon)</TableCell>
+            </TableRow>
+            <TableRow>
+                <TableCell><code class="inline">close-icon</code></TableCell>
+                <TableCell>The close button icon element (via exportparts from mjo-icon)</TableCell>
+            </TableRow>
+        </TableBody>
+    </Table>
+    <Typography tag="h3" size="xl" weight="bold" spacing="md">Theme interface</Typography>
+    <Typography class="explain" tag="p" spacing="md">
+        Interface for the <code class="inline">mjo-chip</code> theme that can be applied to the <code class="inline">MjoTheme</code> component or <code
+            class="inline">MjoThemeSSRGenerator</code
+        >.
+    </Typography>
+    <Codeblock>
+        <CodeblockPre language="typescript">
+            {
+                `export interface MjoChipTheme {
+    backgroundColor?: string;
+    borderColor?: string;
+    borderWidthSizeSmall?: string;
+    borderWidthSizeMedium?: string;
+    borderWidthSizeLarge?: string;
+    fontSizeSmallSize?: string;
+    fontSizeMediumSize?: string;
+    fontSizeLargeSize?: string;
+    lineHeightSmallSize?: string;
+    lineHeightMediumSize?: string;
+    lineHeightLargeSize?: string;
+    gap?: string;
+    padding?: string;
+}
+`
+            }
+        </CodeblockPre>
+    </Codeblock>
+    <Typography tag="h3" size="xl" weight="bold" spacing="md">Examples</Typography>
+    <Typography tag="h4" size="xl" weight="bold" spacing="md">With CSS variables</Typography>
+    <Typography class="explain" tag="p" spacing="md">Use CSS variables to customize the appearance of the chip.</Typography>
+    <CodeExample>
+        <ChipCustomVariables client:only slot="preview" />
+        <Codeblock showHeader slot="code">
+            <CodeblockPre language="lit" bugTitle="[BUG mjo-chip]">
+                {
+                    `import { LitElement, css, html } from "lit";
+import { customElement } from "lit/decorators.js";
+
+import { AiOutlineDownload } from "mjo-icons/ai";
+
+import "mjo-litui/mjo-chip";
+
+@customElement("chip-custom-variables")
+export class ChipCustomVariables extends LitElement {
+    render() {
+        return html\`<mjo-chip label="CSS Variables" color="secondary" size="large" startIcon=\${AiOutlineDownload} clickable variant="bordered"></mjo-chip>\`;
+    }
+
+    static styles = [
+        css\`
+            :host {
+                display: flex;
+                flex-flow: row wrap;
+                padding: var(--mjo-space-large) 0;
+                gap: var(--mjo-space-large);
+                align-items: center;
+                --mjo-chip-padding: 5px 30px;
+                --mjo-chip-border-width-size-large: 5px;
+            }
+        \`,
+    ];
+}
+`
+                }
+            </CodeblockPre>
+        </Codeblock>
+    </CodeExample>
+    <Typography tag="h4" size="xl" weight="bold" spacing="md">With theme interface</Typography>
+    <Typography class="explain" tag="p" spacing="md">
+        You can use the <code>MjoThemeConfig</code> for customizing the chip styles in a more structured way.
+    </Typography>
+    <CodeExample>
+        <ChipThemed client:only slot="preview" />
+        <Codeblock showHeader slot="code">
+            <CodeblockPre language="typescript" bugTitle="[BUG mjo-chip]">
+                {
+                    `import { LitElement, css, html } from "lit";
+import { customElement } from "lit/decorators.js";
+
+import { AiOutlineDownload } from "mjo-icons/ai";
+
+import "mjo-litui/mjo-chip";
+import type { MjoChipTheme } from "mjo-litui/types/mjo-theme";
+
+@customElement("chip-themed")
+export class ChipThemed extends LitElement {
+    theme: MjoChipTheme = {
+        gap: "20px",
+        borderColor: "var(--mjo-primary-color)",
+        backgroundColor: "color-mix(in srgb, var(--mjo-primary-color) 15%, var(--mjo-background-color))",
+    };
+
+    render() {
+        return html\`<mjo-chip label="Theme interface" color="primary" .theme=\${this.theme} endIcon=\${AiOutlineDownload} clickable variant="dot"></mjo-chip>\`;
+    }
+
+    static styles = [
+        css\`
+            :host {
+                display: flex;
+                flex-flow: row wrap;
+                padding: var(--mjo-space-large) 0;
+                gap: var(--mjo-space-large);
+                align-items: center;
+            }
+        \`,
+    ];
+}
+`
+                }
+            </CodeblockPre>
+        </Codeblock>
+    </CodeExample>
+    <Typography tag="h4" size="xl" weight="bold" spacing="md">With CSS parts</Typography>
+    <Typography class="explain" tag="p" spacing="md">
+        With CSS parts you have greater control over customizing the styles of the internal elements of the chip.
+    </Typography>
+    <CodeExample>
+        <ChipCssParts client:only slot="preview" />
+        <Codeblock showHeader slot="code">
+            <CodeblockPre language="lit" bugTitle="[BUG mjo-chip]">
+                {
+                    `import { LitElement, css, html } from "lit";
+import { customElement } from "lit/decorators.js";
+
+import "mjo-litui/mjo-chip";
+
+import { AiOutlineBook } from "mjo-icons/ai";
+
+@customElement("chip-css-parts")
+export class ChipCssParts extends LitElement {
+    render() {
+        return html\`<mjo-chip label="CSS Parts" color="primary" startIcon=\${AiOutlineBook} closable></mjo-chip>\`;
+    }
+
+    static styles = [
+        css\`
+            :host {
+                display: block;
+                padding: var(--mjo-space-large) 0;
+            }
+            mjo-chip::part(container) {
+                background: linear-gradient(135deg, #992929, #da5858);
+                font-size: 1.2rem;
+                padding-right: 10px;
+                border: solid 2px orange;
+            }
+            mjo-chip::part(label) {
+                color: #e6e79b;
+                font-style: italic;
+            }
+            mjo-chip::part(start-icon),
+            mjo-chip::part(close-icon) {
+                color: orange;
+            }
+        \`,
+    ];
+}
+`
+                }
+            </CodeblockPre>
+        </Codeblock>
+    </CodeExample>
+    <Typography tag="h2" size="title3" weight="bold" spacing="md">Accessibility</Typography>
+    <Typography class="explain" tag="p" spacing="md">The chip component includes comprehensive accessibility features:</Typography>
+    <List listStyle="disc">
+        <ListItem featuredText="Dynamic Roles">
+            Automatically sets appropriate <code class="inline dense">role</code> attributes:
+            <List listStyle="circle">
+                <ListItem featuredText='role="button"'>For interactive chips (clickable or closable)</ListItem>
+                <ListItem featuredText="No role">For purely decorative chips</ListItem>
+            </List>
+        </ListItem>
+        <ListItem featuredText="ARIA Labels">
+            Intelligent <code class="inline dense">aria-label</code> generation:
+            <List listStyle="circle">
+                <ListItem featuredText="Generic">"Chip: &#123;label&#125;" for display-only chips</ListItem>
+                <ListItem featuredText="Clickable">"&#123;label&#125;. Clickable chip" for clickable chips</ListItem>
+                <ListItem featuredText="Closable">"&#123;label&#125;. Closable chip" for closable chips</ListItem>
+                <ListItem featuredText="Combined">"&#123;label&#125;. Clickable chip with close button" for both</ListItem>
+            </List>
+        </ListItem>
+        <ListItem featuredText="Keyboard Navigation">
+            Full keyboard support:
+            <List listStyle="circle">
+                <ListItem featuredText="Tab">Navigate between focusable chips</ListItem>
+                <ListItem featuredText="Enter/Space">Activate clickable chips</ListItem>
+                <ListItem featuredText="Escape">Close closable chips</ListItem>
+                <ListItem>Visual focus indicators with <code class="inline dense">:focus-visible</code></ListItem>
+            </List>
+        </ListItem>
+        <ListItem featuredText="State Communication">
+            <List listStyle="circle">
+                <ListItem><code class="inline dense">aria-disabled="true"</code> when chip is disabled</ListItem>
+                <ListItem>Proper state changes communicated to screen readers</ListItem>
+            </List>
+        </ListItem>
+        <ListItem featuredText="Close Button Accessibility">
+            <List listStyle="circle">
+                <ListItem>Dedicated <code class="inline dense">aria-label</code> for close buttons: "Close &#123;label&#125;"</ListItem>
+                <ListItem>Independent keyboard navigation and activation</ListItem>
+                <ListItem>Visual focus indicators separate from main chip focus</ListItem>
+                <ListItem>Event propagation properly managed to prevent conflicts</ListItem>
+            </List>
+        </ListItem>
+        <ListItem featuredText="Motion and Preference Support">
+            <List listStyle="circle">
+                <ListItem>Respects <code class="inline dense">prefers-reduced-motion</code> user setting</ListItem>
+                <ListItem>Subtle scale animations for clickable chips</ListItem>
+                <ListItem>Clear visual focus indicators for keyboard users</ListItem>
+                <ListItem>All color variants maintain sufficient contrast ratios</ListItem>
+            </List>
+        </ListItem>
+    </List>
+    <Typography tag="h2" size="title3" weight="bold" spacing="md">Type Definitions</Typography>
+    <Typography class="explain" tag="p" spacing="md">The chip component supports the following type definitions:</Typography>
+    <Codeblock>
+        <CodeblockPre language="typescript">
+            {
+                `export type MjoChipColors = "primary" | "secondary" | "default" | "success" | "warning" | "info" | "error";
+export type MjoChipVariants = "solid" | "bordered" | "light" | "flat" | "faded" | "shadow" | "dot";
+export type MjoChipSizes = "small" | "medium" | "large";
+export type MjoChipRadius = "small" | "medium" | "large" | "full" | "none";
+
+export interface MjoChipClickEvent extends CustomEvent {
+    detail: {
+        value: string;
+    };
+}
+
+export interface MjoChipCloseEvent extends CustomEvent {
+    detail: {
+        value: string;
+    };
+}
+`
+            }
+        </CodeblockPre>
+    </Codeblock>
+</DocsLayout>
+
+<style>
+    .prose {
+        position: relative;
+    }
+    .explain {
+        color: var(--mjo-foreground-color-low);
+    }
+</style>

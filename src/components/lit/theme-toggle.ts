@@ -1,10 +1,8 @@
-import type { ThemeToggleEvent } from "@/types/theme";
+import type { MjoThemeChangeEvent } from "mjo-litui/types/mjo-theme";
 
 import { LitElement, css, html, type PropertyValues } from "lit";
 import { customElement, property, query, state } from "lit/decorators.js";
 import { AiOutlineMoon, AiOutlineSun } from "mjo-icons/ai";
-
-import { themeManager } from "@/utils/theme";
 
 import "mjo-litui/mjo-form";
 import "mjo-litui/mjo-icon";
@@ -29,13 +27,13 @@ export class ThemeToggle extends LitElement {
     connectedCallback(): void {
         super.connectedCallback();
 
-        document.addEventListener("theme-change", this.#handleTheme);
+        document.addEventListener("mjo-theme:change", this.#handleTheme);
     }
 
     disconnectedCallback(): void {
         super.disconnectedCallback();
 
-        document.removeEventListener("theme-change", this.#handleTheme);
+        document.removeEventListener("mjo-theme:change", this.#handleTheme);
     }
 
     firstUpdated(_changedProperties: PropertyValues): void {
@@ -46,11 +44,32 @@ export class ThemeToggle extends LitElement {
     }
 
     #handleClick = () => {
-        themeManager?.toggleTheme();
+        const themeComponent = document.querySelector("theme-component");
+
+        if (!themeComponent) {
+            console.error("Theme component not found");
+            return;
+        }
+
+        themeComponent.toggleTheme();
+
+        const theme = themeComponent.theme;
+        console.log(theme);
+        if (theme === "dark") {
+            document.querySelector("html")?.classList.remove("light");
+            document.querySelector("html")?.classList.add("dark");
+            document.body.classList.add("dark");
+            document.body.classList.remove("light");
+        } else {
+            document.querySelector("html")?.classList.remove("dark");
+            document.querySelector("html")?.classList.add("light");
+            document.body.classList.add("light");
+            document.body.classList.remove("dark");
+        }
     };
 
     #handleTheme = (ev: Event) => {
-        const theme = (ev as ThemeToggleEvent).detail;
+        const theme = (ev as MjoThemeChangeEvent).detail.theme;
 
         if (theme === "dark") {
             this.icon = AiOutlineSun;
@@ -65,6 +84,8 @@ export class ThemeToggle extends LitElement {
                 display: block;
             }
             span {
+                padding-left: calc(var(--spacing, 0.25rem) * 3);
+                padding-right: calc(var(--spacing, 0.25rem) * 3);
                 position: relative;
                 display: inline-block;
                 cursor: pointer;
@@ -73,6 +94,7 @@ export class ThemeToggle extends LitElement {
                 opacity: 1;
             }
             mjo-icon {
+                top: -1px;
                 vertical-align: middle;
             }
             .hidden {

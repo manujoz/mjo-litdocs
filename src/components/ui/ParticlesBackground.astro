@@ -108,78 +108,88 @@
 </script>
 
 <style>
-    @reference "../../styles/global.css";
-
     .particles-background {
-        @apply fixed inset-x-0 top-0 pointer-events-none overflow-hidden;
-        height: 90vh; /* Half of viewport height */
+        position: fixed;
+        inset: 0;
+        top: 0;
+        pointer-events: none;
+        overflow: hidden;
+        height: 90vh;
         z-index: -10;
         will-change: transform;
     }
 
     .particles-container {
-        @apply relative w-full h-full;
+        position: relative;
+        width: 100%;
+        height: 100%;
     }
 
     .particles-gradient {
-        @apply absolute inset-0;
-        background: radial-gradient(ellipse at center, var(--color-accent), transparent 70%);
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(ellipse at center, var(--mjo-secondary-color), transparent 70%);
         opacity: 0.02;
         will-change: transform;
     }
 
     .particle {
-        @apply absolute rounded-full transition-all duration-300;
+        position: absolute;
+        border-radius: 999px;
+        transition: all 0.3s;
         will-change: transform;
     }
 
     .particle-square {
-        @apply rounded-none;
+        border-radius: 0;
     }
 
     /* Particle sizes */
     .particle-small {
-        @apply w-2 h-2;
+        width: 8px;
+        height: 8px;
     }
 
     .particle-medium {
-        @apply w-3 h-3;
+        width: 12px;
+        height: 12px;
     }
 
     .particle-large {
-        @apply w-4 h-4;
+        width: 16px;
+        height: 16px;
     }
 
     /* Primary particles - Blue gradient */
     .particle-primary {
-        background: radial-gradient(circle, var(--color-primary-100), var(--color-primary-400));
+        background: radial-gradient(circle, var(--mjo-primary-color-100), var(--mjo-primary-color-400));
         opacity: 0.5;
     }
 
     :global(.dark) .particle-primary {
-        background: radial-gradient(circle, var(--color-primary-200), var(--color-primary-500));
+        background: radial-gradient(circle, var(--mjo-primary-color-200), var(--mjo-primary-color-500));
         opacity: 0.25;
     }
 
     /* Secondary particles - Green gradient */
     .particle-secondary {
-        background: radial-gradient(circle, var(--color-secondary-100), var(--color-secondary-400));
+        background: radial-gradient(circle, var(--color-secondary-100), var(--mjo-secondary-color-400));
         opacity: 0.6;
     }
 
     :global(.dark) .particle-secondary {
-        background: radial-gradient(circle, var(--color-secondary-200), var(--color-secondary-500));
+        background: radial-gradient(circle, var(--mjo-secondary-color-200), var(--mjo-secondary-color-500));
         opacity: 0.2;
     }
 
     /* Accent particles - Gray gradient */
     .particle-accent {
-        background: var(--color-destructive);
+        background: var(--mjo-color-red);
         opacity: 0.1;
     }
 
     :global(.dark) .particle-accent {
-        background: var(--color-destructive);
+        background: var(--mjo-color-red);
         opacity: 0.15;
     }
 
@@ -206,77 +216,92 @@
 
     /* Individual particle positions and animations */
     .particle-1 {
-        @apply top-[20%] left-[10%];
+        top: 20%;
+        left: 10%;
         animation: float-1 25s infinite linear;
     }
 
     .particle-2 {
-        @apply top-[60%] left-[75%];
+        top: 60%;
+        left: 75%;
         animation: float-2 30s infinite linear;
     }
 
     .particle-3 {
-        @apply top-[40%] left-[85%];
+        top: 40%;
+        left: 85%;
         animation: float-3 35s infinite linear;
     }
 
     .particle-4 {
-        @apply top-[80%] left-[65%];
+        top: 80%;
+        left: 65%;
         animation: float-4 28s infinite linear;
     }
 
     .particle-5 {
-        @apply top-[15%] left-[50%];
+        top: 15%;
+        left: 50%;
         animation: float-5 32s infinite linear;
     }
 
     .particle-6 {
-        @apply top-[75%] left-[20%];
+        top: 75%;
+        left: 20%;
         animation: float-6 26s infinite linear;
     }
 
     .particle-7 {
-        @apply top-[35%] left-[30%];
+        top: 35%;
+        left: 30%;
         animation: float-7 31s infinite linear;
     }
 
     .particle-8 {
-        @apply top-[85%] left-[45%];
+        top: 85%;
+        left: 45%;
         animation: float-8 27s infinite linear;
     }
 
     .particle-9 {
-        @apply top-[25%] left-[70%];
+        top: 25%;
+        left: 70%;
         animation: float-9 36s infinite linear;
     }
 
     .particle-10 {
-        @apply top-[65%] left-[15%];
+        top: 65%;
+        left: 15%;
         animation: float-10 24s infinite linear;
     }
 
     .particle-11 {
-        @apply top-[55%] left-[90%];
+        top: 55%;
+        left: 90%;
         animation: float-11 34s infinite linear;
     }
 
     .particle-12 {
-        @apply top-[45%] left-[60%];
+        top: 45%;
+        left: 60%;
         animation: float-rotate-1 45s infinite linear;
     }
 
     .particle-13 {
-        @apply top-[70%] left-[80%];
+        top: 70%;
+        left: 80%;
         animation: float-rotate-2 42s infinite linear;
     }
 
     .particle-14 {
-        @apply top-[30%] left-[5%];
+        top: 30%;
+        left: 5%;
         animation: float-rotate-3 48s infinite linear;
     }
 
     .particle-15 {
-        @apply top-[90%] left-[25%];
+        top: 90%;
+        left: 25%;
         animation: float-rotate-4 41s infinite linear;
     }
 
@@ -287,7 +312,7 @@
         .particle-10,
         .particle-11,
         .particle-15 {
-            @apply hidden;
+            display: none;
         }
     }
 

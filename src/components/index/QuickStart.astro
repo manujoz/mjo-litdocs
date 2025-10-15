@@ -1,116 +1,52 @@
+---
+import Codeblock from "../ui/codeblock/Codeblock.astro";
+import CodeblockButton from "../ui/codeblock/CodeblockButton.astro";
+import CodeblockPre from "../ui/codeblock/CodeblockPre.astro";
+---
+
 <div class="quickstart-container">
     <div class="quickstart-content">
-        <h2 class="quickstart-title">Get Started in Seconds</h2>
-        <p class="quickstart-description">Install MJO-LITUI and start building beautiful interfaces right away.</p>
-
-        <div class="code-example">
-            <div class="code-header">
-                <div class="code-tabs">
-                    <button class="code-tab code-tab-active" data-tab="npm">npm</button>
-                    <button class="code-tab" data-tab="yarn">yarn</button>
-                    <button class="code-tab" data-tab="pnpm">pnpm</button>
-                </div>
-                <button class="code-copy" title="Copy to clipboard">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
-                    </svg>
-                </button>
-            </div>
-            <div class="code-content">
-                <pre class="language-bash code-block" data-content="npm"><code class="language-bash">npm install mjo-litui</code></pre>
-                <pre class="language-bash code-block" data-content="yarn" style="display: none;"><code class="language-bash">yarn add mjo-litui</code></pre>
-                <pre class="language-bash code-block" data-content="pnpm" style="display: none;"><code class="language-bash">pnpm add mjo-litui</code></pre>
-            </div>
-        </div>
-
-        <div class="quickstart-next">
-            <p class="text-muted-foreground">Then import components and start building:</p>
-            <a href="/docs/quick-start" class="quickstart-link"> View Quick Start Guide → </a>
-        </div>
-    </div>
-
-    <!-- Usage Example -->
-    <div class="quickstart-example">
-        <h3 class="example-title">Quick Example</h3>
-        <div class="code-example">
-            <div class="code-header">
-                <span class="code-language">JavaScript</span>
-                <button class="code-copy" title="Copy to clipboard">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
-                    </svg>
-                </button>
-            </div>
-            <div class="code-content">
-                <pre
-                    class="language-javascript"><code class="language-javascript">{`import { MjoButton, MjoCard } from 'mjo-litui';
-
-// Use anywhere in your HTML
-<mjo-button variant="primary" size="lg">
-  Get Started
-</mjo-button>
-
-<mjo-card>
-  <h2 slot="header">Welcome</h2>
-  <p>Beautiful components, minimal setup.</p>
-</mjo-card>`}</code></pre>
-            </div>
-        </div>
+        <Codeblock showHeader>
+            <CodeblockButton slot="header" content="npm" active aria-label="npm command">npm</CodeblockButton>
+            <CodeblockButton slot="header" content="yarn" aria-label="yarn command">yarn</CodeblockButton>
+            <CodeblockButton slot="header" content="pnpm" aria-label="pnpm command">pnpm</CodeblockButton>
+            <CodeblockPre language="bash" content="npm" active>npm install mjo-litui</CodeblockPre>
+            <CodeblockPre language="bash" content="yarn">yarn add mjo-litui</CodeblockPre>
+            <CodeblockPre language="bash" content="pnpm">pnpm install mjo-litui</CodeblockPre>
+        </Codeblock>
     </div>
 </div>
 
-<script>
-    // Code tab switching
-    document.addEventListener("DOMContentLoaded", () => {
-        const tabs = document.querySelectorAll(".code-tab") as NodeListOf<HTMLElement>;
-        const blocks = document.querySelectorAll(".code-block") as NodeListOf<HTMLElement>;
+<style>
+    .quickstart-container {
+        margin: 50px auto 0;
+        max-width: 400px;
+    }
 
-        tabs.forEach((tab) => {
-            tab.addEventListener("click", () => {
-                const target = tab.dataset.tab;
+    .quickstart-title {
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+    }
 
-                // Update tab states
-                tabs.forEach((t) => t.classList.remove("code-tab-active"));
-                tab.classList.add("code-tab-active");
-
-                // Update code block visibility
-                blocks.forEach((block) => {
-                    if (block.dataset.content === target) {
-                        block.style.display = "block";
-                    } else {
-                        block.style.display = "none";
-                    }
-                });
-            });
-        });
-
-        // Copy functionality
-        const copyBtn = document.querySelector(".code-copy") as HTMLElement;
-        copyBtn?.addEventListener("click", () => {
-            const activeBlock = document.querySelector('.code-block[style="display: block;"], .code-block:not([style])');
-            const text = activeBlock?.textContent || "";
-
-            navigator.clipboard.writeText(text).then(() => {
-                // Show feedback
-                const originalHTML = copyBtn.innerHTML;
-                copyBtn.innerHTML = `
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-          </svg>
-        `;
-
-                setTimeout(() => {
-                    copyBtn.innerHTML = originalHTML;
-                }, 2000);
-            });
-        });
-    });
-</script>
+    .quickstart-description {
+        font-size: 1rem;
+        color: var(--mjo-text-color);
+        margin-bottom: 1rem;
+    }
+    .hero-actions {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 24px;
+        margin-top: 40px;
+    }
+    .hero-action {
+        flex: 1;
+        display: flex;
+        justify-content: flex-end;
+    }
+    .hero-action.right {
+        justify-content: flex-start;
+    }
+</style>

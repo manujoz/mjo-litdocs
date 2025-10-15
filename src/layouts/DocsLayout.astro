@@ -1,176 +1,93 @@
 ---
-import BaseLayout from "./BaseLayout.astro";
-import Header from "../components/layout/Header.astro";
-import Sidebar from "../components/layout/Sidebar.astro";
-import Footer from "../components/layout/Footer.astro";
+import type { BreadcrumbItem } from "@/types/docs";
+
+import Footer from "@/components/layout/Footer.astro";
+import Header from "@/components/layout/Header.astro";
+import Sidebar from "@/components/layout/Sidebar.astro";
+import Breadcrumb from "@/components/ui/Breadcrumb.astro";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+
+import TocSidebar from "@/components/layout/TocSidebar.astro";
+import { navigationSections } from "@/lib/navgation";
 
 export interface Props {
     title?: string;
     description?: string;
     currentPath?: string;
+    breadcrumbItems?: BreadcrumbItem[];
 }
 
-const { title = "Documentation", description = "Complete documentation for MJO-LITUI component library", currentPath = "" } = Astro.props;
+const { title = "Documentation", description = "Complete documentation for MJO-LITUI component library", currentPath = "", breadcrumbItems = [] } = Astro.props;
 
 const fullTitle = title === "Documentation" ? "MJO-LITUI - Documentation" : `${title} - MJO-LITUI`;
+
+const breadcrumbItemsExample = [
+    { label: "Home", href: "/" },
+    { label: "Documentation", href: "/docs" },
+    { label: "Theming", href: "/docs/theming" },
+    { label: "Dark Mode", isCurrentPage: true },
+];
 ---
 
 <BaseLayout title={fullTitle} description={description}>
+    <Header />
     <div class="docs-layout">
-        <!-- Header -->
-        <Header />
-
-        <!-- Main Content Area -->
-        <div class="docs-main">
-            <!-- Sidebar -->
-            <div class="docs-sidebar-container">
-                <Sidebar currentPath={currentPath} />
+        <Sidebar navigationSections={navigationSections} currentPath={currentPath} />
+        <main class="docs-content">
+            <Breadcrumb items={breadcrumbItems} />
+            <div class="docs-article">
+                <slot />
             </div>
-
-            <!-- Content -->
-            <main class="docs-content">
-                <div class="docs-content-wrapper">
-                    <!-- Breadcrumbs -->
-                    <nav class="docs-breadcrumbs" aria-label="Breadcrumb">
-                        <ol class="breadcrumb-list">
-                            <li class="breadcrumb-item">
-                                <a href="/" class="breadcrumb-link">Home</a>
-                            </li>
-                            <li class="breadcrumb-separator">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                                </svg>
-                            </li>
-                            <li class="breadcrumb-item">
-                                <a href="/docs" class="breadcrumb-link">Documentation</a>
-                            </li>
-                            {
-                                currentPath !== "/docs" && (
-                                    <>
-                                        <li class="breadcrumb-separator">
-                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                                            </svg>
-                                        </li>
-                                        <li class="breadcrumb-item breadcrumb-current" aria-current="page">
-                                            {title}
-                                        </li>
-                                    </>
-                                )
-                            }
-                        </ol>
-                    </nav>
-
-                    <!-- Page Content -->
-                    <div class="docs-article">
-                        <slot />
-                    </div>
-
-                    <!-- Page Navigation -->
-                    <div class="docs-page-nav">
-                        <div class="page-nav-prev">
-                            <!-- This will be populated dynamically based on the current page -->
-                        </div>
-                        <div class="page-nav-next">
-                            <!-- This will be populated dynamically based on the current page -->
-                        </div>
-                    </div>
+            <div class="docs-page-nav">
+                <div class="page-nav-prev">
+                    <!-- This will be populated dynamically based on the current page -->
                 </div>
-            </main>
-
-            <!-- Table of Contents -->
-            <div class="docs-toc-container">
-                <aside class="docs-toc">
-                    <div class="toc-header">
-                        <h3 class="toc-title">On This Page</h3>
-                    </div>
-                    <nav class="toc-nav" id="toc-nav">
-                        <!-- TOC will be populated by JavaScript -->
-                    </nav>
-                </aside>
+                <div class="page-nav-next">
+                    <!-- This will be populated dynamically based on the current page -->
+                </div>
             </div>
-        </div>
-
-        <!-- Footer -->
-        <Footer />
+        </main>
+        <TocSidebar />
     </div>
+    <Footer />
 </BaseLayout>
 
-<!-- Table of Contents Script -->
-<script>
-    // Generate table of contents from headings
-    function generateTOC() {
-        const toc = document.getElementById("toc-nav");
-        if (!toc) return;
-
-        const headings = document.querySelectorAll(".docs-article h1, .docs-article h2, .docs-article h3, .docs-article h4");
-
-        if (headings.length === 0) {
-            toc.innerHTML = '<p class="toc-empty">No headings found</p>';
-            return;
+<style>
+    /* Documentation Layout */
+    .docs-layout {
+        position: relative;
+        display: grid;
+        grid-template-columns: repeat(1, minmax(0, 1fr));
+        gap: 32px;
+        max-width: 1400px;
+        margin: 0 auto;
+    }
+    .docs-content {
+        position: relative;
+        padding: 2.5rem 15px 4.5rem;
+        box-sizing: border-box;
+    }
+    @media (min-width: 1024px) {
+        .docs-layout {
+            grid-template-columns: 280px minmax(0, 1fr);
         }
-
-        const tocList = document.createElement("ul");
-        tocList.className = "toc-list";
-
-        headings.forEach((heading) => {
-            if (!heading.id) {
-                // Generate ID from heading text
-                heading.id =
-                    heading.textContent
-                        ?.toLowerCase()
-                        .replace(/[^\w\s-]/g, "")
-                        .replace(/\s+/g, "-")
-                        .trim() || "";
-            }
-
-            const listItem = document.createElement("li");
-            listItem.className = `toc-item toc-${heading.tagName.toLowerCase()}`;
-
-            const link = document.createElement("a");
-            link.href = `#${heading.id}`;
-            link.textContent = heading.textContent;
-            link.className = "toc-link";
-
-            listItem.appendChild(link);
-            tocList.appendChild(listItem);
-        });
-
-        toc.appendChild(tocList);
-
-        // Add scroll spy functionality
-        addScrollSpy();
+        .docs-content {
+            padding: 2.5rem 15px 4.5rem 0;
+        }
     }
 
-    function addScrollSpy() {
-        const tocLinks = document.querySelectorAll(".toc-link");
-        const headings = document.querySelectorAll(".docs-article h1, .docs-article h2, .docs-article h3, .docs-article h4");
-
-        const observer = new IntersectionObserver(
-            (entries) => {
-                entries.forEach((entry) => {
-                    const id = entry.target.id;
-                    const tocLink = document.querySelector(`.toc-link[href="#${id}"]`);
-
-                    if (entry.isIntersecting) {
-                        // Remove active class from all links
-                        tocLinks.forEach((link) => link.classList.remove("toc-link-active"));
-                        // Add active class to current link
-                        tocLink?.classList.add("toc-link-active");
-                    }
-                });
-            },
-            {
-                rootMargin: "-80px 0px -60% 0px",
-                threshold: 0,
-            }
-        );
-
-        headings.forEach((heading) => {
-            observer.observe(heading);
-        });
+    @media (min-width: 1280px) {
+        .docs-layout {
+            grid-template-columns: 280px minmax(0, 1fr) 240px;
+        }
+        .docs-content {
+            padding: 2.5rem 0 4.5rem;
+        }
     }
+</style>
 
-    // Initialize TOC when DOM is loaded
-    document.addEventListener("DOMContentLoaded", generateTOC);
+<script>
+    // Initialize the global logger functionality
+    import { initLogger } from "@/lib/logger";
+    initLogger();
 </script>

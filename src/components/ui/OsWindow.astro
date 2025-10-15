@@ -22,65 +22,110 @@
     </div>
 </div>
 <style>
-    @reference "../../../styles/global.css";
-
     .component-preview {
-        @apply relative mx-auto max-w-lg;
+        position: relative;
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 32rem;
     }
 
     .preview-window {
-        @apply rounded-lg border bg-amber-200 shadow-2xl overflow-hidden;
+        border-radius: 0.5rem;
+        border: 1px solid var(--color-border);
+        background-color: oklch(94% 0.07 85);
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        overflow: hidden;
     }
 
     .preview-header {
-        @apply flex items-center justify-between px-4 py-3 bg-muted/50 border-b;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding-left: 1rem;
+        padding-right: 1rem;
+        padding-top: 0.75rem;
+        padding-bottom: 0.75rem;
+        background-color: color-mix(in oklch, var(--color-muted) 50%, transparent);
+        border-bottom: 1px solid var(--color-border);
     }
 
     .preview-controls {
-        @apply flex items-center gap-2;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
     }
 
     .control-dot {
-        @apply w-3 h-3 rounded-full;
+        width: 0.75rem;
+        height: 0.75rem;
+        border-radius: 50%;
     }
 
     .control-red {
-        @apply bg-red-500;
+        background-color: oklch(62% 0.257 29);
     }
 
     .control-yellow {
-        @apply bg-yellow-500;
+        background-color: oklch(84% 0.167 83);
     }
 
     .control-green {
-        @apply bg-green-500;
+        background-color: oklch(70% 0.177 135);
     }
 
     .preview-title {
-        @apply text-sm font-medium text-muted-foreground;
+        font-size: 0.875rem;
+        font-weight: 500;
+        color: var(--color-muted-foreground);
     }
 
     .preview-content {
-        @apply p-6;
+        padding: 1.5rem;
     }
 
     .preview-component {
-        @apply space-y-4;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
     }
 
     .demo-button {
-        @apply inline-flex items-center justify-center px-4 py-2 bg-primary text-primary-foreground font-medium rounded-md hover:bg-primary/90 transition-colors;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding-left: 1rem;
+        padding-right: 1rem;
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
+        background-color: var(--color-primary);
+        color: var(--color-primary-foreground);
+        font-weight: 500;
+        border-radius: 0.375rem;
+        transition: background-color 0.15s ease-in-out;
+        cursor: pointer;
+        border: none;
+    }
+
+    .demo-button:hover {
+        background-color: color-mix(in oklch, var(--color-primary) 90%, transparent);
     }
 
     .demo-card {
-        @apply rounded-lg border bg-amber-100 p-4 shadow-sm;
+        border-radius: 0.5rem;
+        border: 1px solid var(--mjo-border-color);
+        background-color: oklch(96% 0.04 85);
+        padding: 1rem; /* p-4 */
+        box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
     }
 
     .demo-card-header {
-        @apply font-semibold text-foreground mb-2;
+        font-weight: 600;
+        color: var(--color-foreground);
+        margin-bottom: 0.5rem;
     }
 
     .demo-card-content {
-        @apply text-sm text-muted-foreground;
+        font-size: 0.875rem;
+        color: var(--color-muted-foreground);
     }
 </style>

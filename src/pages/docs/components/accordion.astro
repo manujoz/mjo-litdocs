@@ -1,0 +1,1169 @@
+---
+import Codeblock from "@/components/ui/codeblock/Codeblock.astro";
+import CodeblockPre from "@/components/ui/codeblock/CodeblockPre.astro";
+import CodeExample from "@/components/ui/CodeExample.astro";
+import Link from "@/components/ui/Link.astro";
+import Table from "@/components/ui/table/Table.astro";
+import TableBody from "@/components/ui/table/TableBody.astro";
+import TableCell from "@/components/ui/table/TableCell.astro";
+import TableCellHeader from "@/components/ui/table/TableCellHeader.astro";
+import TableHeader from "@/components/ui/table/TableHeader.astro";
+import TableRow from "@/components/ui/table/TableRow.astro";
+import Typography from "@/components/ui/Typography.astro";
+import DocsLayout from "@/layouts/DocsLayout.astro";
+
+import { AccordionBordered } from "@/components/examples/accordion/accordion-bordered";
+import { AccordionCompact } from "@/components/examples/accordion/accordion-compact";
+import { AccordionCssparts } from "@/components/examples/accordion/accordion-cssparts";
+import { AccordionCustom } from "@/components/examples/accordion/accordion-custom";
+import { AccordionDisabled } from "@/components/examples/accordion/accordion-disabled";
+import { AccordionExpanded } from "@/components/examples/accordion/accordion-expanded";
+import { AccordionIcons } from "@/components/examples/accordion/accordion-icons";
+import { AccordionMultiple } from "@/components/examples/accordion/accordion-multiple";
+import { AccordionShadow } from "@/components/examples/accordion/accordion-shadow";
+import { AccordionSolid } from "@/components/examples/accordion/accordion-solid";
+import { AccordionSplitted } from "@/components/examples/accordion/accordion-splitted";
+import { AccordionSubtitles } from "@/components/examples/accordion/accordion-subtitles";
+import { AccordionTheme } from "@/components/examples/accordion/accordion-theme";
+import { AccordionUsage } from "@/components/examples/accordion/accordion-usage";
+import List from "@/components/ui/list/List.astro";
+import ListItem from "@/components/ui/list/ListItem.astro";
+
+// Event details object for clean display
+const eventToggleDetail = `{
+  item: MjoAccordionItem,
+  expanded: boolean,
+  accordion: MjoAccordion
+}`;
+---
+
+<DocsLayout
+    title="Accordion"
+    description="The accordion component is a container that allows you to efficiently show and hide content. Learn how to use the accordion component in your project."
+    currentPath="/docs/components/accordion"
+>
+    <article class="prose">
+        <Typography tag="h1" size="title2" weight="bold">mjo-accordion</Typography>
+        <Typography class="explain" tag="p" spacing="md">
+            The mjo-accordion component is a container that allows you to efficiently show and hide content. It is useful for organizing large amounts of
+            content into manageable sections, improving the user experience by reducing clutter on the page.
+        </Typography>
+        <Typography tag="h2" size="title3" weight="bold" spacing="md">Import</Typography>
+        <Typography class="explain" tag="p" spacing="md">
+            To use the mjo-accordion component in your project, you need to import it first. You can do this by adding the following import statement to your
+            JavaScript or TypeScript file:
+        </Typography>
+        <Codeblock>
+            <CodeblockPre language="lit" bugTitle="[BUG mjo-accordion]">
+                {`import "mjo-litui/mjo-accordion";`}
+            </CodeblockPre>
+        </Codeblock>
+        <Typography tag="h2" size="title3" weight="bold" spacing="md">Usage</Typography>
+        <Typography class="explain" tag="p" spacing="md">Basic usage of the mjo-accordion component.</Typography>
+        <CodeExample>
+            <AccordionUsage client:visible slot="preview" />
+            <Codeblock showHeader slot="code">
+                <CodeblockPre language="lit" bugTitle="[BUG mjo-accordion]">
+                    {
+                        `import { LitElement, css, html } from "lit";
+import { customElement } from "lit/decorators.js";
+
+import "mjo-litui/mjo-accordion";
+
+@customElement("accordion-usage")
+export class AccordionUsage extends LitElement {
+    render() {
+        return html\`
+            <mjo-accordion>
+                <mjo-accordion-item itemTitle="Item 1">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                </mjo-accordion-item>
+                <mjo-accordion-item itemTitle="Item 2">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                </mjo-accordion-item>
+                <mjo-accordion-item itemTitle="Item 3">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                </mjo-accordion-item>
+            </mjo-accordion>
+        \`;
+    }
+}
+`
+                    }
+                </CodeblockPre>
+            </Codeblock>
+        </CodeExample>
+        <Typography tag="h3" size="xxl" weight="bold" spacing="md">With subtitles</Typography>
+        <Typography class="explain" tag="p" spacing="md">You can also add subtitles to each accordion item by using the `itemSubtitle` attribute.</Typography>
+        <CodeExample>
+            <AccordionSubtitles client:visible slot="preview" />
+            <Codeblock showHeader slot="code">
+                <CodeblockPre language="lit" bugTitle="[BUG mjo-accordion]">
+                    {
+                        `import { LitElement, html } from "lit";
+import { customElement } from "lit/decorators.js";
+
+import "mjo-litui/mjo-accordion";
+
+@customElement("accordion-subtitles")
+export class AccordionSubtitles extends LitElement {
+    render() {
+        return html\`
+            <mjo-accordion>
+                <mjo-accordion-item itemTitle="Item 1" itemSubtitle="Subtitle 1">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                </mjo-accordion-item>
+                <mjo-accordion-item itemTitle="Item 2" itemSubtitle="Subtitle 2">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                </mjo-accordion-item>
+                <mjo-accordion-item itemTitle="Item 3" itemSubtitle="Subtitle 3">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                </mjo-accordion-item>
+            </mjo-accordion>
+        \`;
+    }
+}
+`
+                    }
+                </CodeblockPre>
+            </Codeblock>
+        </CodeExample>
+        <Typography tag="h3" size="xxl" weight="bold" spacing="md">Multiple expandable items</Typography>
+        <Typography class="explain" tag="p" spacing="md"
+            >You can have multiple expandable items within the accordion setting <code>selectionMode</code> property to <code>multiple</code>.</Typography
+        >
+        <CodeExample>
+            <AccordionMultiple client:visible slot="preview" />
+            <Codeblock showHeader slot="code">
+                <CodeblockPre language="lit" bugTitle="[BUG mjo-accordion]">
+                    {
+                        `import { LitElement, html } from "lit";
+import { customElement } from "lit/decorators.js";
+
+import "mjo-litui/mjo-accordion";
+
+@customElement("accordion-multiple")
+export class AccordionMultiple extends LitElement {
+    render() {
+        return html\`
+            <mjo-accordion selectionMode="multiple">
+                <mjo-accordion-item itemTitle="Item 1">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                </mjo-accordion-item>
+                <mjo-accordion-item itemTitle="Item 2">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                </mjo-accordion-item>
+                <mjo-accordion-item itemTitle="Item 3">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                </mjo-accordion-item>
+            </mjo-accordion>
+        \`;
+    }
+}
+`
+                    }
+                </CodeblockPre>
+            </Codeblock>
+        </CodeExample>
+        <Typography tag="h3" size="xxl" weight="bold" spacing="md">Compact</Typography>
+        <Typography class="explain" tag="p" spacing="md">You can set the <code>compact</code> attribute to make the accordion more compact.</Typography>
+        <CodeExample>
+            <AccordionCompact client:only slot="preview" />
+            <Codeblock showHeader slot="code">
+                <CodeblockPre language="lit" bugTitle="[BUG mjo-accordion]">
+                    {
+                        `import { LitElement, html } from "lit";
+import { customElement } from "lit/decorators.js";
+
+import "mjo-litui/mjo-accordion";
+
+@customElement("accordion-compact")
+export class AccordionCompact extends LitElement {
+    ender() {
+        return html\`
+            <mjo-accordion compact>
+                <mjo-accordion-item itemTitle="Item 1">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                </mjo-accordion-item>
+                <mjo-accordion-item itemTitle="Item 2">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                </mjo-accordion-item>
+                <mjo-accordion-item itemTitle="Item 3">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                </mjo-accordion-item>
+            </mjo-accordion>
+        \`;
+    }
+}
+`
+                    }
+                </CodeblockPre>
+            </Codeblock>
+        </CodeExample>
+        <Typography tag="h3" size="xxl" weight="bold" spacing="md">Disabled items</Typography>
+        <Typography class="explain" tag="p" spacing="md">
+            You can set the <code>disabled</code> attribute on an accordion item to make it unclickable.
+        </Typography>
+        <CodeExample>
+            <AccordionDisabled client:only slot="preview" />
+            <Codeblock showHeader slot="code">
+                <CodeblockPre language="lit" bugTitle="[BUG mjo-accordion]">
+                    {
+                        `import { LitElement, html } from "lit";
+import { customElement } from "lit/decorators.js";
+
+import "mjo-litui/mjo-accordion";
+
+@customElement("accordion-disabled")
+export class AccordionDisabled extends LitElement {
+    render() {
+        return html\`
+            <mjo-accordion>
+                <mjo-accordion-item disabled itemTitle="Item 1">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                </mjo-accordion-item>
+                <mjo-accordion-item itemTitle="Item 2" disabled>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                </mjo-accordion-item>
+                <mjo-accordion-item itemTitle="Item 3">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                </mjo-accordion-item>
+                <mjo-accordion-item itemTitle="Item 4" disabled>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                </mjo-accordion-item>
+            </mjo-accordion>
+        \`;
+    }
+}
+`
+                    }
+                </CodeblockPre>
+            </Codeblock>
+        </CodeExample>
+        <Typography tag="h3" size="xxl" weight="bold" spacing="md">Expanded items</Typography>
+        <Typography class="explain" tag="p" spacing="md">
+            You can set the <code>expanded</code> attribute on an accordion item to make it expanded by default.
+        </Typography>
+        <CodeExample>
+            <AccordionExpanded client:only slot="preview" />
+            <Codeblock showHeader slot="code">
+                <CodeblockPre language="lit" bugTitle="[BUG mjo-accordion]">
+                    {
+                        `import { LitElement, html } from "lit";
+import { customElement } from "lit/decorators.js";
+
+import "mjo-litui/mjo-accordion";
+
+@customElement("accordion-expanded")
+export class AccordionExpanded extends LitElement {
+    render() {
+        return html\`
+            <mjo-accordion selectionMode="multiple">
+                <mjo-accordion-item itemTitle="Item 1" expanded>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                </mjo-accordion-item>
+                <mjo-accordion-item itemTitle="Item 2">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                </mjo-accordion-item>
+                <mjo-accordion-item itemTitle="Item 3" expanded>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                </mjo-accordion-item>
+                <mjo-accordion-item itemTitle="Item 4">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                </mjo-accordion-item>
+            </mjo-accordion>
+        \`;
+    }
+}
+`
+                    }
+                </CodeblockPre>
+            </Codeblock>
+        </CodeExample>
+        <Typography tag="h3" size="xxl" weight="bold" spacing="md">Custom Icon</Typography>
+        <Typography class="explain" tag="p" spacing="md">
+            You can set a custom icon for each accordion item by using the <code>icon</code> attribute.
+        </Typography>
+        <CodeExample>
+            <AccordionIcons client:only slot="preview" />
+            <Codeblock showHeader slot="code">
+                <CodeblockPre language="lit" bugTitle="[BUG mjo-accordion]">
+                    {
+                        `import { LitElement, html } from "lit";
+import { customElement } from "lit/decorators.js";
+
+import { FaChevronRight, FaStar } from "mjo-icons/fa6";
+
+import "mjo-litui/mjo-accordion";
+
+@customElement("accordion-icons")
+export class AccordionIcons extends LitElement {
+    render() {
+        return html\`
+            <mjo-accordion>
+                <mjo-accordion-item itemTitle="Item 1">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                </mjo-accordion-item>
+                <mjo-accordion-item itemTitle="Item 2" icon=\${FaChevronRight}>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                </mjo-accordion-item>
+                <mjo-accordion-item itemTitle="Item 3" icon=\${FaStar}>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                </mjo-accordion-item>
+            </mjo-accordion>
+        \`;
+    }
+}
+`
+                    }
+                </CodeblockPre>
+            </Codeblock>
+        </CodeExample>
+        <Typography tag="h3" size="xxl" weight="bold" spacing="md">Variants</Typography>
+        <Typography class="explain" tag="p" spacing="md">
+            The mjo-accordion component supports different variants to suit various design needs. You can choose setting the <code>variant</code> attribute to either
+            <code>light</code>, <code>solid</code>, <code>shadow</code>, <code>bordered</code> or <code>splitted</code>.
+        </Typography>
+        <Typography tag="h4" size="xl" weight="bold" spacing="md">Light</Typography>
+        <Typography class="explain" tag="p" spacing="md">
+            The <code>light</code> variant provides a clean and minimalistic look, making it suitable for modern and simple designs. It is the default variant.
+        </Typography>
+        <CodeExample>
+            <AccordionUsage client:visible slot="preview" />
+            <Codeblock showHeader slot="code">
+                <CodeblockPre language="lit" bugTitle="[BUG mjo-accordion]">
+                    {
+                        `import { LitElement, css, html } from "lit";
+import { customElement } from "lit/decorators.js";
+
+import "mjo-litui/mjo-accordion";
+
+@customElement("accordion-usage")
+export class AccordionUsage extends LitElement {
+    render() {
+        return html\`
+            <mjo-accordion>
+                <mjo-accordion-item itemTitle="Item 1">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                </mjo-accordion-item>
+                <mjo-accordion-item itemTitle="Item 2">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                </mjo-accordion-item>
+                <mjo-accordion-item itemTitle="Item 3">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                </mjo-accordion-item>
+            </mjo-accordion>
+        \`;
+    }
+}
+`
+                    }
+                </CodeblockPre>
+            </Codeblock>
+        </CodeExample>
+        <Typography tag="h4" size="xl" weight="bold" spacing="md">Solid</Typography>
+        <Typography class="explain" tag="p" spacing="md">
+            The <code>solid</code> variant provides a bold and distinct look, making it suitable for designs that require a stronger visual presence.
+        </Typography>
+        <CodeExample>
+            <AccordionSolid client:only slot="preview" />
+            <Codeblock showHeader slot="code">
+                <CodeblockPre language="lit" bugTitle="[BUG mjo-accordion]">
+                    {
+                        `import { LitElement, html } from "lit";
+import { customElement } from "lit/decorators.js";
+
+import "mjo-litui/mjo-accordion";
+
+@customElement("accordion-solid")
+export class AccordionSolid extends LitElement {
+    render() {
+        return html\`
+            <mjo-accordion variant="solid">
+                <mjo-accordion-item itemTitle="Item 1">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                </mjo-accordion-item>
+                <mjo-accordion-item itemTitle="Item 2">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                </mjo-accordion-item>
+                <mjo-accordion-item itemTitle="Item 3">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                </mjo-accordion-item>
+            </mjo-accordion>
+        \`;
+    }
+}
+`
+                    }
+                </CodeblockPre>
+            </Codeblock>
+        </CodeExample>
+        <Typography tag="h4" size="xl" weight="bold" spacing="md">Shadow</Typography>
+        <Typography class="explain" tag="p" spacing="md">
+            The <code>shadow</code> variant uses the same style as the <code>solid</code> variant but adds a shadow around the accordion to create a depth effect.
+        </Typography>
+        <CodeExample>
+            <AccordionShadow client:only slot="preview" />
+            <Codeblock showHeader slot="code">
+                <CodeblockPre language="lit" bugTitle="[BUG mjo-accordion]">
+                    {
+                        `import { LitElement, html } from "lit";
+import { customElement } from "lit/decorators.js";
+
+import "mjo-litui/mjo-accordion";
+
+@customElement("accordion-shadow")
+export class AccordionShadow extends LitElement {
+    render() {
+        return html\`
+            <mjo-accordion variant="shadow">
+                <mjo-accordion-item itemTitle="Item 1">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                </mjo-accordion-item>
+                <mjo-accordion-item itemTitle="Item 2">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                </mjo-accordion-item>
+                <mjo-accordion-item itemTitle="Item 3">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                </mjo-accordion-item>
+            </mjo-accordion>
+        \`;
+    }
+}
+`
+                    }
+                </CodeblockPre>
+            </Codeblock>
+        </CodeExample>
+        <Typography tag="h4" size="xl" weight="bold" spacing="md">Bordered</Typography>
+        <Typography class="explain" tag="p" spacing="md">
+            The <code>bordered</code> variant uses the same style as the <code>solid</code> variant but adds a border around the accordion to create a distinct separation
+            from the background.
+        </Typography>
+        <CodeExample>
+            <AccordionBordered client:only slot="preview" />
+            <Codeblock showHeader slot="code">
+                <CodeblockPre language="lit" bugTitle="[BUG mjo-accordion]">
+                    {
+                        `import { LitElement, html } from "lit";
+import { customElement } from "lit/decorators.js";
+
+import "mjo-litui/mjo-accordion";
+
+@customElement("accordion-bordered")
+export class AccordionBordered extends LitElement {
+    render() {
+        return html\`
+            <mjo-accordion variant="bordered">
+                <mjo-accordion-item itemTitle="Item 1">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                </mjo-accordion-item>
+                <mjo-accordion-item itemTitle="Item 2">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                </mjo-accordion-item>
+                <mjo-accordion-item itemTitle="Item 3">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                </mjo-accordion-item>
+            </mjo-accordion>
+        \`;
+    }
+}
+`
+                    }
+                </CodeblockPre>
+            </Codeblock>
+        </CodeExample>
+        <Typography tag="h4" size="xl" weight="bold" spacing="md">Splitted</Typography>
+        <Typography class="explain" tag="p" spacing="md">
+            The <code>splitted</code> variant uses the same style as the <code>solid</code> variant but adds a split effect between the accordion items.
+        </Typography>
+        <CodeExample>
+            <AccordionSplitted client:only slot="preview" />
+            <Codeblock showHeader slot="code">
+                <CodeblockPre language="lit" bugTitle="[BUG mjo-accordion]">
+                    {
+                        `import { LitElement, html } from "lit";
+import { customElement } from "lit/decorators.js";
+
+import "mjo-litui/mjo-accordion";
+
+@customElement("accordion-splitted")
+export class AccordionSplitted extends LitElement {
+    render() {
+        return html\`
+            <mjo-accordion variant="splitted">
+                <mjo-accordion-item itemTitle="Item 1">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                </mjo-accordion-item>
+                <mjo-accordion-item itemTitle="Item 2">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                </mjo-accordion-item>
+                <mjo-accordion-item itemTitle="Item 3">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                </mjo-accordion-item>
+            </mjo-accordion>
+        \`;
+    }
+}
+`
+                    }
+                </CodeblockPre>
+            </Codeblock>
+        </CodeExample>
+        <Typography tag="h2" size="title3" weight="bold" spacing="md">Properties</Typography>
+        <Typography class="explain" tag="p" spacing="md">Properties available on the mjo-accordion component.</Typography>
+        <Typography tag="h3" size="xl" weight="bold" spacing="md">mjo-accordion</Typography>
+        <Table>
+            <TableHeader>
+                <TableRow>
+                    <TableCellHeader>Property</TableCellHeader>
+                    <TableCellHeader>Type</TableCellHeader>
+                    <TableCellHeader>Default</TableCellHeader>
+                    <TableCellHeader minWidth="200px">Description</TableCellHeader>
+                </TableRow>
+            </TableHeader>
+            <TableBody>
+                <TableRow>
+                    <TableCell><code class="inline">variant</code></TableCell>
+                    <TableCell><code class="inline">{`light|shadow|bordered|splitted`}</code></TableCell>
+                    <TableCell><code class="inline">{`light`}</code></TableCell>
+                    <TableCell>The variant of the accordion.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">selectionMode</code></TableCell>
+                    <TableCell><code class="inline">{`single|multiple`}</code></TableCell>
+                    <TableCell><code class="inline">{`single`}</code></TableCell>
+                    <TableCell>Selection mode of the accordion allow multiple expanded items.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">compact</code></TableCell>
+                    <TableCell><code class="inline">{`boolean`}</code></TableCell>
+                    <TableCell><code class="inline">{`false`}</code></TableCell>
+                    <TableCell>Whether the accordion items should be compact.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">theme</code></TableCell>
+                    <TableCell><code class="inline">{`MjoAccordionTheme`}</code></TableCell>
+                    <TableCell><code class="inline">{`undefined`}</code></TableCell>
+                    <TableCell>Theme object for ThemeMixin customization</TableCell>
+                </TableRow>
+            </TableBody>
+        </Table>
+        <Typography tag="h3" size="xl" weight="bold" spacing="md">mjo-accordion-item</Typography>
+        <Table>
+            <TableHeader>
+                <TableRow>
+                    <TableCellHeader>Property</TableCellHeader>
+                    <TableCellHeader>Type</TableCellHeader>
+                    <TableCellHeader>Default</TableCellHeader>
+                    <TableCellHeader minWidth="200px">Description</TableCellHeader>
+                </TableRow>
+            </TableHeader>
+            <TableBody>
+                <TableRow>
+                    <TableCell><code class="inline">itemTitle</code></TableCell>
+                    <TableCell><code class="inline">{`string|TemplateResult<1>`}</code></TableCell>
+                    <TableCell><code class="inline">{`""`}</code></TableCell>
+                    <TableCell>The title of the accordion item.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">itemSubtitle</code></TableCell>
+                    <TableCell><code class="inline">{`string`}</code></TableCell>
+                    <TableCell><code class="inline">{`""`}</code></TableCell>
+                    <TableCell>The subtitle of the accordion item.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">expanded</code></TableCell>
+                    <TableCell><code class="inline">{`boolean`}</code></TableCell>
+                    <TableCell><code class="inline">{`false`}</code></TableCell>
+                    <TableCell>Whether the accordion item is expanded by default.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">disabled</code></TableCell>
+                    <TableCell><code class="inline">{`boolean`}</code></TableCell>
+                    <TableCell><code class="inline">{`false`}</code></TableCell>
+                    <TableCell>Whether the accordion item is disabled.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">icon</code></TableCell>
+                    <TableCell><code class="inline">{`string`}</code></TableCell>
+                    <TableCell><code class="inline">{`""`}</code></TableCell>
+                    <TableCell>Icon of the accordion item must be SVG.</TableCell>
+                </TableRow>
+            </TableBody>
+        </Table>
+        <Typography tag="h2" size="title3" weight="bold" spacing="md">API</Typography>
+        <Typography class="explain" tag="p" spacing="md">Methods available on the mjo-accordion component.</Typography>
+        <Typography tag="h3" size="xl" weight="bold" spacing="md">mjo-accordion</Typography>
+        <Table>
+            <TableHeader>
+                <TableRow>
+                    <TableCellHeader>Method</TableCellHeader>
+                    <TableCellHeader>Parameters</TableCellHeader>
+                    <TableCellHeader>Returns</TableCellHeader>
+                    <TableCellHeader minWidth="200px">Description</TableCellHeader>
+                </TableRow>
+            </TableHeader>
+            <TableBody>
+                <TableRow>
+                    <TableCell><code class="inline">expandItem(index)</code></TableCell>
+                    <TableCell><code class="inline">index: number|string</code></TableCell>
+                    <TableCell><code class="inline">void</code></TableCell>
+                    <TableCell>Expands a specific item by index or ID.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">collapseItem(index)</code></TableCell>
+                    <TableCell><code class="inline">index: number|string</code></TableCell>
+                    <TableCell><code class="inline">void</code></TableCell>
+                    <TableCell>Collapses a specific item by index or ID.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">expandAll()</code></TableCell>
+                    <TableCell><code class="inline">-</code></TableCell>
+                    <TableCell><code class="inline">void</code></TableCell>
+                    <TableCell>Expands all items.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">collapseAll()</code></TableCell>
+                    <TableCell><code class="inline">-</code></TableCell>
+                    <TableCell><code class="inline">void</code></TableCell>
+                    <TableCell>Collapses all items.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">focusItem(index)</code></TableCell>
+                    <TableCell><code class="inline">index: number</code></TableCell>
+                    <TableCell><code class="inline">void</code></TableCell>
+                    <TableCell>Focuses a specific item by index.</TableCell>
+                </TableRow>
+            </TableBody>
+        </Table>
+        <Typography tag="h3" size="xl" weight="bold" spacing="md">mjo-accordion-item</Typography>
+        <Table>
+            <TableHeader>
+                <TableRow>
+                    <TableCellHeader>Method</TableCellHeader>
+                    <TableCellHeader>Parameters</TableCellHeader>
+                    <TableCellHeader>Returns</TableCellHeader>
+                    <TableCellHeader minWidth="200px">Description</TableCellHeader>
+                </TableRow>
+            </TableHeader>
+            <TableBody>
+                <TableRow>
+                    <TableCell><code class="inline">open()</code></TableCell>
+                    <TableCell><code class="inline">-</code></TableCell>
+                    <TableCell><code class="inline">void</code></TableCell>
+                    <TableCell>Expands the item.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">close()</code></TableCell>
+                    <TableCell><code class="inline">-</code></TableCell>
+                    <TableCell><code class="inline">void</code></TableCell>
+                    <TableCell>Collapses the item.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">toggle()</code></TableCell>
+                    <TableCell><code class="inline">-</code></TableCell>
+                    <TableCell><code class="inline">void</code></TableCell>
+                    <TableCell>Toggles the expanded/collapsed item.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">focus()</code></TableCell>
+                    <TableCell><code class="inline">-</code></TableCell>
+                    <TableCell><code class="inline">void</code></TableCell>
+                    <TableCell>Focuses the item.</TableCell>
+                </TableRow>
+            </TableBody>
+        </Table>
+        <Typography tag="h2" size="title3" weight="bold" spacing="md">Events</Typography>
+        <Typography class="explain" tag="p" spacing="md">The mjo-accordion has the following events available:</Typography>
+        <Table>
+            <TableHeader>
+                <TableRow>
+                    <TableCellHeader width="190px">Event</TableCellHeader>
+                    <TableCellHeader width="190px">CustomEvent type</TableCellHeader>
+                    <TableCellHeader>Detail</TableCellHeader>
+                    <TableCellHeader minWidth="200px">Notes</TableCellHeader>
+                </TableRow>
+            </TableHeader>
+            <TableBody>
+                <TableRow>
+                    <TableCell><code class="inline">mjo-accordion:toggle</code></TableCell>
+                    <TableCell><code class="inline">MjoAccordionToggleEvent</code></TableCell>
+                    <TableCell><pre>{eventToggleDetail}</pre></TableCell>
+                    <TableCell>Emitted when any section is expanded or collapsed.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">mjo-accordion:will-expand</code></TableCell>
+                    <TableCell><code class="inline">MjoAccordionWillExpandEvent</code></TableCell>
+                    <TableCell><pre>{eventToggleDetail}</pre></TableCell>
+                    <TableCell>Emitted before a section is about to be expanded.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">mjo-accordion:expanded</code></TableCell>
+                    <TableCell><code class="inline">MjoAccordionExpandedEvent</code></TableCell>
+                    <TableCell><pre>{eventToggleDetail}</pre></TableCell>
+                    <TableCell>Emitted after a section finishes expanding.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">mjo-accordion:will-collapse</code></TableCell>
+                    <TableCell><code class="inline">MjoAccordionWillCollapseEvent</code></TableCell>
+                    <TableCell><pre>{eventToggleDetail}</pre></TableCell>
+                    <TableCell>Emitted before a section is about to be collapsed.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">mjo-accordion:collapsed</code></TableCell>
+                    <TableCell><code class="inline">MjoAccordionCollapsedEvent</code></TableCell>
+                    <TableCell><pre>{eventToggleDetail}</pre></TableCell>
+                    <TableCell>Emitted after a section finishes collapsing.</TableCell>
+                </TableRow>
+            </TableBody>
+        </Table>
+        <Typography tag="h2" size="title3" weight="bold" spacing="md">Theming</Typography>
+        <Typography class="explain" tag="p" spacing="md">
+            Customization options for the mjo-accordion component. If you need more information about theming, please refer to the documentation <Link
+                href="/docs/theming"
+                color="primary">here</Link
+            >.
+        </Typography>
+        <Typography tag="h3" size="xl" weight="bold" spacing="md">CSS Variables</Typography>
+        <Table>
+            <TableHeader>
+                <TableRow>
+                    <TableCellHeader>Variable</TableCellHeader>
+                    <TableCellHeader>Fallback</TableCellHeader>
+                    <TableCellHeader minWidth="200px">Used for</TableCellHeader>
+                </TableRow>
+            </TableHeader>
+            <TableBody>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-accordion-background-color</code></TableCell>
+                    <TableCell><code class="inline">--mjo-background-color-high</code></TableCell>
+                    <TableCell>Background color for solid/shadow/splitted variants.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-accordion-border-color</code></TableCell>
+                    <TableCell><code class="inline">--mjo-border-color</code></TableCell>
+                    <TableCell>Border color for separators and borders.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-accordion-border-radius</code></TableCell>
+                    <TableCell><code class="inline">--mjo-radius-large</code></TableCell>
+                    <TableCell>Border radius for container and items.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-accordion-box-shadow</code></TableCell>
+                    <TableCell><code class="inline">--mjo-box-shadow-2</code></TableCell>
+                    <TableCell>Box shadow for the container for shadow variant.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-accordion-gap</code></TableCell>
+                    <TableCell><code class="inline">--mjo-space-small</code></TableCell>
+                    <TableCell>Gap between items in splitted variant.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-accordion-padding</code></TableCell>
+                    <TableCell><code class="inline">--mjo-space-medium</code></TableCell>
+                    <TableCell>Horizontal padding for solid/shadow/bordered variants.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-accordion-padding-compact</code></TableCell>
+                    <TableCell><code class="inline">--mjo-space-small</code></TableCell>
+                    <TableCell>Compact horizontal padding.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-accordion-item-content-padding</code></TableCell>
+                    <TableCell><code class="inline">--mjo-space-medium</code></TableCell>
+                    <TableCell>Bottom padding when content is expanded.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-accordion-item-focus-color</code></TableCell>
+                    <TableCell><code class="inline">--mjo-primary-color</code></TableCell>
+                    <TableCell>Outline color for keyboard focus indicator.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-accordion-item-subtitle-color</code></TableCell>
+                    <TableCell><code class="inline">--mjo-foreground-color-low</code></TableCell>
+                    <TableCell>Color for the subtitle text.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-accordion-item-title-color</code></TableCell>
+                    <TableCell><code class="inline">--mjo-foreground-color</code></TableCell>
+                    <TableCell>Color for the title text.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-accordion-item-title-color-hover</code></TableCell>
+                    <TableCell><code class="inline">--mjo-foreground-color</code></TableCell>
+                    <TableCell>Color for the title text on hover.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-accordion-item-title-font-size</code></TableCell>
+                    <TableCell><code class="inline">1em</code></TableCell>
+                    <TableCell>Font size for the title text.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-accordion-item-title-padding</code></TableCell>
+                    <TableCell><code class="inline">--mjo-space-medium</code></TableCell>
+                    <TableCell>Vertical padding for title container.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-accordion-item-title-padding-compact</code></TableCell>
+                    <TableCell><code class="inline">--mjo-space-small</code></TableCell>
+                    <TableCell>Compact vertical padding for title.</TableCell>
+                </TableRow>
+            </TableBody>
+        </Table>
+        <Typography tag="h3" size="xl" weight="bold" spacing="md">CSS Parts</Typography>
+        <Table>
+            <TableHeader>
+                <TableRow>
+                    <TableCellHeader>Part</TableCellHeader>
+                    <TableCellHeader>Component</TableCellHeader>
+                    <TableCellHeader minWidth="200px">Description</TableCellHeader>
+                </TableRow>
+            </TableHeader>
+            <TableBody>
+                <TableRow>
+                    <TableCell><code class="inline">accordion</code></TableCell>
+                    <TableCell><code class="inline">mjo-accordion</code></TableCell>
+                    <TableCell>The main accordion container element.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">item</code></TableCell>
+                    <TableCell><code class="inline">mjo-accordion-item</code></TableCell>
+                    <TableCell>The individual accordion item container.</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">header</code></TableCell>
+                    <TableCell><code class="inline">mjo-accordion-item</code></TableCell>
+                    <TableCell>The clickable header area (title + icon).</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">title</code></TableCell>
+                    <TableCell><code class="inline">mjo-accordion-item</code></TableCell>
+                    <TableCell>The title typography element (via exportparts).</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">subtitle</code></TableCell>
+                    <TableCell><code class="inline">mjo-accordion-item</code></TableCell>
+                    <TableCell>The subtitle typography element (via exportparts).</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">icon</code></TableCell>
+                    <TableCell><code class="inline">mjo-accordion-item</code></TableCell>
+                    <TableCell>The toggle icon element (via exportparts).</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">content</code></TableCell>
+                    <TableCell><code class="inline">mjo-accordion-item</code></TableCell>
+                    <TableCell>The collapsible content area.</TableCell>
+                </TableRow>
+            </TableBody>
+        </Table>
+        <Typography tag="h3" size="xl" weight="bold" spacing="md">Theme interface</Typography>
+        <Typography class="explain" tag="p" spacing="md">
+            Interface for the <code class="inline">mjo-accordion</code> theme that can be applied to the <code class="inline">MjoTheme</code> component or <code
+                class="inline">MjoThemeSSRGenerator</code
+            >.
+        </Typography>
+        <Codeblock>
+            <CodeblockPre language="lit">
+                {
+                    `export interface MjoAccordionTheme {
+    backgroundColor?: string;
+    borderColor?: string;
+    padding?: string;
+    paddingCompact?: string;
+    borderRadius?: string;
+    boxShadow?: string;
+    gap?: string;
+    itemTitlePadding?: string;
+    itemTitlePaddingCompact?: string;
+    itemTitleFontSize?: string;
+    itemTitleColor?: string;
+    itemTitleColorHover?: string;
+    itemSubtitleColor?: string;
+    itemContentPadding?: string;
+    itemFocusColor?: string;
+}
+`
+                }
+            </CodeblockPre>
+        </Codeblock>
+        <Typography tag="h3" size="xl" weight="bold" spacing="md">Examples</Typography>
+        <Typography tag="h4" size="xl" weight="bold" spacing="md">With CSS variables</Typography>
+        <Typography class="explain" tag="p" spacing="md"> Use CSS variables to customize the appearance of the accordion. </Typography>
+        <CodeExample>
+            <AccordionCustom client:only slot="preview" />
+            <Codeblock showHeader slot="code">
+                <CodeblockPre language="lit" bugTitle="[BUG mjo-accordion]">
+                    {
+                        `import { LitElement, css, html } from "lit";
+import { customElement } from "lit/decorators.js";
+
+import "mjo-litui/mjo-accordion";
+
+@customElement("accordion-custom")
+export class AccordionCustom extends LitElement {
+    render() {
+        return html\`
+            <mjo-accordion compact variant="splitted">
+                <mjo-accordion-item itemTitle="Item 1" itemSubtitle="Subtitle 1" expanded>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                </mjo-accordion-item>
+                <mjo-accordion-item itemTitle="Item 2" itemSubtitle="Subtitle 2">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                </mjo-accordion-item>
+                <mjo-accordion-item itemTitle="Item 3" itemSubtitle="Subtitle 3">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                </mjo-accordion-item>
+            </mjo-accordion>
+        \`;
+    }
+
+    static styles = [
+        css\`
+            :host {
+                display: block;
+                --mjo-accordion-border-radius: 4px;
+                --mjo-accordion-item-title-font-size: 1.5em;
+                --mjo-accordion-item-subtitle-color: white;
+                --mjo-accordion-background-color:
+                    radial-gradient(49% 81% at 45% 47%, #09444445 0%, #073aff00 100%), radial-gradient(113% 91% at 17% -2%, #753598ff 1%, #ff000000 99%),
+                    radial-gradient(142% 91% at 83% 7%, #35839dff 1%, #ff000000 99%), radial-gradient(142% 91% at -6% 74%, #943283ff 1%, #ff000000 99%),
+                    radial-gradient(142% 91% at 111% 84%, #6e256eff 0%, #ac58a5ff 100%);
+                --mjo-typography-font-weight-medium: bold;
+            }
+        \`,
+    ];
+}
+`
+                    }
+                </CodeblockPre>
+            </Codeblock>
+        </CodeExample>
+        <Typography tag="h4" size="xl" weight="bold" spacing="md">With theme interface</Typography>
+        <Typography class="explain" tag="p" spacing="md">
+            You can use the <code>MjoThemeConfig</code> for customizeing the accordion styles in a more structured way.
+        </Typography>
+        <CodeExample>
+            <AccordionTheme client:only slot="preview" />
+            <Codeblock showHeader slot="code">
+                <CodeblockPre language="javascript" bugTitle="[BUG mjo-accordion]">
+                    {
+                        `import type { MjoThemeConfig } from "mjo-litui/types/mjo-theme";
+
+import { LitElement, css, html } from "lit";
+import { customElement } from "lit/decorators.js";
+
+import "mjo-litui/mjo-accordion";
+import "mjo-litui/mjo-theme";
+
+const accordionTheme: MjoThemeConfig = {
+    components: {
+        mjoAccordion: {
+            gap: "25px",
+            itemTitleColor: "var(--mjo-primary-color)",
+            itemTitleColorHover: "var(--mjo-secondary-color)",
+            itemSubtitleColor: "var(--mjo-foreground-color)",
+        },
+    },
+};
+
+@customElement("accordion-theme")
+export class AccordionTheme extends LitElement {
+    render() {
+        return html\`
+            <mjo-theme .config=\${accordionTheme} scope="local">
+                <mjo-accordion compact variant="splitted">
+                    <mjo-accordion-item itemTitle="Item 1" itemSubtitle="Subtitle 1" expanded>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                    </mjo-accordion-item>
+                    <mjo-accordion-item itemTitle="Item 2" itemSubtitle="Subtitle 2">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                    </mjo-accordion-item>
+                    <mjo-accordion-item itemTitle="Item 3" itemSubtitle="Subtitle 3">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                    </mjo-accordion-item>
+                </mjo-accordion>
+            </mjo-theme>
+        \`;
+    }
+
+    static styles = [
+        css\`
+            :host {
+                display: block;
+            }
+        \`,
+    ];
+}
+`
+                    }
+                </CodeblockPre>
+            </Codeblock>
+        </CodeExample>
+        <Typography tag="h4" size="xl" weight="bold" spacing="md">With CSS parts</Typography>
+        <Typography class="explain" tag="p" spacing="md">
+            With CSS parts you have greater control over customizing the styles of the internal elements of the accordion.
+        </Typography>
+        <CodeExample>
+            <AccordionCssparts client:only slot="preview" />
+            <Codeblock showHeader slot="code">
+                <CodeblockPre language="lit" bugTitle="[BUG mjo-accordion]">
+                    {
+                        `import { LitElement, css, html } from "lit";
+import { customElement } from "lit/decorators.js";
+
+import "mjo-litui/mjo-accordion";
+
+@customElement("accordion-cssparts")
+export class AccordionCssparts extends LitElement {
+    render() {
+        return html\`
+            <mjo-accordion compact variant="solid">
+                <mjo-accordion-item itemTitle="Item 1" itemSubtitle="Subtitle 1">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                </mjo-accordion-item>
+                <mjo-accordion-item itemTitle="Item 2" itemSubtitle="Subtitle 2">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                </mjo-accordion-item>
+                <mjo-accordion-item itemTitle="Item 3" itemSubtitle="Subtitle 3">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                </mjo-accordion-item>
+            </mjo-accordion>
+        \`;
+    }
+
+    static styles = [
+        css\`
+            :host {
+                display: block;
+            }
+
+            mjo-accordion::part(accordion) {
+                padding: 10px;
+                background:
+                    radial-gradient(49% 81% at 45% 47%, #09444445 0%, #073aff00 100%), radial-gradient(113% 91% at 17% -2%, #753598ff 1%, #ff000000 99%),
+                    radial-gradient(142% 91% at 83% 7%, #35839dff 1%, #ff000000 99%), radial-gradient(142% 91% at -6% 74%, #943283ff 1%, #ff000000 99%),
+                    radial-gradient(142% 91% at 111% 84%, #6e256eff 0%, #ac58a5ff 100%);
+            }
+            mjo-accordion-item {
+                border-color: #493d68;
+            }
+            mjo-accordion-item::part(title) {
+                color: #ebc8ff;
+                font-weight: bold;
+                transition: color 0.2s ease;
+            }
+            mjo-accordion-item:hover::part(title) {
+                color: #55cdf1;
+            }
+            mjo-accordion-item::part(subtitle) {
+                color: #d6d2fc;
+            }
+            mjo-accordion-item::part(content) {
+                color: #d6d2fc;
+            }
+            mjo-accordion-item::part(icon) {
+                font-size: 40px;
+                color: #39d5e0;
+            }
+        \`,
+    ];
+}
+`
+                    }
+                </CodeblockPre>
+            </Codeblock>
+        </CodeExample>
+        <Typography tag="h2" size="title3" weight="bold" spacing="md">Accessibility</Typography>
+        <Typography class="explain" tag="p" spacing="md"> The badge component includes comprehensive accessibility features: </Typography>
+        <List listStyle="disc">
+            <ListItem featuredText="ARIA Structure"
+                >Complete ARIA implementation with <code class="inline dense">role="button"</code> on title containers, <code class="inline dense"
+                    >aria-expanded</code
+                >, <code class="inline dense">aria-controls</code>, and <code class="inline dense">role="region"</code> on content areas</ListItem
+            >
+            <ListItem featuredText="Keyboard Navigation">
+                Full keyboard support
+                <List listStyle="circle">
+                    <ListItem featuredText="Enter/Space">Toggle expansion</ListItem>
+                    <ListItem featuredText="Arrow Up/Down">Navigate between items</ListItem>
+                    <ListItem featuredText="Home/End">Jump to first/last item</ListItem>
+                    <ListItem featuredText="Escape">Close the accordion</ListItem>
+                </List>
+            </ListItem>
+            <ListItem featuredText="Focus Management"> Visible focus indicators with customizable styling </ListItem>
+            <ListItem featuredText="Screen Reader Support"> Automatic unique IDs and proper labeling relationships </ListItem>
+            <ListItem featuredText="State Communication"> All state changes are properly announced to assistive technologies </ListItem>
+            <ListItem featuredText="Reduced Motion">
+                Respects <code class="inline dense">prefers-reduced-motion</code> user preference by disabling animations
+            </ListItem>
+        </List>
+        <Typography tag="h3" size="xl" weight="bold" spacing="md">Accessibility Best Practices</Typography>
+        <List listStyle="disc">
+            <ListItem
+                >Use <code class="inline dense">aria-describedby</code> in <code class="inline dense">mjo-accordion-item</code> associated to the content slotted.</ListItem
+            >
+        </List>
+        <Typography tag="h2" size="title3" weight="bold" spacing="md">Type Definitions</Typography>
+        <Typography class="explain" tag="p" spacing="md"> The badge component supports the following type definitions: </Typography>
+        <Codeblock>
+            <CodeblockPre language="typescript">
+                {
+                    `export type MjoAccordionVariants = "light" | "solid" | "shadow" | "bordered" | "splitted";
+export type MjoAccordionSelectionModes = "single" | "multiple";
+
+export interface MjoAccordionToggleEvent extends CustomEvent {
+    detail: {
+        item: MjoAccordionItem;
+        expanded: boolean;
+    };
+}
+
+export interface MjoAccordionWillExpandEvent extends CustomEvent {
+    detail: {
+        item: MjoAccordionItem;
+        expanded: boolean;
+        accordion?: MjoAccordion;
+    };
+}
+
+export interface MjoAccordionExpandedEvent extends CustomEvent {
+    detail: {
+        item: MjoAccordionItem;
+        expanded: boolean;
+        accordion?: MjoAccordion;
+    };
+}
+
+export interface MjoAccordionWillCollapseEvent extends CustomEvent {
+    detail: {
+        item: MjoAccordionItem;
+        expanded: boolean;
+        accordion?: MjoAccordion;
+    };
+}
+
+export interface MjoAccordionCollapsedEvent extends CustomEvent {
+    detail: {
+        item: MjoAccordionItem;
+        expanded: boolean;
+        accordion?: MjoAccordion;
+    };
+}
+`
+                }
+            </CodeblockPre>
+        </Codeblock>
+    </article>
+</DocsLayout>
+
+<style>
+    .prose {
+        position: relative;
+    }
+    .explain {
+        color: var(--mjo-foreground-color-low);
+    }
+</style>

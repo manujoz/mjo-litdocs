@@ -1,0 +1,972 @@
+---
+import { BreadcrumbsColors } from "@/components/examples/breadcrumbs/breadcrumbs-colors";
+import { BreadcrumbsCssparts } from "@/components/examples/breadcrumbs/breadcrumbs-cssparts";
+import { BreadcrumbsCssvars } from "@/components/examples/breadcrumbs/breadcrumbs-cssvars";
+import { BreadcrumbsIcons } from "@/components/examples/breadcrumbs/breadcrumbs-icons";
+import { BreadcrumbsNavigation } from "@/components/examples/breadcrumbs/breadcrumbs-navigation";
+import { BreadcrumbsScroll } from "@/components/examples/breadcrumbs/breadcrumbs-scroll";
+import { BreadcrumbsSeparator } from "@/components/examples/breadcrumbs/breadcrumbs-separator";
+import { BreadcrumbsSizes } from "@/components/examples/breadcrumbs/breadcrumbs-sizes";
+import { BreadcrumbsTheme } from "@/components/examples/breadcrumbs/breadcrumbs-theme";
+import { BreadcrumbsUsage } from "@/components/examples/breadcrumbs/breadcrumbs-usage";
+import { BreadcrumbsVariants } from "@/components/examples/breadcrumbs/breadcrumbs-variants";
+import Codeblock from "@/components/ui/codeblock/Codeblock.astro";
+import CodeblockPre from "@/components/ui/codeblock/CodeblockPre.astro";
+import CodeExample from "@/components/ui/CodeExample.astro";
+import List from "@/components/ui/list/List.astro";
+import ListItem from "@/components/ui/list/ListItem.astro";
+import Logger from "@/components/ui/logger/Logger.astro";
+import Table from "@/components/ui/table/Table.astro";
+import TableBody from "@/components/ui/table/TableBody.astro";
+import TableCell from "@/components/ui/table/TableCell.astro";
+import TableCellHeader from "@/components/ui/table/TableCellHeader.astro";
+import TableHeader from "@/components/ui/table/TableHeader.astro";
+import TableRow from "@/components/ui/table/TableRow.astro";
+import Typography from "@/components/ui/Typography.astro";
+import DocsLayout from "@/layouts/DocsLayout.astro";
+
+const eventNavigateDetail = `{
+    item: MjoBreadcrumbsItem;
+    index: number;
+}`;
+---
+
+<DocsLayout
+    title="Breadcrumbs"
+    description="Navigation breadcrumbs component that displays a hierarchical path to help users understand their current location within an application."
+    currentPath="/docs/components/breadcrumbs"
+>
+    <article class="prose">
+        <Typography tag="h1" size="title2" weight="bold">mjo-breadcrumbs</Typography>
+        <Typography class="explain" tag="p" spacing="md">
+            Navigation breadcrumbs component that displays a hierarchical path to help users understand their current location within an application. Features
+            automatic horizontal scroll shadows when content overflows, excellent accessibility support including ARIA compliance, keyboard navigation, and
+            screen reader compatibility.
+        </Typography>
+
+        <Typography tag="h2" size="title3" weight="bold" spacing="md">Import</Typography>
+        <Typography class="explain" tag="p" spacing="md"> To start using the breadcrumbs component, you need to import it in your component. </Typography>
+        <Codeblock>
+            <CodeblockPre language="typescript">
+                {`import "mjo-litui/mjo-breadcrumbs";`}
+            </CodeblockPre>
+        </Codeblock>
+
+        <Typography tag="h2" size="title3" weight="bold" spacing="md">Usage</Typography>
+        <Typography class="explain" tag="p" spacing="md">
+            The basic usage of the breadcrumbs component to display navigation paths. The breadcrumbs will show the hierarchical structure to help users
+            understand their current location.
+        </Typography>
+        <CodeExample>
+            <BreadcrumbsUsage client:load slot="preview" />
+            <Codeblock showHeader slot="code">
+                <CodeblockPre language="lit">
+                    {
+                        `import type { MjoBreadcrumbsItems } from "mjo-litui/types/mjo-breadcrumbs";
+
+import { LitElement, css, html } from "lit";
+import { customElement } from "lit/decorators.js";
+
+import "mjo-litui/mjo-breadcrumbs";
+
+const items: MjoBreadcrumbsItems = [
+    { label: "Home", href: "#" },
+    { label: "Docs", href: "#" },
+    { label: "Components", href: "#" },
+    { label: "Breadcrumbs", href: "#", active: true },
+];
+
+@customElement("breadcrumbs-usage")
+export class BreadcrumbsUsage extends LitElement {
+    render() {
+        return html\`<mjo-breadcrumbs .items=\${items}></mjo-breadcrumbs>\`;
+    }
+
+    static styles = [
+        css\`
+            :host {
+                display: block;
+            }
+        \`,
+    ];
+}
+`
+                    }
+                </CodeblockPre>
+            </Codeblock>
+        </CodeExample>
+
+        <Typography tag="h3" size="xxl" weight="bold" spacing="md">Variants</Typography>
+        <Typography class="explain" tag="p" spacing="md"> The breadcrumbs component supports different visual variants to match your design needs. </Typography>
+        <CodeExample>
+            <BreadcrumbsVariants client:load slot="preview" />
+            <Codeblock showHeader slot="code">
+                <CodeblockPre language="lit">
+                    {
+                        `import type { MjoBreadcrumbsItems } from "mjo-litui/types/mjo-breadcrumbs";
+
+import { LitElement, css, html } from "lit";
+import { customElement } from "lit/decorators.js";
+
+import "mjo-litui/mjo-breadcrumbs";
+
+const items: MjoBreadcrumbsItems = [
+    { label: "Home", href: "#" },
+    { label: "Docs", href: "#" },
+    { label: "Components", href: "#" },
+    { label: "Breadcrumbs", href: "#", active: true },
+];
+
+@customElement("breadcrumbs-variants")
+export class BreadcrumbsVariants extends LitElement {
+    render() {
+        return html\`
+            <div class="variant-section">
+                <h4>Default</h4>
+                <mjo-breadcrumbs .items=\${items} variant="default"></mjo-breadcrumbs>
+            </div>
+            <div class="variant-section">
+                <h4>Solid</h4>
+                <mjo-breadcrumbs .items=\${items} variant="solid"></mjo-breadcrumbs>
+            </div>
+            <div class="variant-section">
+                <h4>Bordered</h4>
+                <mjo-breadcrumbs .items=\${items} variant="bordered"></mjo-breadcrumbs>
+            </div>
+        \`;
+    }
+
+    static styles = [
+        css\`
+            :host {
+                display: flex;
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+
+            .variant-section {
+                display: flex;
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            h4 {
+                margin: 0;
+                font-size: 0.875rem;
+                font-weight: 600;
+                color: var(--mjo-foreground-color-secondary);
+            }
+        \`,
+    ];
+}
+`
+                    }
+                </CodeblockPre>
+            </Codeblock>
+        </CodeExample>
+
+        <Typography tag="h3" size="xxl" weight="bold" spacing="md">Sizes</Typography>
+        <Typography class="explain" tag="p" spacing="md"> The breadcrumbs component supports different sizes to fit various design layouts. </Typography>
+        <CodeExample>
+            <BreadcrumbsSizes client:load slot="preview" />
+            <Codeblock showHeader slot="code">
+                <CodeblockPre language="lit">
+                    {
+                        `import type { MjoBreadcrumbsItems } from "mjo-litui/types/mjo-breadcrumbs";
+
+import { LitElement, css, html } from "lit";
+import { customElement } from "lit/decorators.js";
+
+import "mjo-litui/mjo-breadcrumbs";
+import "../../lit/title-example";
+
+const items: MjoBreadcrumbsItems = [
+    { label: "Home", href: "#" },
+    { label: "Docs", href: "#" },
+    { label: "Components", href: "#" },
+    { label: "Breadcrumbs", href: "#", active: true },
+];
+
+@customElement("breadcrumbs-sizes")
+export class BreadcrumbsSizes extends LitElement {
+    render() {
+        return html\`
+            <div>
+                <title-example>Small</title-example>
+                <mjo-breadcrumbs .items=\${items} size="small"></mjo-breadcrumbs>
+            </div>
+            <div>
+                <title-example>Medium</title-example>
+                <mjo-breadcrumbs .items=\${items} size="medium"></mjo-breadcrumbs>
+            </div>
+            <div>
+                <title-example>Large</title-example>
+                <mjo-breadcrumbs .items=\${items} size="large"></mjo-breadcrumbs>
+            </div>
+        \`;
+    }
+
+    static styles = [
+        css\`
+            :host {
+                display: flex;
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+            div {
+                display: flex;
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+        \`,
+    ];
+}
+`
+                    }
+                </CodeblockPre>
+            </Codeblock>
+        </CodeExample>
+
+        <Typography tag="h3" size="xxl" weight="bold" spacing="md">Colors</Typography>
+        <Typography class="explain" tag="p" spacing="md"> The breadcrumbs component supports different color schemes for links and hover states. </Typography>
+        <CodeExample>
+            <BreadcrumbsColors client:load slot="preview" />
+            <Codeblock showHeader slot="code">
+                <CodeblockPre language="lit">
+                    {
+                        `import type { MjoBreadcrumbsItems } from "mjo-litui/types/mjo-breadcrumbs";
+
+import { LitElement, css, html } from "lit";
+import { customElement } from "lit/decorators.js";
+
+import "mjo-litui/mjo-breadcrumbs";
+import "../../lit/title-example";
+
+const items: MjoBreadcrumbsItems = [
+    { label: "Home", href: "#" },
+    { label: "Docs", href: "#" },
+    { label: "Components", href: "#" },
+    { label: "Breadcrumbs", href: "#", active: true },
+];
+
+@customElement("breadcrumbs-colors")
+export class BreadcrumbsColors extends LitElement {
+    render() {
+        return html\`
+            <div>
+                <title-example>Primary</title-example>
+                <mjo-breadcrumbs .items=\${items} color="primary"></mjo-breadcrumbs>
+            </div>
+            <div>
+                <title-example>Secondary</title-example>
+                <mjo-breadcrumbs .items=\${items} color="secondary"></mjo-breadcrumbs>
+            </div>
+        \`;
+    }
+
+    static styles = [
+        css\`
+            :host {
+                display: flex;
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+            div {
+                display: flex;
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+        \`,
+    ];
+}
+`
+                    }
+                </CodeblockPre>
+            </Codeblock>
+        </CodeExample>
+
+        <Typography tag="h3" size="xxl" weight="bold" spacing="md">With Icons</Typography>
+        <Typography class="explain" tag="p" spacing="md">
+            You can add icons to breadcrumb items for enhanced visual hierarchy and better user experience.
+        </Typography>
+        <CodeExample>
+            <BreadcrumbsIcons client:load slot="preview" />
+            <Codeblock showHeader slot="code">
+                <CodeblockPre language="lit">
+                    {
+                        `import type { MjoBreadcrumbsItems } from "mjo-litui/types/mjo-breadcrumbs";
+
+import { LitElement, css, html } from "lit";
+import { customElement } from "lit/decorators.js";
+
+import { AiFillAlert, AiOutlineFolder, AiOutlineHome, AiOutlineUser } from "mjo-icons/ai";
+
+import "mjo-litui/mjo-breadcrumbs";
+
+const items: MjoBreadcrumbsItems = [
+    { label: "Home", href: "#", icon: AiOutlineHome },
+    { label: "Docs", href: "#", icon: AiOutlineFolder },
+    { label: "Components", href: "#", icon: AiOutlineUser },
+    { label: "Breadcrumbs", href: "#", active: true, icon: AiFillAlert },
+];
+
+@customElement("breadcrumbs-icons")
+export class BreadcrumbsIcons extends LitElement {
+    render() {
+        return html\`<mjo-breadcrumbs .items=\${items}></mjo-breadcrumbs>\`;
+    }
+
+    static styles = [
+        css\`
+            :host {
+                display: block;
+                width: 100%;
+            }
+        \`,
+    ];
+}
+`
+                    }
+                </CodeblockPre>
+            </Codeblock>
+        </CodeExample>
+
+        <Typography tag="h3" size="xxl" weight="bold" spacing="md">Custom Separator</Typography>
+        <Typography class="explain" tag="p" spacing="md"> You can customize the separator icon between breadcrumb items. </Typography>
+        <CodeExample>
+            <BreadcrumbsSeparator client:load slot="preview" />
+            <Codeblock showHeader slot="code">
+                <CodeblockPre language="lit">
+                    {
+                        `import type { MjoBreadcrumbsItems } from "mjo-litui/types/mjo-breadcrumbs";
+
+import { LitElement, css, html } from "lit";
+import { customElement } from "lit/decorators.js";
+
+import { AiOutlineDoubleRight } from "mjo-icons/ai";
+
+import "mjo-litui/mjo-breadcrumbs";
+
+const items: MjoBreadcrumbsItems = [
+    { label: "Home", href: "#" },
+    { label: "Docs", href: "#" },
+    { label: "Components", href: "#" },
+    { label: "Breadcrumbs", href: "#", active: true },
+];
+
+@customElement("breadcrumbs-separator")
+export class BreadcrumbsSeparator extends LitElement {
+    render() {
+        return html\`<mjo-breadcrumbs .items=\${items} separator=\${AiOutlineDoubleRight}></mjo-breadcrumbs>\`;
+    }
+
+    static styles = [
+        css\`
+            :host {
+                display: block;
+                width: 100%;
+            }
+        \`,
+    ];
+}
+`
+                    }
+                </CodeblockPre>
+            </Codeblock>
+        </CodeExample>
+
+        <Typography tag="h3" size="xxl" weight="bold" spacing="md">Navigation Events</Typography>
+        <Typography class="explain" tag="p" spacing="md">
+            The breadcrumbs component can emit navigation events when users click on breadcrumb items. This allows you to handle custom navigation logic.
+        </Typography>
+        <CodeExample space="sm">
+            <BreadcrumbsNavigation client:load slot="preview" />
+            <Codeblock showHeader slot="code">
+                <CodeblockPre language="lit">
+                    {
+                        `import type { MjoBreadcrumbsItems, MjoBreadcrumbsNavigateEvent } from "mjo-litui/types/mjo-breadcrumbs";
+
+import { LitElement, css, html } from "lit";
+import { customElement } from "lit/decorators.js";
+
+import { printLog } from "@/lib/logger";
+
+import "mjo-litui/mjo-breadcrumbs";
+
+const items: MjoBreadcrumbsItems = [
+    { label: "Home", href: "#navigation" },
+    { label: "Docs", href: "#navigation" },
+    { label: "Components", href: "#navigation" },
+    { label: "Breadcrumbs", active: true },
+];
+
+@customElement("breadcrumbs-navigation")
+export class BreadcrumbsNavigation extends LitElement {
+    render() {
+        return html\`<mjo-breadcrumbs .items=\${items} @mjo-breadcrumbs:navigate=\${this.#handleNavigate} preventDefault></mjo-breadcrumbs>\`;
+    }
+
+    #handleNavigate(event: MjoBreadcrumbsNavigateEvent) {
+        console.log(event);
+        printLog({
+            id: "breadcrumbs-navigation-logger",
+            message: \`Navigated to: \${event.detail.item.label} (index: \${event.detail.index})\`,
+            event,
+        });
+    }
+
+    static styles = [
+        css\`
+            :host {
+                display: block;
+            }
+        \`,
+    ];
+}
+`
+                    }
+                </CodeblockPre>
+            </Codeblock>
+        </CodeExample>
+        <Logger id="breadcrumbs-navigation-logger" initialMessage="Click on breadcrumb items above to see navigation events" />
+
+        <Typography tag="h3" size="xxl" weight="bold" spacing="md">Horizontal Scroll</Typography>
+        <Typography class="explain" tag="p" spacing="md">
+            When breadcrumbs exceed the container width, horizontal scroll shadows are automatically enabled. This provides visual cues about scrollable content
+            while maintaining accessibility.
+        </Typography>
+        <CodeExample>
+            <BreadcrumbsScroll client:load slot="preview" />
+            <Codeblock showHeader slot="code">
+                <CodeblockPre language="lit">
+                    {
+                        `import type { MjoBreadcrumbsItems } from "mjo-litui/types/mjo-breadcrumbs";
+
+import { LitElement, css, html } from "lit";
+import { customElement } from "lit/decorators.js";
+
+import "mjo-litui/mjo-breadcrumbs";
+
+const items: MjoBreadcrumbsItems = [
+    { label: "Home", href: "#" },
+    { label: "Components", href: "#" },
+    { label: "Navigation", href: "#" },
+    { label: "Breadcrumbs", href: "#" },
+    { label: "Examples", href: "#" },
+    { label: "Horizontal Scroll", href: "#" },
+    { label: "Long Content Example", href: "#" },
+    { label: "Current Page", active: true },
+];
+
+@customElement("breadcrumbs-scroll")
+export class BreadcrumbsScroll extends LitElement {
+    render() {
+        return html\`
+            <div class="container">
+                <mjo-breadcrumbs .items=\${items}></mjo-breadcrumbs>
+            </div>
+        \`;
+    }
+
+    static styles = [
+        css\`
+            :host {
+                display: block;
+                width: 100%;
+            }
+
+            .container {
+                max-width: 400px;
+                border: 1px solid var(--mjo-border-color);
+                border-radius: 8px;
+                padding: 1rem;
+                background: var(--mjo-background-color-card);
+            }
+        \`,
+    ];
+}
+`
+                    }
+                </CodeblockPre>
+            </Codeblock>
+        </CodeExample>
+
+        <Typography tag="h2" size="title3" weight="bold" spacing="md">Properties</Typography>
+        <Typography class="explain" tag="p" spacing="md">Properties available on the mjo-breadcrumbs component.</Typography>
+        <Table>
+            <TableHeader>
+                <TableRow>
+                    <TableCellHeader>Name</TableCellHeader>
+                    <TableCellHeader>Type</TableCellHeader>
+                    <TableCellHeader>Default</TableCellHeader>
+                    <TableCellHeader>Description</TableCellHeader>
+                </TableRow>
+            </TableHeader>
+            <TableBody>
+                <TableRow>
+                    <TableCell><code class="inline">size</code></TableCell>
+                    <TableCell>
+                        <code class="inline">{`small|medium|large`}</code>
+                    </TableCell>
+                    <TableCell><code class="inline">{`medium`}</code></TableCell>
+                    <TableCell>Controls the overall size of the breadcrumbs</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">color</code></TableCell>
+                    <TableCell>
+                        <code class="inline">{`primary|secondary`}</code>
+                    </TableCell>
+                    <TableCell><code class="inline">{`primary`}</code></TableCell>
+                    <TableCell>Color scheme for links and hover states</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">variant</code></TableCell>
+                    <TableCell>
+                        <code class="inline">{`default|solid|bordered`}</code>
+                    </TableCell>
+                    <TableCell><code class="inline">{`default`}</code></TableCell>
+                    <TableCell>Visual style variant</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">items</code></TableCell>
+                    <TableCell>
+                        <code class="inline">{`MjoBreadcrumbsItems`}</code>
+                    </TableCell>
+                    <TableCell><code class="inline">{`[]`}</code></TableCell>
+                    <TableCell>Array of breadcrumb items to display</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">autoNavigate</code></TableCell>
+                    <TableCell>
+                        <code class="inline">{`boolean`}</code>
+                    </TableCell>
+                    <TableCell><code class="inline">{`false`}</code></TableCell>
+                    <TableCell>When true, prevents custom navigation events</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">separator</code></TableCell>
+                    <TableCell>
+                        <code class="inline">{`string`}</code>
+                    </TableCell>
+                    <TableCell><code class="inline">{`undefined`}</code></TableCell>
+                    <TableCell>Custom separator icon (overrides default chevron)</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">aria-label</code></TableCell>
+                    <TableCell>
+                        <code class="inline">{`string`}</code>
+                    </TableCell>
+                    <TableCell><code class="inline">{`"breadcrumb"`}</code></TableCell>
+                    <TableCell>Accessible label for the navigation</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">aria-labelledby</code></TableCell>
+                    <TableCell>
+                        <code class="inline">{`string`}</code>
+                    </TableCell>
+                    <TableCell><code class="inline">{`undefined`}</code></TableCell>
+                    <TableCell>References element that labels the breadcrumbs</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">aria-describedby</code></TableCell>
+                    <TableCell>
+                        <code class="inline">{`string`}</code>
+                    </TableCell>
+                    <TableCell><code class="inline">{`undefined`}</code></TableCell>
+                    <TableCell>References element that describes the breadcrumbs</TableCell>
+                </TableRow>
+            </TableBody>
+        </Table>
+
+        <Typography tag="h2" size="title3" weight="bold" spacing="md">Events</Typography>
+        <Typography class="explain" tag="p" spacing="md">The mjo-breadcrumbs has the following events available:</Typography>
+        <Table>
+            <TableHeader>
+                <TableRow>
+                    <TableCellHeader>Name</TableCellHeader>
+                    <TableCellHeader>Detail</TableCellHeader>
+                    <TableCellHeader>Description</TableCellHeader>
+                </TableRow>
+            </TableHeader>
+            <TableBody>
+                <TableRow>
+                    <TableCell><code class="inline">mjo-breadcrumbs:navigate</code></TableCell>
+                    <TableCell>
+                        <pre>{eventNavigateDetail}</pre>
+                    </TableCell>
+                    <TableCell>Fired when user clicks on a breadcrumb item (when autoNavigate is false)</TableCell>
+                </TableRow>
+            </TableBody>
+        </Table>
+
+        <Typography tag="h2" size="title3" weight="bold" spacing="md">Theming</Typography>
+        <Typography class="explain" tag="p" spacing="md">
+            The breadcrumbs component supports comprehensive theming through CSS custom properties and parts.
+        </Typography>
+
+        <Typography tag="h3" size="xl" weight="bold" spacing="md">CSS Variables</Typography>
+        <Table>
+            <TableHeader>
+                <TableRow>
+                    <TableCellHeader>Property</TableCellHeader>
+                    <TableCellHeader>Default</TableCellHeader>
+                    <TableCellHeader minWidth="180px">Description</TableCellHeader>
+                </TableRow>
+            </TableHeader>
+            <TableBody>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-breadcrumbs-font-family</code></TableCell>
+                    <TableCell><code class="inline">{`inherit`}</code></TableCell>
+                    <TableCell>Font family for the breadcrumbs</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-breadcrumbs-background-color</code></TableCell>
+                    <TableCell><code class="inline">{`var(--mjo-background-color-card)`}</code></TableCell>
+                    <TableCell>Background color for solid/bordered variants</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-breadcrumbs-border-color</code></TableCell>
+                    <TableCell><code class="inline">{`var(--mjo-border-color)`}</code></TableCell>
+                    <TableCell>Border color for bordered variant</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-breadcrumbs-border-radius</code></TableCell>
+                    <TableCell><code class="inline">{`var(--mjo-radius-medium)`}</code></TableCell>
+                    <TableCell>Border radius for containers</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-breadcrumbs-padding</code></TableCell>
+                    <TableCell><code class="inline">{`var(--mjo-space-small) var(--mjo-space-small)`}</code></TableCell>
+                    <TableCell>Internal padding</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-breadcrumbs-font-size</code></TableCell>
+                    <TableCell><code class="inline">{`inherit`}</code></TableCell>
+                    <TableCell>Base font size</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-breadcrumbs-font-weight</code></TableCell>
+                    <TableCell><code class="inline">{`inherit`}</code></TableCell>
+                    <TableCell>Base font weight</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-breadcrumbs-text-color</code></TableCell>
+                    <TableCell><code class="inline">{`var(--mjo-foreground-color-low)`}</code></TableCell>
+                    <TableCell>Text color for inactive items</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-breadcrumbs-link-hover-color</code></TableCell>
+                    <TableCell><code class="inline">{`var(--mjo-primary-color)`}</code></TableCell>
+                    <TableCell>Hover color for links</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-breadcrumbs-current-font-weight</code></TableCell>
+                    <TableCell><code class="inline">{`600`}</code></TableCell>
+                    <TableCell>Font weight for current/active item</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">--mjo-breadcrumbs-separator-color</code></TableCell>
+                    <TableCell><code class="inline">{`var(--mjo-foreground-color-low)`}</code></TableCell>
+                    <TableCell>Color for separator icons</TableCell>
+                </TableRow>
+            </TableBody>
+        </Table>
+        <Typography tag="h3" size="xl" weight="bold" spacing="md">CSS Parts</Typography>
+        <Table>
+            <TableHeader>
+                <TableRow>
+                    <TableCellHeader>Part</TableCellHeader>
+                    <TableCellHeader>Description</TableCellHeader>
+                </TableRow>
+            </TableHeader>
+            <TableBody>
+                <TableRow>
+                    <TableCell><code class="inline">container</code></TableCell>
+                    <TableCell>The main navigation container</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">list</code></TableCell>
+                    <TableCell>The ul element containing breadcrumb items</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">list-item</code></TableCell>
+                    <TableCell>Individual li elements for each breadcrumb</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">link</code></TableCell>
+                    <TableCell>Link elements for navigable breadcrumbs (exportparts)</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">link-text</code></TableCell>
+                    <TableCell>Text content within link elements (exportparts)</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">icon</code></TableCell>
+                    <TableCell>Icons within breadcrumb items (exportparts)</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">active-icon</code></TableCell>
+                    <TableCell>Icons within active/current items (exportparts)</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">active-text</code></TableCell>
+                    <TableCell>Typography for active/current items (exportparts)</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell><code class="inline">icon-separator</code></TableCell>
+                    <TableCell>Separator icons between items (exportparts)</TableCell>
+                </TableRow>
+            </TableBody>
+        </Table>
+        <Typography tag="h3" size="xl" weight="bold" spacing="md">Theme interface</Typography>
+        <Typography class="explain" tag="p" spacing="md">
+            You can customize the breadcrumbs component through the theme system by providing the following interface:
+        </Typography>
+        <Codeblock>
+            <CodeblockPre language="typescript">
+                {
+                    `export interface MjoBreadcrumbsTheme {
+    backgroundColor?: string;
+    borderColor?: string;
+    borderRadius?: string;
+    padding?: string;
+    textColor?: string;
+    linkHoverColor?: string;
+    currentColor?: string;
+    currentFontWeight?: string;
+    separatorColor?: string;
+    focusOutline?: string;
+    fontFamily?: string;
+    fontSize?: string;
+    fontWeight?: string;
+}`
+                }
+            </CodeblockPre>
+        </Codeblock>
+        <Typography tag="h3" size="xl" weight="bold" spacing="md">Examples</Typography>
+        <Typography tag="h4" size="lg" weight="bold" spacing="md">With CSS vars</Typography>
+        <Typography class="explain" tag="p" spacing="md">Customize the breadcrumbs appearance using CSS variables.</Typography>
+        <CodeExample>
+            <BreadcrumbsCssvars client:load slot="preview" />
+            <Codeblock showHeader slot="code">
+                <CodeblockPre language="lit">
+                    {
+                        `import type { MjoBreadcrumbsItems } from "mjo-litui/types/mjo-breadcrumbs";
+
+import { LitElement, css, html } from "lit";
+import { customElement } from "lit/decorators.js";
+
+import { AiOutlineBars, AiOutlineFolder, AiOutlineHome } from "mjo-icons/ai";
+
+import "mjo-litui/mjo-breadcrumbs";
+
+const items: MjoBreadcrumbsItems = [
+    { label: "Home", href: "#navigation", icon: AiOutlineHome },
+    { label: "Docs", href: "#navigation", icon: AiOutlineFolder },
+    { label: "Components", href: "#navigation", icon: AiOutlineBars },
+    { label: "Breadcrumbs", active: true },
+];
+
+@customElement("breadcrumbs-cssvars")
+export class BreadcrumbsCssvars extends LitElement {
+    render() {
+        return html\`<mjo-breadcrumbs .items=\${items} variant="solid"></mjo-breadcrumbs>\`;
+    }
+
+    static styles = [
+        css\`
+            :host {
+                display: block;
+                --mjo-breadcrumbs-border-radius: 30px;
+                --mjo-breadcrumbs-padding: 8px 14px;
+                --mjo-breadcrumbs-background-color: color-mix(in srgb, var(--mjo-primary-color) 15%, transparent);
+            }
+        \`,
+    ];
+}
+`
+                    }
+                </CodeblockPre>
+            </Codeblock>
+        </CodeExample>
+        <Typography tag="h4" size="lg" weight="bold" spacing="md">With CSS parts</Typography>
+        <Typography class="explain" tag="p" spacing="md">Use CSS parts to customize the appearance of the breadcrumbs.</Typography>
+        <CodeExample>
+            <BreadcrumbsCssparts client:load slot="preview" />
+            <Codeblock showHeader slot="code">
+                <CodeblockPre language="lit">
+                    {
+                        `import type { MjoBreadcrumbsItems } from "mjo-litui/types/mjo-breadcrumbs";
+
+import { LitElement, css, html } from "lit";
+import { customElement } from "lit/decorators.js";
+
+import { AiOutlineBars, AiOutlineFolder, AiOutlineHome } from "mjo-icons/ai";
+
+import "mjo-litui/mjo-breadcrumbs";
+
+const items: MjoBreadcrumbsItems = [
+    { label: "Home", href: "#navigation", icon: AiOutlineHome },
+    { label: "Docs", href: "#navigation", icon: AiOutlineFolder },
+    { label: "Components", href: "#navigation", icon: AiOutlineBars },
+    { label: "Breadcrumbs", active: true },
+];
+
+@customElement("breadcrumbs-cssparts")
+export class BreadcrumbsCssparts extends LitElement {
+    render() {
+        return html\`<mjo-breadcrumbs .items=\${items} class="custom-breadcrumbs"></mjo-breadcrumbs>\`;
+    }
+
+    static styles = [
+        css\`
+            :host {
+                display: block;
+            }
+            .custom-breadcrumbs::part(container) {
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                padding: 1rem;
+                border-radius: 12px;
+            }
+            .custom-breadcrumbs::part(list-item) {
+                padding: 0;
+                border-radius: 6px;
+                transition: background-color 0.2s ease;
+            }
+            .custom-breadcrumbs::part(link) {
+                padding: 2px 4px;
+                border-radius: 6px;
+                transition: background-color 0.2s ease;
+            }
+            .custom-breadcrumbs::part(link):hover {
+                background: rgba(255, 255, 255, 0.1);
+            }
+            .custom-breadcrumbs::part(link-text) {
+                color: white;
+                font-weight: 500;
+            }
+            .custom-breadcrumbs::part(active-text) {
+                color: #ffd700;
+                font-weight: 700;
+            }
+            .custom-breadcrumbs::part(icon) {
+                color: white;
+            }
+            .custom-breadcrumbs::part(active-icon) {
+                color: #ffd700;
+            }
+            .custom-breadcrumbs::part(icon-separator) {
+                color: rgba(255, 255, 255, 0.7);
+            }
+        \`,
+    ];
+}
+`
+                    }
+                </CodeblockPre>
+            </Codeblock>
+        </CodeExample>
+        <Typography tag="h4" size="lg" weight="bold" spacing="md">Theme Customization</Typography>
+        <Typography class="explain" tag="p" spacing="md"> You can customize the breadcrumbs appearance through the theme system. </Typography>
+        <CodeExample>
+            <BreadcrumbsTheme client:load slot="preview" />
+            <Codeblock showHeader slot="code">
+                <CodeblockPre language="lit">
+                    {
+                        `import type { MjoBreadcrumbsItems } from "mjo-litui/types/mjo-breadcrumbs";
+import type { MjoThemeConfig } from "mjo-litui/types/mjo-theme";
+
+import { LitElement, css, html } from "lit";
+import { customElement } from "lit/decorators.js";
+
+import { AiOutlineBars, AiOutlineFolder, AiOutlineHome } from "mjo-icons/ai";
+
+import "mjo-litui/mjo-breadcrumbs";
+import "mjo-litui/mjo-theme";
+
+const breadcrumbsTheme: MjoThemeConfig = {
+    components: {
+        mjoBreadcrumbs: {
+            borderColor: "var(--mjo-primary-color)",
+            fontFamily: "'Courier New', Courier, monospace",
+            separatorColor: "var(--mjo-secondary-color)",
+            borderRadius: "20px",
+        },
+    },
+};
+
+const items: MjoBreadcrumbsItems = [
+    { label: "Home", href: "#navigation", icon: AiOutlineHome },
+    { label: "Docs", href: "#navigation", icon: AiOutlineFolder },
+    { label: "Components", href: "#navigation", icon: AiOutlineBars },
+    { label: "Breadcrumbs", active: true },
+];
+
+@customElement("breadcrumbs-theme")
+export class BreadcrumbsTheme extends LitElement {
+    render() {
+        return html\`
+            <mjo-theme .config=\${breadcrumbsTheme} scope="local">
+                <mjo-breadcrumbs .items=\${items} variant="bordered"></mjo-breadcrumbs>
+            </mjo-theme>
+        \`;
+    }
+
+    static styles = [
+        css\`
+            :host {
+                display: block;
+            }
+        \`,
+    ];
+}
+`
+                    }
+                </CodeblockPre>
+            </Codeblock>
+        </CodeExample>
+        <Typography tag="h2" size="title3" weight="bold" spacing="md">Accessibility</Typography>
+        <Typography class="explain" tag="p" spacing="md"> The breadcrumbs component includes comprehensive accessibility features: </Typography>
+        <List listStyle="disc">
+            <ListItem featuredText="ARIA Navigation"> Uses proper nav role and aria-label for screen readers </ListItem>
+            <ListItem featuredText="Keyboard Navigation"> Full keyboard support with Tab and Enter keys </ListItem>
+            <ListItem featuredText="Screen Reader Support"> Proper aria attributes and semantic markup </ListItem>
+            <ListItem featuredText="Focus Management"> Clear focus indicators and logical tab order </ListItem>
+            <ListItem featuredText="Responsive Design"> Works well with screen zoom and different viewport sizes </ListItem>
+        </List>
+        <Typography tag="h3" size="xl" weight="bold" spacing="md">Accessibility Best Practices</Typography>
+        <List listStyle="disc">
+            <ListItem>Use <code class="inline dense">aria-label</code> for breadcrumbs navigation context</ListItem>
+            <ListItem>Ensure current page is marked with <code class="inline dense">aria-current="page"</code></ListItem>
+            <ListItem>Provide descriptive labels for navigation landmarks</ListItem>
+            <ListItem>Test with screen readers to verify announcements</ListItem>
+        </List>
+        <Typography tag="h2" size="title3" weight="bold" spacing="md">Type Definitions</Typography>
+        <Typography class="explain" tag="p" spacing="md"> The breadcrumbs component supports the following type definitions: </Typography>
+        <Codeblock>
+            <CodeblockPre language="typescript">
+                {
+                    `export type MjoBreadcrumbsSizes = "small" | "medium" | "large";
+export type MjoBreadcrumbsColors = "primary" | "secondary";
+export type MjoBreadcrumbsVariants = "default" | "solid" | "bordered";
+
+export type MjoBreadcrumbsItem = {
+    label: string; // Display text for the breadcrumb
+    icon?: string; // Icon to display before label (optional)
+};
+
+export type MjoBreadcrumbsItems = MjoBreadcrumbsItem[];
+
+export interface MjoBreadcrumbsNavigateEvent extends CustomEvent {
+    detail: {
+        item: MjoBreadcrumbsItem;
+        index: number;
+    };
+}`
+                }
+            </CodeblockPre>
+        </Codeblock>
+    </article>
+</DocsLayout>
+
+<style></style>

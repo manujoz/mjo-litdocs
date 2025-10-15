@@ -1,0 +1,45 @@
+---
+export interface Props {
+    language?: string;
+    showHeader?: boolean;
+    containerClass?: string;
+}
+
+const { language, showHeader = false, containerClass } = Astro.props;
+---
+
+<div class:list={["codeblock-container", containerClass]}>
+    {
+        showHeader && (
+            <div class="codeblock-header">
+                <slot name="header" />
+            </div>
+        )
+    }
+    <div class="code-content" data-showheader={showHeader}>
+        <slot />
+    </div>
+</div>
+
+<style>
+    .codeblock-container {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+    }
+    .codeblock-header {
+        position: relative;
+        display: flex;
+        overflow: hidden;
+        flex: 0 1 auto;
+        align-self: flex-start;
+    }
+    .code-content {
+        position: relative;
+        overflow: hidden;
+        border-radius: var(--mjo-radius-large);
+    }
+    .code-content[data-showheader="true"] {
+        border-top-left-radius: 0;
+    }
+</style>

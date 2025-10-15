@@ -1,0 +1,416 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Install Astro Node Adapter",
+			"type": "shell",
+			"command": "npm install @astrojs/node",
+			"group": "build"
+		},
+		{
+			"label": "Start Development Server",
+			"type": "shell",
+			"command": "npm run dev",
+			"isBackground": true,
+			"group": "build"
+		},
+		{
+			"label": "Install Vitest and Testing Dependencies",
+			"type": "shell",
+			"command": "npm install -D vitest @vitest/ui @vitest/coverage-v8",
+			"group": "build"
+		},
+		{
+			"label": "Run Vitest Tests",
+			"type": "shell",
+			"command": "npm run test:run",
+			"group": "test"
+		},
+		{
+			"label": "Run New Tests",
+			"type": "shell",
+			"command": "npm run test:run tests/prismjs",
+			"group": "test"
+		},
+		{
+			"label": "Clean Old Tests",
+			"type": "shell",
+			"command": "rm -rf src/utils/__tests__",
+			"group": "build"
+		},
+		{
+			"label": "Test Fixed Approach",
+			"type": "shell",
+			"command": "npm run test:run tests/prismjs/prism-lit-html-fixed.test.ts",
+			"group": "build"
+		},
+		{
+			"label": "Check Current Test Status",
+			"type": "shell",
+			"command": "npm run test:run tests/prismjs --reporter=verbose",
+			"group": "build"
+		},
+		{
+			"label": "Run Prism Tests - Updated Interpolations",
+			"type": "shell",
+			"command": "npm run test:run tests/prismjs/prism-lit-html-interpolations.test.ts --reporter=verbose"
+		},
+		{
+			"label": "Debug Escaped Dollar",
+			"type": "shell",
+			"command": "node debug-escaped-dollar.js"
+		},
+		{
+			"label": "Run Interpolations Test",
+			"type": "shell",
+			"command": "npm run test:run tests/prismjs/prism-lit-html-interpolations.test.ts"
+		},
+		{
+			"label": "Run Complex Test",
+			"type": "shell",
+			"command": "npm run test:run tests/prismjs/prism-lit-html-complex.test.ts"
+		},
+		{
+			"label": "Debug Token Classes",
+			"type": "shell",
+			"command": "node debug-token-classes.js"
+		},
+		{
+			"label": "Debug Token Classes with TSX",
+			"type": "shell",
+			"command": "npx tsx debug-token-classes.js"
+		},
+		{
+			"label": "Run All Prism Tests - Minimal Output",
+			"type": "shell",
+			"command": "npm run test:run tests/prismjs -- --reporter=minimal"
+		},
+		{
+			"label": "Run All Prism Tests",
+			"type": "shell",
+			"command": "npm run test:run tests/prismjs"
+		},
+		{
+			"label": "Test Edge Cases",
+			"type": "shell",
+			"command": "npm run test:run tests/prismjs/prism-lit-html-edge-cases.test.ts"
+		},
+		{
+			"label": "Test All Prism",
+			"type": "shell",
+			"command": "npm run test:run tests/prismjs"
+		},
+		{
+			"label": "Test Edge Cases Only",
+			"type": "shell",
+			"command": "npm run test:run tests/prismjs/prism-lit-html-edge-cases.test.ts"
+		},
+		{
+			"label": "Test Complex Only",
+			"type": "shell",
+			"command": "npm run test:run tests/prismjs/prism-lit-html-complex.test.ts"
+		},
+		{
+			"label": "Debug Complex Test",
+			"type": "shell",
+			"command": "npm run test:run tests/prismjs/prism-lit-html-complex.test.ts"
+		},
+		{
+			"label": "Debug Complex Token Classes",
+			"type": "shell",
+			"command": "npm run test:run tests/prismjs/prism-lit-html-complex.test.ts"
+		},
+		{
+			"label": "Test Complex Fixed",
+			"type": "shell",
+			"command": "npm run test:run tests/prismjs/prism-lit-html-complex.test.ts"
+		},
+		{
+			"label": "Final Test Run",
+			"type": "shell",
+			"command": "npm run test:run tests/prismjs"
+		},
+		{
+			"label": "Final Validation Test",
+			"type": "shell",
+			"command": "npm run test:run tests/prismjs"
+		},
+		{
+			"label": "Test Template Tag Functions Only",
+			"type": "shell",
+			"command": "npm run test:run tests/prismjs/prism-lit-html-lit-features.test.ts -- --reporter=verbose -t \"Template Tag Functions\""
+		},
+		{
+			"label": "Final Tests Validation",
+			"type": "shell",
+			"command": "npm run test:run tests/prismjs",
+			"group": "test"
+		},
+		{
+			"label": "Debug Token Classes Test",
+			"type": "shell",
+			"command": "npm run test:run tests/prismjs/prism-lit-html-complex.test.ts -- --reporter=verbose -t \"should extract comprehensive token classes\"",
+			"group": "test"
+		},
+		{
+			"label": "Final Test Run - Fixed",
+			"type": "shell",
+			"command": "npm run test:run tests/prismjs",
+			"group": "test"
+		},
+		{
+			"label": "Test Boolean Attributes Only",
+			"type": "shell",
+			"command": "npm run test:run tests/prismjs/prism-lit-html-lit-features.test.ts -- --reporter=verbose -t \"Boolean Attributes\"",
+			"group": "test"
+		},
+		{
+			"label": "Test Boolean Attributes Only",
+			"type": "shell",
+			"command": "npm run test:run tests/prismjs/prism-lit-html-lit-features.test.ts -- --reporter=verbose -t \"Boolean Attributes\"",
+			"group": "test"
+		},
+		{
+			"label": "Debug Boolean Attributes",
+			"type": "shell",
+			"command": "npx tsx debug-boolean-attrs.js",
+			"group": "debug"
+		},
+		{
+			"label": "Debug Boolean Attributes Force",
+			"type": "shell",
+			"command": "npx --yes tsx debug-boolean-attrs.js",
+			"group": "debug"
+		},
+		{
+			"label": "Simple Regex Test",
+			"type": "shell",
+			"command": "node simple-regex-test.js",
+			"group": "debug"
+		},
+		{
+			"label": "Test Boolean Attributes Fixed",
+			"type": "shell",
+			"command": "npm run test:run tests/prismjs/prism-lit-html-lit-features.test.ts -- --reporter=verbose -t \"Boolean Attributes\"",
+			"group": "test"
+		},
+		{
+			"label": "Test Custom Boolean Attributes - Red",
+			"type": "shell",
+			"command": "npm run test:run tests/prismjs/prism-lit-html-lit-features.test.ts -- --reporter=verbose -t \"custom boolean attributes\"",
+			"group": "test"
+		},
+		{
+			"label": "Restore Prism Setup File",
+			"type": "shell",
+			"command": "git checkout HEAD -- src/utils/prism-setup.ts",
+			"group": "build"
+		},
+		{
+			"label": "Test Custom Boolean Attributes",
+			"type": "shell",
+			"command": "npm run test:run tests/prismjs/prism-lit-html-lit-features.test.ts -- --reporter=verbose -t \"custom boolean attributes\"",
+			"group": "test"
+		},
+		{
+			"label": "Test Custom Boolean Attributes - Fixed",
+			"type": "shell",
+			"command": "npm run test:run tests/prismjs/prism-lit-html-lit-features.test.ts -- --reporter=verbose -t \"custom boolean attributes\"",
+			"group": "test"
+		},
+		{
+			"label": "Test CamelCase and Kebab-Case",
+			"type": "shell",
+			"command": "npm run test:run tests/prismjs/prism-lit-html-lit-features.test.ts -- --reporter=verbose -t \"camelCase and kebab-case\"",
+			"group": "test"
+		},
+		{
+			"label": "Test All Prism Tests - Final",
+			"type": "shell",
+			"command": "npm run test:run tests/prismjs",
+			"group": "test"
+		},
+		{
+			"label": "Debug Basic String Test",
+			"type": "shell",
+			"command": "npm run test:run tests/prismjs/prism-lit-html-basic.test.ts -- --reporter=verbose -t \"should highlight string values\"",
+			"group": "test"
+		},
+		{
+			"label": "Debug String Tokenization",
+			"type": "shell",
+			"command": "npx tsx debug-string-tokenization.js",
+			"group": "debug"
+		},
+		{
+			"label": "Test String Tokenization Fixed",
+			"type": "shell",
+			"command": "npx tsx debug-string-tokenization.js",
+			"group": "debug"
+		},
+		{
+			"label": "Test String Tokenization After Reorder",
+			"type": "shell",
+			"command": "npx tsx debug-string-tokenization.js",
+			"group": "debug"
+		},
+		{
+			"label": "Test String Tokenization After Fix",
+			"type": "shell",
+			"command": "npx tsx debug-string-tokenization.js",
+			"group": "debug"
+		},
+		{
+			"label": "Comprehensive Debug Analysis",
+			"type": "shell",
+			"command": "npx tsx debug-comprehensive.js",
+			"group": "debug"
+		},
+		{
+			"label": "Debug String Attr Fixed",
+			"type": "shell",
+			"command": "node debug-string-attr.js",
+			"group": "debug"
+		},
+		{
+			"label": "Debug Comprehensive - Fixed",
+			"type": "shell",
+			"command": "npx tsx debug-comprehensive.js",
+			"group": "debug"
+		},
+		{
+			"label": "Debug Disabled Issue",
+			"type": "shell",
+			"command": "npx tsx debug-disabled-issue.js",
+			"group": "debug"
+		},
+		{
+			"label": "Final Test - All Cases",
+			"type": "shell",
+			"command": "npm run test:run tests/prismjs",
+			"group": "test"
+		},
+		{
+			"label": "Test Complex Disabled",
+			"type": "shell",
+			"command": "npm run test:run tests/prismjs/prism-lit-html-lit-features.test.ts -- --reporter=verbose -t \"should handle boolean attributes in complex elements\"",
+			"group": "test"
+		},
+		{
+			"label": "Test Disabled Complex - Final",
+			"type": "shell",
+			"command": "npm run test:run tests/prismjs/prism-lit-html-lit-features.test.ts -- --reporter=verbose -t \"should handle boolean attributes in complex elements\"",
+			"group": "test"
+		},
+		{
+			"label": "Test Complex Boolean Final",
+			"type": "shell",
+			"command": "npm run test:run tests/prismjs/prism-lit-html-lit-features.test.ts -- --reporter=verbose -t \"should handle boolean attributes in complex elements\"",
+			"group": "test"
+		},
+		{
+			"label": "Debug Complex Final Check",
+			"type": "shell",
+			"command": "npx tsx debug-comprehensive.js",
+			"group": "test"
+		},
+		{
+			"label": "Debug Boolean Attributes",
+			"type": "shell",
+			"command": "npx tsx debug-comprehensive.js",
+			"group": "test"
+		},
+		{
+			"label": "Debug Boolean Analysis",
+			"type": "shell",
+			"command": "npx tsx debug-comprehensive.js",
+			"group": "debug"
+		},
+		{
+			"label": "Debug Attribute Patterns",
+			"type": "shell",
+			"command": "npx tsx debug-attr-pattern.js",
+			"group": "debug"
+		},
+		{
+			"label": "Debug Regex Patterns",
+			"type": "shell",
+			"command": "npx tsx debug-regex-patterns.js",
+			"group": "debug"
+		},
+		{
+			"label": "Debug Step by Step",
+			"type": "shell",
+			"command": "npx tsx debug-step-by-step.js",
+			"group": "debug"
+		},
+		{
+			"label": "Debug Comprehensive Fixed",
+			"type": "shell",
+			"command": "npx tsx debug-comprehensive.js",
+			"group": "debug"
+		},
+		{
+			"label": "Test Complex Boolean Fixed",
+			"type": "shell",
+			"command": "npm run test:run tests/prismjs/prism-lit-html-lit-features.test.ts -- --reporter=verbose -t \"should handle boolean attributes in complex elements\"",
+			"group": "test"
+		},
+		{
+			"label": "Final Test Run All",
+			"type": "shell",
+			"command": "npm run test:run tests/prismjs",
+			"group": "test"
+		},
+		{
+			"label": "Debug Broken Attributes",
+			"type": "shell",
+			"command": "npx tsx debug-broken-attrs.js",
+			"group": "debug"
+		},
+		{
+			"label": "Debug CSS Pseudo Patterns",
+			"type": "shell",
+			"command": "node debug-pseudo-css.js"
+		},
+		{
+			"label": "Test Fixed Pseudo Pattern",
+			"type": "shell",
+			"command": "node test-fixed-pseudo.js"
+		},
+		{
+			"label": "Debug CSS Tokenization Issue",
+			"type": "shell",
+			"command": "node debug-css-tokenization.js"
+		},
+		{
+			"label": "Test Fixed CSS Tokenization",
+			"type": "shell",
+			"command": "npx tsx test-fixed-css-tokenization.js"
+		},
+		{
+			"label": "Run Lit Transformer Tests",
+			"type": "shell",
+			"command": "npm run test:run tests/lit-transformer",
+			"group": "test"
+		},
+		{
+			"label": "Run Lit Transformer Tests",
+			"type": "shell",
+			"command": "npm run test:run tests/lit-transformer",
+			"group": "test"
+		},
+		{
+			"label": "Run Lit Transformer Tests",
+			"type": "shell",
+			"command": "npm run test:run tests/lit-transformer",
+			"group": "test"
+		},
+		{
+			"label": "Run Lit Transformer Tests",
+			"type": "shell",
+			"command": "npm run test:run tests/lit-transformer",
+			"group": "test"
+		}
+	]
+}

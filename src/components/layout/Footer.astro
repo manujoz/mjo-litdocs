@@ -69,24 +69,19 @@ import Container from "../ui/Container.astro";
     <!-- Footer Bottom -->
     <div class="footer-bottom">
         <Container tag="div">
-            <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
-                <p class="text-sm text-muted-foreground">
+            <div class="footer-bottom-content">
+                <p class="footer-bottom-text">
                     © {new Date().getFullYear()} MJO LITUI. Built with ❤️ for the web component community.
                 </p>
 
-                <div class="flex items-center gap-4">
-                    <a
-                        href="https://github.com/manujoz/mjo-litui/blob/main/LICENSE"
-                        class="text-sm text-muted-foreground hover:text-foreground transition-colors"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
+                <div class="footer-bottom-links">
+                    <a href="https://github.com/manujoz/mjo-litui/blob/main/LICENSE" class="footer-bottom-text link" target="_blank" rel="noopener noreferrer">
                         MIT License
                     </a>
-                    <span class="text-muted-foreground">•</span>
-                    <a href="/privacy" class="text-sm text-muted-foreground hover:text-foreground transition-colors"> Privacy </a>
-                    <span class="text-muted-foreground">•</span>
-                    <a href="/sitemap.xml" class="text-sm text-muted-foreground hover:text-foreground transition-colors"> Sitemap </a>
+                    <span class="footer-bottom-text">•</span>
+                    <a href="/privacy" class="footer-bottom-text link"> Privacy </a>
+                    <span class="footer-bottom-text">•</span>
+                    <a href="/sitemap.xml" class="footer-bottom-text link"> Sitemap </a>
                 </div>
             </div>
         </Container>
@@ -94,33 +89,88 @@ import Container from "../ui/Container.astro";
 </footer>
 
 <style>
-    @reference "../../styles/global.css";
-
     .site-footer {
-        @apply border-t border-border bg-muted/50 mt-16;
+        border-top: solid 1px var(--mjo-border-color-low);
+        background-color: color-mix(in srgb, var(--mjo-background-color) 50%, transparent);
     }
-
     .footer-grid {
-        @apply py-14 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3;
+        padding-block: 56px;
+        display: grid;
+        grid-template-columns: repeat(1, minmax(0, 1fr));
+        gap: 32px;
     }
-
     .footer-section {
-        @apply flex flex-col gap-4 items-center justify-center text-center;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
     }
-
     .footer-title {
-        @apply text-sm font-semibold text-foreground;
+        font-size: var(--mjo-font-size-small);
+        font-weight: 600;
+        color: var(--mjo-foreground-color);
     }
-
     .footer-links {
-        @apply flex flex-col gap-2;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        padding: 0;
+        margin: 0;
+        list-style: none;
     }
-
     .footer-link {
-        @apply text-sm text-muted-foreground transition-colors duration-200 no-underline hover:text-foreground;
+        font-size: var(--mjo-font-size-small);
+        color: var(--mjo-foreground-color-low);
+        transition: color 200ms;
+        text-decoration-line: none;
+    }
+    .footer-link:hover {
+        color: var(--mjo-foreground-color);
+    }
+    .footer-bottom {
+        border-top: solid 1px var(--mjo-border-color-low);
+        padding-block: 56px;
+        text-align: center;
+        font-size: var(--mjo-font-size-small);
+        color: var(--mjo-foreground-color-low);
+    }
+    .footer-bottom-text {
+        color: var(--mjo-foreground-color-low);
+        text-decoration-line: none;
+    }
+    .footer-bottom-text.link:hover {
+        color: var(--mjo-foreground-color);
+    }
+    .footer-bottom-content {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+    .footer-bottom-links {
+        display: flex;
+        align-items: center;
+        gap: 12px;
     }
 
-    .footer-bottom {
-        @apply border-t border-border py-14 text-center text-sm text-muted-foreground;
+    @media (min-width: 768px) {
+        .footer-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+        .footer-bottom-content {
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+        }
+    }
+
+    @media (min-width: 1024px) {
+        .footer-grid {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
     }
 </style>

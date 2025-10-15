@@ -1,0 +1,94 @@
+---
+export interface Props {
+    space?: "none" | "sm" | "md" | "lg" | "xl" | "xxl";
+}
+
+import { getUniqueId } from "@/utils/strings";
+import Button from "./Button.astro";
+
+const uniqueId = getUniqueId();
+
+const { space = "xxl" } = Astro.props;
+---
+
+<div class:list={["example-container", `margin-${space}`]}>
+    <div class="header">
+        <Button variant="codeblock" size="sm" slot="header" active id={`btn-prev-${uniqueId}`}>Preview</Button>
+        <Button variant="codeblock" size="sm" slot="header" id={`btn-code-${uniqueId}`}>Code</Button>
+    </div>
+    <div class="preview">
+        <slot name="preview" />
+    </div>
+    <div class="code">
+        <slot name="code" />
+    </div>
+</div>
+
+<script define:vars={{ uniqueId }}>
+    const previewButton = document.getElementById(`btn-prev-${uniqueId}`);
+    const codeButton = document.getElementById(`btn-code-${uniqueId}`);
+
+    const togglePreview = (ev) => {
+        const target = ev.currentTarget;
+        const isPreview = target === previewButton;
+        previewButton.classList.toggle("btn-active", isPreview);
+        codeButton.classList.toggle("btn-active", !isPreview);
+
+        const $preview = previewButton.closest(".example-container").querySelector(".preview");
+        const $code = codeButton.closest(".example-container").querySelector(".code");
+        $preview.style.display = isPreview ? "block" : "none";
+        $code.style.display = isPreview ? "none" : "block";
+    };
+
+    previewButton.addEventListener("click", togglePreview);
+    codeButton.addEventListener("click", togglePreview);
+</script>
+
+<style>
+    .example-container {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+    }
+    .example-container.margin-none {
+        margin-bottom: 0;
+    }
+    .example-container.margin-sm {
+        margin-bottom: var(--mjo-space-small);
+    }
+
+    .example-container.margin-md {
+        margin-bottom: var(--mjo-space-medium);
+    }
+    .example-container.margin-lg {
+        margin-bottom: var(--mjo-space-large);
+    }
+    .example-container.margin-xl {
+        margin-bottom: var(--mjo-space-xlarge);
+    }
+    .example-container.margin-xxl {
+        margin-bottom: var(--mjo-space-xxlarge);
+    }
+
+    .example-container .header {
+        position: relative;
+        display: flex;
+        overflow: hidden;
+        flex: 0 1 auto;
+        align-self: flex-start;
+    }
+    .preview {
+        position: relative;
+        padding: var(--mjo-space-medium);
+        border: solid 1px var(--mjo-border-color-low);
+        border-radius: 0 var(--mjo-radius-large) var(--mjo-radius-large) var(--mjo-radius-large);
+        max-height: 70dvh;
+        box-sizing: border-box;
+        overflow-y: auto;
+    }
+    .code {
+        position: relative;
+        display: none;
+        max-height: calc(100dvh - 150px);
+    }
+</style>

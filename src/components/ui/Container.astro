@@ -9,14 +9,25 @@ const { tag = "section", class: className, ...rest } = Astro.props;
 const Element = tag;
 ---
 
-<Element class={`container ${className}`}>
+<Element class:list={["container", className]} {...rest}>
     <slot />
 </Element>
 
 <style>
-    @reference "../../styles/global.css";
-
     .container {
-        @apply mx-auto max-w-7xl px-4 sm:px-6 lg:px-8;
+        position: relative;
+        margin: 0 auto;
+        max-width: 1280px;
+        padding-inline: 16px;
+    }
+    @media (min-width: 640px) {
+        .container {
+            padding-inline: 24px;
+        }
+    }
+    @media (min-width: 1024px) {
+        .container {
+            padding-inline: 32px;
+        }
     }
 </style>
