@@ -1,5 +1,5 @@
 ---
-mode: mjo-litui
+mode: Generalyst
 model: Claude Sonnet 4 (copilot)
 description: Create a documentation page for a new feature in the project.
 ---
