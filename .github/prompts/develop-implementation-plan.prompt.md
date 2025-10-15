@@ -19,7 +19,7 @@ Tu misión es leer el plan de implementación que te proporcione el usuario e im
 
 ## Implementación
 
-Comprueba (checkout) la rama del plan, que debe seguir esta convención: `feature/{jira-task-id}`. Si la rama no existe, debes crearla para el desarrollo partiendo de la rama `master/main`.
+Comprueba (checkout) la rama del plan, que debe seguir esta convención: `[feature|fix|release]/{jira-task-id}`, por ejemplo: `feature/MJOLIT-1234` o `fix/MJOLIT-1234`. Si la rama no existe, debes crearla para el desarrollo partiendo de la rama `master/main`. Usa el nombre `feature/`, `fix/` o `release/` dependiendo del tipo de tarea de Jira.`
 
 Si hay archivos pendientes por commitear, no puedes proceder con la implementación. Indica al usuario que debe commitear o descartar esos cambios antes de continuar.
 

@@ -7,7 +7,9 @@ description: "Concise guide for Jira MCP usage - all specs, minimal examples"
 **ALWAYS** write tickets in **English**. Translate Spanish user input before inserting into Jira.
 
 **PROJECT INFO:**
-- Key: `MJOLIT` | ID: `10033` | Labels: `WEB` only
+- Key: `MJOLIT` | ID: `10033`
+- Labels: 
+  - `WEB`: When a task is related with one or more web components
 - Users: 
     - Manu Overa: `633580a3140ba0bf651c1f68` - `manu.overa@gmail.com`
 
@@ -71,6 +73,27 @@ Mix these directly in descriptions:
 - Horizontal rules `---` (converts to h2)
 - User mentions via `@email` or `@username`
 - Components field (use labels only)
+- Bold text at start of list item (renders incorrectly)
+- Italic text with asterisks at start of list item (renders incorrectly)
+
+### Quick Reference
+
+| Markdown | Wiki | Works | Notes |
+|----------|------|-------|-------|
+| `# Title` | `h1.` | ✅ | |
+| `**bold**` | `*bold*` | ✅ | |
+| `- item` | `* item` | ✅ | Flat only |
+| `  - nested` | - | ❌ | Never nest |
+| `1. item` | `# item` | ✅ | Flat only |
+| `- [ ] task` | - | ❌ | Not interactive |
+| `` ```js `` | `{code:js}` | ✅ | |
+| `` ```html `` | - | ❌ | Use xml |
+| `- **bold at start list item**` | - | ❌ | Never put bold at start at list item |
+| `- *italic with asterisks at start list item*` | - | ❌ | Never put italic with asterisks at start at list item |
+| `[~accountid:ID]` | Same | ✅ | Only format that works |
+| `{color:red}t{color}` | Same | ✅ | |
+| `(!) (i) (/)` | Same | ✅ | Icons |
+| `{panel}` | Same | ✅ | |
 
 ---
 
@@ -117,22 +140,3 @@ MCP_VERY_VERBOSE=true
 MCP_LOGGING_STDOUT=true
 ```
 View in VS Code: **View → Output** → MCP server channel
-
----
-
-## Quick Reference
-
-| Markdown | Wiki | Works | Notes |
-|----------|------|-------|-------|
-| `# Title` | `h1.` | ✅ | |
-| `**bold**` | `*bold*` | ✅ | |
-| `- item` | `* item` | ✅ | Flat only |
-| `  - nested` | - | ❌ | Never nest |
-| `1. item` | `# item` | ✅ | Flat only |
-| `- [ ] task` | - | ❌ | Not interactive |
-| `` ```js `` | `{code:js}` | ✅ | |
-| `` ```html `` | - | ❌ | Use xml |
-| `[~accountid:ID]` | Same | ✅ | Only format that works |
-| `{color:red}t{color}` | Same | ✅ | |
-| `(!) (i) (/)` | Same | ✅ | Icons |
-| `{panel}` | Same | ✅ | |

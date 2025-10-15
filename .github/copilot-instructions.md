@@ -35,6 +35,10 @@ npm run build      # Production build
 npx astro check    # Type checking
 ```
 
+## Commit Message Pattern -> ⚠️ CRITICAL - NEVER BREAK THIS
+
+All commit messages must match this regular expression to comply with the enforced linting rules: `^(build|docs|feat|fix|perf|refactor|revert|style|test)\((MJOLIT-[0-9]*)\)!?:\s(add|fix|update|test|change|remove|panic|close)\s(.*)$`.
+
 ## Key Integrations
 - **Dark mode**: CSS `class` strategy on `<html>`
 - **Context7 MCP**: Use for up-to-date library documentation
