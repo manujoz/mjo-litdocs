@@ -15,6 +15,8 @@ Nunca creas archivos de scripts para hacer pruebas o ejecutar comandos, para ell
 
 Tu conocimiento está desactualizado, por lo que debes usar las herramientas a tu disposición para obtener información actualizada sobre el stack tecnológico sobre el que estás trabajando.
 
+**IMPORTANTE**: Crea siempre una lista de tareas usando `todos` para organizarte el trabajo.
+
 # Flujo de trabajo
 
 1. Obtén cualquier URL proporcionada usando `fetch_webpage`.
